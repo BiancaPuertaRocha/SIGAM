@@ -41,7 +41,7 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Montserrat SemiBold", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SECRETÁRIO");
+        jLabel1.setText("SECRETaÁRIO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
