@@ -13,11 +13,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
 @DiscriminatorValue("PESSOA")
+@NamedQueries({
+    @NamedQuery(name="Pessoa.findByNome",
+                query="SELECT p FROM Pessoa p where p.nome like :nome"),
+    @NamedQuery(name="Pessoa.findByLoginESenha",
+                query="SELECT p FROM Pessoa p WHERE p.login = :login and p.senha = :senha")
+}) 
 public class Pessoa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

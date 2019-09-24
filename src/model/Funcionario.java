@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,8 +10,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 
 @Entity
@@ -18,9 +17,7 @@ import javax.persistence.Temporal;
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
 @DiscriminatorValue("FUNCIONARIO")
-public class Funcionario extends Pessoa {
-
-  
+public class Funcionario extends Pessoa implements Serializable{
     @Column(name = "salario")
     private float salario;
     @Column(name = "obsSaude")

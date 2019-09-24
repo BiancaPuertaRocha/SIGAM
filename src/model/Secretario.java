@@ -9,10 +9,18 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 
 @Entity
 @DiscriminatorValue("SECRETARIO")
+//@NamedQueries({
+//    @NamedQuery(name="Secretario.findByNome",
+//                query="SELECT p FROM Secretario p where p.nome like :nome"),
+//    @NamedQuery(name="Secretario.findByLoginESenha",
+//                query="SELECT p FROM Secretario p WHERE p.login = :login and p.senha = :senha")
+//}) 
 public class Secretario extends Funcionario implements Serializable {
 
     @Column(name = "departamento")
