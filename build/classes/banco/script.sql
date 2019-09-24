@@ -1,5 +1,5 @@
-drop database banco;
-create database banco;
+--drop database banco;
+--create database banco;
 use banco;
 create table Pessoa(
     codigo      int primary key auto_increment,
@@ -14,7 +14,8 @@ create table Pessoa(
     cpf         varchar(14),
     rg          varchar(12),
     email       varchar(50),
-    imagem      varchar(200)
+    imagem      varchar(200),
+    TYPE        varchar(20)
 
 );
 create table Funcionario(
@@ -23,6 +24,7 @@ create table Funcionario(
     obsSaude    varchar(100),
     hrEntrada   time,
     hrSaida     time,
+    TYPE        varchar(20),
     foreign key (codigo)    references Pessoa (codigo)
 );
 
@@ -42,3 +44,4 @@ create table Treinador(
 
 
 );
+SELECT * FROM SECRETARIO

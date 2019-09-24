@@ -1,5 +1,5 @@
--- drop database banco;
--- create database banco;
+--drop database banco;
+--create database banco;
 use banco;
 create table Pessoa(
     codigo      int primary key auto_increment,
@@ -44,4 +44,4 @@ create table Treinador(
 
 
 );
-SELECT * FROM SECRETARIO
+SELECT * FROM secretario;

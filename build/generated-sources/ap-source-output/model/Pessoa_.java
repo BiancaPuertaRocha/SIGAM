@@ -4,9 +4,8 @@ import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
-import model.Funcionario;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-09-17T17:21:20")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-09-24T11:17:09")
 @StaticMetamodel(Pessoa.class)
 public class Pessoa_ { 
 
@@ -22,7 +21,6 @@ public class Pessoa_ {
     public static volatile SingularAttribute<Pessoa, Date> dataNasc;
     public static volatile SingularAttribute<Pessoa, String> rg;
     public static volatile SingularAttribute<Pessoa, String> cpf;
-    public static volatile SingularAttribute<Pessoa, Funcionario> funcionario;
     public static volatile SingularAttribute<Pessoa, String> email;
 
 }
