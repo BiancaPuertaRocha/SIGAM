@@ -5,10 +5,35 @@
  */
 package model;
 
-/**
- *
- * @author bianca
- */
-public class Secretario  extends Funcionario {
-    
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+
+@Entity
+@DiscriminatorValue("SECRETARIO")
+public class Secretario extends Funcionario implements Serializable {
+
+    @Column(name = "departamento")
+    private String departamento;
+    @Column(name = "tipo")
+    private boolean tipo;
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public boolean isTipo() {
+        return tipo;
+    }
+
+    public void setTipo(boolean tipo) {
+        this.tipo = tipo;
+    }
+
 }

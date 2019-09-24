@@ -5,10 +5,12 @@
  */
 package control;
 
-/**
- *
- * @author bianca
- */
-public class ControleSecretario {
+import model.Secretario;
+
+public class ControleSecretario extends Controle<Secretario>{
+    
+    public ControleSecretario() {
+        super(Secretario.class);
+    }
     
 }

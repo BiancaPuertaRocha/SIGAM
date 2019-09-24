@@ -1,21 +1,54 @@
 
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
-
-public class Pessoa {
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Temporal;
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
+@DiscriminatorValue("PESSOA")
+public class Pessoa implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="codigo")
+    private int codigo;
+    @Column(name="nome")
     private String nome;
+    @Column(name="telefone")
     private String telefone;
+    @Column(name="dataNasc")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataNasc;
+    @Column(name="cidade")
     private String cidade;
+    @Column(name="bairro")
     private String bairro;
+    @Column(name="numero")
     private int numero;
+    @Column(name="login")
     private String login;
+    @Column(name="senha")
     private String senha;
+    @Column(name="cpf")
     private String cpf;
+    @Column(name="rg")
     private String rg;
+    @Column(name="email")
     private String email;
+    @Column(name="imagem")
     private String imagem;
+
 
     public String getNome() {
         return nome;
@@ -111,6 +144,14 @@ public class Pessoa {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
     
