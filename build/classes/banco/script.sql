@@ -44,4 +44,4 @@ create table Treinador(
 
 
 );
-SELECT * FROM SECRETARIO
+SELECT * FROM secretario;

@@ -5,6 +5,7 @@
     <class>model.Funcionario</class>
     <class>model.Pessoa</class>
     <class>model.Secretario</class>
+    <class>model.Treinador</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/banco?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
