@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.RenderingHints;
+
 /**
  *
  * @author abner
@@ -16,9 +18,8 @@ public class FormSecretario extends javax.swing.JDialog {
      */
     public FormSecretario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
         initComponents();
-        System.setProperty("swing.aatext", "true");
-        System.setProperty("awt.useSystemAAFontSettings", "on");
         this.setLocationRelativeTo(null);
     }
 
@@ -34,11 +35,13 @@ public class FormSecretario extends javax.swing.JDialog {
         bg = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        kButton1 = new keeptoo.KButton();
+        mToggleButton1 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        mToggleButton2 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        mToggleButton3 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        mTextField1 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -59,16 +62,45 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setText("SECRETÁRIO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, -1));
 
-        kButton1.setFont(new java.awt.Font("Montserrat Medium", 0, 18)); // NOI18N
-        kButton1.setkBackGroundColor(new java.awt.Color(37, 46, 55));
-        kButton1.setkBorderRadius(0);
-        kButton1.setkEndColor(new java.awt.Color(37, 46, 55));
-        kButton1.setkHoverEndColor(new java.awt.Color(37, 46, 55));
-        kButton1.setkHoverForeGround(new java.awt.Color(255, 255, 255));
-        kButton1.setkHoverStartColor(new java.awt.Color(57, 69, 79));
-        kButton1.setkStartColor(new java.awt.Color(37, 46, 55));
-        kButton1.setLabel("Novo secretário");
-        sidePanel.add(kButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
+        mToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
+        mToggleButton1.setText("Excluir");
+        mToggleButton1.setEndColor(new java.awt.Color(37, 46, 55));
+        mToggleButton1.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        mToggleButton1.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        mToggleButton1.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        mToggleButton1.setSelectedColor(new java.awt.Color(0, 153, 153));
+        mToggleButton1.setStartColor(new java.awt.Color(37, 46, 55));
+        mToggleButton1.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        mToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mToggleButton1ActionPerformed(evt);
+            }
+        });
+        sidePanel.add(mToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
+
+        mToggleButton2.setForeground(new java.awt.Color(255, 255, 255));
+        mToggleButton2.setText("Adicionar");
+        mToggleButton2.setEndColor(new java.awt.Color(37, 46, 55));
+        mToggleButton2.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        mToggleButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        mToggleButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        mToggleButton2.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        mToggleButton2.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        mToggleButton2.setSelectedColor(new java.awt.Color(0, 153, 153));
+        mToggleButton2.setStartColor(new java.awt.Color(37, 46, 55));
+        mToggleButton2.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        sidePanel.add(mToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
+
+        mToggleButton3.setForeground(new java.awt.Color(255, 255, 255));
+        mToggleButton3.setText("Alterar");
+        mToggleButton3.setEndColor(new java.awt.Color(37, 46, 55));
+        mToggleButton3.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        mToggleButton3.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        mToggleButton3.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        mToggleButton3.setSelectedColor(new java.awt.Color(0, 153, 153));
+        mToggleButton3.setStartColor(new java.awt.Color(37, 46, 55));
+        mToggleButton3.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        sidePanel.add(mToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 460));
 
@@ -79,25 +111,27 @@ public class FormSecretario extends javax.swing.JDialog {
 
         searchPanel.setBackground(new java.awt.Color(50, 60, 69));
 
-        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Pesquisar");
+        mTextField1.setBackground(new java.awt.Color(50, 60, 69));
+        mTextField1.setForeground(new java.awt.Color(240, 240, 240));
+        mTextField1.setFont(new java.awt.Font("Nunito", 0, 18)); // NOI18N
+        mTextField1.setLabel("Pesquisar");
+        mTextField1.setSelectionColor(new java.awt.Color(0, 153, 153));
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel2)
-                .addContainerGap(509, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(mTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(mTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, 100));
@@ -109,6 +143,8 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         dataPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 30, -1));
+
+        jScrollPane1.setBorder(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -175,6 +211,10 @@ public class FormSecretario extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void mToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mToggleButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -186,7 +226,7 @@ public class FormSecretario extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -238,12 +278,14 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JPanel dataPanel;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private keeptoo.KButton kButton1;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField mTextField1;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton1;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton2;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton3;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;
     // End of variables declaration//GEN-END:variables
