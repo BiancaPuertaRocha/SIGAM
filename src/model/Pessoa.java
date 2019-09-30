@@ -36,7 +36,7 @@ public class Pessoa implements Serializable{
     @Column(name="telefone")
     private String telefone;
     @Column(name="dataNasc")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax .persistence.TemporalType.DATE)
     private Date dataNasc;
     @Column(name="cidade")
     private String cidade;
