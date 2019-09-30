@@ -60,7 +60,7 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SECRETÁRIO");
-        sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, -1));
+        sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
         mToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         mToggleButton1.setText("Excluir");
