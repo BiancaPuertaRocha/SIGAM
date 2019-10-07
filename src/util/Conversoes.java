@@ -1,4 +1,4 @@
-package Utilitarios;
+package util;
 
 import java.text.Format;
 import java.text.ParseException;
