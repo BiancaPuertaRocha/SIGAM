@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 
 public class Controle<T> {
-        protected EntityManagerFactory emf;
+    protected EntityManagerFactory emf;
     private Class<T> classe;
 
     public Controle(Class<T> classe) {

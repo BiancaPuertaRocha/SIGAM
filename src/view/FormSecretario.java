@@ -5,14 +5,17 @@
  */
 package view;
 
+import control.ControlePessoa;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import model.Pessoa;
 
 /**
  *
@@ -20,12 +23,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class FormSecretario extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FormSecretário
-     */
+    private Pessoa p = new Pessoa();
+    private ControlePessoa cp = new ControlePessoa();
+    private File file;
+
     public FormSecretario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
         jLabel2.setVisible(false);
@@ -50,13 +54,13 @@ public class FormSecretario extends javax.swing.JDialog {
         dataPanel = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
         mTextField1 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        mButton3 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        tablePanel = new javax.swing.JScrollPane();
+        tableSecretarios = new javax.swing.JTable();
+        btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        mTextField2 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtNome = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         mButton2 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         mButton5 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
@@ -155,43 +159,53 @@ public class FormSecretario extends javax.swing.JDialog {
 
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, 100));
 
-        jScrollPane1.setBorder(null);
+        tablePanel.setBackground(new java.awt.Color(255, 255, 255));
+        tablePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        tablePanel.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
+        tablePanel.setHorizontalScrollBar(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableSecretarios.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tableSecretarios.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
+        tableSecretarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"teste", "asjdsdioa", "sdfko3ijof", "0"},
+                {"asjdfia", "334", "sksmid", "90jsid"},
+                {"owjeiejao", "0jsdf0we0", "modfmo", "023490234"},
+                {"kdsmosim", "kd-", "09w402934", null}
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tableSecretarios.setGridColor(new java.awt.Color(255, 255, 255));
+        tableSecretarios.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tableSecretarios.setRowHeight(30);
+        tableSecretarios.setSelectionBackground(new java.awt.Color(50, 60, 69));
+        tablePanel.setViewportView(tableSecretarios);
+        tableSecretarios.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
-        dataPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 580, 270));
+        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 580, 270));
 
-        mButton3.setBackground(new java.awt.Color(255, 255, 255));
-        mButton3.setForeground(new java.awt.Color(153, 153, 153));
-        mButton3.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
-        mButton3.setBorderRadius(0);
-        mButton3.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
-        mButton3.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
-        mButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        btnExit.setForeground(new java.awt.Color(153, 153, 153));
+        btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnExit.setBorderRadius(0);
+        btnExit.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnExit.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                mButton3MouseEntered(evt);
+                btnExitMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                mButton3MouseExited(evt);
+                btnExitMouseExited(evt);
             }
         });
-        mButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mButton3ActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
-        dataPanel.add(mButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 40, 40));
+        dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 40, 40));
 
         cardPanel.add(dataPanel, "card2");
 
@@ -229,7 +243,7 @@ public class FormSecretario extends javax.swing.JDialog {
             .addComponent(mButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        mTextField2.setLabel("Nome");
+        txtNome.setLabel("Nome");
 
         mButton2.setBorder(null);
         mButton2.setText("CANCELAR");
@@ -301,7 +315,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(mTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
@@ -315,7 +329,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                 .addComponent(mButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,24 +363,24 @@ public class FormSecretario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_mToggleButton1ActionPerformed
 
-    private void mButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton3MouseEntered
-        mButton3.setForeground(new java.awt.Color(50,60,69));
-    }//GEN-LAST:event_mButton3MouseEntered
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        btnExit.setForeground(new java.awt.Color(50, 60, 69));
+    }//GEN-LAST:event_btnExitMouseEntered
 
-    private void mButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton3MouseExited
-        mButton3.setForeground(new java.awt.Color(153,153,153));
-    }//GEN-LAST:event_mButton3MouseExited
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        btnExit.setForeground(new java.awt.Color(153, 153, 153));
+    }//GEN-LAST:event_btnExitMouseExited
 
-    private void mButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton3ActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.dispose();
-    }//GEN-LAST:event_mButton3ActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void mButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton4MouseEntered
-        mButton4.setForeground(new java.awt.Color(50,60,69));
+        mButton4.setForeground(new java.awt.Color(50, 60, 69));
     }//GEN-LAST:event_mButton4MouseEntered
 
     private void mButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton4MouseExited
-        mButton4.setForeground(new java.awt.Color(153,153,153));
+        mButton4.setForeground(new java.awt.Color(153, 153, 153));
     }//GEN-LAST:event_mButton4MouseExited
 
     private void mButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton4ActionPerformed
@@ -385,11 +399,23 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton2ActionPerformed
 
     private void mButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton5ActionPerformed
-        // TODO add your handling code here:
+        byte[] imageInByte = new byte[(int) file.length()];
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            fis.read(imageInByte);
+            fis.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FormSecretario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        p.setNome("Josias");
+        p.setImagem(imageInByte);
+
+        cp.persist(p);
     }//GEN-LAST:event_mButton5ActionPerformed
 
     private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
-        
+
     }//GEN-LAST:event_jLabel2MouseEntered
 
     private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
@@ -404,28 +430,28 @@ public class FormSecretario extends javax.swing.JDialog {
         JFileChooser jfc = new JFileChooser();
         jfc.setDialogTitle("Selecione a imagem de perfil");
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        
+
         FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
-        
+
         jfc.setFileFilter(ext);
-        
+
         int r = jfc.showOpenDialog(this);
-        
-        if (r == JFileChooser.APPROVE_OPTION){
-            File file = jfc.getSelectedFile();
+
+        if (r == JFileChooser.APPROVE_OPTION) {
+            file = jfc.getSelectedFile();
             Image image = null;
             try {
                 image = ImageIO.read(file);
+
             } catch (IOException ex) {
                 System.out.println("//////////DEURUIM NA IMAGEM TRATAR DEPOIS COM AVISO NA TELA");
             } finally {
                 System.out.println(file.getAbsolutePath());
                 profileImagePanel.setImage(image);
                 profileImagePanel.repaint();
-                this.repaint();
             }
         }
-        
+
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
@@ -487,25 +513,25 @@ public class FormSecretario extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton2;
-    private com.hq.swingmaterialdesign.materialdesign.MButton mButton3;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton5;
     private com.hq.swingmaterialdesign.materialdesign.MTextField mTextField1;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField mTextField2;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton1;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton2;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton3;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JScrollPane tablePanel;
+    private javax.swing.JTable tableSecretarios;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

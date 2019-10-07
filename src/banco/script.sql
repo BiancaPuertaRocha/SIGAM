@@ -14,7 +14,7 @@ create table Pessoa(
     cpf         varchar(14),
     rg          varchar(12),
     email       varchar(50),
-    imagem      varchar(200),
+    imagem      longblob,
     TYPE        varchar(20)
 
 );

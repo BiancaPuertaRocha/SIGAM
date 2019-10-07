@@ -2,7 +2,9 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -54,8 +57,9 @@ public class Pessoa implements Serializable{
     private String rg;
     @Column(name="email")
     private String email;
+    @Lob
     @Column(name="imagem")
-    private String imagem;
+    private byte[] imagem;
 
 
     public String getNome() {
@@ -138,6 +142,14 @@ public class Pessoa implements Serializable{
         this.rg = rg;
     }
 
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -146,13 +158,9 @@ public class Pessoa implements Serializable{
         this.email = email;
     }
 
-    public String getImagem() {
-        return imagem;
-    }
+   
 
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
-    }
+    
 
     public int getCodigo() {
         return codigo;
