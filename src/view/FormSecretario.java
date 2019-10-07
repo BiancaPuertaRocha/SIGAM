@@ -5,7 +5,14 @@
  */
 package view;
 
-import java.awt.RenderingHints;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -52,7 +59,7 @@ public class FormSecretario extends javax.swing.JDialog {
         mTextField2 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         mButton2 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         mButton5 = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        mGradientPanel1 = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
+        profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -247,19 +254,21 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
-        mGradientPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        mGradientPanel1.setBorderRadius(120);
-        mGradientPanel1.setFillBackground(false);
-        mGradientPanel1.setFillImage(true);
-        mGradientPanel1.setImagePath("/view/images/profileImageHover.png");
-        mGradientPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        profileImagePanel.setBackground(new java.awt.Color(255, 255, 255));
+        profileImagePanel.setBorderRadius(120);
+        profileImagePanel.setFillBackground(false);
+        profileImagePanel.setFillImage(true);
+        profileImagePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                mGradientPanel1MouseEntered(evt);
+                profileImagePanelMouseEntered(evt);
             }
         });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/profileImageHover.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel2MouseEntered(evt);
             }
@@ -268,14 +277,14 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout mGradientPanel1Layout = new javax.swing.GroupLayout(mGradientPanel1);
-        mGradientPanel1.setLayout(mGradientPanel1Layout);
-        mGradientPanel1Layout.setHorizontalGroup(
-            mGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout profileImagePanelLayout = new javax.swing.GroupLayout(profileImagePanel);
+        profileImagePanel.setLayout(profileImagePanelLayout);
+        profileImagePanelLayout.setHorizontalGroup(
+            profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        mGradientPanel1Layout.setVerticalGroup(
-            mGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        profileImagePanelLayout.setVerticalGroup(
+            profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -290,7 +299,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 .addGap(199, 199, 199))
             .addGroup(formPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(mGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(mTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -307,7 +316,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(mTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                 .addComponent(mButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -387,9 +396,37 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel2.setVisible(false);
     }//GEN-LAST:event_jLabel2MouseExited
 
-    private void mGradientPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientPanel1MouseEntered
+    private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
         jLabel2.setVisible(true);
-    }//GEN-LAST:event_mGradientPanel1MouseEntered
+    }//GEN-LAST:event_profileImagePanelMouseEntered
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        JFileChooser jfc = new JFileChooser();
+        jfc.setDialogTitle("Selecione a imagem de perfil");
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        
+        FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
+        
+        jfc.setFileFilter(ext);
+        
+        int r = jfc.showOpenDialog(this);
+        
+        if (r == JFileChooser.APPROVE_OPTION){
+            File file = jfc.getSelectedFile();
+            Image image = null;
+            try {
+                image = ImageIO.read(file);
+            } catch (IOException ex) {
+                System.out.println("//////////DEURUIM NA IMAGEM TRATAR DEPOIS COM AVISO NA TELA");
+            } finally {
+                System.out.println(file.getAbsolutePath());
+                profileImagePanel.setImage(image);
+                profileImagePanel.repaint();
+                this.repaint();
+            }
+        }
+        
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -462,12 +499,12 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton3;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton5;
-    private com.hq.swingmaterialdesign.materialdesign.MGradientPanel mGradientPanel1;
     private com.hq.swingmaterialdesign.materialdesign.MTextField mTextField1;
     private com.hq.swingmaterialdesign.materialdesign.MTextField mTextField2;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton1;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton2;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton3;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;
     // End of variables declaration//GEN-END:variables
