@@ -10,6 +10,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
@@ -17,9 +18,10 @@ import javax.persistence.Temporal;
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
 @DiscriminatorValue("FUNCIONARIO")
+@Table(name="Funcionario")
 public class Funcionario extends Pessoa implements Serializable{
     @Column(name = "salario")
-    private float salario;
+    private Double salario;
     @Column(name = "obsSaude")
     private String obsSaude;
     @Column(name = "hrEntrada")
@@ -28,14 +30,15 @@ public class Funcionario extends Pessoa implements Serializable{
     @Column(name = "hrSaida")
     @Temporal(javax.persistence.TemporalType.TIME)
     private Date hrSaida;
-   
-    public float getSalario() {
+
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(float salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
+   
 
     public String getObsSaude() {
         return obsSaude;

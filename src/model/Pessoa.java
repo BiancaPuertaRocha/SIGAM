@@ -18,6 +18,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -29,6 +30,7 @@ import javax.persistence.Temporal;
     @NamedQuery(name="Pessoa.findByLoginESenha",
                 query="SELECT p FROM Pessoa p WHERE p.login = :login and p.senha = :senha")
 }) 
+@Table(name="Pessoa")
 public class Pessoa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

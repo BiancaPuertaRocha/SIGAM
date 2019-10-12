@@ -26,14 +26,14 @@ public class Conversoes {
         }
     }
     public static String getStringOfTime(Date horario){
-        String hora = new SimpleDateFormat("HH:mm:ss").format(horario);
+        String hora = new SimpleDateFormat("HH:mm").format(horario);
         return hora;
     }
     public static Date getDateOfTime(String param) {
-        SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm:ss");
-        Date date;
+        SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
         try {
-            date = sdFormat.parse(param);
+            date.setTime(sdFormat.parse(param).getTime());
         } catch (ParseException ex) {
             date = new Date();
            

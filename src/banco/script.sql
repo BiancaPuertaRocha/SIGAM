@@ -9,7 +9,7 @@ create table Pessoa(
     cidade      varchar(50),
     bairro      varchar(50),
     numero      int,
-    login       varchar(50),
+    login       varchar(10),
     senha       varchar(10),
     cpf         varchar(14),
     rg          varchar(12),
@@ -42,6 +42,5 @@ create table Treinador(
     CREF            varchar(20),
     foreign key (codigo)    references Funcionario (codigo)
 
-
 );
-SELECT * FROM secretario;
+SELECT * FROM Funcionario;

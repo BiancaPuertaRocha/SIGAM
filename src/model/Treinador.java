@@ -10,6 +10,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 @Entity
 @DiscriminatorValue("TREINADOR")
 //@NamedQueries({
@@ -18,6 +19,7 @@ import javax.persistence.NamedQuery;
 //    @NamedQuery(name="Treinador.findByLoginESenha",
 //                query="SELECT p FROM Treinador p WHERE p.login = :login and p.senha = :senha")
 //}) 
+@Table(name="Treinador")
 public class Treinador extends Funcionario implements Serializable{
     private String especialidade;
     private String CREF;
