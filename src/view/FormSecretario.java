@@ -6,6 +6,7 @@
 package view;
 
 import control.ControlePessoa;
+import control.ControleSecretario;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import model.Pessoa;
 import model.Secretario;
 import org.eclipse.persistence.exceptions.DatabaseException;
@@ -31,9 +33,10 @@ import util.LimitTextfield;
 public class FormSecretario extends javax.swing.JDialog {
 
     private Secretario p = new Secretario();
-    private ControlePessoa cp = new ControlePessoa();
+    private ControleSecretario cp = new ControleSecretario();
     private File file;
     private ArrayList<Secretario> listaPesquisa = new ArrayList();
+    private Secretario selecionado;
 
     public FormSecretario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -41,6 +44,16 @@ public class FormSecretario extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         labelImagem.setVisible(false);
+    }
+
+    public void atualizaTabela() {
+        listaPesquisa.clear();
+        listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
+        DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+        dtm.setNumRows(0);
+        for (Secretario s : listaPesquisa) {
+            dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getDepartamento(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
+        }
     }
 
     /**
@@ -61,7 +74,8 @@ public class FormSecretario extends javax.swing.JDialog {
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
-        mTextField1 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        mButton1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         tablePanel = new javax.swing.JScrollPane();
         tableSecretarios = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
@@ -148,6 +162,11 @@ public class FormSecretario extends javax.swing.JDialog {
         mToggleButton3.setSelectedColor(new java.awt.Color(0, 153, 153));
         mToggleButton3.setStartColor(new java.awt.Color(37, 46, 55));
         mToggleButton3.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        mToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mToggleButton3ActionPerformed(evt);
+            }
+        });
         sidePanel.add(mToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
@@ -159,30 +178,41 @@ public class FormSecretario extends javax.swing.JDialog {
 
         searchPanel.setBackground(new java.awt.Color(50, 60, 69));
 
-        mTextField1.setBackground(new java.awt.Color(50, 60, 69));
-        mTextField1.setForeground(new java.awt.Color(240, 240, 240));
-        mTextField1.setFont(new java.awt.Font("Nunito", 0, 18)); // NOI18N
-        mTextField1.setLabel("Pesquisar");
-        mTextField1.setSelectionColor(new java.awt.Color(0, 153, 153));
+        txtPesquisa.setBackground(new java.awt.Color(50, 60, 69));
+        txtPesquisa.setForeground(new java.awt.Color(240, 240, 240));
+        txtPesquisa.setFont(new java.awt.Font("Nunito", 0, 18)); // NOI18N
+        txtPesquisa.setLabel("Pesquisar");
+        txtPesquisa.setSelectionColor(new java.awt.Color(0, 153, 153));
+
+        mButton1.setText("Pesquisar");
+        mButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(mTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                .addContainerGap())
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(mTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 700, 100));
+        dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
 
         tablePanel.setBackground(new java.awt.Color(255, 255, 255));
         tablePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -191,22 +221,34 @@ public class FormSecretario extends javax.swing.JDialog {
 
         tableSecretarios.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         tableSecretarios.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
+        tableSecretarios.setForeground(new java.awt.Color(72, 72, 72));
         tableSecretarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"teste", "asjdsdioa", "sdfko3ijof", "0"},
-                {"asjdfia", "334", "sksmid", "90jsid"},
-                {"owjeiejao", "0jsdf0we0", "modfmo", "023490234"},
-                {"kdsmosim", "kd-", "09w402934", null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Nome", "Setor", "Horário"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableSecretarios.setGridColor(new java.awt.Color(255, 255, 255));
         tableSecretarios.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tableSecretarios.setRowHeight(30);
-        tableSecretarios.setSelectionBackground(new java.awt.Color(50, 60, 69));
+        tableSecretarios.setSelectionBackground(new java.awt.Color(205, 205, 205));
         tablePanel.setViewportView(tableSecretarios);
+        if (tableSecretarios.getColumnModel().getColumnCount() > 0) {
+            tableSecretarios.getColumnModel().getColumn(0).setResizable(false);
+            tableSecretarios.getColumnModel().getColumn(1).setResizable(false);
+            tableSecretarios.getColumnModel().getColumn(2).setResizable(false);
+            tableSecretarios.getColumnModel().getColumn(3).setResizable(false);
+        }
         tableSecretarios.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
         dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 270));
@@ -230,7 +272,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 btnExitActionPerformed(evt);
             }
         });
-        dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 50, 40));
+        dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 50, 40));
 
         cardPanel.add(dataPanel, "card2");
 
@@ -568,6 +610,9 @@ public class FormSecretario extends javax.swing.JDialog {
     private void mToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton2ActionPerformed
         dataPanel.setVisible(false);
         formPanel.setVisible(true);
+        selecionado = null;
+        txtCpf.setEnabled(true);
+        limparCampos();
     }//GEN-LAST:event_mToggleButton2ActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
@@ -627,17 +672,28 @@ public class FormSecretario extends javax.swing.JDialog {
                                                                             p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
                                                                             p.setSalario(Double.parseDouble(txtSalario.getText()));
                                                                             p.setTipo((compoTipo.getSelectedIndex() == 1 ? true : false));
+                                                                            p.setRua(txtRua.getText());
+
                                                                             if (file != null) {
                                                                                 p.setImagem(imageInByte);
                                                                             }
-                                                                            try {
+                                                                            if (selecionado == null) {
+                                                                                try {
 
-                                                                                cp.persist(p);
-                                                                                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!!");
+                                                                                    cp.persist(p);
+                                                                                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!!");
+                                                                                    limparCampos();
+                                                                                } catch (DatabaseException ex) {
+                                                                                    JOptionPane.showMessageDialog(null, "Secretário ja cadastrado!");
+                                                                                }
+                                                                            } else {
+                                                                                p.setCodigo(selecionado.getCodigo());
+                                                                                cp.alter(p);
+                                                                                JOptionPane.showMessageDialog(null, "Editado com sucesso!!");
                                                                                 limparCampos();
-                                                                            } catch (DatabaseException ex) {
-                                                                                JOptionPane.showMessageDialog(null, "Secretário ja cadastrado!");
                                                                             }
+                                                                            dataPanel.setVisible(true);
+                                                                            formPanel.setVisible(false);
                                                                         }
                                                                     } else {
                                                                         JOptionPane.showMessageDialog(null, "Senhas não confirmam!");
@@ -721,9 +777,10 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_botConfirmarActionPerformed
     public void limparCampos() {
         txtNome.setText("");
-        txtTelefone.setText("(  )     -    ");
-        txtNascimento.setText("  /  /    ");
-        txtCpf.setText("   .   .   -  ");
+        txtTelefone.setValue("");
+        txtNascimento.setValue("");
+        txtCpf.setValue("");
+        txtRg.setText("");
         txtEmail.setText("");
         txtCidade.setText("");
         txtBairro.setText("");
@@ -802,6 +859,49 @@ public class FormSecretario extends javax.swing.JDialog {
         ((LimitTextfield) txtLogin).insertString();
     }//GEN-LAST:event_txtLoginKeyTyped
 
+    private void mButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton1ActionPerformed
+        atualizaTabela();
+    }//GEN-LAST:event_mButton1ActionPerformed
+
+    private void mToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton3ActionPerformed
+        int linha = tableSecretarios.getSelectedRow();
+        int codigo;
+        if (linha != -1) {
+            int colunas = tableSecretarios.getColumnCount();
+            for (int x = 0; x < colunas; x++) {
+                if (tableSecretarios.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableSecretarios.getValueAt(linha, x);
+                    selecionado = cp.findByCodigo(codigo);
+                    setSecretario();
+                    dataPanel.setVisible(false);
+                    formPanel.setVisible(true);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um secretário!");
+        }
+    }//GEN-LAST:event_mToggleButton3ActionPerformed
+    private void setSecretario() {
+        txtNome.setText(selecionado.getNome());
+        txtTelefone.setText(selecionado.getTelefone());
+        txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
+        txtCpf.setText(selecionado.getCpf());
+        txtCpf.setEnabled(false);
+        txtRg.setText(selecionado.getRg());
+        txtEmail.setText(selecionado.getEmail());
+        txtCidade.setText(selecionado.getCidade());
+        txtBairro.setText(selecionado.getBairro());
+        txtRua.setText(selecionado.getRua());
+        txtNumero.setText(Integer.toString(selecionado.getNumero()));
+        txtLogin.setText(selecionado.getLogin());
+        txtEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
+        txtSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
+        txtSalario.setText(Double.toString(selecionado.getSalario()));
+        comboSetor.setSelectedItem(selecionado.getDepartamento());
+        compoTipo.setSelectedIndex(selecionado.isTipo()?1:0);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -872,8 +972,8 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelImagem;
+    private com.hq.swingmaterialdesign.materialdesign.MButton mButton1;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField mTextField1;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton1;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton2;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton3;
@@ -892,6 +992,7 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtNascimento;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtNome;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtNumero;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtPesquisa;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtRg;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtRua;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSaida;

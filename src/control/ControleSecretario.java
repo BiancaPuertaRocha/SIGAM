@@ -15,13 +15,19 @@ public class ControleSecretario extends Controle<Secretario>{
     public ControleSecretario() {
         super(Secretario.class);
     }
-//    public List<Secretario> findByNome(String nome) {
-//        EntityManager em = getEntityManager();
-//        TypedQuery<Secretario> consulta = em.createNamedQuery("Secretario.findByNome", Secretario.class);
-//        String parSQL;
-//        parSQL = "%" + nome + "%";
-//        consulta.setParameter("nome", parSQL);
-//        return consulta.getResultList();
-//    }
+    public List<Secretario> findByNome(String nome) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Secretario> consulta = em.createNamedQuery("Secretario.findByNome", Secretario.class);
+        String parSQL;
+        parSQL = "%" + nome + "%";
+        consulta.setParameter("nome", parSQL);
+        return consulta.getResultList();
+    }
+     public Secretario findByCodigo(int cod) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Secretario> consulta = em.createNamedQuery("Secretario.findByCodigo", Secretario.class);
+        consulta.setParameter("codigo", cod);
+        return consulta.getSingleResult();
+    }
     
 }

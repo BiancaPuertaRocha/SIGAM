@@ -47,6 +47,8 @@ public class Pessoa implements Serializable{
     private String cidade;
     @Column(name="bairro")
     private String bairro;
+    @Column(name="rua")
+    private String rua;
     @Column(name="numero")
     private int numero;
     @Column(name="login")
@@ -78,6 +80,14 @@ public class Pessoa implements Serializable{
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public Date getDataNasc() {

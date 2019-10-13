@@ -16,12 +16,14 @@ import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("SECRETARIO")
-//@NamedQueries({
-//    @NamedQuery(name="Secretario.findByNome",
-//                query="SELECT p FROM Secretario p where p.nome like :nome"),
-//    @NamedQuery(name="Secretario.findByLoginESenha",
-//                query="SELECT p FROM Secretario p WHERE p.login = :login and p.senha = :senha")
-//}) 
+@NamedQueries({
+    @NamedQuery(name="Secretario.findByNome",
+                query="SELECT p FROM Secretario p where p.nome like :nome"),
+    @NamedQuery(name="Secretario.findByCodigo",
+                query="SELECT p FROM Secretario p where p.codigo = :codigo"),
+    @NamedQuery(name="Secretario.findByLoginESenha",
+                query="SELECT p FROM Secretario p WHERE p.login = :login and p.senha = :senha")
+}) 
 @Table(name="Secretario")
 public class Secretario extends Funcionario implements Serializable {
 

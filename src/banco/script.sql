@@ -1,5 +1,5 @@
---drop database banco;
---create database banco;
+drop database banco;
+create database banco;
 use banco;
 create table Pessoa(
     codigo      int primary key auto_increment,
@@ -8,6 +8,7 @@ create table Pessoa(
     dataNasc    Date,
     cidade      varchar(50),
     bairro      varchar(50),
+    rua         varchar(50),
     numero      int,
     login       varchar(10),
     senha       varchar(10),
