@@ -6,6 +6,7 @@
 package view;
 
 import control.ControleSecretario;
+import control.ControleTreinador;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.Secretario;
+import model.Treinador;
 import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
 import util.LimitPassword;
@@ -28,15 +30,15 @@ import util.LimitTextfield;
  *
  * @author abner
  */
-public class FormSecretario extends javax.swing.JDialog {
+public class FormTreinador extends javax.swing.JDialog {
 
-    private Secretario p = new Secretario();
-    private ControleSecretario cp = new ControleSecretario();
+    private Treinador p = new Treinador();
+    private ControleTreinador cp = new ControleTreinador();
     private File file;
-    private ArrayList<Secretario> listaPesquisa = new ArrayList();
-    private Secretario selecionado;
+    private ArrayList<Treinador> listaPesquisa = new ArrayList();
+    private Treinador selecionado;
 
-    public FormSecretario(java.awt.Frame parent, boolean modal) {
+    public FormTreinador(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
         initComponents();
@@ -47,10 +49,10 @@ public class FormSecretario extends javax.swing.JDialog {
     public void atualizaTabela() {
         listaPesquisa.clear();
         listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
-        DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
         dtm.setNumRows(0);
-        for (Secretario s : listaPesquisa) {
-            dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getDepartamento(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
+        for (Treinador s : listaPesquisa) {
+            dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getEspecialidade(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
         }
     }
 
@@ -75,7 +77,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         mButton1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         tablePanel = new javax.swing.JScrollPane();
-        tableSecretarios = new javax.swing.JTable();
+        tableTreinadores = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -97,11 +99,11 @@ public class FormSecretario extends javax.swing.JDialog {
         txtRg = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtCpf = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtEmail = new LimitTextfield(50);
-        comboSetor = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
-        compoTipo = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
+        txtEspecialidade = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
         txtEntrada = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSaida = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSalario = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
+        txtCref = new LimitTextfield(11);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -114,7 +116,7 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SECRETÁRIO");
+        jLabel1.setText("TREINADOR");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
         mToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -217,15 +219,15 @@ public class FormSecretario extends javax.swing.JDialog {
         tablePanel.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
         tablePanel.setHorizontalScrollBar(null);
 
-        tableSecretarios.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        tableSecretarios.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
-        tableSecretarios.setForeground(new java.awt.Color(72, 72, 72));
-        tableSecretarios.setModel(new javax.swing.table.DefaultTableModel(
+        tableTreinadores.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tableTreinadores.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
+        tableTreinadores.setForeground(new java.awt.Color(72, 72, 72));
+        tableTreinadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "Setor", "Horário"
+                "Código", "Nome", "Especialidade", "Horário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -236,18 +238,18 @@ public class FormSecretario extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tableSecretarios.setGridColor(new java.awt.Color(255, 255, 255));
-        tableSecretarios.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tableSecretarios.setRowHeight(30);
-        tableSecretarios.setSelectionBackground(new java.awt.Color(205, 205, 205));
-        tablePanel.setViewportView(tableSecretarios);
-        if (tableSecretarios.getColumnModel().getColumnCount() > 0) {
-            tableSecretarios.getColumnModel().getColumn(0).setResizable(false);
-            tableSecretarios.getColumnModel().getColumn(1).setResizable(false);
-            tableSecretarios.getColumnModel().getColumn(2).setResizable(false);
-            tableSecretarios.getColumnModel().getColumn(3).setResizable(false);
+        tableTreinadores.setGridColor(new java.awt.Color(255, 255, 255));
+        tableTreinadores.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tableTreinadores.setRowHeight(30);
+        tableTreinadores.setSelectionBackground(new java.awt.Color(205, 205, 205));
+        tablePanel.setViewportView(tableTreinadores);
+        if (tableTreinadores.getColumnModel().getColumnCount() > 0) {
+            tableTreinadores.getColumnModel().getColumn(0).setResizable(false);
+            tableTreinadores.getColumnModel().getColumn(1).setResizable(false);
+            tableTreinadores.getColumnModel().getColumn(2).setResizable(false);
+            tableTreinadores.getColumnModel().getColumn(3).setResizable(false);
         }
-        tableSecretarios.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
+        tableTreinadores.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
         dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 460));
 
@@ -436,9 +438,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
-        comboSetor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
-
-        compoTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acesso Comum", "Acesso Especial" }));
+        txtEspecialidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
 
         txtEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtEntrada.setLabel("Hr Entrada");
@@ -452,6 +452,8 @@ public class FormSecretario extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtSalario.setLabel("Salario");
+
+        txtCref.setLabel("CREF");
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
         formPanel.setLayout(formPanelLayout);
@@ -498,11 +500,11 @@ public class FormSecretario extends javax.swing.JDialog {
                                         .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtRg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(comboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(compoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtCref, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(formPanelLayout.createSequentialGroup()
                                 .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -544,15 +546,15 @@ public class FormSecretario extends javax.swing.JDialog {
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(compoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtEspecialidade, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(txtCref, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -578,16 +580,16 @@ public class FormSecretario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton1ActionPerformed
-        int linha = tableSecretarios.getSelectedRow();
+        int linha = tableTreinadores.getSelectedRow();
         int codigo;
-        Secretario sExcluir = null;
+        Treinador sExcluir = null;
         if (linha != -1) {
-            int colunas = tableSecretarios.getColumnCount();
+            int colunas = tableTreinadores.getColumnCount();
             for (int x = 0; x < colunas; x++) {
-                if (tableSecretarios.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableSecretarios.getValueAt(linha, x);
+                if (tableTreinadores.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableTreinadores.getValueAt(linha, x);
                     sExcluir = cp.findByCodigo(codigo);
-                    
+
                 }
             }
             if (sExcluir != null) {
@@ -596,18 +598,18 @@ public class FormSecretario extends javax.swing.JDialog {
                     try {
                         cp.delete(sExcluir);
                         JOptionPane.showMessageDialog(null, "Excluido com sucesso");
-                        DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+                        DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
                         dtm.removeRow(linha);
-                        
+
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusao!");
+                        JOptionPane.showMessageDialog(null, "Este treinador possui registros vinculados.\nNão foi possível realizar a exclusao!");
                     }
                 }
 
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um secretário!");
+            JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
     }//GEN-LAST:event_mToggleButton1ActionPerformed
 
@@ -660,7 +662,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 fis.read(imageInByte);
                 fis.close();
             } catch (IOException ex) {
-                Logger.getLogger(FormSecretario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormTreinador.class.getName()).log(Level.SEVERE, null, ex);
                 fis = null;
             }
         }
@@ -684,44 +686,49 @@ public class FormSecretario extends javax.swing.JDialog {
                                                                             JOptionPane.showMessageDialog(null, "A entrada precisa ser antes da saida do funcionário!");
                                                                             txtEntrada.requestFocus();
                                                                         } else {
-                                                                            p.setNome(txtNome.getText());
-                                                                            p.setCidade(txtCidade.getText());
-                                                                            p.setBairro(txtBairro.getText());
-                                                                            p.setCpf(txtCpf.getText());
-                                                                            p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
-                                                                            p.setEmail(txtEmail.getText());
-                                                                            p.setLogin(txtLogin.getText());
-                                                                            p.setNumero(Integer.parseInt(txtNumero.getText()));
-                                                                            p.setRg(txtRg.getText());
-                                                                            p.setSenha(txtSenha.getText());
-                                                                            p.setTelefone(txtTelefone.getText());
-                                                                            p.setDepartamento(comboSetor.getSelectedItem().toString());
-                                                                            p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
-                                                                            p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
-                                                                            p.setSalario(Double.parseDouble(txtSalario.getText()));
-                                                                            p.setTipo((compoTipo.getSelectedIndex() == 1 ? true : false));
-                                                                            p.setRua(txtRua.getText());
+                                                                            if (!txtCref.getText().equals("")) {
+                                                                                p.setNome(txtNome.getText());
+                                                                                p.setCidade(txtCidade.getText());
+                                                                                p.setBairro(txtBairro.getText());
+                                                                                p.setCpf(txtCpf.getText());
+                                                                                p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
+                                                                                p.setEmail(txtEmail.getText());
+                                                                                p.setLogin(txtLogin.getText());
+                                                                                p.setNumero(Integer.parseInt(txtNumero.getText()));
+                                                                                p.setRg(txtRg.getText());
+                                                                                p.setSenha(txtSenha.getText());
+                                                                                p.setTelefone(txtTelefone.getText());
+                                                                                p.setEspecialidade(txtEspecialidade.getSelectedItem().toString());
+                                                                                p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
+                                                                                p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
+                                                                                p.setSalario(Double.parseDouble(txtSalario.getText()));
+                                                                                p.setCREF(txtCref.getText());
+                                                                                p.setRua(txtRua.getText());
 
-                                                                            if (file != null) {
-                                                                                p.setImagem(imageInByte);
-                                                                            }
-                                                                            if (selecionado == null) {
-                                                                                try {
-
-                                                                                    cp.persist(p);
-                                                                                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!!");
-                                                                                    limparCampos();
-                                                                                } catch (DatabaseException ex) {
-                                                                                    JOptionPane.showMessageDialog(null, "Secretário ja cadastrado!");
+                                                                                if (file != null) {
+                                                                                    p.setImagem(imageInByte);
                                                                                 }
+                                                                                if (selecionado == null) {
+                                                                                    try {
+
+                                                                                        cp.persist(p);
+                                                                                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!!");
+                                                                                        limparCampos();
+                                                                                    } catch (DatabaseException ex) {
+                                                                                        JOptionPane.showMessageDialog(null, "Secretário ja cadastrado!");
+                                                                                    }
+                                                                                } else {
+                                                                                    p.setCodigo(selecionado.getCodigo());
+                                                                                    cp.alter(p);
+                                                                                    JOptionPane.showMessageDialog(null, "Editado com sucesso!!");
+                                                                                    limparCampos();
+                                                                                }
+                                                                                dataPanel.setVisible(true);
+                                                                                formPanel.setVisible(false);
                                                                             } else {
-                                                                                p.setCodigo(selecionado.getCodigo());
-                                                                                cp.alter(p);
-                                                                                JOptionPane.showMessageDialog(null, "Editado com sucesso!!");
-                                                                                limparCampos();
+                                                                                JOptionPane.showMessageDialog(null, "Digite o CREF!");
+                                                                                txtCref.requestFocus();
                                                                             }
-                                                                            dataPanel.setVisible(true);
-                                                                            formPanel.setVisible(false);
                                                                         }
                                                                     } else {
                                                                         JOptionPane.showMessageDialog(null, "Senhas não confirmam!");
@@ -820,6 +827,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtEntrada.setText("");
         txtSaida.setText("");
         txtSalario.setText("");
+        txtCref.setText("");
 
     }
     private void labelImagemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseEntered
@@ -892,13 +900,13 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton1ActionPerformed
 
     private void mToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton3ActionPerformed
-        int linha = tableSecretarios.getSelectedRow();
+        int linha = tableTreinadores.getSelectedRow();
         int codigo;
         if (linha != -1) {
-            int colunas = tableSecretarios.getColumnCount();
+            int colunas = tableTreinadores.getColumnCount();
             for (int x = 0; x < colunas; x++) {
-                if (tableSecretarios.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableSecretarios.getValueAt(linha, x);
+                if (tableTreinadores.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableTreinadores.getValueAt(linha, x);
                     selecionado = cp.findByCodigo(codigo);
                     setSecretario();
                     dataPanel.setVisible(false);
@@ -907,7 +915,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um secretário!");
+            JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
     }//GEN-LAST:event_mToggleButton3ActionPerformed
     private void setSecretario() {
@@ -926,8 +934,8 @@ public class FormSecretario extends javax.swing.JDialog {
         txtEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
         txtSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
         txtSalario.setText(Double.toString(selecionado.getSalario()));
-        comboSetor.setSelectedItem(selecionado.getDepartamento());
-        compoTipo.setSelectedIndex(selecionado.isTipo() ? 1 : 0);
+        txtEspecialidade.setSelectedItem(selecionado.getEspecialidade());
+        txtCref.setText(selecionado.getCREF());
     }
 
     /**
@@ -947,14 +955,30 @@ public class FormSecretario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -975,7 +999,7 @@ public class FormSecretario extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormSecretario dialog = new FormSecretario(new javax.swing.JFrame(), true);
+                FormTreinador dialog = new FormTreinador(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -993,8 +1017,6 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private javax.swing.JPanel cardPanel;
-    private com.hq.swingmaterialdesign.materialdesign.MComboBox comboSetor;
-    private com.hq.swingmaterialdesign.materialdesign.MComboBox compoTipo;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
@@ -1009,13 +1031,15 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JScrollPane tablePanel;
-    private javax.swing.JTable tableSecretarios;
+    private javax.swing.JTable tableTreinadores;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtBairro;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtCidade;
     private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtConfirmar;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtCpf;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtCref;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtEmail;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtEntrada;
+    private com.hq.swingmaterialdesign.materialdesign.MComboBox txtEspecialidade;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtLogin;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtNascimento;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtNome;
