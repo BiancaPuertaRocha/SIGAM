@@ -27,9 +27,9 @@ import javax.persistence.Table;
 @Table(name="Secretario")
 public class Secretario extends Funcionario implements Serializable {
 
-    @Column(name = "departamento")
+    @Column(name = "departamento", nullable = false, length = 50)
     private String departamento;
-    @Column(name = "tipo")
+    @Column(name = "tipo", nullable = false)
     private boolean tipo;
 
     public String getDepartamento() {

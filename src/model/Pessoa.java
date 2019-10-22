@@ -37,30 +37,30 @@ public class Pessoa implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="codigo")
     private int codigo;
-    @Column(name="nome")
+    @Column(name="nome", nullable = false, length = 50)
     private String nome;
-    @Column(name="telefone")
+    @Column(name="telefone", nullable = false, length = 11)
     private String telefone;
-    @Column(name="dataNasc")
+    @Column(name="dataNasc", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataNasc;
-    @Column(name="cidade")
+    @Column(name="cidade", nullable = false)
     private String cidade;
-    @Column(name="bairro")
+    @Column(name="bairro", length = 50, nullable = false)
     private String bairro;
-    @Column(name="rua")
+    @Column(name="rua", length = 50, nullable = false)
     private String rua;
-    @Column(name="numero")
+    @Column(name="numero", nullable = false)
     private int numero;
-    @Column(name="login")
+    @Column(name="login", length = 10, nullable = false)
     private String login;
-    @Column(name="senha")
+    @Column(name="senha", length = 10, nullable = false)
     private String senha;
-    @Column(name="cpf")
+    @Column(name="cpf", length = 14, nullable = false)
     private String cpf;
-    @Column(name="rg")
+    @Column(name="rg", length = 12, nullable = false)
     private String rg;
-    @Column(name="email")
+    @Column(name="email", length = 50, nullable = false)
     private String email;
    
     @Lob

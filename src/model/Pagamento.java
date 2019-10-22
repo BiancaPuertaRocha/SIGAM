@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,13 +23,14 @@ public class Pagamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo")
     private int codigo;
-    @Column(name = "dias")
+    @Column(name = "dias", nullable = false)
     private int dias;
-    @Column(name = "valor")
+    @Column(name = "valor", nullable = false)
     private double valor;
-    @Column(name = "dataPag")
+    @Column(name = "dataPag", nullable = false)
     private int dataPag;
     @ManyToOne
+    @JoinColumn(referencedColumnName = "codigoPessoa", name = "codigoMatricula")
     private Matricula m;
 
     public int getCodigo() {

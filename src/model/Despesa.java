@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -19,16 +20,19 @@ public class Despesa implements Serializable{
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name="codigo")
    private int codigo;
-   @Column(name="descricao")
+   @Column(name="descricao", length = 50, nullable = false)
    private String descricao;
-   @Column(name="vencimento")
+   @Column(name="vencimento", nullable = false)
    @Temporal(javax.persistence.TemporalType.DATE)
    private Date vencimento;
-   @Column(name="pagamento")
+   @Column(name="pagamento", nullable = true)
    @Temporal(javax.persistence.TemporalType.DATE)
    private Date pagamento;
-   @Column(name="valor")
+   @Column(name="valor", nullable = true)
    private double valor;
+   
+   @JoinColumn(referencedColumnName = "codigo", name = "secretario")
+   private Secretario secretario;
 
     @Override
     public int hashCode() {
@@ -53,6 +57,14 @@ public class Despesa implements Serializable{
             return false;
         }
         return true;
+    }
+
+    public Secretario getSecretario() {
+        return secretario;
+    }
+
+    public void setSecretario(Secretario secretario) {
+        this.secretario = secretario;
     }
 
     public int getCodigo() {

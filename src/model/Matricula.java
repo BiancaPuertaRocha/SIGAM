@@ -16,9 +16,10 @@ import javax.persistence.Table;
 public class Matricula implements Serializable{
     @Id
     @OneToOne(mappedBy = "codigo", cascade = CascadeType.ALL, optional = false)
-    @Column(name="codigoPessoa")
-    private Pessoa p;
+    @Column(name="codigoPessoa", nullable = false)
+    private Pessoa codigoPessoa;
     @OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL)
     private List<Pagamento> listaPagamentos; 
+    
     
 }

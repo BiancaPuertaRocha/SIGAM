@@ -20,7 +20,7 @@ public class LimitPassword extends MPasswordField {
     }
 
     public void insertString() {
-        if (limite <getText().length()+1) {
+        if (limite <getPassword().length+1) {
             String texto = getText();
             setText(texto.substring(0, texto.length() - 1));
         }

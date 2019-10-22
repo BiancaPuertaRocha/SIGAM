@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
 @DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
 @DiscriminatorValue("FUNCIONARIO")
 @Table(name="Funcionario")
-public abstract class Funcionario extends Pessoa implements Serializable{
+public class Funcionario extends Pessoa implements Serializable{
     @Column(name = "salario")
     private Double salario;
     @Column(name = "obsSaude")

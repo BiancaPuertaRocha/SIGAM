@@ -29,7 +29,7 @@ public class ControleTreinador extends Controle<Treinador>{
     }
      public Treinador findByCodigo(int cod) {
         EntityManager em = getEntityManager();
-        TypedQuery<Treinador> consulta = em.createNamedQuery("Secretario.findByCodigo", Treinador.class);
+        TypedQuery<Treinador> consulta = em.createNamedQuery("Treinador.findByCodigo", Treinador.class);
         consulta.setParameter("codigo", cod);
         return consulta.getSingleResult();
     }

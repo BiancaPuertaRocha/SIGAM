@@ -3,44 +3,44 @@ create database banco;
 use banco;
 create table Pessoa(
     codigo      int primary key auto_increment,
-    nome        varchar(50),
-    telefone    varchar(15),
-    dataNasc    Date,
-    cidade      varchar(50),
-    bairro      varchar(50),
-    rua         varchar(50),
-    numero      int,
-    login       varchar(10),
-    senha       varchar(10),
-    cpf         varchar(14),
-    rg          varchar(12),
-    email       varchar(50),
+    nome        varchar(50) not null,
+    telefone    varchar(11) not null,
+    dataNasc    Date not null,
+    cidade      varchar(50) not null,
+    bairro      varchar(50) not null,
+    rua         varchar(50) not null,
+    numero      int not null,
+    login       varchar(10) not null,
+    senha       varchar(10) not null,
+    cpf         varchar(14) not null,
+    rg          varchar(12) not null,
+    email       varchar(50) not null,
     imagem      longblob,
     TYPE        varchar(20)
 
 );
 create table Funcionario(
     codigo      int primary key, 
-    salario     float,
-    obsSaude    varchar(100),
-    hrEntrada   time,
-    hrSaida     time,
-    TYPE        varchar(20),
+    salario     float not null,
+    obsSaude    varchar(100) not null,
+    hrEntrada   time not null,
+    hrSaida     time not null,
+    TYPE        varchar(20) not null,
     foreign key (codigo)    references Pessoa (codigo)
 );
 
 create table Secretario(
     codigo          int primary key, 
-    departamento    varchar(50),
-    tipo            boolean,
+    departamento    varchar(50) not null,
+    tipo            boolean not null,
     foreign key (codigo)    references Funcionario (codigo)
 
 );
 
 create table Treinador(
     codigo          int primary key, 
-    especialidade   varchar(50),
-    CREF            varchar(20),
+    especialidade   varchar(50) not null,
+    CREF            varchar(20) not null,
     foreign key (codigo)    references Funcionario (codigo)
 
 );
@@ -50,17 +50,19 @@ create table Matricula(
 );
 create table Despesa (
     codigo          int primary key,
-    descricao       varchar(50),
-    vencimento      date,
-    pagamento       date,
-    valor           double
+    descricao       varchar(50) not null,
+    vencimento      date not null,
+    pagamento       date not null,
+    valor           double not null,
+    secretario      int,
+    foreign key (secretario) references Secretario (codigo)
 );
 create table Pagamento(
     codigo          int primary key,
-    codigoMatricula int,
-    dias            int,
-    valor           double,
-    dataPag         date,
+    codigoMatricula int not null,
+    dias            int not null,
+    valor           double not null,
+    dataPag         date not null,
    foreign key(codigoMatricula) references Matricula(codigoPessoa)
 );
-SELECT * FROM Funcionario;
+SELECT * FROM Pessoa;

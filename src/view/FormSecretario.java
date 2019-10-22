@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -44,7 +45,7 @@ public class FormSecretario extends javax.swing.JDialog {
         labelImagem.setVisible(false);
     }
 
-    public void atualizaTabela() {
+    private void atualizaTabela() {
         listaPesquisa.clear();
         listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
         DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
@@ -417,9 +418,24 @@ public class FormSecretario extends javax.swing.JDialog {
         });
 
         txtSenha.setLabel("Senha");
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyTyped(evt);
+            }
+        });
 
         txtConfirmar.setLabel("Confirmar Senha");
+        txtConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConfirmarKeyTyped(evt);
+            }
+        });
 
+        try {
+            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtRg.setLabel("RG");
 
         try {
@@ -446,11 +462,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtSaida.setLabel("Hr Saida");
 
-        try {
-            txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####.##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtSalario.setLabel("Salario");
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
@@ -587,7 +599,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 if (tableSecretarios.getColumnName(x).equals("Código")) {
                     codigo = (int) tableSecretarios.getValueAt(linha, x);
                     sExcluir = cp.findByCodigo(codigo);
-                    
+
                 }
             }
             if (sExcluir != null) {
@@ -598,7 +610,7 @@ public class FormSecretario extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Excluido com sucesso");
                         DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
                         dtm.removeRow(linha);
-                        
+
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusao!");
                     }
@@ -803,7 +815,7 @@ public class FormSecretario extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_botConfirmarActionPerformed
-    public void limparCampos() {
+    private void limparCampos() {
         txtNome.setText("");
         txtTelefone.setValue("");
         txtNascimento.setValue("");
@@ -910,7 +922,20 @@ public class FormSecretario extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Selecione um secretário!");
         }
     }//GEN-LAST:event_mToggleButton3ActionPerformed
+
+    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
+       ((LimitPassword)txtSenha).insertString();
+    }//GEN-LAST:event_txtSenhaKeyTyped
+
+    private void txtConfirmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyTyped
+       ((LimitPassword)txtConfirmar).insertString();
+    }//GEN-LAST:event_txtConfirmarKeyTyped
     private void setSecretario() {
+        if (selecionado.getImagem().length > 0) {
+            ImageIcon im = new ImageIcon(selecionado.getImagem());
+            profileImagePanel.setImage(im.getImage());
+            profileImagePanel.repaint();
+        }
         txtNome.setText(selecionado.getNome());
         txtTelefone.setText(selecionado.getTelefone());
         txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));

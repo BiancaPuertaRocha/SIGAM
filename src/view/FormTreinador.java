@@ -5,21 +5,21 @@
  */
 package view;
 
-import control.ControleSecretario;
 import control.ControleTreinador;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import model.Secretario;
 import model.Treinador;
 import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
@@ -31,22 +31,21 @@ import util.LimitTextfield;
  * @author abner
  */
 public class FormTreinador extends javax.swing.JDialog {
-
-   
+    
     private ControleTreinador cp = new ControleTreinador();
     private File file;
     private ArrayList<Treinador> listaPesquisa = new ArrayList();
     private Treinador selecionado;
-
+    
     public FormTreinador(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
+        
         initComponents();
         this.setLocationRelativeTo(null);
         labelImagem.setVisible(false);
     }
-
-    public void atualizaTabela() {
+    
+    private void atualizaTabela() {
         listaPesquisa.clear();
         listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
         DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
@@ -419,9 +418,24 @@ public class FormTreinador extends javax.swing.JDialog {
         });
 
         txtSenha.setLabel("Senha");
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyTyped(evt);
+            }
+        });
 
         txtConfirmar.setLabel("Confirmar Senha");
+        txtConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConfirmarKeyTyped(evt);
+            }
+        });
 
+        try {
+            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtRg.setLabel("RG");
 
         try {
@@ -446,11 +460,7 @@ public class FormTreinador extends javax.swing.JDialog {
         txtSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtSaida.setLabel("Hr Saida");
 
-        try {
-            txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####.##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtSalario.setLabel("Salario");
 
         txtCref.setLabel("CREF");
@@ -589,7 +599,7 @@ public class FormTreinador extends javax.swing.JDialog {
                 if (tableTreinadores.getColumnName(x).equals("Código")) {
                     codigo = (int) tableTreinadores.getValueAt(linha, x);
                     sExcluir = cp.findByCodigo(codigo);
-
+                    
                 }
             }
             if (sExcluir != null) {
@@ -600,14 +610,14 @@ public class FormTreinador extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Excluido com sucesso");
                         DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
                         dtm.removeRow(linha);
-
+                        
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Este treinador possui registros vinculados.\nNão foi possível realizar a exclusao!");
                     }
                 }
-
+                
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
@@ -705,13 +715,13 @@ public class FormTreinador extends javax.swing.JDialog {
                                                                                 p.setSalario(Double.parseDouble(txtSalario.getText()));
                                                                                 p.setCREF(txtCref.getText());
                                                                                 p.setRua(txtRua.getText());
-
+                                                                                
                                                                                 if (file != null) {
                                                                                     p.setImagem(imageInByte);
                                                                                 }
                                                                                 if (selecionado == null) {
                                                                                     try {
-
+                                                                                        
                                                                                         cp.persist(p);
                                                                                         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!!");
                                                                                         limparCampos();
@@ -735,39 +745,39 @@ public class FormTreinador extends javax.swing.JDialog {
                                                                         JOptionPane.showMessageDialog(null, "Senhas não confirmam!");
                                                                         txtConfirmar.requestFocus();
                                                                     }
-
+                                                                    
                                                                 } else {
                                                                     JOptionPane.showMessageDialog(null, "Digite um salário válido!");
                                                                     txtSalario.requestFocus();
                                                                 }
-
+                                                                
                                                             } else {
                                                                 JOptionPane.showMessageDialog(null, "Digite um horário de saída!");
                                                                 txtSaida.requestFocus();
-
+                                                                
                                                             }
-
+                                                            
                                                         } else {
                                                             JOptionPane.showMessageDialog(null, "Digite um horário de entrada!");
                                                             txtEntrada.requestFocus();
-
+                                                            
                                                         }
                                                     } else {
                                                         JOptionPane.showMessageDialog(null, "Confirme sua senha");
                                                         txtConfirmar.requestFocus();
-
+                                                        
                                                     }
-
+                                                    
                                                 } else {
                                                     JOptionPane.showMessageDialog(null, "Digite uma senha com mais de 4 caracteres!");
                                                     txtSenha.requestFocus();
-
+                                                    
                                                 }
-
+                                                
                                             } else {
                                                 JOptionPane.showMessageDialog(null, "Digite um login!");
                                                 txtLogin.requestFocus();
-
+                                                
                                             }
                                         } else {
                                             JOptionPane.showMessageDialog(null, "Digite um numero!");
@@ -793,25 +803,27 @@ public class FormTreinador extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Digite um CPF!");
                         txtCpf.requestFocus();
                     }
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Digite uma data de nascimento!");
                     txtNascimento.requestFocus();
                 }
-
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Digite um telefone!");
                 txtTelefone.requestFocus();
             }
         } else {
-
+            
             JOptionPane.showMessageDialog(null, "Digite um nome!");
             txtNome.requestFocus();
         }
-
+        
 
     }//GEN-LAST:event_botConfirmarActionPerformed
-    public void limparCampos() {
+    private void limparCampos() {
+        
+        
         txtNome.setText("");
         txtTelefone.setValue("");
         txtNascimento.setValue("");
@@ -829,7 +841,7 @@ public class FormTreinador extends javax.swing.JDialog {
         txtSaida.setText("");
         txtSalario.setText("");
         txtCref.setText("");
-
+        
     }
     private void labelImagemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseEntered
 
@@ -847,28 +859,28 @@ public class FormTreinador extends javax.swing.JDialog {
         JFileChooser jfc = new JFileChooser();
         jfc.setDialogTitle("Selecione a imagem de perfil");
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+        
         FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
-
+        
         jfc.setFileFilter(ext);
-
+        
         int r = jfc.showOpenDialog(this);
-
+        
         if (r == JFileChooser.APPROVE_OPTION) {
             file = jfc.getSelectedFile();
             Image image = null;
             try {
                 image = ImageIO.read(file);
-
+                
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
             } finally {
-                System.out.println(file.getAbsolutePath());
+               // System.out.println(file.getAbsolutePath());
                 profileImagePanel.setImage(image);
                 profileImagePanel.repaint();
             }
         }
-
+        
 
     }//GEN-LAST:event_labelImagemMouseClicked
 
@@ -908,18 +920,35 @@ public class FormTreinador extends javax.swing.JDialog {
             for (int x = 0; x < colunas; x++) {
                 if (tableTreinadores.getColumnName(x).equals("Código")) {
                     codigo = (int) tableTreinadores.getValueAt(linha, x);
+                    System.out.println(codigo);
                     selecionado = cp.findByCodigo(codigo);
-                    setSecretario();
+                    
+                    setTreinador();
                     dataPanel.setVisible(false);
                     formPanel.setVisible(true);
                 }
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
     }//GEN-LAST:event_mToggleButton3ActionPerformed
-    private void setSecretario() {
+
+    private void txtConfirmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyTyped
+       ((LimitPassword)txtConfirmar).insertString();
+    }//GEN-LAST:event_txtConfirmarKeyTyped
+
+    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
+       ((LimitPassword)txtSenha).insertString();
+    }//GEN-LAST:event_txtSenhaKeyTyped
+    private void setTreinador() {
+        
+        if (selecionado.getImagem().length > 0) {
+            ImageIcon im = new ImageIcon(selecionado.getImagem());
+            profileImagePanel.setImage(im.getImage());
+            profileImagePanel.repaint();
+        }
+        
         txtNome.setText(selecionado.getNome());
         txtTelefone.setText(selecionado.getTelefone());
         txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
