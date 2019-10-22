@@ -18,6 +18,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 @Entity
@@ -61,6 +62,7 @@ public class Pessoa implements Serializable{
     private String rg;
     @Column(name="email")
     private String email;
+   
     @Lob
     @Column(name="imagem")
     private byte[] imagem;
@@ -170,16 +172,37 @@ public class Pessoa implements Serializable{
         this.email = email;
     }
 
-   
-
-    
-
     public int getCodigo() {
         return codigo;
     }
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + this.codigo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        if (this.codigo != other.codigo) {
+            return false;
+        }
+        return true;
     }
     
     

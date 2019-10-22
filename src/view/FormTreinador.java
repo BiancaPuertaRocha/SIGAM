@@ -32,7 +32,7 @@ import util.LimitTextfield;
  */
 public class FormTreinador extends javax.swing.JDialog {
 
-    private Treinador p = new Treinador();
+   
     private ControleTreinador cp = new ControleTreinador();
     private File file;
     private ArrayList<Treinador> listaPesquisa = new ArrayList();
@@ -653,6 +653,7 @@ public class FormTreinador extends javax.swing.JDialog {
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
+        Treinador p = new Treinador();
         byte[] imageInByte = null;
         if (file != null) {
             imageInByte = new byte[(int) file.length()];

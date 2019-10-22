@@ -44,4 +44,23 @@ create table Treinador(
     foreign key (codigo)    references Funcionario (codigo)
 
 );
+create table Matricula(
+    codigoPessoa    int primary key,
+    foreign key(codigoPessoa) references Pessoa(codigo)
+);
+create table Despesa (
+    codigo          int primary key,
+    descricao       varchar(50),
+    vencimento      date,
+    pagamento       date,
+    valor           double
+);
+create table Pagamento(
+    codigo          int primary key,
+    codigoMatricula int,
+    dias            int,
+    valor           double,
+    dataPag         date,
+   foreign key(codigoMatricula) references Matricula(codigoPessoa)
+);
 SELECT * FROM Funcionario;
