@@ -14,9 +14,16 @@ public class LimitTextfield extends MTextField {
     }
 
     public void insertString() {
-        if (limite <getText().length()+1) {
+        if (limite < getText().length() + 1) {
             String texto = getText();
             setText(texto.substring(0, texto.length() - 1));
+        }
+    }
+
+    public void onlyNumbers(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
         }
     }
 }

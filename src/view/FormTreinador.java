@@ -88,7 +88,7 @@ public class FormTreinador extends javax.swing.JDialog {
         labelImagem = new javax.swing.JLabel();
         txtNascimento = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtTelefone = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtNumero = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtNumero = new LimitTextfield(5);
         txtCidade = new LimitTextfield(50);
         txtBairro = new LimitTextfield(50);
         txtRua = new LimitTextfield(50);
@@ -388,6 +388,11 @@ public class FormTreinador extends javax.swing.JDialog {
         txtTelefone.setLabel("Telefone");
 
         txtNumero.setLabel("Numero");
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroKeyTyped(evt);
+            }
+        });
 
         txtCidade.setLabel("Cidade");
         txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -941,6 +946,10 @@ public class FormTreinador extends javax.swing.JDialog {
     private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
        ((LimitPassword)txtSenha).insertString();
     }//GEN-LAST:event_txtSenhaKeyTyped
+
+    private void txtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyTyped
+      ((LimitTextfield)txtNumero).onlyNumbers(evt);
+    }//GEN-LAST:event_txtNumeroKeyTyped
     private void setTreinador() {
         
         if (selecionado.getImagem().length > 0) {

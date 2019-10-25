@@ -22,8 +22,6 @@ import javax.persistence.Temporal;
 public class Funcionario extends Pessoa implements Serializable{
     @Column(name = "salario")
     private Double salario;
-    @Column(name = "obsSaude")
-    private String obsSaude;
     @Column(name = "hrEntrada")
     @Temporal(javax.persistence.TemporalType.TIME)
     private Date hrEntrada;
@@ -41,13 +39,7 @@ public class Funcionario extends Pessoa implements Serializable{
     }
    
 
-    public String getObsSaude() {
-        return obsSaude;
-    }
-
-    public void setObsSaude(String obsSaude) {
-        this.obsSaude = obsSaude;
-    }
+    
 
     public Date getHrEntrada() {
         return hrEntrada;

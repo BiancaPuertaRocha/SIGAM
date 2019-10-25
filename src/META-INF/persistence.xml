@@ -9,6 +9,10 @@
     <class>model.Despesa</class>
     <class>model.Matricula</class>
     <class>model.Pagamento</class>
+    <class>model.Atividade</class>
+    <class>model.Matricula_1</class>
+    <class>model.Ficha</class>
+    <class>model.Itemdeatividade</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/banco?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
