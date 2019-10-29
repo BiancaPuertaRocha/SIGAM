@@ -6,6 +6,7 @@
 package view;
 
 import control.ControleSecretario;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -311,6 +312,11 @@ public class FormSecretario extends javax.swing.JDialog {
 
         txtNome.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtNome.setLabel("Nome");
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
+            }
+        });
         txtNome.setDocument(new LimitText(50));
 
         botCancelar.setBorder(null);
@@ -376,6 +382,11 @@ public class FormSecretario extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtNascimento.setLabel("Data de Nascimento");
+        txtNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNascimentoFocusLost(evt);
+            }
+        });
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -383,28 +394,68 @@ public class FormSecretario extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtTelefone.setLabel("Telefone");
+        txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTelefoneFocusLost(evt);
+            }
+        });
 
         txtNumero.setLabel("Número");
+        txtNumero.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumeroFocusLost(evt);
+            }
+        });
         txtNumero.setDocument(new LimitText(5));
 
         txtCidade.setLabel("Cidade");
+        txtCidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCidadeFocusLost(evt);
+            }
+        });
         txtCidade.setDocument(new LimitText(50));
 
         txtBairro.setLabel("Bairro");
+        txtBairro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBairroFocusLost(evt);
+            }
+        });
         txtBairro.setDocument(new LimitText(50));
 
         txtRua.setLabel("Logradouro");
+        txtRua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRuaFocusLost(evt);
+            }
+        });
         txtRua.setDocument(new LimitText(50));
 
         txtLogin.setLabel("Nome de usuário");
+        txtLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLoginFocusLost(evt);
+            }
+        });
         txtLogin.setDocument(new LimitText(10));
 
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSenha.setLabel("Senha");
+        txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSenhaFocusLost(evt);
+            }
+        });
         txtSenha.setDocument(new LimitText(10));
 
         txtConfirmar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtConfirmar.setLabel("Confirmar Senha");
+        txtConfirmar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConfirmarFocusLost(evt);
+            }
+        });
         txtConfirmar.setDocument(new LimitText(10));
 
         try {
@@ -413,6 +464,11 @@ public class FormSecretario extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtRg.setLabel("RG");
+        txtRg.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRgFocusLost(evt);
+            }
+        });
 
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -420,24 +476,52 @@ public class FormSecretario extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtCpf.setLabel("CPF");
+        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCpfFocusLost(evt);
+            }
+        });
 
         txtEmail.setLabel("E-mail");
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
         txtEmail.setDocument(new LimitText(50));
 
         comboSetor.setForeground(new java.awt.Color(109, 109, 109));
         comboSetor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
+        comboSetor.setAccent(new java.awt.Color(0, 188, 212));
 
         compoTipo.setForeground(new java.awt.Color(109, 109, 109));
         compoTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acesso Comum", "Acesso Especial" }));
+        compoTipo.setAccent(new java.awt.Color(0, 188, 212));
 
         txtEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtEntrada.setLabel("Horário de entrada");
+        txtEntrada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEntradaFocusLost(evt);
+            }
+        });
 
         txtSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtSaida.setLabel("Horário de saída");
+        txtSaida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSaidaFocusLost(evt);
+            }
+        });
 
+        txtSalario.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtSalario.setLabel("Salário");
+        txtSalario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSalarioFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
         formPanel.setLayout(formPanelLayout);
@@ -659,145 +743,133 @@ public class FormSecretario extends javax.swing.JDialog {
                 fis = null;
             }
         }
-        if (!txtNome.getText().equals("")) {
-            if (!txtTelefone.getText().equals("(  )     -    ")) {
-                if (!txtNascimento.getText().equals("  /  /    ")) {
-                    if (!txtCpf.getText().equals("   .   .   -  ")) {
-                        if (!txtEmail.getText().equals("")) {
-                            if (!txtCidade.getText().equals("")) {
-                                if (!txtBairro.getText().equals("")) {
-                                    if (!txtRua.getText().equals("")) {
-                                        if (!txtNumero.getText().equals("")) {
-                                            if (!txtLogin.getText().equals("")) {
-                                                if (!txtSenha.getText().equals("") && txtSenha.getPassword().length >= 4) {
-                                                    if (!txtConfirmar.getText().equals("")) {
-                                                        if (!txtEntrada.getText().equals("")) {
-                                                            if (!txtSaida.getText().equals("")) {
-                                                                if (!txtSalario.getText().equals("") && Double.parseDouble(txtSalario.getText()) > 0) {
-                                                                    if (txtSenha.getText().equals(txtConfirmar.getText())) {
-                                                                        if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
-                                                                            JOptionPane.showMessageDialog(null, "A entrada precisa ser antes da saida do funcionário!");
-                                                                            txtEntrada.requestFocus();
-                                                                        } else {
-                                                                            p.setNome(txtNome.getText());
-                                                                            p.setCidade(txtCidade.getText());
-                                                                            p.setBairro(txtBairro.getText());
-                                                                            p.setCpf(txtCpf.getText());
-                                                                            p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
-                                                                            p.setEmail(txtEmail.getText());
-                                                                            p.setLogin(txtLogin.getText());
-                                                                            p.setNumero(Integer.parseInt(txtNumero.getText()));
-                                                                            p.setRg(txtRg.getText());
-                                                                            p.setSenha(txtSenha.getText());
-                                                                            p.setTelefone(txtTelefone.getText());
-                                                                            p.setDepartamento(comboSetor.getSelectedItem().toString());
-                                                                            p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
-                                                                            p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
-                                                                            
-                                                                            p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
-                                                                            p.setTipo((compoTipo.getSelectedIndex() == 1 ? true : false));
-                                                                            p.setRua(txtRua.getText());
-
-                                                                            if (file != null) {
-                                                                                p.setImagem(imageInByte);
-                                                                            }
-                                                                            if (selecionado == null) {
-                                                                                try {
-
-                                                                                    cp.persist(p);
-                                                                                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!!");
-                                                                                    limparCampos();
-                                                                                } catch (DatabaseException ex) {
-                                                                                    JOptionPane.showMessageDialog(null, "Secretário ja cadastrado!");
-                                                                                }
-                                                                            } else {
-                                                                                p.setCodigo(selecionado.getCodigo());
-                                                                                cp.alter(p);
-                                                                                JOptionPane.showMessageDialog(null, "Editado com sucesso!!");
-                                                                                limparCampos();
-                                                                            }
-                                                                            dataPanel.setVisible(true);
-                                                                            formPanel.setVisible(false);
-                                                                        }
-                                                                    } else {
-                                                                        JOptionPane.showMessageDialog(null, "Senhas não confirmam!");
-                                                                        txtConfirmar.requestFocus();
-                                                                    }
-
-                                                                } else {
-                                                                    JOptionPane.showMessageDialog(null, "Digite um salário válido!");
-                                                                    txtSalario.requestFocus();
-                                                                }
-
-                                                            } else {
-                                                                JOptionPane.showMessageDialog(null, "Digite um horário de saída!");
-                                                                txtSaida.requestFocus();
-
-                                                            }
-
-                                                        } else {
-                                                            JOptionPane.showMessageDialog(null, "Digite um horário de entrada!");
-                                                            txtEntrada.requestFocus();
-
-                                                        }
-                                                    } else {
-                                                        JOptionPane.showMessageDialog(null, "Confirme sua senha");
-                                                        txtConfirmar.requestFocus();
-
-                                                    }
-
-                                                } else {
-                                                    JOptionPane.showMessageDialog(null, "Digite uma senha com mais de 4 caracteres!");
-                                                    txtSenha.requestFocus();
-
-                                                }
-
-                                            } else {
-                                                JOptionPane.showMessageDialog(null, "Digite um login!");
-                                                txtLogin.requestFocus();
-
-                                            }
-                                        } else {
-                                            JOptionPane.showMessageDialog(null, "Digite um numero!");
-                                            txtNumero.requestFocus();
-                                        }
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "Digite uma rua!");
-                                        txtRua.requestFocus();
-                                    }
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Digite um bairro!");
-                                    txtBairro.requestFocus();
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Digite uma cidade!");
-                                txtCidade.requestFocus();
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Digite um e-mail!");
-                            txtEmail.requestFocus();
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Digite um CPF!");
-                        txtCpf.requestFocus();
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Digite uma data de nascimento!");
-                    txtNascimento.requestFocus();
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Digite um telefone!");
-                txtTelefone.requestFocus();
-            }
-        } else {
-
-            JOptionPane.showMessageDialog(null, "Digite um nome!");
-            txtNome.requestFocus();
+        boolean flag = false;
+        String message = "";
+        boolean passerr = false;
+        if (txtNome.getText().equals("")) {
+            txtNome.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtTelefone.getText().equals("(  )     -    ")) {
+            txtTelefone.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtNascimento.getText().equals("  /  /    ")) {
+            txtNascimento.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtCpf.getText().equals("   .   .   -  ")) {
+            txtCpf.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtEmail.getText().equals("")) {
+            txtEmail.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtCidade.getText().equals("")) {
+            txtCidade.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtBairro.getText().equals("")) {
+            txtBairro.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtRua.getText().equals("")) {
+            txtRua.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtNumero.getText().equals("")) {
+            txtNumero.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtLogin.getText().equals("")) {
+            txtLogin.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtSenha.getText().equals("") && txtSenha.getPassword().length < 4) {
+            txtSenha.setDisabledTextColor(new Color(233, 30, 99));
+            passerr = true;
+            flag = true;
+        }
+        if (txtConfirmar.getText().equals("")) {
+            txtConfirmar.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtEntrada.getText().equals("")) {
+            txtEntrada.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtSaida.getText().equals("")) {
+            txtSaida.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        if (txtSalario.getText().equals("") && Double.parseDouble(txtSalario.getText()) <= 0) {
+            txtSalario.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+        }
+        
+        if (flag) {
+            message = "Preencha todos os campos corretamente.";
         }
 
+        if (passerr) {
+            message += " A senha deve ter no mínimo 4 caracteres!";
+        }
 
+        if (!txtSenha.getText().equals(txtConfirmar.getText())) {
+            message += "As senhas não correspondem";
+            flag = true;
+        }
+        if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
+            txtEntrada.setDisabledTextColor(new Color(233, 30, 99));
+            flag = true;
+            message += "O horário de entrada deve anteceder o de saída";
+        }
+
+        if (!flag) {
+            p.setNome(txtNome.getText());
+            p.setCidade(txtCidade.getText());
+            p.setBairro(txtBairro.getText());
+            p.setCpf(txtCpf.getText());
+            p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
+            p.setEmail(txtEmail.getText());
+            p.setLogin(txtLogin.getText());
+            p.setNumero(Integer.parseInt(txtNumero.getText()));
+            p.setRg(txtRg.getText());
+            p.setSenha(txtSenha.getText());
+            p.setTelefone(txtTelefone.getText());
+            p.setDepartamento(comboSetor.getSelectedItem().toString());
+            p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
+            p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
+
+            p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
+            p.setTipo((compoTipo.getSelectedIndex() == 1 ? true : false));
+            p.setRua(txtRua.getText());
+
+            if (file != null) {
+                p.setImagem(imageInByte);
+            }
+            if (selecionado == null) {
+                try {
+
+                    cp.persist(p);
+                    message = "Cadastro efetuado com sucesso.";
+                    limparCampos();
+                } catch (DatabaseException ex) {
+                    message = "Secretário já cadastrado.";
+                }
+            } else {
+                p.setCodigo(selecionado.getCodigo());
+                cp.alter(p);
+                message = "Alteração efetuada com sucesso.";
+                limparCampos();
+            }
+            dataPanel.setVisible(true);
+            formPanel.setVisible(false);
+            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+        } else {
+            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+        }
     }//GEN-LAST:event_botConfirmarActionPerformed
     private void limparCampos() {
         txtNome.setText("");
@@ -900,6 +972,73 @@ public class FormSecretario extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_changeBtnActionPerformed
+
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        txtNome.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtNomeFocusLost
+
+    private void txtCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusLost
+        txtCpf.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtCpfFocusLost
+
+    private void txtRgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusLost
+        txtRg.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtRgFocusLost
+
+    private void txtNascimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusLost
+        txtNascimento.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtNascimentoFocusLost
+
+    private void txtTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusLost
+        txtTelefone.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtTelefoneFocusLost
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        txtEmail.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtCidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusLost
+        txtCidade.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtCidadeFocusLost
+
+    private void txtBairroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusLost
+        txtBairro.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtBairroFocusLost
+
+    private void txtRuaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusLost
+        txtRua.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtRuaFocusLost
+
+    private void txtNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusLost
+        txtNumero.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtNumeroFocusLost
+
+    private void txtLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusLost
+        txtLogin.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtLoginFocusLost
+
+    private void txtSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusLost
+        txtSenha.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtSenhaFocusLost
+
+    private void txtConfirmarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusLost
+        txtConfirmar.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtConfirmarFocusLost
+
+    private void txtEntradaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusLost
+        txtEntrada.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtEntradaFocusLost
+
+    private void txtSaidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusLost
+        txtSaida.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtSaidaFocusLost
+
+    private void txtSalarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusLost
+        txtSalario.setDisabledTextColor(new Color(109,109,109));
+    }//GEN-LAST:event_txtSalarioFocusLost
+    
+    
+    
     private void setSecretario() {
         if (selecionado.getImagem().length > 0) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());
