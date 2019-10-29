@@ -598,11 +598,8 @@
                     </Property>
                     <Property name="label" type="java.lang.String" value="Nome"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(50)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtNome.setDocument(new LimitText(50));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MButton" name="botCancelar">
@@ -699,77 +696,56 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Numero"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumeroKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(5)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtNumero.setDocument(new LimitText(5));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtCidade">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Cidade"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCidadeKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(50)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtCidade.setDocument(new LimitText(50));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtBairro">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Bairro"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBairroKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(50)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtBairro.setDocument(new LimitText(50));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtRua">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Rua"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRuaKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(50)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtRua.setDocument(new LimitText(50));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtLogin">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Login"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLoginKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(10)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtLogin.setDocument(new LimitText(10));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MPasswordField" name="txtSenha">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Senha"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSenhaKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitPassword(10)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtSenha.setDocument(new LimitText(10));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MPasswordField" name="txtConfirmar">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Confirmar Senha"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConfirmarKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitPassword(10)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtConfirmar.setDocument(new LimitText(10));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MFormattedTextField" name="txtRg">
@@ -792,11 +768,8 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="E-mail"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEmailKeyTyped"/>
-                  </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(50)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtEmail.setDocument(new LimitText(50));"/>
                   </AuxValues>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MComboBox" name="txtEspecialidade">
@@ -840,7 +813,7 @@
                     <Property name="label" type="java.lang.String" value="CREF"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LimitTextfield(11)"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtCref.setDocument(new LimitText(11));"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

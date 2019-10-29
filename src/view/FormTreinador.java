@@ -9,7 +9,6 @@ import control.ControleTreinador;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,8 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Treinador;
 import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
-import util.LimitPassword;
-import util.LimitTextfield;
+import util.LimitText;
 
 /**
  *
@@ -81,28 +79,28 @@ public class FormTreinador extends javax.swing.JDialog {
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        txtNome = new LimitTextfield(50);
+        txtNome = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         botCancelar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botConfirmar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         labelImagem = new javax.swing.JLabel();
         txtNascimento = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtTelefone = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtNumero = new LimitTextfield(5);
-        txtCidade = new LimitTextfield(50);
-        txtBairro = new LimitTextfield(50);
-        txtRua = new LimitTextfield(50);
-        txtLogin = new LimitTextfield(10);
-        txtSenha = new LimitPassword(10);
-        txtConfirmar = new LimitPassword(10);
+        txtNumero = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtCidade = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtBairro = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtRua = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtLogin = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtSenha = new com.hq.swingmaterialdesign.materialdesign.MPasswordField();
+        txtConfirmar = new com.hq.swingmaterialdesign.materialdesign.MPasswordField();
         txtRg = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtCpf = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtEmail = new LimitTextfield(50);
+        txtEmail = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         txtEspecialidade = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
         txtEntrada = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSaida = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSalario = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtCref = new LimitTextfield(11);
+        txtCref = new com.hq.swingmaterialdesign.materialdesign.MTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -311,11 +309,7 @@ public class FormTreinador extends javax.swing.JDialog {
 
         txtNome.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtNome.setLabel("Nome");
-        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNomeKeyTyped(evt);
-            }
-        });
+        txtNome.setDocument(new LimitText(50));
 
         botCancelar.setBorder(null);
         botCancelar.setText("CANCELAR");
@@ -388,53 +382,25 @@ public class FormTreinador extends javax.swing.JDialog {
         txtTelefone.setLabel("Telefone");
 
         txtNumero.setLabel("Numero");
-        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNumeroKeyTyped(evt);
-            }
-        });
+        txtNumero.setDocument(new LimitText(5));
 
         txtCidade.setLabel("Cidade");
-        txtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCidadeKeyTyped(evt);
-            }
-        });
+        txtCidade.setDocument(new LimitText(50));
 
         txtBairro.setLabel("Bairro");
-        txtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBairroKeyTyped(evt);
-            }
-        });
+        txtBairro.setDocument(new LimitText(50));
 
         txtRua.setLabel("Rua");
-        txtRua.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtRuaKeyTyped(evt);
-            }
-        });
+        txtRua.setDocument(new LimitText(50));
 
         txtLogin.setLabel("Login");
-        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtLoginKeyTyped(evt);
-            }
-        });
+        txtLogin.setDocument(new LimitText(10));
 
         txtSenha.setLabel("Senha");
-        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtSenhaKeyTyped(evt);
-            }
-        });
+        txtSenha.setDocument(new LimitText(10));
 
         txtConfirmar.setLabel("Confirmar Senha");
-        txtConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtConfirmarKeyTyped(evt);
-            }
-        });
+        txtConfirmar.setDocument(new LimitText(10));
 
         try {
             txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
@@ -451,11 +417,7 @@ public class FormTreinador extends javax.swing.JDialog {
         txtCpf.setLabel("CPF");
 
         txtEmail.setLabel("E-mail");
-        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtEmailKeyTyped(evt);
-            }
-        });
+        txtEmail.setDocument(new LimitText(50));
 
         txtEspecialidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
 
@@ -469,6 +431,7 @@ public class FormTreinador extends javax.swing.JDialog {
         txtSalario.setLabel("Salario");
 
         txtCref.setLabel("CREF");
+        txtCref.setDocument(new LimitText(11));
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
         formPanel.setLayout(formPanelLayout);
@@ -889,30 +852,6 @@ public class FormTreinador extends javax.swing.JDialog {
 
     }//GEN-LAST:event_labelImagemMouseClicked
 
-    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
-        ((LimitTextfield) txtNome).insertString();
-    }//GEN-LAST:event_txtNomeKeyTyped
-
-    private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyTyped
-        ((LimitTextfield) txtEmail).insertString();
-    }//GEN-LAST:event_txtEmailKeyTyped
-
-    private void txtCidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCidadeKeyTyped
-        ((LimitTextfield) txtCidade).insertString();
-    }//GEN-LAST:event_txtCidadeKeyTyped
-
-    private void txtBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBairroKeyTyped
-        ((LimitTextfield) txtBairro).insertString();
-    }//GEN-LAST:event_txtBairroKeyTyped
-
-    private void txtRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRuaKeyTyped
-        ((LimitTextfield) txtRua).insertString();
-    }//GEN-LAST:event_txtRuaKeyTyped
-
-    private void txtLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyTyped
-        ((LimitTextfield) txtLogin).insertString();
-    }//GEN-LAST:event_txtLoginKeyTyped
-
     private void mButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton1ActionPerformed
         atualizaTabela();
     }//GEN-LAST:event_mButton1ActionPerformed
@@ -938,18 +877,6 @@ public class FormTreinador extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
     }//GEN-LAST:event_mToggleButton3ActionPerformed
-
-    private void txtConfirmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyTyped
-       ((LimitPassword)txtConfirmar).insertString();
-    }//GEN-LAST:event_txtConfirmarKeyTyped
-
-    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
-       ((LimitPassword)txtSenha).insertString();
-    }//GEN-LAST:event_txtSenhaKeyTyped
-
-    private void txtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyTyped
-      ((LimitTextfield)txtNumero).onlyNumbers(evt);
-    }//GEN-LAST:event_txtNumeroKeyTyped
     private void setTreinador() {
         
         if (selecionado.getImagem().length > 0) {
