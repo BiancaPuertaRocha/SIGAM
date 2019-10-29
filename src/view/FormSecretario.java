@@ -30,7 +30,7 @@ import util.LimitText;
  * @author abner
  */
 public class FormSecretario extends javax.swing.JDialog {
-
+    private int xMouse, yMouse;
     private Secretario p = new Secretario();
     private ControleSecretario cp = new ControleSecretario();
     private File file;
@@ -47,13 +47,18 @@ public class FormSecretario extends javax.swing.JDialog {
     }
 
     private void atualizaTabela() {
-        listaPesquisa.clear();
-        listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
-        DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
-        dtm.setNumRows(0);
-        for (Secretario s : listaPesquisa) {
-            dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getDepartamento(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
-        }
+        new Thread() {
+            @Override
+            public void run() {
+                listaPesquisa.clear();
+                listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
+                DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+                dtm.setNumRows(0);
+                for (Secretario s : listaPesquisa) {
+                    dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getDepartamento(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
+                }
+            }
+        }.start();
     }
 
     /**
@@ -75,7 +80,7 @@ public class FormSecretario extends javax.swing.JDialog {
         dataPanel = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
         txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        mButton1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         tablePanel = new javax.swing.JScrollPane();
         tableSecretarios = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
@@ -108,6 +113,19 @@ public class FormSecretario extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
+        bg.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                bgMouseDragged(evt);
+            }
+        });
+        bg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                bgMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                bgMouseReleased(evt);
+            }
+        });
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidePanel.setBackground(new java.awt.Color(37, 46, 55));
@@ -184,10 +202,25 @@ public class FormSecretario extends javax.swing.JDialog {
         txtPesquisa.setLabel("Pesquisar");
         txtPesquisa.setSelectionColor(new java.awt.Color(0, 153, 153));
 
-        mButton1.setText("Pesquisar");
-        mButton1.addActionListener(new java.awt.event.ActionListener() {
+        mGradientButton1.setForeground(new java.awt.Color(204, 204, 204));
+        mGradientButton1.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.SEARCH));
+        mGradientButton1.setBorderRadius(58);
+        mGradientButton1.setEndColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(26f));
+        mGradientButton1.setHoverEndColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.setHoverStartColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.setStartColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mGradientButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mGradientButton1MouseExited(evt);
+            }
+        });
+        mGradientButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mButton1ActionPerformed(evt);
+                mGradientButton1ActionPerformed(evt);
             }
         });
 
@@ -196,20 +229,22 @@ public class FormSecretario extends javax.swing.JDialog {
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(25, 25, 25)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
+                .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(mButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addGap(23, 23, 23))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
@@ -594,9 +629,11 @@ public class FormSecretario extends javax.swing.JDialog {
                             .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(formPanelLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -659,16 +696,16 @@ public class FormSecretario extends javax.swing.JDialog {
                 }
             }
             if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo ecluir " + sExcluir.getNome() + "?");
+                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
                 if (op == 0) {
                     try {
                         cp.delete(sExcluir);
-                        JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+                        JOptionPane.showMessageDialog(null, "Excluído com sucesso");
                         DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
                         dtm.removeRow(linha);
 
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusao!");
+                        JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
 
@@ -807,7 +844,7 @@ public class FormSecretario extends javax.swing.JDialog {
             txtSalario.setDisabledTextColor(new Color(233, 30, 99));
             flag = true;
         }
-        
+
         if (flag) {
             message = "Preencha todos os campos corretamente.";
         }
@@ -936,10 +973,6 @@ public class FormSecretario extends javax.swing.JDialog {
 
     }//GEN-LAST:event_labelImagemMouseClicked
 
-    private void mButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton1ActionPerformed
-        atualizaTabela();
-    }//GEN-LAST:event_mButton1ActionPerformed
-
     private void changeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBtnActionPerformed
         if (menuSelection == 0) {
             int linha = tableSecretarios.getSelectedRow();
@@ -974,71 +1007,95 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_changeBtnActionPerformed
 
     private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
-        txtNome.setDisabledTextColor(new Color(109,109,109));
+        txtNome.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtNomeFocusLost
 
     private void txtCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusLost
-        txtCpf.setDisabledTextColor(new Color(109,109,109));
+        txtCpf.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtCpfFocusLost
 
     private void txtRgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusLost
-        txtRg.setDisabledTextColor(new Color(109,109,109));
+        txtRg.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtRgFocusLost
 
     private void txtNascimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusLost
-        txtNascimento.setDisabledTextColor(new Color(109,109,109));
+        txtNascimento.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtNascimentoFocusLost
 
     private void txtTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusLost
-        txtTelefone.setDisabledTextColor(new Color(109,109,109));
+        txtTelefone.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtTelefoneFocusLost
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-        txtEmail.setDisabledTextColor(new Color(109,109,109));
+        txtEmail.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtCidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusLost
-        txtCidade.setDisabledTextColor(new Color(109,109,109));
+        txtCidade.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtCidadeFocusLost
 
     private void txtBairroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusLost
-        txtBairro.setDisabledTextColor(new Color(109,109,109));
+        txtBairro.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtBairroFocusLost
 
     private void txtRuaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusLost
-        txtRua.setDisabledTextColor(new Color(109,109,109));
+        txtRua.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtRuaFocusLost
 
     private void txtNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusLost
-        txtNumero.setDisabledTextColor(new Color(109,109,109));
+        txtNumero.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtNumeroFocusLost
 
     private void txtLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusLost
-        txtLogin.setDisabledTextColor(new Color(109,109,109));
+        txtLogin.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtLoginFocusLost
 
     private void txtSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusLost
-        txtSenha.setDisabledTextColor(new Color(109,109,109));
+        txtSenha.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtSenhaFocusLost
 
     private void txtConfirmarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusLost
-        txtConfirmar.setDisabledTextColor(new Color(109,109,109));
+        txtConfirmar.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtConfirmarFocusLost
 
     private void txtEntradaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusLost
-        txtEntrada.setDisabledTextColor(new Color(109,109,109));
+        txtEntrada.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtEntradaFocusLost
 
     private void txtSaidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusLost
-        txtSaida.setDisabledTextColor(new Color(109,109,109));
+        txtSaida.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtSaidaFocusLost
 
     private void txtSalarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusLost
-        txtSalario.setDisabledTextColor(new Color(109,109,109));
+        txtSalario.setDisabledTextColor(new Color(109, 109, 109));
     }//GEN-LAST:event_txtSalarioFocusLost
-    
-    
-    
+
+    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
+        atualizaTabela();
+    }//GEN-LAST:event_mGradientButton1ActionPerformed
+
+    private void bgMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_bgMousePressed
+
+    private void bgMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseReleased
+        this.setOpacity((float) 1.0);
+    }//GEN-LAST:event_bgMouseReleased
+
+    private void bgMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseDragged
+        setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
+        setOpacity((float) 0.9);
+    }//GEN-LAST:event_bgMouseDragged
+
+    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
+        mGradientButton1.setForeground(Color.white);
+    }//GEN-LAST:event_mGradientButton1MouseEntered
+
+    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
+        mGradientButton1.setForeground(new Color(204,204,204));
+    }//GEN-LAST:event_mGradientButton1MouseExited
+
     private void setSecretario() {
         if (selecionado.getImagem().length > 0) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());
@@ -1137,8 +1194,8 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelImagem;
-    private com.hq.swingmaterialdesign.materialdesign.MButton mButton1;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;

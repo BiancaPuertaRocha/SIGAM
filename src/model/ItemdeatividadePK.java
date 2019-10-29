@@ -18,10 +18,10 @@ import javax.persistence.Embeddable;
 public class ItemdeatividadePK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "atividade")
+    @Column(name = "atividade", insertable=false, updatable=false)
     private int atividade;
     @Basic(optional = false)
-    @Column(name = "ficha")
+    @Column(name = "ficha", insertable=false, updatable=false)
     private int ficha;
 
     public ItemdeatividadePK() {

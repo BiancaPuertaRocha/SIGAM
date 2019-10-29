@@ -26,10 +26,10 @@ public class Itemdeatividade implements Serializable {
     @EmbeddedId
     protected ItemdeatividadePK itemdeatividadePK;
    
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "codigo", name = "atividade", nullable = false)
+   @ManyToOne
+   @JoinColumn(referencedColumnName = "codigo", name = "atividade", nullable = false)
     private Atividade atividade;
-    @ManyToOne
+   @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "ficha", nullable = false)
     private Ficha ficha;
     @Column(name = "repeticoes")

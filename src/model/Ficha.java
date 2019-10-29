@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -75,8 +76,17 @@ public class Ficha implements Serializable {
     private Double panturrilhaEsq;
     @Column(name = "panturrilhaDir")
     private Double panturrilhaDir;
-    @OneToMany(mappedBy = "ficha")
+    
+    @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL)
     private List<Itemdeatividade> itemdeatividades;
+
+    public List<Itemdeatividade> getItemdeatividades() {
+        return itemdeatividades;
+    }
+
+    public void setItemdeatividades(List<Itemdeatividade> itemdeatividades) {
+        this.itemdeatividades = itemdeatividades;
+    }
 
     public Ficha() {
     }

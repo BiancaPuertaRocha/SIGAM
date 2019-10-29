@@ -6,12 +6,15 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -41,7 +44,17 @@ public class Atividade implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
+    @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
+    private List<Itemdeatividade> itemdeatividades;
 
+    public List<Itemdeatividade> getItemdeatividades() {
+        return itemdeatividades;
+    }
+
+    public void setItemdeatividades(List<Itemdeatividade> itemdeatividades) {
+        this.itemdeatividades = itemdeatividades;
+    }
+    
     public Atividade() {
     }
 

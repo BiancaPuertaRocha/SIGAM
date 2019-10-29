@@ -4,7 +4,7 @@ use banco;
 create table Pessoa(
     codigo      int primary key auto_increment,
     nome        varchar(50) not null,
-    telefone    varchar(11) not null,
+    telefone    varchar(14) not null,
     dataNasc    Date not null,
     cidade      varchar(50) not null,
     bairro      varchar(50) not null,
@@ -16,7 +16,7 @@ create table Pessoa(
     rg          varchar(12) not null,
     email       varchar(50) not null,
     imagem      longblob,
-    TYPE        varchar(20)
+    TYPE        varchar(20) 
 
 );
 create table Funcionario(
@@ -107,4 +107,3 @@ create table ItemDeAtividade(
     foreign key(atividade) references Atividade(codigo),
     foreign key(ficha) references Ficha(codigo)
 );
-SELECT * FROM Pessoa;
