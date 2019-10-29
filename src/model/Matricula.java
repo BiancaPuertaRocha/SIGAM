@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,8 +16,7 @@ import javax.persistence.Table;
 @Table(name = "Matricula")
 public class Matricula implements Serializable{
     @Id
-    @OneToOne(mappedBy = "codigo", cascade = CascadeType.ALL, optional = false)
-    @Column(name="codigoPessoa", nullable = false)
+    @JoinColumn(referencedColumnName = "codigo", name = "codigoPessoa", nullable = false)
     private Pessoa codigoPessoa;
     @OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL)
     private List<Pagamento> listaPagamentos; 

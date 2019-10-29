@@ -31,7 +31,7 @@ public class Pagamento implements Serializable {
     private int dataPag;
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigoPessoa", name = "codigoMatricula")
-    private Matricula m;
+    private Matricula matricula;
 
     public int getCodigo() {
         return codigo;
