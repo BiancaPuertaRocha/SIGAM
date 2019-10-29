@@ -1,4 +1,7 @@
 
+import control.ControleSecretario;
+import java.util.Date;
+import model.Secretario;
 import util.Conversoes;
 
 /*
@@ -6,14 +9,38 @@ import util.Conversoes;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author bianca
  */
 public class teste {
+
+    private static ControleSecretario cp = new ControleSecretario();
     public static void main(String[] args) {
         System.out.println(Conversoes.getDateOfTime("03:00").toString());
+        Secretario p = new Secretario();
+        p.setNome("Abner jose da silva");
+        p.setCidade("sao paulo");
+        p.setBairro("vila dois");
+        p.setCpf("487.440.818-47");
+        p.setDataNasc(new Date());
+        p.setEmail("um@dois.com");
+        p.setLogin("abner");
+        p.setNumero(456);
+        p.setRg("59.079.865-0");
+        p.setSenha("abner");
+        p.setTelefone("(18)98176-9018");
+        p.setDepartamento("Administração");
+        Date d = new Date();
+        p.setHrEntrada(new Date());
+        d.setMinutes(d.getMinutes() + 1);
+        p.setHrSaida(d);
+
+        p.setSalario(5000.00);
+        p.setTipo(true);
+        p.setRua("rua um");
         
+        cp.persist(p);
+
     }
 }

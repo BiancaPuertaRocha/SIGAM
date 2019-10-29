@@ -15,7 +15,6 @@ import javax.persistence.Table;
 
 
 @Entity
-@DiscriminatorValue("SECRETARIO")
 @NamedQueries({
     @NamedQuery(name="Secretario.findByNome",
                 query="SELECT p FROM Secretario p where p.nome like :nome"),
@@ -25,6 +24,7 @@ import javax.persistence.Table;
                 query="SELECT p FROM Secretario p WHERE p.login = :login and p.senha = :senha")
 }) 
 @Table(name="Secretario")
+@DiscriminatorValue("SECRETARIO")
 public class Secretario extends Funcionario implements Serializable {
 
     @Column(name = "departamento", nullable = false, length = 50)

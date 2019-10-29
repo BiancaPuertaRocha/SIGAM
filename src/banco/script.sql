@@ -4,7 +4,7 @@ use banco;
 create table Pessoa(
     codigo      int primary key auto_increment,
     nome        varchar(50) not null,
-    telefone    varchar(14) not null,
+    telefone    varchar(15) not null,
     dataNasc    Date not null,
     cidade      varchar(50) not null,
     bairro      varchar(50) not null,
@@ -24,7 +24,7 @@ create table Funcionario(
     salario     float not null,
     hrEntrada   time not null,
     hrSaida     time not null,
-    TYPE        varchar(20) not null,
+    DTYPE        varchar(20),
     foreign key (codigo)    references Pessoa (codigo)
 );
 

@@ -2,9 +2,7 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
-import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -18,13 +16,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
-@DiscriminatorValue("PESSOA")
 @NamedQueries({
     @NamedQuery(name="Pessoa.findByNome",
                 query="SELECT p FROM Pessoa p where p.nome like :nome"),
@@ -32,6 +26,8 @@ import javax.persistence.Temporal;
                 query="SELECT p FROM Pessoa p WHERE p.login = :login and p.senha = :senha")
 }) 
 @Table(name="Pessoa")
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
 public class Pessoa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

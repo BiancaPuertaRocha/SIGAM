@@ -16,7 +16,7 @@ create table Pessoa(
     rg          varchar(12) not null,
     email       varchar(50) not null,
     imagem      longblob,
-    TYPE        varchar(20) default 
+    TYPE        varchar(20) 
 
 );
 create table Funcionario(

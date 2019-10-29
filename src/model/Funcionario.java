@@ -16,9 +16,9 @@ import javax.persistence.Temporal;
 @Entity
 
 @Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
-@DiscriminatorValue("FUNCIONARIO")
 @Table(name="Funcionario")
+@DiscriminatorValue("FUNCIONARIO")
+@DiscriminatorColumn(name="DTYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
 public class Funcionario extends Pessoa implements Serializable{
     @Column(name = "salario")
     private Double salario;
@@ -37,10 +37,7 @@ public class Funcionario extends Pessoa implements Serializable{
     public void setSalario(Double salario) {
         this.salario = salario;
     }
-   
-
     
-
     public Date getHrEntrada() {
         return hrEntrada;
     }
