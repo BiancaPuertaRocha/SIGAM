@@ -44,7 +44,7 @@ public class FormSecretario extends javax.swing.JDialog {
 
         initComponents();
         this.setLocationRelativeTo(null);
-        labelImagem.setVisible(false);
+//        labelImagem.setVisible(false);
     }
 
     private void atualizaTabela() {
@@ -92,7 +92,6 @@ public class FormSecretario extends javax.swing.JDialog {
         botCancelar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botConfirmar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
-        labelImagem = new javax.swing.JLabel();
         txtNascimento = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtTelefone = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtNumero = new com.hq.swingmaterialdesign.materialdesign.MTextField();
@@ -388,28 +387,15 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
-        labelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/profileImageHover.png"))); // NOI18N
-        labelImagem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelImagemMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                labelImagemMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                labelImagemMouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout profileImagePanelLayout = new javax.swing.GroupLayout(profileImagePanel);
         profileImagePanel.setLayout(profileImagePanelLayout);
         profileImagePanelLayout.setHorizontalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 120, Short.MAX_VALUE)
         );
         profileImagePanelLayout.setVerticalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 120, Short.MAX_VALUE)
         );
 
         txtNascimento.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
@@ -960,46 +946,9 @@ public class FormSecretario extends javax.swing.JDialog {
         profileImagePanel.setImage(img);
 
     }
-    private void labelImagemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseEntered
-
-    }//GEN-LAST:event_labelImagemMouseEntered
-
-    private void labelImagemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseExited
-        labelImagem.setVisible(false);
-    }//GEN-LAST:event_labelImagemMouseExited
-
     private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
-        labelImagem.setVisible(true);
+     //   labelImagem.setVisible(true);
     }//GEN-LAST:event_profileImagePanelMouseEntered
-
-    private void labelImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseClicked
-        JFileChooser jfc = new JFileChooser();
-        jfc.setDialogTitle("Selecione a imagem de perfil");
-        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
-
-        jfc.setFileFilter(ext);
-
-        int r = jfc.showOpenDialog(this);
-
-        if (r == JFileChooser.APPROVE_OPTION) {
-            file = jfc.getSelectedFile();
-            Image image = null;
-            try {
-                image = ImageIO.read(file);
-
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
-            } finally {
-                System.out.println(file.getAbsolutePath());
-                profileImagePanel.setImage(image);
-                profileImagePanel.repaint();
-            }
-        }
-
-
-    }//GEN-LAST:event_labelImagemMouseClicked
 
     private void changeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBtnActionPerformed
         if (menuSelection == 0) {
@@ -1221,7 +1170,6 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelImagem;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;

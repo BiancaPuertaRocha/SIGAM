@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -76,6 +78,9 @@ public class Ficha implements Serializable {
     private Double panturrilhaEsq;
     @Column(name = "panturrilhaDir")
     private Double panturrilhaDir;
+    @ManyToOne
+   @JoinColumn(referencedColumnName = "codigo", name = "matricula", nullable = false)
+    private Aluno matricula;
     
     @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL)
     private List<Itemdeatividade> itemdeatividades;
