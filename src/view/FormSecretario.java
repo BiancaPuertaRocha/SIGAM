@@ -44,7 +44,7 @@ public class FormSecretario extends javax.swing.JDialog {
 
         initComponents();
         this.setLocationRelativeTo(null);
-//        labelImagem.setVisible(false);
+        labelImagem.setVisible(false);
     }
 
     private void atualizaTabela() {
@@ -92,6 +92,7 @@ public class FormSecretario extends javax.swing.JDialog {
         botCancelar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botConfirmar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
+        labelImagem = new javax.swing.JLabel();
         txtNascimento = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtTelefone = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtNumero = new com.hq.swingmaterialdesign.materialdesign.MTextField();
@@ -387,15 +388,25 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
+        labelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/profileImageHover.png"))); // NOI18N
+        labelImagem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelImagemMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelImagemMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout profileImagePanelLayout = new javax.swing.GroupLayout(profileImagePanel);
         profileImagePanel.setLayout(profileImagePanelLayout);
         profileImagePanelLayout.setHorizontalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         profileImagePanelLayout.setVerticalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         txtNascimento.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
@@ -760,6 +771,8 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
         addBtn.unselect();
+        changeBtn.unselect();
+        menuSelection = 0;
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         limparCampos();
@@ -767,7 +780,7 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
         byte[] imageInByte = null;
-        Color errorColor = new Color(255, 0, 24);
+        Color errorColor = new Color(255, 0, 0);
         if (file != null) {
             imageInByte = new byte[(int) file.length()];
             FileInputStream fis = null;
@@ -784,73 +797,73 @@ public class FormSecretario extends javax.swing.JDialog {
         String message = "";
         boolean passerr = false;
         if (txtNome.getText().equals("")) {
-            txtNome.setDisabledAccent(errorColor);
+            txtNome.setForeground(errorColor);
             txtNome.repaint();
             flag = true;
         }
         if (txtTelefone.getText().equals("(  )     -    ")) {
-            txtTelefone.setDisabledAccent(errorColor);
+            txtTelefone.setForeground(errorColor);
             flag = true;
         }
         if (txtNascimento.getText().equals("  /  /    ")) {
-            txtNascimento.setDisabledAccent(errorColor);
+            txtNascimento.setForeground(errorColor);
             flag = true;
         }
         if (txtCpf.getText().equals("   .   .   -  ")) {
-            txtCpf.setDisabledAccent(errorColor);
+            txtCpf.setForeground(errorColor);
             flag = true;
         }
         if (txtRg.getText().equals("  .   .   - ")) {
-            txtRg.setDisabledAccent(errorColor);
+            txtRg.setForeground(errorColor);
             flag = true;
         }
         if (txtEmail.getText().equals("")) {
-            txtEmail.setDisabledAccent(errorColor);
+            txtEmail.setForeground(errorColor);
             flag = true;
         }
         if (txtCidade.getText().equals("")) {
-            txtCidade.setDisabledAccent(errorColor);
+            txtCidade.setForeground(errorColor);
             flag = true;
         }
         if (txtBairro.getText().equals("")) {
-            txtBairro.setDisabledAccent(errorColor);
+            txtBairro.setForeground(errorColor);
             flag = true;
         }
         if (txtRua.getText().equals("")) {
-            txtRua.setDisabledAccent(errorColor);
+            txtRua.setForeground(errorColor);
             flag = true;
         }
         if (txtNumero.getText().equals("")) {
-            txtNumero.setDisabledAccent(errorColor);
+            txtNumero.setForeground(errorColor);
             flag = true;
         }
         if (txtLogin.getText().equals("")) {
-            txtLogin.setDisabledAccent(errorColor);
+            txtLogin.setForeground(errorColor);
             flag = true;
         }
         if (txtSenha.getText().equals("") && txtSenha.getPassword().length < 4) {
-            txtSenha.setDisabledAccent(errorColor);
+            txtSenha.setForeground(errorColor);
             passerr = true;
             flag = true;
         }
         if (txtConfirmar.getText().equals("")) {
-            txtConfirmar.setDisabledAccent(errorColor);
+            txtConfirmar.setForeground(errorColor);
             flag = true;
         }
         if (txtEntrada.getText().equals("")) {
-            txtEntrada.setDisabledAccent(errorColor);
+            txtEntrada.setForeground(errorColor);
             flag = true;
         }
         if (txtSaida.getText().equals("")) {
-            txtSaida.setDisabledAccent(errorColor);
+            txtSaida.setForeground(errorColor);
             flag = true;
         }
         if (txtSalario.getText().equals("")) {
-            txtSalario.setDisabledAccent(errorColor);
+            txtSalario.setForeground(errorColor);
             flag = true;
         }
         if (!txtSalario.getText().equals("") && Double.parseDouble(txtSalario.getText().replace(',', '.')) <= 0) {
-            txtSalario.setDisabledAccent(errorColor);
+            txtSalario.setForeground(errorColor);
             flag = true;
         }
         
@@ -869,7 +882,7 @@ public class FormSecretario extends javax.swing.JDialog {
             flag = true;
         }
         if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
-            txtEntrada.setDisabledAccent(null);
+            txtEntrada.setForeground(Color.black);
             flag = true;
             message += "O horário de entrada deve anteceder o de saída";
         }
@@ -947,7 +960,7 @@ public class FormSecretario extends javax.swing.JDialog {
 
     }
     private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
-     //   labelImagem.setVisible(true);
+        labelImagem.setVisible(true);
     }//GEN-LAST:event_profileImagePanelMouseEntered
 
     private void changeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBtnActionPerformed
@@ -1010,71 +1023,114 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_mGradientButton1MouseExited
 
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
-        txtNome.setDisabledAccent(null);
+        txtNome.setForeground(Color.black);
     }//GEN-LAST:event_txtNomeFocusGained
 
     private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
-        txtCpf.setDisabledAccent(null);
+        txtCpf.setForeground(Color.black);
+        if(txtCpf.getText().equals("   .   .   -  "))
+            txtCpf.setCaretPosition(0);
     }//GEN-LAST:event_txtCpfFocusGained
 
     private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
-        txtRg.setDisabledAccent(null);
+        txtRg.setForeground(Color.black);
+        if(txtRg.getText().equals("  .   .   - "))
+            txtRg.setCaretPosition(0);
     }//GEN-LAST:event_txtRgFocusGained
 
     private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
-        txtNascimento.setDisabledAccent(null);
+        txtNascimento.setForeground(Color.black);
+        if(txtNascimento.getText().equals("  /  /    "))
+            txtNascimento.setCaretPosition(0);
     }//GEN-LAST:event_txtNascimentoFocusGained
 
     private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
-        txtTelefone.setDisabledAccent(null);
+        txtTelefone.setForeground(Color.black);
     }//GEN-LAST:event_txtTelefoneFocusGained
 
     private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
-        txtEmail.setDisabledAccent(null);
+        txtEmail.setForeground(Color.black);
     }//GEN-LAST:event_txtEmailFocusGained
 
     private void txtCidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusGained
-        txtCidade.setDisabledAccent(null);
+        txtCidade.setForeground(Color.black);
     }//GEN-LAST:event_txtCidadeFocusGained
 
     private void txtBairroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusGained
-        txtBairro.setDisabledAccent(null);
+        txtBairro.setForeground(Color.black);
     }//GEN-LAST:event_txtBairroFocusGained
 
     private void txtRuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusGained
-        txtRua.setDisabledAccent(null);
+        txtRua.setForeground(Color.black);
     }//GEN-LAST:event_txtRuaFocusGained
 
     private void txtNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusGained
-        txtNumero.setDisabledAccent(null);
+        txtNumero.setForeground(Color.black);
     }//GEN-LAST:event_txtNumeroFocusGained
 
     private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
-        txtLogin.setDisabledAccent(null);
+        txtLogin.setForeground(Color.black);
     }//GEN-LAST:event_txtLoginFocusGained
 
     private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
-        txtSenha.setDisabledAccent(null);
+        txtSenha.setForeground(Color.black);
     }//GEN-LAST:event_txtSenhaFocusGained
 
     private void txtConfirmarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusGained
-        txtConfirmar.setDisabledAccent(null);
+        txtConfirmar.setForeground(Color.black);
     }//GEN-LAST:event_txtConfirmarFocusGained
 
     private void txtEntradaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusGained
-        txtEntrada.setDisabledAccent(null);
+        txtEntrada.setForeground(Color.black);
+        if(txtEntrada.getText().equals(""))
+            txtEntrada.setCaretPosition(0);
     }//GEN-LAST:event_txtEntradaFocusGained
 
     private void txtSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusGained
-        txtSaida.setDisabledAccent(null);
+        txtSaida.setForeground(Color.black);
+        if(txtSaida.getText().equals(""))
+            txtSaida.setCaretPosition(0);
     }//GEN-LAST:event_txtSaidaFocusGained
 
     private void txtSalarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusGained
-        txtSalario.setDisabledAccent(null);
+        txtSalario.setForeground(Color.black);
+        if(txtSalario.getText().equals(""))
+            txtSalario.setCaretPosition(0);
     }//GEN-LAST:event_txtSalarioFocusGained
 
+    private void labelImagemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseExited
+        labelImagem.setVisible(false);
+    }//GEN-LAST:event_labelImagemMouseExited
+
+    private void labelImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseClicked
+        JFileChooser jfc = new JFileChooser();
+        jfc.setDialogTitle("Selecione a imagem de perfil");
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
+
+        jfc.setFileFilter(ext);
+
+        int r = jfc.showOpenDialog(this);
+
+        if (r == JFileChooser.APPROVE_OPTION) {
+            file = jfc.getSelectedFile();
+            Image image = null;
+            try {
+                image = ImageIO.read(file);
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
+            } finally {
+                System.out.println(file.getAbsolutePath());
+                profileImagePanel.setImage(image);
+                profileImagePanel.repaint();
+            }
+        }
+    }//GEN-LAST:event_labelImagemMouseClicked
+
     private void setSecretario() {
-        if (selecionado.getImagem().length > 0) {
+        if (selecionado.getImagem() != null) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());
             profileImagePanel.setImage(im.getImage());
             profileImagePanel.repaint();
@@ -1170,6 +1226,7 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelImagem;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;

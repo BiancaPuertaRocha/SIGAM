@@ -4,7 +4,7 @@ use banco;
 create table Pessoa(
     codigo      int primary key auto_increment,
     nome        varchar(50) not null,
-    telefone    varchar(14) not null,
+    telefone    varchar(15) not null,
     dataNasc    Date not null,
     cidade      varchar(50) not null,
     bairro      varchar(50) not null,
@@ -24,7 +24,7 @@ create table Funcionario(
     salario     float not null,
     hrEntrada   time not null,
     hrSaida     time not null,
-    TYPE        varchar(20) not null,
+    DTYPE        varchar(20),
     foreign key (codigo)    references Pessoa (codigo)
 );
 
@@ -43,8 +43,8 @@ create table Treinador(
     foreign key (codigo)    references Funcionario (codigo)
 
 );
-create table Matricula(
-    codigoPessoa    int primary key,
+create table Aluno(
+    codigo    int primary key,
     dataUltima      date not null,
     freqAtFisica    varchar(20),
     probOrtop       varchar(50),
@@ -52,7 +52,7 @@ create table Matricula(
     infSobrepeso    varchar(50),
     colesterol      varchar(20),
     medicamentos    varchar(100),
-    foreign key(codigoPessoa) references Pessoa(codigo)
+    foreign key(codigo) references Pessoa(codigo)
 );
 create table Despesa (
     codigo          int primary key,
@@ -69,7 +69,7 @@ create table Pagamento(
     dias            int not null,
     valor           double not null,
     dataPag         date not null,
-   foreign key(codigoMatricula) references Matricula(codigoPessoa)
+   foreign key(codigoMatricula) references Aluno(codigo)
 );
 create table Atividade(
     codigo          int primary key,
@@ -95,7 +95,7 @@ create table Ficha(
     coxaDir         double,
     panturrilhaEsq  double,
     panturrilhaDir  double,
-    foreign key(codigoMatricula) references Matricula(codigoPessoa)
+    foreign key(codigoMatricula) references Aluno(codigo)
 );
 create table ItemDeAtividade(
     atividade       int not null,
