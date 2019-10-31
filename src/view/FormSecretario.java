@@ -74,9 +74,9 @@ public class FormSecretario extends javax.swing.JDialog {
         bg = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        excludeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        addBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        changeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        botMenuExcluir = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        botMenuAdicionar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        botMenuAlterar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
@@ -138,55 +138,55 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setText("SECRETÁRIO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
-        excludeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        excludeBtn.setText("Excluir");
-        excludeBtn.setEndColor(new java.awt.Color(37, 46, 55));
-        excludeBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        excludeBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        excludeBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        excludeBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
-        excludeBtn.setStartColor(new java.awt.Color(37, 46, 55));
-        excludeBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        excludeBtn.addActionListener(new java.awt.event.ActionListener() {
+        botMenuExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        botMenuExcluir.setText("Excluir");
+        botMenuExcluir.setEndColor(new java.awt.Color(37, 46, 55));
+        botMenuExcluir.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        botMenuExcluir.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        botMenuExcluir.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        botMenuExcluir.setSelectedColor(new java.awt.Color(0, 153, 153));
+        botMenuExcluir.setStartColor(new java.awt.Color(37, 46, 55));
+        botMenuExcluir.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        botMenuExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excludeBtnActionPerformed(evt);
+                botMenuExcluirActionPerformed(evt);
             }
         });
-        sidePanel.add(excludeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
+        sidePanel.add(botMenuExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
 
-        addBtn.setForeground(new java.awt.Color(255, 255, 255));
-        addBtn.setText("Adicionar");
-        addBtn.setEndColor(new java.awt.Color(37, 46, 55));
-        addBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        addBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        addBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        addBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        addBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
-        addBtn.setStartColor(new java.awt.Color(37, 46, 55));
-        addBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        addBtn.addActionListener(new java.awt.event.ActionListener() {
+        botMenuAdicionar.setForeground(new java.awt.Color(255, 255, 255));
+        botMenuAdicionar.setText("Adicionar");
+        botMenuAdicionar.setEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAdicionar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        botMenuAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        botMenuAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        botMenuAdicionar.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAdicionar.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        botMenuAdicionar.setSelectedColor(new java.awt.Color(0, 153, 153));
+        botMenuAdicionar.setStartColor(new java.awt.Color(37, 46, 55));
+        botMenuAdicionar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        botMenuAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBtnActionPerformed(evt);
+                botMenuAdicionarActionPerformed(evt);
             }
         });
-        sidePanel.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
+        sidePanel.add(botMenuAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
 
-        changeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        changeBtn.setText("Alterar");
-        changeBtn.setEndColor(new java.awt.Color(37, 46, 55));
-        changeBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        changeBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        changeBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        changeBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
-        changeBtn.setStartColor(new java.awt.Color(37, 46, 55));
-        changeBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        changeBtn.addActionListener(new java.awt.event.ActionListener() {
+        botMenuAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        botMenuAlterar.setText("Alterar");
+        botMenuAlterar.setEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAlterar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        botMenuAlterar.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAlterar.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        botMenuAlterar.setSelectedColor(new java.awt.Color(0, 153, 153));
+        botMenuAlterar.setStartColor(new java.awt.Color(37, 46, 55));
+        botMenuAlterar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        botMenuAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeBtnActionPerformed(evt);
+                botMenuAlterarActionPerformed(evt);
             }
         });
-        sidePanel.add(changeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
+        sidePanel.add(botMenuAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -692,7 +692,7 @@ public class FormSecretario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
+    private void botMenuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuExcluirActionPerformed
         int linha = tableSecretarios.getSelectedRow();
         int codigo;
         Secretario sExcluir = null;
@@ -724,7 +724,7 @@ public class FormSecretario extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um secretário!");
         }
-    }//GEN-LAST:event_excludeBtnActionPerformed
+    }//GEN-LAST:event_botMenuExcluirActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         btnExit.setForeground(new java.awt.Color(50, 60, 69));
@@ -750,7 +750,7 @@ public class FormSecretario extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_mButton4ActionPerformed
 
-    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+    private void botMenuAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAdicionarActionPerformed
         if (menuSelection == 0) {
             menuSelection = 1;
             dataPanel.setVisible(false);
@@ -760,18 +760,18 @@ public class FormSecretario extends javax.swing.JDialog {
             limparCampos();
         } else {
             if (menuSelection == 1) {
-                addBtn.select();
-                changeBtn.unselect();
+                botMenuAdicionar.select();
+                botMenuAlterar.unselect();
             } else {
-                changeBtn.select();
-                addBtn.unselect();
+                botMenuAlterar.select();
+                botMenuAdicionar.unselect();
             }
         }
-    }//GEN-LAST:event_addBtnActionPerformed
+    }//GEN-LAST:event_botMenuAdicionarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        addBtn.unselect();
-        changeBtn.unselect();
+        botMenuAdicionar.unselect();
+        botMenuAlterar.unselect();
         menuSelection = 0;
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
@@ -902,7 +902,6 @@ public class FormSecretario extends javax.swing.JDialog {
             p.setDepartamento(comboSetor.getSelectedItem().toString());
             p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
             p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
-
             p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
             p.setTipo((compoTipo.getSelectedIndex() == 1 ? true : false));
             p.setRua(txtRua.getText());
@@ -926,8 +925,8 @@ public class FormSecretario extends javax.swing.JDialog {
                 limparCampos();
             }
             menuSelection = 0;
-            addBtn.unselect();
-            changeBtn.unselect();
+            botMenuAdicionar.unselect();
+            botMenuAlterar.unselect();
             dataPanel.setVisible(true);
             formPanel.setVisible(false);
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
@@ -963,7 +962,7 @@ public class FormSecretario extends javax.swing.JDialog {
         labelImagem.setVisible(true);
     }//GEN-LAST:event_profileImagePanelMouseEntered
 
-    private void changeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBtnActionPerformed
+    private void botMenuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAlterarActionPerformed
         if (menuSelection == 0) {
             int linha = tableSecretarios.getSelectedRow();
             int codigo;
@@ -981,20 +980,20 @@ public class FormSecretario extends javax.swing.JDialog {
                 }
 
             } else {
-                changeBtn.unselect();
+                botMenuAlterar.unselect();
                 JOptionPane.showMessageDialog(null, "Selecione um secretário!");
             }
         } else {
             if (menuSelection == 1) {
-                addBtn.select();
-                changeBtn.unselect();
+                botMenuAdicionar.select();
+                botMenuAlterar.unselect();
             } else {
-                changeBtn.select();
-                addBtn.unselect();
+                botMenuAlterar.select();
+                botMenuAdicionar.unselect();
             }
         }
 
-    }//GEN-LAST:event_changeBtnActionPerformed
+    }//GEN-LAST:event_botMenuAlterarActionPerformed
 
     private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
         atualizaTabela();
@@ -1212,17 +1211,17 @@ public class FormSecretario extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton addBtn;
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAdicionar;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAlterar;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuExcluir;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private javax.swing.JPanel cardPanel;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton changeBtn;
     private com.hq.swingmaterialdesign.materialdesign.MComboBox comboSetor;
     private com.hq.swingmaterialdesign.materialdesign.MComboBox compoTipo;
     private javax.swing.JPanel dataPanel;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton excludeBtn;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

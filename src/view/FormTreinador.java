@@ -6,6 +6,7 @@
 package view;
 
 import control.ControleTreinador;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,20 +30,21 @@ import util.LimitText;
  * @author abner
  */
 public class FormTreinador extends javax.swing.JDialog {
-    
+
     private ControleTreinador cp = new ControleTreinador();
     private File file;
     private ArrayList<Treinador> listaPesquisa = new ArrayList();
     private Treinador selecionado;
-    
+    private int menuSelection = 0;
+
     public FormTreinador(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
         labelImagem.setVisible(false);
     }
-    
+
     private void atualizaTabela() {
         listaPesquisa.clear();
         listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
@@ -65,14 +67,14 @@ public class FormTreinador extends javax.swing.JDialog {
         bg = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        mToggleButton1 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        mToggleButton2 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        mToggleButton3 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        botMenuExcluir = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        botMenuAdicionar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        botMenuAlterar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
         txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        mButton1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         tablePanel = new javax.swing.JScrollPane();
         tableTreinadores = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
@@ -116,55 +118,55 @@ public class FormTreinador extends javax.swing.JDialog {
         jLabel1.setText("TREINADOR");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
-        mToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
-        mToggleButton1.setText("Excluir");
-        mToggleButton1.setEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton1.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        mToggleButton1.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton1.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        mToggleButton1.setSelectedColor(new java.awt.Color(0, 153, 153));
-        mToggleButton1.setStartColor(new java.awt.Color(37, 46, 55));
-        mToggleButton1.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        mToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        botMenuExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        botMenuExcluir.setText("Excluir");
+        botMenuExcluir.setEndColor(new java.awt.Color(37, 46, 55));
+        botMenuExcluir.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        botMenuExcluir.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        botMenuExcluir.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        botMenuExcluir.setSelectedColor(new java.awt.Color(0, 153, 153));
+        botMenuExcluir.setStartColor(new java.awt.Color(37, 46, 55));
+        botMenuExcluir.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        botMenuExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mToggleButton1ActionPerformed(evt);
+                botMenuExcluirActionPerformed(evt);
             }
         });
-        sidePanel.add(mToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
+        sidePanel.add(botMenuExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
 
-        mToggleButton2.setForeground(new java.awt.Color(255, 255, 255));
-        mToggleButton2.setText("Adicionar");
-        mToggleButton2.setEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton2.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        mToggleButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        mToggleButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        mToggleButton2.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton2.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        mToggleButton2.setSelectedColor(new java.awt.Color(0, 153, 153));
-        mToggleButton2.setStartColor(new java.awt.Color(37, 46, 55));
-        mToggleButton2.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        mToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        botMenuAdicionar.setForeground(new java.awt.Color(255, 255, 255));
+        botMenuAdicionar.setText("Adicionar");
+        botMenuAdicionar.setEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAdicionar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        botMenuAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        botMenuAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        botMenuAdicionar.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAdicionar.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        botMenuAdicionar.setSelectedColor(new java.awt.Color(0, 153, 153));
+        botMenuAdicionar.setStartColor(new java.awt.Color(37, 46, 55));
+        botMenuAdicionar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        botMenuAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mToggleButton2ActionPerformed(evt);
+                botMenuAdicionarActionPerformed(evt);
             }
         });
-        sidePanel.add(mToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
+        sidePanel.add(botMenuAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
 
-        mToggleButton3.setForeground(new java.awt.Color(255, 255, 255));
-        mToggleButton3.setText("Alterar");
-        mToggleButton3.setEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton3.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        mToggleButton3.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton3.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        mToggleButton3.setSelectedColor(new java.awt.Color(0, 153, 153));
-        mToggleButton3.setStartColor(new java.awt.Color(37, 46, 55));
-        mToggleButton3.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        mToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+        botMenuAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        botMenuAlterar.setText("Alterar");
+        botMenuAlterar.setEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAlterar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        botMenuAlterar.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        botMenuAlterar.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        botMenuAlterar.setSelectedColor(new java.awt.Color(0, 153, 153));
+        botMenuAlterar.setStartColor(new java.awt.Color(37, 46, 55));
+        botMenuAlterar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        botMenuAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mToggleButton3ActionPerformed(evt);
+                botMenuAlterarActionPerformed(evt);
             }
         });
-        sidePanel.add(mToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
+        sidePanel.add(botMenuAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -181,10 +183,25 @@ public class FormTreinador extends javax.swing.JDialog {
         txtPesquisa.setLabel("Pesquisar");
         txtPesquisa.setSelectionColor(new java.awt.Color(0, 153, 153));
 
-        mButton1.setText("Pesquisar");
-        mButton1.addActionListener(new java.awt.event.ActionListener() {
+        mGradientButton1.setForeground(new java.awt.Color(204, 204, 204));
+        mGradientButton1.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.SEARCH));
+        mGradientButton1.setBorderRadius(58);
+        mGradientButton1.setEndColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(26f));
+        mGradientButton1.setHoverEndColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.setHoverStartColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.setStartColor(new java.awt.Color(50, 60, 69));
+        mGradientButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mGradientButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mGradientButton1MouseExited(evt);
+            }
+        });
+        mGradientButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mButton1ActionPerformed(evt);
+                mGradientButton1ActionPerformed(evt);
             }
         });
 
@@ -193,20 +210,22 @@ public class FormTreinador extends javax.swing.JDialog {
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(25, 25, 25)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
+                .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(mButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addGap(23, 23, 23))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
@@ -557,7 +576,7 @@ public class FormTreinador extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton1ActionPerformed
+    private void botMenuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuExcluirActionPerformed
         int linha = tableTreinadores.getSelectedRow();
         int codigo;
         Treinador sExcluir = null;
@@ -567,7 +586,7 @@ public class FormTreinador extends javax.swing.JDialog {
                 if (tableTreinadores.getColumnName(x).equals("Código")) {
                     codigo = (int) tableTreinadores.getValueAt(linha, x);
                     sExcluir = cp.findByCodigo(codigo);
-                    
+
                 }
             }
             if (sExcluir != null) {
@@ -578,18 +597,18 @@ public class FormTreinador extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Excluido com sucesso");
                         DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
                         dtm.removeRow(linha);
-                        
+
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Este treinador possui registros vinculados.\nNão foi possível realizar a exclusao!");
                     }
                 }
-                
+
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
-    }//GEN-LAST:event_mToggleButton1ActionPerformed
+    }//GEN-LAST:event_botMenuExcluirActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         btnExit.setForeground(new java.awt.Color(50, 60, 69));
@@ -615,16 +634,27 @@ public class FormTreinador extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_mButton4ActionPerformed
 
-    private void mToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton2ActionPerformed
-        dataPanel.setVisible(false);
-        formPanel.setVisible(true);
-        selecionado = null;
-        txtCpf.setEnabled(true);
-        limparCampos();
-    }//GEN-LAST:event_mToggleButton2ActionPerformed
+    private void botMenuAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAdicionarActionPerformed
+        if (menuSelection == 0) {
+            menuSelection = 1;
+            dataPanel.setVisible(false);
+            formPanel.setVisible(true);
+            selecionado = null;
+            txtCpf.setEnabled(true);
+            limparCampos();
+        } else {
+            if (menuSelection == 1) {
+                botMenuAdicionar.select();
+                botMenuAlterar.unselect();
+            } else {
+                botMenuAlterar.select();
+                botMenuAdicionar.unselect();
+            }
+        }
+    }//GEN-LAST:event_botMenuAdicionarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        mToggleButton2.unselect();
+        botMenuAdicionar.unselect();
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         limparCampos();
@@ -633,6 +663,7 @@ public class FormTreinador extends javax.swing.JDialog {
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
         Treinador p = new Treinador();
         byte[] imageInByte = null;
+        Color errorColor = new Color(255, 0, 0);
         if (file != null) {
             imageInByte = new byte[(int) file.length()];
             FileInputStream fis = null;
@@ -641,157 +672,157 @@ public class FormTreinador extends javax.swing.JDialog {
                 fis.read(imageInByte);
                 fis.close();
             } catch (IOException ex) {
-                Logger.getLogger(FormTreinador.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormSecretario.class.getName()).log(Level.SEVERE, null, ex);
                 fis = null;
             }
         }
-        if (!txtNome.getText().equals("")) {
-            if (!txtTelefone.getText().equals("(  )     -    ")) {
-                if (!txtNascimento.getText().equals("  /  /    ")) {
-                    if (!txtCpf.getText().equals("   .   .   -  ")) {
-                        if (!txtEmail.getText().equals("")) {
-                            if (!txtCidade.getText().equals("")) {
-                                if (!txtBairro.getText().equals("")) {
-                                    if (!txtRua.getText().equals("")) {
-                                        if (!txtNumero.getText().equals("")) {
-                                            if (!txtLogin.getText().equals("")) {
-                                                if (!txtSenha.getText().equals("") && txtSenha.getPassword().length >= 4) {
-                                                    if (!txtConfirmar.getText().equals("")) {
-                                                        if (!txtEntrada.getText().equals("")) {
-                                                            if (!txtSaida.getText().equals("")) {
-                                                                if (!txtSalario.getText().equals("") && Double.parseDouble(txtSalario.getText()) > 0) {
-                                                                    if (txtSenha.getText().equals(txtConfirmar.getText())) {
-                                                                        if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
-                                                                            JOptionPane.showMessageDialog(null, "A entrada precisa ser antes da saida do funcionário!");
-                                                                            txtEntrada.requestFocus();
-                                                                        } else {
-                                                                            if (!txtCref.getText().equals("")) {
-                                                                                p.setNome(txtNome.getText());
-                                                                                p.setCidade(txtCidade.getText());
-                                                                                p.setBairro(txtBairro.getText());
-                                                                                p.setCpf(txtCpf.getText());
-                                                                                p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
-                                                                                p.setEmail(txtEmail.getText());
-                                                                                p.setLogin(txtLogin.getText());
-                                                                                p.setNumero(Integer.parseInt(txtNumero.getText()));
-                                                                                p.setRg(txtRg.getText());
-                                                                                p.setSenha(txtSenha.getText());
-                                                                                p.setTelefone(txtTelefone.getText());
-                                                                                p.setEspecialidade(txtEspecialidade.getSelectedItem().toString());
-                                                                                p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
-                                                                                p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
-                                                                                p.setSalario(Double.parseDouble(txtSalario.getText()));
-                                                                                p.setCREF(txtCref.getText());
-                                                                                p.setRua(txtRua.getText());
-                                                                                
-                                                                                if (file != null) {
-                                                                                    p.setImagem(imageInByte);
-                                                                                }
-                                                                                if (selecionado == null) {
-                                                                                    try {
-                                                                                        
-                                                                                        cp.persist(p);
-                                                                                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!!");
-                                                                                        limparCampos();
-                                                                                    } catch (DatabaseException ex) {
-                                                                                        JOptionPane.showMessageDialog(null, "Secretário ja cadastrado!");
-                                                                                    }
-                                                                                } else {
-                                                                                    p.setCodigo(selecionado.getCodigo());
-                                                                                    cp.alter(p);
-                                                                                    JOptionPane.showMessageDialog(null, "Editado com sucesso!!");
-                                                                                    limparCampos();
-                                                                                }
-                                                                                dataPanel.setVisible(true);
-                                                                                formPanel.setVisible(false);
-                                                                            } else {
-                                                                                JOptionPane.showMessageDialog(null, "Digite o CREF!");
-                                                                                txtCref.requestFocus();
-                                                                            }
-                                                                        }
-                                                                    } else {
-                                                                        JOptionPane.showMessageDialog(null, "Senhas não confirmam!");
-                                                                        txtConfirmar.requestFocus();
-                                                                    }
-                                                                    
-                                                                } else {
-                                                                    JOptionPane.showMessageDialog(null, "Digite um salário válido!");
-                                                                    txtSalario.requestFocus();
-                                                                }
-                                                                
-                                                            } else {
-                                                                JOptionPane.showMessageDialog(null, "Digite um horário de saída!");
-                                                                txtSaida.requestFocus();
-                                                                
-                                                            }
-                                                            
-                                                        } else {
-                                                            JOptionPane.showMessageDialog(null, "Digite um horário de entrada!");
-                                                            txtEntrada.requestFocus();
-                                                            
-                                                        }
-                                                    } else {
-                                                        JOptionPane.showMessageDialog(null, "Confirme sua senha");
-                                                        txtConfirmar.requestFocus();
-                                                        
-                                                    }
-                                                    
-                                                } else {
-                                                    JOptionPane.showMessageDialog(null, "Digite uma senha com mais de 4 caracteres!");
-                                                    txtSenha.requestFocus();
-                                                    
-                                                }
-                                                
-                                            } else {
-                                                JOptionPane.showMessageDialog(null, "Digite um login!");
-                                                txtLogin.requestFocus();
-                                                
-                                            }
-                                        } else {
-                                            JOptionPane.showMessageDialog(null, "Digite um numero!");
-                                            txtNumero.requestFocus();
-                                        }
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "Digite uma rua!");
-                                        txtRua.requestFocus();
-                                    }
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Digite um bairro!");
-                                    txtBairro.requestFocus();
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Digite uma cidade!");
-                                txtCidade.requestFocus();
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Digite um e-mail!");
-                            txtEmail.requestFocus();
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Digite um CPF!");
-                        txtCpf.requestFocus();
-                    }
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "Digite uma data de nascimento!");
-                    txtNascimento.requestFocus();
-                }
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Digite um telefone!");
-                txtTelefone.requestFocus();
-            }
-        } else {
-            
-            JOptionPane.showMessageDialog(null, "Digite um nome!");
-            txtNome.requestFocus();
+        boolean flag = false;
+        String message = "";
+        boolean passerr = false;
+        if (txtNome.getText().equals("")) {
+            txtNome.setForeground(errorColor);
+            txtNome.repaint();
+            flag = true;
         }
-        
+        if (txtTelefone.getText().equals("(  )     -    ")) {
+            txtTelefone.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtNascimento.getText().equals("  /  /    ")) {
+            txtNascimento.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtCpf.getText().equals("   .   .   -  ")) {
+            txtCpf.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtRg.getText().equals("  .   .   - ")) {
+            txtRg.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtEmail.getText().equals("")) {
+            txtEmail.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtCidade.getText().equals("")) {
+            txtCidade.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtBairro.getText().equals("")) {
+            txtBairro.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtRua.getText().equals("")) {
+            txtRua.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtNumero.getText().equals("")) {
+            txtNumero.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtLogin.getText().equals("")) {
+            txtLogin.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtSenha.getText().equals("") && txtSenha.getPassword().length < 4) {
+            txtSenha.setForeground(errorColor);
+            passerr = true;
+            flag = true;
+        }
+        if (txtConfirmar.getText().equals("")) {
+            txtConfirmar.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtEntrada.getText().equals("")) {
+            txtEntrada.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtSaida.getText().equals("")) {
+            txtSaida.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtSalario.getText().equals("")) {
+            txtSalario.setForeground(errorColor);
+            flag = true;
+        }
+        if (!txtSalario.getText().equals("") && Double.parseDouble(txtSalario.getText().replace(',', '.')) <= 0) {
+            txtSalario.setForeground(errorColor);
+            flag = true;
+        }
+
+        this.repaint();
+
+        if (flag) {
+            message = "Preencha todos os campos corretamente.";
+        }
+
+        if (passerr) {
+            message += " A senha deve ter no mínimo 4 caracteres!";
+        }
+
+        if (!txtSenha.getText().equals(txtConfirmar.getText())) {
+            message += "As senhas não correspondem";
+            flag = true;
+        }
+        if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
+            txtEntrada.setForeground(Color.black);
+            flag = true;
+            message += "O horário de entrada deve anteceder o de saída";
+        }
+
+        if (!flag) {
+            p.setNome(txtNome.getText());
+            p.setCidade(txtCidade.getText());
+            p.setBairro(txtBairro.getText());
+            p.setCpf(txtCpf.getText());
+            p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
+            p.setEmail(txtEmail.getText());
+            p.setLogin(txtLogin.getText());
+            p.setNumero(Integer.parseInt(txtNumero.getText()));
+            p.setRg(txtRg.getText());
+            p.setSenha(txtSenha.getText());
+            p.setTelefone(txtTelefone.getText());
+            p.setCREF(txtCref.getText());
+            p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
+            p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
+
+            p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
+
+            p.setRua(txtRua.getText());
+
+            if (file != null) {
+                p.setImagem(imageInByte);
+            }
+            if (selecionado == null) {
+                try {
+
+                    cp.persist(p);
+                    message = "Cadastro efetuado com sucesso.";
+                    limparCampos();
+                } catch (DatabaseException ex) {
+                    message = "Secretário já cadastrado.";
+                }
+            } else {
+                p.setCodigo(selecionado.getCodigo());
+                cp.alter(p);
+                message = "Alteração efetuada com sucesso.";
+                limparCampos();
+            }
+            menuSelection = 0;
+            botMenuAdicionar.unselect();
+            botMenuAlterar.unselect();
+            dataPanel.setVisible(true);
+            formPanel.setVisible(false);
+            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+        } else {
+            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+        }
+
 
     }//GEN-LAST:event_botConfirmarActionPerformed
+
     private void limparCampos() {
-        
-        
+
         txtNome.setText("");
         txtTelefone.setValue("");
         txtNascimento.setValue("");
@@ -809,7 +840,7 @@ public class FormTreinador extends javax.swing.JDialog {
         txtSaida.setText("");
         txtSalario.setText("");
         txtCref.setText("");
-        
+
     }
     private void labelImagemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseEntered
 
@@ -827,64 +858,84 @@ public class FormTreinador extends javax.swing.JDialog {
         JFileChooser jfc = new JFileChooser();
         jfc.setDialogTitle("Selecione a imagem de perfil");
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        
+
         FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
-        
+
         jfc.setFileFilter(ext);
-        
+
         int r = jfc.showOpenDialog(this);
-        
+
         if (r == JFileChooser.APPROVE_OPTION) {
             file = jfc.getSelectedFile();
             Image image = null;
             try {
                 image = ImageIO.read(file);
-                
+
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
             } finally {
-               // System.out.println(file.getAbsolutePath());
+                // System.out.println(file.getAbsolutePath());
                 profileImagePanel.setImage(image);
                 profileImagePanel.repaint();
             }
         }
-        
+
 
     }//GEN-LAST:event_labelImagemMouseClicked
 
-    private void mButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton1ActionPerformed
-        atualizaTabela();
-    }//GEN-LAST:event_mButton1ActionPerformed
-
-    private void mToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton3ActionPerformed
+    private void botMenuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAlterarActionPerformed
         int linha = tableTreinadores.getSelectedRow();
         int codigo;
-        if (linha != -1) {
-            int colunas = tableTreinadores.getColumnCount();
-            for (int x = 0; x < colunas; x++) {
-                if (tableTreinadores.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableTreinadores.getValueAt(linha, x);
-                    System.out.println(codigo);
-                    selecionado = cp.findByCodigo(codigo);
-                    
-                    setTreinador();
-                    dataPanel.setVisible(false);
-                    formPanel.setVisible(true);
+        if (menuSelection == 0) {
+            if (linha != -1) {
+                int colunas = tableTreinadores.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableTreinadores.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableTreinadores.getValueAt(linha, x);
+                        System.out.println(codigo);
+                        selecionado = cp.findByCodigo(codigo);
+
+                        setTreinador();
+                        dataPanel.setVisible(false);
+                        formPanel.setVisible(true);
+                    }
                 }
+
+            } else {
+                botMenuAlterar.unselect();
+                JOptionPane.showMessageDialog(null, "Selecione um treinador!");
             }
-            
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um treinador!");
+            if (menuSelection == 1) {
+                botMenuAdicionar.select();
+                botMenuAlterar.unselect();
+            } else {
+                botMenuAlterar.select();
+                botMenuAdicionar.unselect();
+            }
         }
-    }//GEN-LAST:event_mToggleButton3ActionPerformed
+
+    }//GEN-LAST:event_botMenuAlterarActionPerformed
+
+    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
+        mGradientButton1.setForeground(Color.white);
+    }//GEN-LAST:event_mGradientButton1MouseEntered
+
+    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
+        mGradientButton1.setForeground(new Color(204, 204, 204));
+    }//GEN-LAST:event_mGradientButton1MouseExited
+
+    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
+        atualizaTabela();
+    }//GEN-LAST:event_mGradientButton1ActionPerformed
     private void setTreinador() {
-        
+
         if (selecionado.getImagem().length > 0) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());
             profileImagePanel.setImage(im.getImage());
             profileImagePanel.repaint();
         }
-        
+
         txtNome.setText(selecionado.getNome());
         txtTelefone.setText(selecionado.getTelefone());
         txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
@@ -981,6 +1032,9 @@ public class FormTreinador extends javax.swing.JDialog {
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAdicionar;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAlterar;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuExcluir;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel dataPanel;
@@ -988,11 +1042,8 @@ public class FormTreinador extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelImagem;
-    private com.hq.swingmaterialdesign.materialdesign.MButton mButton1;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton1;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton2;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton3;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;

@@ -32,9 +32,28 @@ public class Pagamento implements Serializable {
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigoPessoa", name = "codigoMatricula")
     private Aluno matricula;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "codigo", name = "caixa", nullable = false)
+    private Caixa caixa;
 
     public int getCodigo() {
         return codigo;
+    }
+
+    public Aluno getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Aluno matricula) {
+        this.matricula = matricula;
+    }
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
     }
 
     public void setCodigo(int codigo) {

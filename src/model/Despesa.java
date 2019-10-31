@@ -1,4 +1,3 @@
-
 package model;
 
 import java.io.Serializable;
@@ -9,30 +8,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
-@Table(name="Despesa")
+@Table(name = "Despesa")
 
-public class Despesa implements Serializable{
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name="codigo")
-   private int codigo;
-   @Column(name="descricao", length = 50, nullable = false)
-   private String descricao;
-   @Column(name="vencimento", nullable = false)
-   @Temporal(javax.persistence.TemporalType.DATE)
-   private Date vencimento;
-   @Column(name="pagamento", nullable = true)
-   @Temporal(javax.persistence.TemporalType.DATE)
-   private Date pagamento;
-   @Column(name="valor", nullable = true)
-   private double valor;
-   
-   @JoinColumn(referencedColumnName = "codigo", name = "secretario")
-   private Secretario secretario;
+public class Despesa implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigo")
+    private int codigo;
+    @Column(name = "descricao", length = 50, nullable = false)
+    private String descricao;
+    @Column(name = "vencimento", nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date vencimento;
+    @Column(name = "pagamento", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date pagamento;
+    @Column(name = "valor", nullable = true)
+    private double valor;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "codigo", name = "secretario")
+    private Secretario secretario;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "codigo", name = "caixa", nullable = false)
+    private Caixa caixa;
 
     @Override
     public int hashCode() {
@@ -57,6 +61,14 @@ public class Despesa implements Serializable{
             return false;
         }
         return true;
+    }
+
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
     }
 
     public Secretario getSecretario() {
@@ -106,5 +118,5 @@ public class Despesa implements Serializable{
     public void setValor(double valor) {
         this.valor = valor;
     }
-   
+
 }

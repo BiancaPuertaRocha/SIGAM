@@ -54,6 +54,15 @@ create table Aluno(
     medicamentos    varchar(100),
     foreign key(codigo) references Pessoa(codigo)
 );
+create table Caixa (
+    codigo          int primary key,
+    hrAbertura      time,
+    hrFechamento    time,
+    saldoInicial    double,
+    saldoFinal      double,
+    entradas        double,
+    saidas          double
+);
 create table Despesa (
     codigo          int primary key,
     descricao       varchar(50) not null,
@@ -61,6 +70,8 @@ create table Despesa (
     pagamento       date not null,
     valor           double not null,
     secretario      int,
+    caixa           int,
+    foreign key (caixa) references Caixa (codigo),
     foreign key (secretario) references Secretario (codigo)
 );
 create table Pagamento(
@@ -69,7 +80,9 @@ create table Pagamento(
     dias            int not null,
     valor           double not null,
     dataPag         date not null,
-   foreign key(codigoMatricula) references Aluno(codigo)
+    caixa           int,
+    foreign key (caixa) references Caixa (codigo),
+    foreign key(codigoMatricula) references Aluno(codigo)
 );
 create table Atividade(
     codigo          int primary key,
@@ -107,3 +120,4 @@ create table ItemDeAtividade(
     foreign key(atividade) references Atividade(codigo),
     foreign key(ficha) references Ficha(codigo)
 );
+
