@@ -98,11 +98,11 @@ public class FormTreinador extends javax.swing.JDialog {
         txtRg = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtCpf = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtEmail = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtEspecialidade = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
         txtEntrada = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSaida = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSalario = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtCref = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtEspecialidade = new com.hq.swingmaterialdesign.materialdesign.MTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -441,8 +441,6 @@ public class FormTreinador extends javax.swing.JDialog {
         txtEmail.setLabel("E-mail");
         txtEmail.setDocument(new LimitText(50));
 
-        txtEspecialidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
-
         txtEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtEntrada.setLabel("Hr Entrada");
 
@@ -453,6 +451,9 @@ public class FormTreinador extends javax.swing.JDialog {
         txtSalario.setLabel("Salario");
 
         txtCref.setLabel("CREF");
+        txtCref.setDocument(new LimitText(11));
+
+        txtEspecialidade.setLabel("Especialidade");
         txtCref.setDocument(new LimitText(11));
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
@@ -469,13 +470,6 @@ public class FormTreinador extends javax.swing.JDialog {
             .addGroup(formPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSalario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(formPanelLayout.createSequentialGroup()
                             .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,15 +496,24 @@ public class FormTreinador extends javax.swing.JDialog {
                                         .addComponent(txtRg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(txtEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(264, 264, 264)
                                 .addComponent(txtCref, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(formPanelLayout.createSequentialGroup()
                                 .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(formPanelLayout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(formPanelLayout.createSequentialGroup()
+                                .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSalario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 24, Short.MAX_VALUE))
         );
         formPanelLayout.setVerticalGroup(
@@ -546,9 +549,9 @@ public class FormTreinador extends javax.swing.JDialog {
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtEspecialidade, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .addComponent(txtCref, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCref, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -668,10 +671,12 @@ public class FormTreinador extends javax.swing.JDialog {
     }//GEN-LAST:event_botMenuAdicionarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
+        menuSelection=0;    
         botMenuAdicionar.unselect();
+        botMenuAlterar.unselect();
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
-        limparCampos();
+        limparCampos(); 
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
@@ -738,7 +743,7 @@ public class FormTreinador extends javax.swing.JDialog {
             txtLogin.setForeground(errorColor);
             flag = true;
         }
-        if (txtSenha.getText().equals("") && txtSenha.getPassword().length < 4) {
+        if (txtSenha.getText().equals("") || txtSenha.getPassword().length < 4) {
             txtSenha.setForeground(errorColor);
             passerr = true;
             flag = true;
@@ -854,6 +859,11 @@ public class FormTreinador extends javax.swing.JDialog {
         txtSaida.setText("");
         txtSalario.setText("");
         txtCref.setText("");
+        
+         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
+        ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
+        Image img = icon.getImage();
+        profileImagePanel.setImage(img);
 
     }
     private void labelImagemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseEntered
@@ -966,7 +976,7 @@ public class FormTreinador extends javax.swing.JDialog {
         txtEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
         txtSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
         txtSalario.setText(Double.toString(selecionado.getSalario()));
-        txtEspecialidade.setSelectedItem(selecionado.getEspecialidade());
+        txtEspecialidade.setText(selecionado.getEspecialidade());
         txtCref.setText(selecionado.getCREF());
     }
 
@@ -995,6 +1005,102 @@ public class FormTreinador extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1071,7 +1177,7 @@ public class FormTreinador extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtCref;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtEmail;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtEntrada;
-    private com.hq.swingmaterialdesign.materialdesign.MComboBox txtEspecialidade;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtEspecialidade;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtLogin;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtNascimento;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtNome;

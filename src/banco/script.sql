@@ -45,7 +45,7 @@ create table Treinador(
 );
 create table Aluno(
     codigo    int primary key,
-    dataUltima      date not null,
+    dataUltima      date,
     freqAtFisica    varchar(20),
     probOrtop       varchar(50),
     fumante         boolean default false,
@@ -92,7 +92,7 @@ create table Atividade(
 );
 create table Ficha(
     codigo          int primary key,
-    codigoMatricula int not null,
+    matricula       int not null,
     peso            double not null,
     altura          double not null,
     dataAv          date not null,
@@ -108,7 +108,7 @@ create table Ficha(
     coxaDir         double,
     panturrilhaEsq  double,
     panturrilhaDir  double,
-    foreign key(codigoMatricula) references Aluno(codigo)
+    foreign key(matricula) references Aluno(codigo)
 );
 create table ItemDeAtividade(
     atividade       int not null,

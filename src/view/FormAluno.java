@@ -5,7 +5,8 @@
  */
 package view;
 
-import control.ControleSecretario;
+import control.ControleAluno;
+import control.ControleTreinador;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -20,7 +21,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import model.Secretario;
+import model.Aluno;
+import model.Treinador;
 import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
 import util.LimitText;
@@ -29,17 +31,15 @@ import util.LimitText;
  *
  * @author abner
  */
-public class FormSecretario extends javax.swing.JDialog {
+public class FormAluno extends javax.swing.JDialog {
 
-    private int xMouse, yMouse;
-    private Secretario p = new Secretario();
-    private ControleSecretario cp = new ControleSecretario();
+    private ControleAluno cp = new ControleAluno();
     private File file;
-    private ArrayList<Secretario> listaPesquisa = new ArrayList();
-    private Secretario selecionado;
+    private ArrayList<Aluno> listaPesquisa = new ArrayList();
+    private Aluno selecionado;
     private int menuSelection = 0;
 
-    public FormSecretario(java.awt.Frame parent, boolean modal) {
+    public FormAluno(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
         initComponents();
@@ -48,18 +48,13 @@ public class FormSecretario extends javax.swing.JDialog {
     }
 
     private void atualizaTabela() {
-        new Thread() {
-            @Override
-            public void run() {
-                listaPesquisa.clear();
-                listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
-                DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
-                dtm.setNumRows(0);
-                for (Secretario s : listaPesquisa) {
-                    dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getDepartamento(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
-                }
-            }
-        }.start();
+        listaPesquisa.clear();
+        listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
+        DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
+        dtm.setNumRows(0);
+        for (Aluno s : listaPesquisa) {
+            dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getTelefone()});
+        }
     }
 
     /**
@@ -83,7 +78,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         tablePanel = new javax.swing.JScrollPane();
-        tableSecretarios = new javax.swing.JTable();
+        tableAlunos = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -105,28 +100,10 @@ public class FormSecretario extends javax.swing.JDialog {
         txtRg = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtCpf = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtEmail = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        comboSetor = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
-        compoTipo = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
-        txtEntrada = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtSaida = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtSalario = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
-        bg.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                bgMouseDragged(evt);
-            }
-        });
-        bg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                bgMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                bgMouseReleased(evt);
-            }
-        });
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidePanel.setBackground(new java.awt.Color(37, 46, 55));
@@ -135,7 +112,7 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SECRETÁRIO");
+        jLabel1.setText("ALUNO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
         botMenuExcluir.setBorder(null);
@@ -258,37 +235,36 @@ public class FormSecretario extends javax.swing.JDialog {
         tablePanel.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
         tablePanel.setHorizontalScrollBar(null);
 
-        tableSecretarios.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        tableSecretarios.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
-        tableSecretarios.setForeground(new java.awt.Color(72, 72, 72));
-        tableSecretarios.setModel(new javax.swing.table.DefaultTableModel(
+        tableAlunos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tableAlunos.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
+        tableAlunos.setForeground(new java.awt.Color(72, 72, 72));
+        tableAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "Setor", "Horário"
+                "Código", "Nome", "Contato"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tableSecretarios.setGridColor(new java.awt.Color(255, 255, 255));
-        tableSecretarios.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tableSecretarios.setRowHeight(30);
-        tableSecretarios.setSelectionBackground(new java.awt.Color(205, 205, 205));
-        tablePanel.setViewportView(tableSecretarios);
-        if (tableSecretarios.getColumnModel().getColumnCount() > 0) {
-            tableSecretarios.getColumnModel().getColumn(0).setResizable(false);
-            tableSecretarios.getColumnModel().getColumn(1).setResizable(false);
-            tableSecretarios.getColumnModel().getColumn(2).setResizable(false);
-            tableSecretarios.getColumnModel().getColumn(3).setResizable(false);
+        tableAlunos.setGridColor(new java.awt.Color(255, 255, 255));
+        tableAlunos.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tableAlunos.setRowHeight(30);
+        tableAlunos.setSelectionBackground(new java.awt.Color(205, 205, 205));
+        tablePanel.setViewportView(tableAlunos);
+        if (tableAlunos.getColumnModel().getColumnCount() > 0) {
+            tableAlunos.getColumnModel().getColumn(0).setResizable(false);
+            tableAlunos.getColumnModel().getColumn(1).setResizable(false);
+            tableAlunos.getColumnModel().getColumn(2).setResizable(false);
         }
-        tableSecretarios.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
+        tableAlunos.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
         dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 460));
 
@@ -351,11 +327,6 @@ public class FormSecretario extends javax.swing.JDialog {
 
         txtNome.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtNome.setLabel("Nome");
-        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNomeFocusGained(evt);
-            }
-        });
         txtNome.setDocument(new LimitText(50));
 
         botCancelar.setBorder(null);
@@ -391,10 +362,12 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
-        labelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/profileImageHover.png"))); // NOI18N
         labelImagem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelImagemMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelImagemMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 labelImagemMouseExited(evt);
@@ -405,173 +378,64 @@ public class FormSecretario extends javax.swing.JDialog {
         profileImagePanel.setLayout(profileImagePanelLayout);
         profileImagePanelLayout.setHorizontalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
         profileImagePanelLayout.setVerticalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
 
-        txtNascimento.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
             txtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtNascimento.setLabel("Data de Nascimento");
-        txtNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNascimentoFocusGained(evt);
-            }
-        });
 
-        txtTelefone.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtTelefone.setLabel("Telefone");
-        txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTelefoneFocusGained(evt);
-            }
-        });
 
-        txtNumero.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtNumero.setLabel("Número");
-        txtNumero.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNumeroFocusGained(evt);
-            }
-        });
+        txtNumero.setLabel("Numero");
         txtNumero.setDocument(new LimitText(5));
 
-        txtCidade.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtCidade.setLabel("Cidade");
-        txtCidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCidadeFocusGained(evt);
-            }
-        });
         txtCidade.setDocument(new LimitText(50));
 
-        txtBairro.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtBairro.setLabel("Bairro");
-        txtBairro.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtBairroFocusGained(evt);
-            }
-        });
         txtBairro.setDocument(new LimitText(50));
 
-        txtRua.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtRua.setLabel("Logradouro");
-        txtRua.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtRuaFocusGained(evt);
-            }
-        });
+        txtRua.setLabel("Rua");
         txtRua.setDocument(new LimitText(50));
 
-        txtLogin.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtLogin.setLabel("Nome de usuário");
-        txtLogin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtLoginFocusGained(evt);
-            }
-        });
+        txtLogin.setLabel("Login");
         txtLogin.setDocument(new LimitText(10));
 
-        txtSenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSenha.setLabel("Senha");
-        txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSenhaFocusGained(evt);
-            }
-        });
         txtSenha.setDocument(new LimitText(10));
 
-        txtConfirmar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtConfirmar.setLabel("Confirmar Senha");
-        txtConfirmar.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtConfirmarFocusGained(evt);
-            }
-        });
         txtConfirmar.setDocument(new LimitText(10));
 
-        txtRg.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
             txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtRg.setLabel("RG");
-        txtRg.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtRgFocusGained(evt);
-            }
-        });
 
-        txtCpf.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtCpf.setLabel("CPF");
-        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCpfFocusGained(evt);
-            }
-        });
 
-        txtEmail.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtEmail.setLabel("E-mail");
-        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEmailFocusGained(evt);
-            }
-        });
         txtEmail.setDocument(new LimitText(50));
-
-        comboSetor.setForeground(new java.awt.Color(109, 109, 109));
-        comboSetor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
-        comboSetor.setAccent(new java.awt.Color(0, 188, 212));
-        comboSetor.setFont(new java.awt.Font("Nunito", 0, 11)); // NOI18N
-
-        compoTipo.setForeground(new java.awt.Color(109, 109, 109));
-        compoTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acesso Comum", "Acesso Especial" }));
-        compoTipo.setAccent(new java.awt.Color(0, 188, 212));
-        compoTipo.setFont(new java.awt.Font("Nunito", 0, 11)); // NOI18N
-
-        txtEntrada.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        txtEntrada.setLabel("Horário de entrada");
-        txtEntrada.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEntradaFocusGained(evt);
-            }
-        });
-
-        txtSaida.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        txtSaida.setLabel("Horário de saída");
-        txtSaida.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSaidaFocusGained(evt);
-            }
-        });
-
-        txtSalario.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        txtSalario.setLabel("Salário");
-        txtSalario.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSalarioFocusGained(evt);
-            }
-        });
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
         formPanel.setLayout(formPanelLayout);
@@ -590,44 +454,32 @@ public class FormSecretario extends javax.swing.JDialog {
                     .addGroup(formPanelLayout.createSequentialGroup()
                         .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(formPanelLayout.createSequentialGroup()
                                 .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(formPanelLayout.createSequentialGroup()
-                                        .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(formPanelLayout.createSequentialGroup()
-                            .addComponent(comboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(compoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(formPanelLayout.createSequentialGroup()
-                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(formPanelLayout.createSequentialGroup()
-                            .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSalario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(formPanelLayout.createSequentialGroup()
+                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(formPanelLayout.createSequentialGroup()
+                                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtRg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(formPanelLayout.createSequentialGroup()
+                        .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 24, Short.MAX_VALUE))
         );
         formPanelLayout.setVerticalGroup(
@@ -636,45 +488,37 @@ public class FormSecretario extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(formPanelLayout.createSequentialGroup()
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(compoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         cardPanel.add(formPanel, "card3");
@@ -689,44 +533,44 @@ public class FormSecretario extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botMenuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuExcluirActionPerformed
-        int linha = tableSecretarios.getSelectedRow();
+        int linha = tableAlunos.getSelectedRow();
         int codigo;
-        Secretario sExcluir = null;
+        Aluno sExcluir = null;
         if (menuSelection == 0) {
             if (linha != -1) {
-                int colunas = tableSecretarios.getColumnCount();
+                int colunas = tableAlunos.getColumnCount();
                 for (int x = 0; x < colunas; x++) {
-                    if (tableSecretarios.getColumnName(x).equals("Código")) {
-                        codigo = (int) tableSecretarios.getValueAt(linha, x);
+                    if (tableAlunos.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableAlunos.getValueAt(linha, x);
                         sExcluir = cp.findByCodigo(codigo);
 
                     }
                 }
                 if (sExcluir != null) {
-                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo ecluir " + sExcluir.getNome() + "?");
                     if (op == 0) {
                         try {
                             cp.delete(sExcluir);
-                            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
-                            DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+                            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+                            DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
                             dtm.removeRow(linha);
 
                         } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                            JOptionPane.showMessageDialog(null, "Este treinador possui registros vinculados.\nNão foi possível realizar a exclusao!");
                         }
                     }
 
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Selecione um secretário!");
+                JOptionPane.showMessageDialog(null, "Selecione um treinador!");
             }
         } else {
             if (menuSelection == 1) {
@@ -737,6 +581,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 botMenuAdicionar.unselect();
             }
         }
+
     }//GEN-LAST:event_botMenuExcluirActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
@@ -784,14 +629,13 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
         botMenuAdicionar.unselect();
-        botMenuAlterar.unselect();
-        menuSelection = 0;
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         limparCampos();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
+        Aluno p = new Aluno();
         byte[] imageInByte = null;
         Color errorColor = new Color(255, 0, 0);
         if (file != null) {
@@ -863,22 +707,7 @@ public class FormSecretario extends javax.swing.JDialog {
             txtConfirmar.setForeground(errorColor);
             flag = true;
         }
-        if (txtEntrada.getText().equals("")) {
-            txtEntrada.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtSaida.getText().equals("")) {
-            txtSaida.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtSalario.getText().equals("")) {
-            txtSalario.setForeground(errorColor);
-            flag = true;
-        }
-        if (!txtSalario.getText().equals("") && Double.parseDouble(txtSalario.getText().replace(',', '.')) <= 0) {
-            txtSalario.setForeground(errorColor);
-            flag = true;
-        }
+        
 
         this.repaint();
 
@@ -894,11 +723,7 @@ public class FormSecretario extends javax.swing.JDialog {
             message += "As senhas não correspondem";
             flag = true;
         }
-        if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
-            txtEntrada.setForeground(Color.black);
-            flag = true;
-            message += "O horário de entrada deve anteceder o de saída";
-        }
+       
 
         if (!flag) {
             p.setNome(txtNome.getText());
@@ -912,11 +737,6 @@ public class FormSecretario extends javax.swing.JDialog {
             p.setRg(txtRg.getText());
             p.setSenha(txtSenha.getText());
             p.setTelefone(txtTelefone.getText());
-            p.setDepartamento(comboSetor.getSelectedItem().toString());
-            p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
-            p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
-            p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
-            p.setTipo((compoTipo.getSelectedIndex() == 1 ? true : false));
             p.setRua(txtRua.getText());
 
             if (file != null) {
@@ -946,8 +766,12 @@ public class FormSecretario extends javax.swing.JDialog {
         } else {
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         }
+
+
     }//GEN-LAST:event_botConfirmarActionPerformed
+
     private void limparCampos() {
+
         txtNome.setText("");
         txtTelefone.setValue("");
         txtNascimento.setValue("");
@@ -961,164 +785,25 @@ public class FormSecretario extends javax.swing.JDialog {
         txtLogin.setText("");
         txtSenha.setText("");
         txtConfirmar.setText("");
-        txtEntrada.setText("");
-        txtSaida.setText("");
-        txtSalario.setText("");
-
-        String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
+        
+        
+         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
         Image img = icon.getImage();
         profileImagePanel.setImage(img);
 
     }
-    private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
-        labelImagem.setVisible(true);
-    }//GEN-LAST:event_profileImagePanelMouseEntered
+    private void labelImagemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseEntered
 
-    private void botMenuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAlterarActionPerformed
-        if (menuSelection == 0) {
-            int linha = tableSecretarios.getSelectedRow();
-            int codigo;
-            if (linha != -1) {
-                menuSelection = 2;
-                int colunas = tableSecretarios.getColumnCount();
-                for (int x = 0; x < colunas; x++) {
-                    if (tableSecretarios.getColumnName(x).equals("Código")) {
-                        codigo = (int) tableSecretarios.getValueAt(linha, x);
-                        selecionado = cp.findByCodigo(codigo);
-                        setSecretario();
-                        dataPanel.setVisible(false);
-                        formPanel.setVisible(true);
-                    }
-                }
-
-            } else {
-                botMenuAlterar.unselect();
-                JOptionPane.showMessageDialog(null, "Selecione um secretário!");
-            }
-        } else {
-            if (menuSelection == 1) {
-                botMenuAdicionar.select();
-                botMenuAlterar.unselect();
-            } else {
-                botMenuAlterar.select();
-                botMenuAdicionar.unselect();
-            }
-        }
-
-    }//GEN-LAST:event_botMenuAlterarActionPerformed
-
-    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
-        atualizaTabela();
-    }//GEN-LAST:event_mGradientButton1ActionPerformed
-
-    private void bgMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_bgMousePressed
-
-    private void bgMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseReleased
-        this.setOpacity((float) 1.0);
-    }//GEN-LAST:event_bgMouseReleased
-
-    private void bgMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseDragged
-        setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
-        setOpacity((float) 0.9);
-    }//GEN-LAST:event_bgMouseDragged
-
-    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
-        mGradientButton1.setForeground(Color.white);
-    }//GEN-LAST:event_mGradientButton1MouseEntered
-
-    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
-        mGradientButton1.setForeground(new Color(204, 204, 204));
-    }//GEN-LAST:event_mGradientButton1MouseExited
-
-    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
-        txtNome.setForeground(Color.black);
-    }//GEN-LAST:event_txtNomeFocusGained
-
-    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
-        txtCpf.setForeground(Color.black);
-        if (txtCpf.getText().equals("   .   .   -  ")) {
-            txtCpf.setCaretPosition(0);
-        }
-    }//GEN-LAST:event_txtCpfFocusGained
-
-    private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
-        txtRg.setForeground(Color.black);
-        if (txtRg.getText().equals("  .   .   - ")) {
-            txtRg.setCaretPosition(0);
-        }
-    }//GEN-LAST:event_txtRgFocusGained
-
-    private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
-        txtNascimento.setForeground(Color.black);
-        if (txtNascimento.getText().equals("  /  /    ")) {
-            txtNascimento.setCaretPosition(0);
-        }
-    }//GEN-LAST:event_txtNascimentoFocusGained
-
-    private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
-        txtTelefone.setForeground(Color.black);
-    }//GEN-LAST:event_txtTelefoneFocusGained
-
-    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
-        txtEmail.setForeground(Color.black);
-    }//GEN-LAST:event_txtEmailFocusGained
-
-    private void txtCidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusGained
-        txtCidade.setForeground(Color.black);
-    }//GEN-LAST:event_txtCidadeFocusGained
-
-    private void txtBairroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusGained
-        txtBairro.setForeground(Color.black);
-    }//GEN-LAST:event_txtBairroFocusGained
-
-    private void txtRuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusGained
-        txtRua.setForeground(Color.black);
-    }//GEN-LAST:event_txtRuaFocusGained
-
-    private void txtNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusGained
-        txtNumero.setForeground(Color.black);
-    }//GEN-LAST:event_txtNumeroFocusGained
-
-    private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
-        txtLogin.setForeground(Color.black);
-    }//GEN-LAST:event_txtLoginFocusGained
-
-    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
-        txtSenha.setForeground(Color.black);
-    }//GEN-LAST:event_txtSenhaFocusGained
-
-    private void txtConfirmarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusGained
-        txtConfirmar.setForeground(Color.black);
-    }//GEN-LAST:event_txtConfirmarFocusGained
-
-    private void txtEntradaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusGained
-        txtEntrada.setForeground(Color.black);
-        if (txtEntrada.getText().equals("")) {
-            txtEntrada.setCaretPosition(0);
-        }
-    }//GEN-LAST:event_txtEntradaFocusGained
-
-    private void txtSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusGained
-        txtSaida.setForeground(Color.black);
-        if (txtSaida.getText().equals("")) {
-            txtSaida.setCaretPosition(0);
-        }
-    }//GEN-LAST:event_txtSaidaFocusGained
-
-    private void txtSalarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusGained
-        txtSalario.setForeground(Color.black);
-        if (txtSalario.getText().equals("")) {
-            txtSalario.setCaretPosition(0);
-        }
-    }//GEN-LAST:event_txtSalarioFocusGained
+    }//GEN-LAST:event_labelImagemMouseEntered
 
     private void labelImagemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseExited
         labelImagem.setVisible(false);
     }//GEN-LAST:event_labelImagemMouseExited
+
+    private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
+        labelImagem.setVisible(true);
+    }//GEN-LAST:event_profileImagePanelMouseEntered
 
     private void labelImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseClicked
         JFileChooser jfc = new JFileChooser();
@@ -1140,19 +825,69 @@ public class FormSecretario extends javax.swing.JDialog {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
             } finally {
-                System.out.println(file.getAbsolutePath());
+                // System.out.println(file.getAbsolutePath());
                 profileImagePanel.setImage(image);
                 profileImagePanel.repaint();
             }
         }
+
+
     }//GEN-LAST:event_labelImagemMouseClicked
 
-    private void setSecretario() {
-        if (selecionado.getImagem() != null) {
+    private void botMenuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAlterarActionPerformed
+        int linha = tableAlunos.getSelectedRow();
+        int codigo;
+        if (menuSelection == 0) {
+            menuSelection = 1;
+            if (linha != -1) {
+                int colunas = tableAlunos.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableAlunos.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableAlunos.getValueAt(linha, x);
+                        System.out.println(codigo);
+                        selecionado = cp.findByCodigo(codigo);
+
+                        setTreinador();
+                        dataPanel.setVisible(false);
+                        formPanel.setVisible(true);
+                    }
+                }
+
+            } else {
+                botMenuAlterar.unselect();
+                JOptionPane.showMessageDialog(null, "Selecione um treinador!");
+            }
+        } else {
+            if (menuSelection == 1) {
+                botMenuAdicionar.select();
+                botMenuAlterar.unselect();
+            } else {
+                botMenuAlterar.select();
+                botMenuAdicionar.unselect();
+            }
+        }
+
+    }//GEN-LAST:event_botMenuAlterarActionPerformed
+
+    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
+        mGradientButton1.setForeground(Color.white);
+    }//GEN-LAST:event_mGradientButton1MouseEntered
+
+    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
+        mGradientButton1.setForeground(new Color(204, 204, 204));
+    }//GEN-LAST:event_mGradientButton1MouseExited
+
+    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
+        atualizaTabela();
+    }//GEN-LAST:event_mGradientButton1ActionPerformed
+    private void setTreinador() {
+
+        if (selecionado.getImagem().length > 0) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());
             profileImagePanel.setImage(im.getImage());
             profileImagePanel.repaint();
         }
+
         txtNome.setText(selecionado.getNome());
         txtTelefone.setText(selecionado.getTelefone());
         txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
@@ -1165,11 +900,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtRua.setText(selecionado.getRua());
         txtNumero.setText(Integer.toString(selecionado.getNumero()));
         txtLogin.setText(selecionado.getLogin());
-        txtEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
-        txtSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
-        txtSalario.setText(Double.toString(selecionado.getSalario()));
-        comboSetor.setSelectedItem(selecionado.getDepartamento());
-        compoTipo.setSelectedIndex(selecionado.isTipo() ? 1 : 0);
+        
     }
 
     /**
@@ -1189,14 +920,254 @@ public class FormSecretario extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormSecretario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1217,7 +1188,7 @@ public class FormSecretario extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormSecretario dialog = new FormSecretario(new javax.swing.JFrame(), true);
+                FormAluno dialog = new FormAluno(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1238,8 +1209,6 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuExcluir;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private javax.swing.JPanel cardPanel;
-    private com.hq.swingmaterialdesign.materialdesign.MComboBox comboSetor;
-    private com.hq.swingmaterialdesign.materialdesign.MComboBox compoTipo;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
@@ -1250,14 +1219,13 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JTable tableAlunos;
     private javax.swing.JScrollPane tablePanel;
-    private javax.swing.JTable tableSecretarios;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtBairro;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtCidade;
     private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtConfirmar;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtCpf;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtEmail;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtEntrada;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtLogin;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtNascimento;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtNome;
@@ -1265,8 +1233,6 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtPesquisa;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtRg;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtRua;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSaida;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSalario;
     private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtSenha;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

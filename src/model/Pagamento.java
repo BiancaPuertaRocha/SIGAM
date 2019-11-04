@@ -31,7 +31,7 @@ public class Pagamento implements Serializable {
     private int dataPag;
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "aluno")
-    private Aluno matricula;
+    private Aluno aluno;
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "caixa", nullable = false)
     private Caixa caixa;
@@ -40,14 +40,15 @@ public class Pagamento implements Serializable {
         return codigo;
     }
 
-    public Aluno getMatricula() {
-        return matricula;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setMatricula(Aluno matricula) {
-        this.matricula = matricula;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
+   
     public Caixa getCaixa() {
         return caixa;
     }
