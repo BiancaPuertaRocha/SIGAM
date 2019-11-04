@@ -1,4 +1,4 @@
-drop database banco;
+drop database if exists banco;
 create database banco;
 use banco;
 create table Pessoa(
@@ -76,13 +76,13 @@ create table Despesa (
 );
 create table Pagamento(
     codigo          int primary key,
-    codigoMatricula int not null,
+    aluno           int not null,
     dias            int not null,
     valor           double not null,
     dataPag         date not null,
     caixa           int,
     foreign key (caixa) references Caixa (codigo),
-    foreign key(codigoMatricula) references Aluno(codigo)
+    foreign key(aluno) references Aluno(codigo)
 );
 create table Atividade(
     codigo          int primary key,

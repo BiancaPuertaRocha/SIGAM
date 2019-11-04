@@ -13,6 +13,7 @@
     <class>model.Ficha</class>
     <class>model.Itemdeatividade</class>
     <class>model.Aluno</class>
+    <class>model.Caixa</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/banco"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -118,6 +118,7 @@ public class FormTreinador extends javax.swing.JDialog {
         jLabel1.setText("TREINADOR");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
+        botMenuExcluir.setBorder(null);
         botMenuExcluir.setForeground(new java.awt.Color(255, 255, 255));
         botMenuExcluir.setText("Excluir");
         botMenuExcluir.setEndColor(new java.awt.Color(37, 46, 55));
@@ -134,6 +135,7 @@ public class FormTreinador extends javax.swing.JDialog {
         });
         sidePanel.add(botMenuExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
 
+        botMenuAdicionar.setBorder(null);
         botMenuAdicionar.setForeground(new java.awt.Color(255, 255, 255));
         botMenuAdicionar.setText("Adicionar");
         botMenuAdicionar.setEndColor(new java.awt.Color(37, 46, 55));
@@ -152,6 +154,7 @@ public class FormTreinador extends javax.swing.JDialog {
         });
         sidePanel.add(botMenuAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
 
+        botMenuAlterar.setBorder(null);
         botMenuAlterar.setForeground(new java.awt.Color(255, 255, 255));
         botMenuAlterar.setText("Alterar");
         botMenuAlterar.setEndColor(new java.awt.Color(37, 46, 55));
@@ -580,34 +583,45 @@ public class FormTreinador extends javax.swing.JDialog {
         int linha = tableTreinadores.getSelectedRow();
         int codigo;
         Treinador sExcluir = null;
-        if (linha != -1) {
-            int colunas = tableTreinadores.getColumnCount();
-            for (int x = 0; x < colunas; x++) {
-                if (tableTreinadores.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableTreinadores.getValueAt(linha, x);
-                    sExcluir = cp.findByCodigo(codigo);
+        if (menuSelection == 0) {
+            if (linha != -1) {
+                int colunas = tableTreinadores.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableTreinadores.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableTreinadores.getValueAt(linha, x);
+                        sExcluir = cp.findByCodigo(codigo);
 
-                }
-            }
-            if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo ecluir " + sExcluir.getNome() + "?");
-                if (op == 0) {
-                    try {
-                        cp.delete(sExcluir);
-                        JOptionPane.showMessageDialog(null, "Excluido com sucesso");
-                        DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
-                        dtm.removeRow(linha);
-
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Este treinador possui registros vinculados.\nNão foi possível realizar a exclusao!");
                     }
                 }
+                if (sExcluir != null) {
+                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo ecluir " + sExcluir.getNome() + "?");
+                    if (op == 0) {
+                        try {
+                            cp.delete(sExcluir);
+                            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+                            DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
+                            dtm.removeRow(linha);
 
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "Este treinador possui registros vinculados.\nNão foi possível realizar a exclusao!");
+                        }
+                    }
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um treinador!");
             }
-
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um treinador!");
+            if (menuSelection == 1) {
+                botMenuAdicionar.select();
+                botMenuAlterar.unselect();
+            } else {
+                botMenuAlterar.select();
+                botMenuAdicionar.unselect();
+            }
         }
+
     }//GEN-LAST:event_botMenuExcluirActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
@@ -887,6 +901,7 @@ public class FormTreinador extends javax.swing.JDialog {
         int linha = tableTreinadores.getSelectedRow();
         int codigo;
         if (menuSelection == 0) {
+            menuSelection = 1;
             if (linha != -1) {
                 int colunas = tableTreinadores.getColumnCount();
                 for (int x = 0; x < colunas; x++) {

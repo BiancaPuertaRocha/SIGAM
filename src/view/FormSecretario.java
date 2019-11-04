@@ -138,6 +138,7 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setText("SECRETÁRIO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
+        botMenuExcluir.setBorder(null);
         botMenuExcluir.setForeground(new java.awt.Color(255, 255, 255));
         botMenuExcluir.setText("Excluir");
         botMenuExcluir.setEndColor(new java.awt.Color(37, 46, 55));
@@ -154,6 +155,7 @@ public class FormSecretario extends javax.swing.JDialog {
         });
         sidePanel.add(botMenuExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
 
+        botMenuAdicionar.setBorder(null);
         botMenuAdicionar.setForeground(new java.awt.Color(255, 255, 255));
         botMenuAdicionar.setText("Adicionar");
         botMenuAdicionar.setEndColor(new java.awt.Color(37, 46, 55));
@@ -172,6 +174,7 @@ public class FormSecretario extends javax.swing.JDialog {
         });
         sidePanel.add(botMenuAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
 
+        botMenuAlterar.setBorder(null);
         botMenuAlterar.setForeground(new java.awt.Color(255, 255, 255));
         botMenuAlterar.setText("Alterar");
         botMenuAlterar.setEndColor(new java.awt.Color(37, 46, 55));
@@ -696,33 +699,43 @@ public class FormSecretario extends javax.swing.JDialog {
         int linha = tableSecretarios.getSelectedRow();
         int codigo;
         Secretario sExcluir = null;
-        if (linha != -1) {
-            int colunas = tableSecretarios.getColumnCount();
-            for (int x = 0; x < colunas; x++) {
-                if (tableSecretarios.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableSecretarios.getValueAt(linha, x);
-                    sExcluir = cp.findByCodigo(codigo);
+        if (menuSelection == 0) {
+            if (linha != -1) {
+                int colunas = tableSecretarios.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableSecretarios.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableSecretarios.getValueAt(linha, x);
+                        sExcluir = cp.findByCodigo(codigo);
 
-                }
-            }
-            if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
-                if (op == 0) {
-                    try {
-                        cp.delete(sExcluir);
-                        JOptionPane.showMessageDialog(null, "Excluído com sucesso");
-                        DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
-                        dtm.removeRow(linha);
-
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
+                if (sExcluir != null) {
+                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                    if (op == 0) {
+                        try {
+                            cp.delete(sExcluir);
+                            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+                            DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+                            dtm.removeRow(linha);
 
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                        }
+                    }
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um secretário!");
             }
-
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um secretário!");
+            if (menuSelection == 1) {
+                botMenuAdicionar.select();
+                botMenuAlterar.unselect();
+            } else {
+                botMenuAlterar.select();
+                botMenuAdicionar.unselect();
+            }
         }
     }//GEN-LAST:event_botMenuExcluirActionPerformed
 
@@ -866,7 +879,7 @@ public class FormSecretario extends javax.swing.JDialog {
             txtSalario.setForeground(errorColor);
             flag = true;
         }
-        
+
         this.repaint();
 
         if (flag) {
@@ -1027,20 +1040,23 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
         txtCpf.setForeground(Color.black);
-        if(txtCpf.getText().equals("   .   .   -  "))
+        if (txtCpf.getText().equals("   .   .   -  ")) {
             txtCpf.setCaretPosition(0);
+        }
     }//GEN-LAST:event_txtCpfFocusGained
 
     private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
         txtRg.setForeground(Color.black);
-        if(txtRg.getText().equals("  .   .   - "))
+        if (txtRg.getText().equals("  .   .   - ")) {
             txtRg.setCaretPosition(0);
+        }
     }//GEN-LAST:event_txtRgFocusGained
 
     private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
         txtNascimento.setForeground(Color.black);
-        if(txtNascimento.getText().equals("  /  /    "))
+        if (txtNascimento.getText().equals("  /  /    ")) {
             txtNascimento.setCaretPosition(0);
+        }
     }//GEN-LAST:event_txtNascimentoFocusGained
 
     private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
@@ -1081,20 +1097,23 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void txtEntradaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusGained
         txtEntrada.setForeground(Color.black);
-        if(txtEntrada.getText().equals(""))
+        if (txtEntrada.getText().equals("")) {
             txtEntrada.setCaretPosition(0);
+        }
     }//GEN-LAST:event_txtEntradaFocusGained
 
     private void txtSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusGained
         txtSaida.setForeground(Color.black);
-        if(txtSaida.getText().equals(""))
+        if (txtSaida.getText().equals("")) {
             txtSaida.setCaretPosition(0);
+        }
     }//GEN-LAST:event_txtSaidaFocusGained
 
     private void txtSalarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusGained
         txtSalario.setForeground(Color.black);
-        if(txtSalario.getText().equals(""))
+        if (txtSalario.getText().equals("")) {
             txtSalario.setCaretPosition(0);
+        }
     }//GEN-LAST:event_txtSalarioFocusGained
 
     private void labelImagemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseExited

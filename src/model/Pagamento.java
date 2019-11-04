@@ -30,7 +30,7 @@ public class Pagamento implements Serializable {
     @Column(name = "dataPag", nullable = false)
     private int dataPag;
     @ManyToOne
-    @JoinColumn(referencedColumnName = "codigoPessoa", name = "codigoMatricula")
+    @JoinColumn(referencedColumnName = "codigo", name = "aluno")
     private Aluno matricula;
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "caixa", nullable = false)
