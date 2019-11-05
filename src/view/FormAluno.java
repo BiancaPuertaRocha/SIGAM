@@ -79,7 +79,6 @@ public class FormAluno extends javax.swing.JDialog {
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         tablePanel = new javax.swing.JScrollPane();
         tableAlunos = new javax.swing.JTable();
-        btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
@@ -267,27 +266,6 @@ public class FormAluno extends javax.swing.JDialog {
         tableAlunos.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
         dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 460));
-
-        btnExit.setBackground(new java.awt.Color(255, 255, 255));
-        btnExit.setForeground(new java.awt.Color(153, 153, 153));
-        btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
-        btnExit.setBorderRadius(0);
-        btnExit.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
-        btnExit.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
-        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnExitMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnExitMouseExited(evt);
-            }
-        });
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-        dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 50, 40));
 
         cardPanel.add(dataPanel, "card2");
 
@@ -653,18 +631,6 @@ public class FormAluno extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_botMenuExcluirActionPerformed
-
-    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        btnExit.setForeground(new java.awt.Color(50, 60, 69));
-    }//GEN-LAST:event_btnExitMouseEntered
-
-    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        btnExit.setForeground(new java.awt.Color(153, 153, 153));
-    }//GEN-LAST:event_btnExitMouseExited
-
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnExitActionPerformed
 
     private void mButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton4MouseEntered
         mButton4.setForeground(new java.awt.Color(50, 60, 69));
@@ -1339,7 +1305,6 @@ public class FormAluno extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAdicionar;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAlterar;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuExcluir;
-    private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JPanel formPanel;
