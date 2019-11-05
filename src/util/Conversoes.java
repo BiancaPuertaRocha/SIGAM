@@ -1,5 +1,7 @@
 package util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +52,12 @@ public class Conversoes {
            
         }
         return date;
+    }
+    public static BigDecimal calculaIdade(Date dataDoMeuNascimento) throws ParseException{
+        BigDecimal qtdDias = new BigDecimal(getDaysBetween(dataDoMeuNascimento,new Date()));
+        BigDecimal ano = new BigDecimal(365.25);
+        BigDecimal idade = qtdDias.divide(ano,0, RoundingMode.DOWN);
+        return idade.multiply(new BigDecimal(-1));        
     }
    
     

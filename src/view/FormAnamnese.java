@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,7 @@ public class FormAnamnese extends javax.swing.JDialog {
     private File file;
     private ArrayList<Aluno> listaPesquisa = new ArrayList();
     private Aluno selecionado;
-    private int menuSelection = 0;
+    
 
     public FormAnamnese(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -76,7 +77,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         tablePanel = new javax.swing.JScrollPane();
         tableAlunos = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        botMenuAlterar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        mButton1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
@@ -85,7 +86,18 @@ public class FormAnamnese extends javax.swing.JDialog {
         botConfirmar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         txtOrtopedico = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtOrtopedico1 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtInfSobrepeso = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtInfSobrepeso1 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtInfSobrepeso2 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        labelNome = new javax.swing.JLabel();
+        labelIdade = new javax.swing.JLabel();
+        labelTelefone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -187,7 +199,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         }
         tableAlunos.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
-        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 690, 440));
+        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 680, 440));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setForeground(new java.awt.Color(153, 153, 153));
@@ -210,22 +222,14 @@ public class FormAnamnese extends javax.swing.JDialog {
         });
         dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 50, 40));
 
-        botMenuAlterar.setBorder(null);
-        botMenuAlterar.setForeground(new java.awt.Color(255, 255, 255));
-        botMenuAlterar.setText("realizar");
-        botMenuAlterar.setEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        botMenuAlterar.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        botMenuAlterar.setSelectedColor(new java.awt.Color(0, 153, 153));
-        botMenuAlterar.setStartColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        botMenuAlterar.addActionListener(new java.awt.event.ActionListener() {
+        mButton1.setBackground(new java.awt.Color(50, 60, 69));
+        mButton1.setText("mButton1");
+        mButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botMenuAlterarActionPerformed(evt);
+                mButton1ActionPerformed(evt);
             }
         });
-        dataPanel.add(botMenuAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 610, 150, 40));
+        dataPanel.add(mButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 620, 130, 40));
 
         cardPanel.add(dataPanel, "card2");
 
@@ -260,7 +264,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(mButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         txtAtvidadeFisica.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
@@ -315,9 +319,41 @@ public class FormAnamnese extends javax.swing.JDialog {
         txtOrtopedico.setLabel("Proibições ortopedicas");
         txtAtvidadeFisica.setDocument(new LimitText(50));
 
-        txtOrtopedico1.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtOrtopedico1.setLabel("Proibições ortopedicas");
+        txtInfSobrepeso.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtInfSobrepeso.setLabel("Informações de sobrepeso");
         txtAtvidadeFisica.setDocument(new LimitText(50));
+
+        txtInfSobrepeso1.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtInfSobrepeso1.setLabel("Colesterol");
+        txtAtvidadeFisica.setDocument(new LimitText(50));
+
+        txtInfSobrepeso2.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtInfSobrepeso2.setLabel("Medicamentos");
+        txtAtvidadeFisica.setDocument(new LimitText(50));
+
+        jLabel1.setText("Fumante");
+
+        jRadioButton1.setText("Sim");
+
+        jRadioButton2.setText("Não");
+
+        jLabel2.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
+        jLabel2.setText("Nome");
+
+        jLabel3.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
+        jLabel3.setText("Idade");
+
+        jLabel4.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
+        jLabel4.setText("Telefone");
+
+        labelNome.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelNome.setText("jLabel5");
+
+        labelIdade.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelIdade.setText("jLabel6");
+
+        labelTelefone.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelTelefone.setText("jLabel7");
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
         formPanel.setLayout(formPanelLayout);
@@ -325,41 +361,89 @@ public class FormAnamnese extends javax.swing.JDialog {
             formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(formPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(formPanelLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(txtAtvidadeFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtOrtopedico, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(formPanelLayout.createSequentialGroup()
+                                    .addComponent(txtAtvidadeFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(2, 2, 2))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtOrtopedico, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(formPanelLayout.createSequentialGroup()
+                                        .addComponent(jRadioButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jRadioButton2))
+                                    .addComponent(jLabel1)
+                                    .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtInfSobrepeso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtInfSobrepeso1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtInfSobrepeso2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(formPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelNome))
+                            .addGroup(formPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelIdade))
+                            .addGroup(formPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelTelefone))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
+                        .addContainerGap(352, Short.MAX_VALUE)
                         .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtOrtopedico1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         formPanelLayout.setVerticalGroup(
             formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formPanelLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(formPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(formPanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(labelNome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(labelIdade))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(labelTelefone))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(txtAtvidadeFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtOrtopedico, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(txtOrtopedico1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
+                        .addComponent(txtOrtopedico, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtInfSobrepeso, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtInfSobrepeso1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtInfSobrepeso2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2))
+                        .addGap(26, 26, 26)))
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -368,7 +452,7 @@ public class FormAnamnese extends javax.swing.JDialog {
 
         cardPanel.add(formPanel, "card3");
 
-        bg.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 670));
+        bg.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 670));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -409,7 +493,7 @@ public class FormAnamnese extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton4ActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        menuSelection=0;    
+         
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         limparCampos();
@@ -441,30 +525,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         }
         
         
-        if (txtEmail.getText().equals("")) {
-            txtEmail.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtCidade.getText().equals("")) {
-            txtCidade.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtBairro.getText().equals("")) {
-            txtBairro.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtRua.getText().equals("")) {
-            txtRua.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtNumero.getText().equals("")) {
-            txtNumero.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtLogin.getText().equals("")) {
-            txtLogin.setForeground(errorColor);
-            flag = true;
-        }
+     
         
 
         this.repaint();
@@ -477,10 +538,7 @@ public class FormAnamnese extends javax.swing.JDialog {
             message += " A senha deve ter no mínimo 4 caracteres!";
         }
 
-        if (!txtSenha.getText().equals(txtConfirmar.getText())) {
-            message += "As senhas não correspondem";
-            flag = true;
-        }
+       
 
         if (!flag) {
             p.setNome(txtAtvidadeFisica.getText());
@@ -505,8 +563,8 @@ public class FormAnamnese extends javax.swing.JDialog {
                 message = "Alteração efetuada com sucesso.";
                 limparCampos();
             }
-            menuSelection = 0;
-            botMenuAlterar.unselect();
+         
+          
             dataPanel.setVisible(true);
             formPanel.setVisible(false);
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
@@ -532,11 +590,23 @@ public class FormAnamnese extends javax.swing.JDialog {
 
     }//GEN-LAST:event_profileImagePanelMouseEntered
 
-    private void botMenuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAlterarActionPerformed
-        int linha = tableAlunos.getSelectedRow();
+    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
+        mGradientButton1.setForeground(Color.white);
+    }//GEN-LAST:event_mGradientButton1MouseEntered
+
+    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
+        mGradientButton1.setForeground(new Color(204, 204, 204));
+    }//GEN-LAST:event_mGradientButton1MouseExited
+
+    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
+        atualizaTabela();
+    }//GEN-LAST:event_mGradientButton1ActionPerformed
+
+    private void mButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton1ActionPerformed
+          int linha = tableAlunos.getSelectedRow();
         int codigo;
-        if (menuSelection == 0) {
-            menuSelection = 1;
+        
+        
             if (linha != -1) {
                 int colunas = tableAlunos.getColumnCount();
                 for (int x = 0; x < colunas; x++) {
@@ -552,32 +622,11 @@ public class FormAnamnese extends javax.swing.JDialog {
                 }
 
             } else {
-                botMenuAlterar.unselect();
+              
                 JOptionPane.showMessageDialog(null, "Selecione um treinador!");
             }
-        } else {
-            if (menuSelection == 1) {
-
-                botMenuAlterar.unselect();
-            } else {
-                botMenuAlterar.select();
-
-            }
-        }
-
-    }//GEN-LAST:event_botMenuAlterarActionPerformed
-
-    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
-        mGradientButton1.setForeground(Color.white);
-    }//GEN-LAST:event_mGradientButton1MouseEntered
-
-    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
-        mGradientButton1.setForeground(new Color(204, 204, 204));
-    }//GEN-LAST:event_mGradientButton1MouseExited
-
-    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
-        atualizaTabela();
-    }//GEN-LAST:event_mGradientButton1ActionPerformed
+        
+    }//GEN-LAST:event_mButton1ActionPerformed
     private void setTreinador() {
         if (selecionado.getImagem() != null) {
             if (selecionado.getImagem().length > 0) {
@@ -587,7 +636,13 @@ public class FormAnamnese extends javax.swing.JDialog {
             }
         }
 
-        txtAtvidadeFisica.setText(selecionado.getNome());
+        labelNome.setText(selecionado.getNome());
+        try {
+            labelIdade.setText(Conversoes.calculaIdade(selecionado.getDataNasc()).toString());
+        } catch (ParseException ex) {
+             labelIdade.setText("--");
+        }
+        labelTelefone.setText(selecionado.getTelefone());
         
 
     }
@@ -1149,12 +1204,21 @@ public class FormAnamnese extends javax.swing.JDialog {
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAlterar;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JPanel formPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel labelIdade;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelTelefone;
+    private com.hq.swingmaterialdesign.materialdesign.MButton mButton1;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
@@ -1162,8 +1226,10 @@ public class FormAnamnese extends javax.swing.JDialog {
     private javax.swing.JTable tableAlunos;
     private javax.swing.JScrollPane tablePanel;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtAtvidadeFisica;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtInfSobrepeso;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtInfSobrepeso1;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtInfSobrepeso2;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtOrtopedico;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtOrtopedico1;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

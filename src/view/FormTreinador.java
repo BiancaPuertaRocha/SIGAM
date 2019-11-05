@@ -332,6 +332,11 @@ public class FormTreinador extends javax.swing.JDialog {
         txtNome.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtNome.setLabel("Nome");
         txtNome.setDocument(new LimitText(50));
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeFocusGained(evt);
+            }
+        });
 
         botCancelar.setBorder(null);
         botCancelar.setText("CANCELAR");
@@ -395,6 +400,11 @@ public class FormTreinador extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtNascimento.setLabel("Data de Nascimento");
+        txtNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNascimentoFocusGained(evt);
+            }
+        });
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -402,27 +412,67 @@ public class FormTreinador extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtTelefone.setLabel("Telefone");
+        txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTelefoneFocusGained(evt);
+            }
+        });
 
         txtNumero.setLabel("Numero");
         txtNumero.setDocument(new LimitText(5));
+        txtNumero.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNumeroFocusGained(evt);
+            }
+        });
 
         txtCidade.setLabel("Cidade");
         txtCidade.setDocument(new LimitText(50));
+        txtCidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCidadeFocusGained(evt);
+            }
+        });
 
         txtBairro.setLabel("Bairro");
         txtBairro.setDocument(new LimitText(50));
+        txtBairro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBairroFocusGained(evt);
+            }
+        });
 
         txtRua.setLabel("Rua");
         txtRua.setDocument(new LimitText(50));
+        txtRua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRuaFocusGained(evt);
+            }
+        });
 
         txtLogin.setLabel("Login");
         txtLogin.setDocument(new LimitText(10));
+        txtLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtLoginFocusGained(evt);
+            }
+        });
 
         txtSenha.setLabel("Senha");
         txtSenha.setDocument(new LimitText(10));
+        txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSenhaFocusGained(evt);
+            }
+        });
 
         txtConfirmar.setLabel("Confirmar Senha");
         txtConfirmar.setDocument(new LimitText(10));
+        txtConfirmar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtConfirmarFocusGained(evt);
+            }
+        });
 
         try {
             txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
@@ -430,6 +480,11 @@ public class FormTreinador extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtRg.setLabel("RG");
+        txtRg.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRgFocusGained(evt);
+            }
+        });
 
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -437,24 +492,59 @@ public class FormTreinador extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         txtCpf.setLabel("CPF");
+        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCpfFocusGained(evt);
+            }
+        });
 
         txtEmail.setLabel("E-mail");
         txtEmail.setDocument(new LimitText(50));
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
+        });
 
         txtEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtEntrada.setLabel("Hr Entrada");
+        txtEntrada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEntradaFocusGained(evt);
+            }
+        });
 
         txtSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
         txtSaida.setLabel("Hr Saida");
+        txtSaida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSaidaFocusGained(evt);
+            }
+        });
 
         txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtSalario.setLabel("Salario");
+        txtSalario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSalarioFocusGained(evt);
+            }
+        });
 
         txtCref.setLabel("CREF");
         txtCref.setDocument(new LimitText(11));
+        txtCref.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCrefFocusGained(evt);
+            }
+        });
 
         txtEspecialidade.setLabel("Especialidade");
         txtCref.setDocument(new LimitText(11));
+        txtEspecialidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEspecialidadeFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
         formPanel.setLayout(formPanelLayout);
@@ -671,12 +761,12 @@ public class FormTreinador extends javax.swing.JDialog {
     }//GEN-LAST:event_botMenuAdicionarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        menuSelection=0;    
+        menuSelection = 0;
         botMenuAdicionar.unselect();
         botMenuAlterar.unselect();
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
-        limparCampos(); 
+        limparCampos();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
@@ -859,8 +949,8 @@ public class FormTreinador extends javax.swing.JDialog {
         txtSaida.setText("");
         txtSalario.setText("");
         txtCref.setText("");
-        
-         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
+
+        String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
         Image img = icon.getImage();
         profileImagePanel.setImage(img);
@@ -953,6 +1043,78 @@ public class FormTreinador extends javax.swing.JDialog {
     private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
         atualizaTabela();
     }//GEN-LAST:event_mGradientButton1ActionPerformed
+
+    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
+        txtNome.setForeground(Color.black);
+    }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
+        txtTelefone.setForeground(Color.black);
+    }//GEN-LAST:event_txtTelefoneFocusGained
+
+    private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
+        txtNascimento.setForeground(Color.black);
+    }//GEN-LAST:event_txtNascimentoFocusGained
+
+    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
+        txtCpf.setForeground(Color.black);
+    }//GEN-LAST:event_txtCpfFocusGained
+
+    private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
+        txtRg.setForeground(Color.black);
+    }//GEN-LAST:event_txtRgFocusGained
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        txtEmail.setForeground(Color.black);
+    }//GEN-LAST:event_txtEmailFocusGained
+
+    private void txtCidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusGained
+        txtCidade.setForeground(Color.black);
+    }//GEN-LAST:event_txtCidadeFocusGained
+
+    private void txtBairroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusGained
+        txtBairro.setForeground(Color.black);
+    }//GEN-LAST:event_txtBairroFocusGained
+
+    private void txtRuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusGained
+        txtRua.setForeground(Color.black);
+    }//GEN-LAST:event_txtRuaFocusGained
+
+    private void txtNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusGained
+        txtNumero.setForeground(Color.black);
+    }//GEN-LAST:event_txtNumeroFocusGained
+
+    private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
+        txtLogin.setForeground(Color.black);
+    }//GEN-LAST:event_txtLoginFocusGained
+
+    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
+        txtSenha.setForeground(Color.black);
+    }//GEN-LAST:event_txtSenhaFocusGained
+
+    private void txtConfirmarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusGained
+        txtConfirmar.setForeground(Color.black);
+    }//GEN-LAST:event_txtConfirmarFocusGained
+
+    private void txtEspecialidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEspecialidadeFocusGained
+        txtEspecialidade.setForeground(Color.black);
+    }//GEN-LAST:event_txtEspecialidadeFocusGained
+
+    private void txtCrefFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCrefFocusGained
+        txtCref.setForeground(Color.black);
+    }//GEN-LAST:event_txtCrefFocusGained
+
+    private void txtEntradaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusGained
+        txtEntrada.setForeground(Color.black);
+    }//GEN-LAST:event_txtEntradaFocusGained
+
+    private void txtSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusGained
+        txtSaida.setForeground(Color.black);
+    }//GEN-LAST:event_txtSaidaFocusGained
+
+    private void txtSalarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusGained
+        txtSalario.setForeground(Color.black);
+    }//GEN-LAST:event_txtSalarioFocusGained
     private void setTreinador() {
 
         if (selecionado.getImagem().length > 0) {

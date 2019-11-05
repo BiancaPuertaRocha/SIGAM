@@ -598,6 +598,10 @@
                     </Property>
                     <Property name="label" type="java.lang.String" value="Nome"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusGained"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtNomeMouseClicked"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtNome.setDocument(new LimitText(50));"/>
                   </AuxValues>
@@ -683,6 +687,9 @@
                     </Property>
                     <Property name="label" type="java.lang.String" value="Data de Nascimento"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNascimentoFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MFormattedTextField" name="txtTelefone">
                   <Properties>
@@ -691,11 +698,17 @@
                     </Property>
                     <Property name="label" type="java.lang.String" value="Telefone"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTelefoneFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtNumero">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Numero"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNumeroFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtNumero.setDocument(new LimitText(5));"/>
                   </AuxValues>
@@ -704,6 +717,9 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Cidade"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCidadeFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtCidade.setDocument(new LimitText(50));"/>
                   </AuxValues>
@@ -712,6 +728,9 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Bairro"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBairroFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtBairro.setDocument(new LimitText(50));"/>
                   </AuxValues>
@@ -720,6 +739,9 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Rua"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtRuaFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtRua.setDocument(new LimitText(50));"/>
                   </AuxValues>
@@ -728,6 +750,9 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Login"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtLoginFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtLogin.setDocument(new LimitText(10));"/>
                   </AuxValues>
@@ -736,6 +761,9 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Senha"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSenhaFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtSenha.setDocument(new LimitText(10));"/>
                   </AuxValues>
@@ -744,6 +772,9 @@
                   <Properties>
                     <Property name="label" type="java.lang.String" value="Confirmar Senha"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtConfirmarFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtConfirmar.setDocument(new LimitText(10));"/>
                   </AuxValues>
@@ -755,6 +786,9 @@
                     </Property>
                     <Property name="label" type="java.lang.String" value="RG"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtRgFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MFormattedTextField" name="txtCpf">
                   <Properties>
@@ -763,11 +797,17 @@
                     </Property>
                     <Property name="label" type="java.lang.String" value="CPF"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCpfFocusGained"/>
+                  </Events>
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtEmail">
                   <Properties>
                     <Property name="label" type="java.lang.String" value="E-mail"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailFocusGained"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtEmail.setDocument(new LimitText(50));"/>
                   </AuxValues>
