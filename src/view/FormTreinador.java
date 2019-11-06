@@ -781,7 +781,7 @@ public class FormTreinador extends javax.swing.JDialog {
                 fis.read(imageInByte);
                 fis.close();
             } catch (IOException ex) {
-                Logger.getLogger(FormSecretario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormTreinador.class.getName()).log(Level.SEVERE, null, ex);
                 fis = null;
             }
         }

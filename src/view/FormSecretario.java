@@ -45,6 +45,8 @@ public class FormSecretario extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         labelImagem.setVisible(false);
+        warningPanel.setVisible(false);
+        warningPanel1.setVisible(false);
     }
 
     private void atualizaTabela() {
@@ -74,11 +76,14 @@ public class FormSecretario extends javax.swing.JDialog {
         bg = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        botMenuExcluir = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        botMenuAdicionar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        botMenuAlterar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        excludeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        addBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        changeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
+        warningPanel1 = new javax.swing.JPanel();
+        btnMessage = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        labMessage = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
@@ -86,6 +91,9 @@ public class FormSecretario extends javax.swing.JDialog {
         tableSecretarios = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
+        warningPanel = new javax.swing.JPanel();
+        btnError = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         txtNome = new com.hq.swingmaterialdesign.materialdesign.MTextField();
@@ -106,7 +114,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtCpf = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtEmail = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         comboSetor = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
-        compoTipo = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
+        comboTipo = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
         txtEntrada = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSaida = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSalario = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
@@ -138,58 +146,55 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setText("SECRETÁRIO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
-        botMenuExcluir.setBorder(null);
-        botMenuExcluir.setForeground(new java.awt.Color(255, 255, 255));
-        botMenuExcluir.setText("Excluir");
-        botMenuExcluir.setEndColor(new java.awt.Color(37, 46, 55));
-        botMenuExcluir.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        botMenuExcluir.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        botMenuExcluir.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        botMenuExcluir.setSelectedColor(new java.awt.Color(0, 153, 153));
-        botMenuExcluir.setStartColor(new java.awt.Color(37, 46, 55));
-        botMenuExcluir.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        botMenuExcluir.addActionListener(new java.awt.event.ActionListener() {
+        excludeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        excludeBtn.setText("Excluir");
+        excludeBtn.setEndColor(new java.awt.Color(37, 46, 55));
+        excludeBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        excludeBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        excludeBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        excludeBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
+        excludeBtn.setStartColor(new java.awt.Color(37, 46, 55));
+        excludeBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        excludeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botMenuExcluirActionPerformed(evt);
+                excludeBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(botMenuExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
+        sidePanel.add(excludeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
 
-        botMenuAdicionar.setBorder(null);
-        botMenuAdicionar.setForeground(new java.awt.Color(255, 255, 255));
-        botMenuAdicionar.setText("Adicionar");
-        botMenuAdicionar.setEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAdicionar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        botMenuAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        botMenuAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        botMenuAdicionar.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAdicionar.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        botMenuAdicionar.setSelectedColor(new java.awt.Color(0, 153, 153));
-        botMenuAdicionar.setStartColor(new java.awt.Color(37, 46, 55));
-        botMenuAdicionar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        botMenuAdicionar.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addBtn.setText("Adicionar");
+        addBtn.setEndColor(new java.awt.Color(37, 46, 55));
+        addBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        addBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        addBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        addBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        addBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
+        addBtn.setStartColor(new java.awt.Color(37, 46, 55));
+        addBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botMenuAdicionarActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(botMenuAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
+        sidePanel.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
 
-        botMenuAlterar.setBorder(null);
-        botMenuAlterar.setForeground(new java.awt.Color(255, 255, 255));
-        botMenuAlterar.setText("Alterar");
-        botMenuAlterar.setEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        botMenuAlterar.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        botMenuAlterar.setSelectedColor(new java.awt.Color(0, 153, 153));
-        botMenuAlterar.setStartColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        botMenuAlterar.addActionListener(new java.awt.event.ActionListener() {
+        changeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        changeBtn.setText("Alterar");
+        changeBtn.setEndColor(new java.awt.Color(37, 46, 55));
+        changeBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        changeBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        changeBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        changeBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
+        changeBtn.setStartColor(new java.awt.Color(37, 46, 55));
+        changeBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        changeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botMenuAlterarActionPerformed(evt);
+                changeBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(botMenuAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
+        sidePanel.add(changeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -197,6 +202,41 @@ public class FormSecretario extends javax.swing.JDialog {
 
         dataPanel.setBackground(new java.awt.Color(255, 255, 255));
         dataPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        warningPanel1.setBackground(new java.awt.Color(0, 153, 0));
+
+        btnMessage.setBackground(new java.awt.Color(0, 153, 0));
+        btnMessage.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnMessage.setBorderRadius(0);
+        btnMessage.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnMessage.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMessageActionPerformed(evt);
+            }
+        });
+
+        labMessage.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        labMessage.setForeground(new java.awt.Color(255, 255, 255));
+        labMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labMessage.setText("Cadastro efetuado com sucesso.");
+
+        javax.swing.GroupLayout warningPanel1Layout = new javax.swing.GroupLayout(warningPanel1);
+        warningPanel1.setLayout(warningPanel1Layout);
+        warningPanel1Layout.setHorizontalGroup(
+            warningPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanel1Layout.createSequentialGroup()
+                .addComponent(labMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        warningPanel1Layout.setVerticalGroup(
+            warningPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        dataPanel.add(warningPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
         searchPanel.setBackground(new java.awt.Color(50, 60, 69));
 
@@ -316,6 +356,42 @@ public class FormSecretario extends javax.swing.JDialog {
         cardPanel.add(dataPanel, "card2");
 
         formPanel.setBackground(new java.awt.Color(255, 255, 255));
+        formPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        warningPanel.setBackground(new java.awt.Color(255, 51, 51));
+
+        btnError.setBackground(new java.awt.Color(255, 51, 51));
+        btnError.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnError.setBorderRadius(0);
+        btnError.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnError.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnErrorActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Preencha os campos corretamente.");
+
+        javax.swing.GroupLayout warningPanelLayout = new javax.swing.GroupLayout(warningPanel);
+        warningPanel.setLayout(warningPanelLayout);
+        warningPanelLayout.setHorizontalGroup(
+            warningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnError, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        warningPanelLayout.setVerticalGroup(
+            warningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnError, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        formPanel.add(warningPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
         mButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
@@ -349,6 +425,8 @@ public class FormSecretario extends javax.swing.JDialog {
             .addComponent(mButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        formPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
+
         txtNome.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtNome.setLabel("Nome");
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -357,6 +435,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtNome.setDocument(new LimitText(50));
+        formPanel.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 58, 503, 51));
 
         botCancelar.setBorder(null);
         botCancelar.setText("CANCELAR");
@@ -368,6 +447,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 botCancelarActionPerformed(evt);
             }
         });
+        formPanel.add(botCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 514, 180, 50));
 
         botConfirmar.setBackground(new java.awt.Color(51, 51, 51));
         botConfirmar.setBorder(null);
@@ -380,6 +460,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 botConfirmarActionPerformed(evt);
             }
         });
+        formPanel.add(botConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 514, 180, 50));
 
         profileImagePanel.setBackground(new java.awt.Color(255, 255, 255));
         profileImagePanel.setBorderRadius(120);
@@ -412,6 +493,8 @@ public class FormSecretario extends javax.swing.JDialog {
             .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        formPanel.add(profileImagePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 58, 120, 120));
+
         txtNascimento.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
             txtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -424,6 +507,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 txtNascimentoFocusGained(evt);
             }
         });
+        formPanel.add(txtNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 116, 155, 51));
 
         txtTelefone.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
@@ -437,6 +521,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 txtTelefoneFocusGained(evt);
             }
         });
+        formPanel.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 174, 168, 54));
 
         txtNumero.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtNumero.setLabel("Número");
@@ -446,6 +531,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtNumero.setDocument(new LimitText(5));
+        formPanel.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 290, 117, 50));
 
         txtCidade.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtCidade.setLabel("Cidade");
@@ -455,6 +541,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtCidade.setDocument(new LimitText(50));
+        formPanel.add(txtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 234, 302, 50));
 
         txtBairro.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtBairro.setLabel("Bairro");
@@ -464,6 +551,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtBairro.setDocument(new LimitText(50));
+        formPanel.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 234, 195, 50));
 
         txtRua.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtRua.setLabel("Logradouro");
@@ -473,6 +561,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtRua.setDocument(new LimitText(50));
+        formPanel.add(txtRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 290, 380, 50));
 
         txtLogin.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtLogin.setLabel("Nome de usuário");
@@ -482,6 +571,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtLogin.setDocument(new LimitText(10));
+        formPanel.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 347, 191, 50));
 
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSenha.setLabel("Senha");
@@ -491,6 +581,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtSenha.setDocument(new LimitText(10));
+        formPanel.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 346, 155, 50));
 
         txtConfirmar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtConfirmar.setLabel("Confirmar Senha");
@@ -500,6 +591,7 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtConfirmar.setDocument(new LimitText(10));
+        formPanel.add(txtConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(541, 346, 145, 50));
 
         txtRg.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
@@ -513,6 +605,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 txtRgFocusGained(evt);
             }
         });
+        formPanel.add(txtRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 115, 168, 53));
 
         txtCpf.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
@@ -526,6 +619,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 txtCpfFocusGained(evt);
             }
         });
+        formPanel.add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 115, 168, 53));
 
         txtEmail.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtEmail.setLabel("E-mail");
@@ -535,16 +629,29 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         txtEmail.setDocument(new LimitText(50));
+        formPanel.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 174, 329, 54));
 
         comboSetor.setForeground(new java.awt.Color(109, 109, 109));
-        comboSetor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
+        comboSetor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione um setor", "Administrativo", "Almoxarifado", "Financeiro", "Recursos Humanos" }));
         comboSetor.setAccent(new java.awt.Color(0, 188, 212));
         comboSetor.setFont(new java.awt.Font("Nunito", 0, 11)); // NOI18N
+        comboSetor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                comboSetorFocusGained(evt);
+            }
+        });
+        formPanel.add(comboSetor, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 403, 246, 44));
 
-        compoTipo.setForeground(new java.awt.Color(109, 109, 109));
-        compoTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Acesso Comum", "Acesso Especial" }));
-        compoTipo.setAccent(new java.awt.Color(0, 188, 212));
-        compoTipo.setFont(new java.awt.Font("Nunito", 0, 11)); // NOI18N
+        comboTipo.setForeground(new java.awt.Color(109, 109, 109));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo de acesso", "Acesso Comum", "Acesso Especial" }));
+        comboTipo.setAccent(new java.awt.Color(0, 188, 212));
+        comboTipo.setFont(new java.awt.Font("Nunito", 0, 11)); // NOI18N
+        comboTipo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                comboTipoFocusGained(evt);
+            }
+        });
+        formPanel.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(447, 403, 239, 44));
 
         txtEntrada.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
@@ -554,6 +661,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 txtEntradaFocusGained(evt);
             }
         });
+        formPanel.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 453, 168, 50));
 
         txtSaida.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
@@ -563,6 +671,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 txtSaidaFocusGained(evt);
             }
         });
+        formPanel.add(txtSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 453, 162, 50));
 
         txtSalario.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
@@ -572,110 +681,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 txtSalarioFocusGained(evt);
             }
         });
-
-        javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
-        formPanel.setLayout(formPanelLayout);
-        formPanelLayout.setHorizontalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(formPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(formPanelLayout.createSequentialGroup()
-                                        .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(formPanelLayout.createSequentialGroup()
-                            .addComponent(comboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(compoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(formPanelLayout.createSequentialGroup()
-                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(formPanelLayout.createSequentialGroup()
-                            .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSalario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 24, Short.MAX_VALUE))
-        );
-        formPanelLayout.setVerticalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(formPanelLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(compoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(106, Short.MAX_VALUE))
-        );
+        formPanel.add(txtSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 453, 161, 50));
 
         cardPanel.add(formPanel, "card3");
 
@@ -695,49 +701,47 @@ public class FormSecretario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botMenuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuExcluirActionPerformed
+    private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
         int linha = tableSecretarios.getSelectedRow();
         int codigo;
         Secretario sExcluir = null;
-        if (menuSelection == 0) {
-            if (linha != -1) {
-                int colunas = tableSecretarios.getColumnCount();
-                for (int x = 0; x < colunas; x++) {
-                    if (tableSecretarios.getColumnName(x).equals("Código")) {
-                        codigo = (int) tableSecretarios.getValueAt(linha, x);
-                        sExcluir = cp.findByCodigo(codigo);
-
-                    }
-                }
-                if (sExcluir != null) {
-                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
-                    if (op == 0) {
-                        try {
-                            cp.delete(sExcluir);
-                            JOptionPane.showMessageDialog(null, "Excluído com sucesso");
-                            DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
-                            dtm.removeRow(linha);
-
-                        } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
-                        }
-                    }
+        if (linha != -1) {
+            int colunas = tableSecretarios.getColumnCount();
+            for (int x = 0; x < colunas; x++) {
+                if (tableSecretarios.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableSecretarios.getValueAt(linha, x);
+                    sExcluir = cp.findByCodigo(codigo);
 
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecione um secretário!");
             }
+            if (sExcluir != null) {
+                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                if (op == 0) {
+                    try {
+                        cp.delete(sExcluir);
+                        DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+                        dtm.removeRow(linha);
+                        warningPanel1.setVisible(true);
+                        warningPanel1.setBackground(new Color(0, 153, 0));
+                        btnMessage.setBackground(new Color(0, 153, 0));
+                        labMessage.setText("Excluído com sucesso!");
+
+                    } catch (Exception e) {
+                        warningPanel1.setVisible(true);
+                        warningPanel1.setBackground(new Color(255, 51, 51));
+                        btnMessage.setBackground(new Color(255, 51, 51));
+                        labMessage.setText("Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                    }
+                }
+
+            }
+
         } else {
-            if (menuSelection == 1) {
-                botMenuAdicionar.select();
-                botMenuAlterar.unselect();
-            } else {
-                botMenuAlterar.select();
-                botMenuAdicionar.unselect();
-            }
+            warningPanel1.setVisible(true);
+            warningPanel1.setBackground(new Color(255, 51, 51));
+            labMessage.setText("Selecione um secretário.");
         }
-    }//GEN-LAST:event_botMenuExcluirActionPerformed
+    }//GEN-LAST:event_excludeBtnActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         btnExit.setForeground(new java.awt.Color(50, 60, 69));
@@ -763,7 +767,7 @@ public class FormSecretario extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_mButton4ActionPerformed
 
-    private void botMenuAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAdicionarActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         if (menuSelection == 0) {
             menuSelection = 1;
             dataPanel.setVisible(false);
@@ -773,21 +777,24 @@ public class FormSecretario extends javax.swing.JDialog {
             limparCampos();
         } else {
             if (menuSelection == 1) {
-                botMenuAdicionar.select();
-                botMenuAlterar.unselect();
+                addBtn.select();
+                changeBtn.unselect();
             } else {
-                botMenuAlterar.select();
-                botMenuAdicionar.unselect();
+                changeBtn.select();
+                addBtn.unselect();
             }
         }
-    }//GEN-LAST:event_botMenuAdicionarActionPerformed
+    }//GEN-LAST:event_addBtnActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        botMenuAdicionar.unselect();
-        botMenuAlterar.unselect();
+        addBtn.unselect();
+        changeBtn.unselect();
         menuSelection = 0;
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
+        warningPanel1.setVisible(false);
+        warningPanel.setVisible(false);
+        makeAllBlack();
         limparCampos();
     }//GEN-LAST:event_botCancelarActionPerformed
 
@@ -809,12 +816,21 @@ public class FormSecretario extends javax.swing.JDialog {
         boolean flag = false;
         String message = "";
         boolean passerr = false;
-        if (txtNome.getText().equals("")) {
-            txtNome.setForeground(errorColor);
-            txtNome.repaint();
+        if (comboTipo.getSelectedIndex() == 0){
+            comboTipo.setForeground(new Color(255, 102, 102));
             flag = true;
         }
-        if (txtTelefone.getText().equals("(  )     -    ")) {
+        
+        if (comboSetor.getSelectedIndex() == 0){
+            comboSetor.setForeground(new Color(255, 102, 102));
+            flag = true;
+        }
+                
+        if (txtNome.getText().equals("")) {
+            txtNome.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtTelefone.getText().equals("(  )      -    ")) {
             txtTelefone.setForeground(errorColor);
             flag = true;
         }
@@ -915,8 +931,10 @@ public class FormSecretario extends javax.swing.JDialog {
             p.setDepartamento(comboSetor.getSelectedItem().toString());
             p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
             p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
+
             p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
-            p.setTipo((compoTipo.getSelectedIndex() == 1 ? true : false));
+            p.setTipo(comboTipo.getSelectedIndex() == 2);
+            p.setDepartamento(String.valueOf(comboSetor.getSelectedItem()));
             p.setRua(txtRua.getText());
 
             if (file != null) {
@@ -927,26 +945,59 @@ public class FormSecretario extends javax.swing.JDialog {
 
                     cp.persist(p);
                     message = "Cadastro efetuado com sucesso.";
+                    warningPanel1.setBackground(new Color(0, 153, 0));
+                    btnMessage.setBackground(new Color(0, 153, 0));
                     limparCampos();
                 } catch (DatabaseException ex) {
                     message = "Secretário já cadastrado.";
+                    warningPanel1.setBackground(new Color(255, 51, 51));
+                    btnMessage.setBackground(new Color(255, 51, 51));
                 }
             } else {
                 p.setCodigo(selecionado.getCodigo());
                 cp.alter(p);
                 message = "Alteração efetuada com sucesso.";
+                warningPanel1.setBackground(new Color(0, 153, 0));
+                btnMessage.setBackground(new Color(0, 153, 0));
                 limparCampos();
             }
             menuSelection = 0;
-            botMenuAdicionar.unselect();
-            botMenuAlterar.unselect();
+            addBtn.unselect();
+            changeBtn.unselect();
             dataPanel.setVisible(true);
             formPanel.setVisible(false);
+            warningPanel1.setVisible(true);
+            //timer
+            labMessage.setText(message);
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         } else {
-            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+            warningPanel.setVisible(true);
+            warningPanel.setBackground(new Color(255, 51, 51));
+            btnError.setBackground(new Color(255, 51, 51));
+            labMessage.setText(message);
         }
     }//GEN-LAST:event_botConfirmarActionPerformed
+    
+    private void makeAllBlack() {
+        txtNome.setForeground(Color.black);
+        txtTelefone.setForeground(Color.black);
+        txtNascimento.setForeground(Color.black);
+        txtCpf.setForeground(Color.black);
+        txtRg.setForeground(Color.black);
+        txtEmail.setForeground(Color.black);
+        txtCidade.setForeground(Color.black);
+        txtBairro.setForeground(Color.black);
+        txtRua.setForeground(Color.black);
+        txtNumero.setForeground(Color.black);
+        txtLogin.setForeground(Color.black);
+        txtSenha.setForeground(Color.black);
+        txtConfirmar.setForeground(Color.black);
+        txtEntrada.setForeground(Color.black);
+        txtSaida.setForeground(Color.black);
+        txtSalario.setForeground(Color.black);
+        comboSetor.setForeground(new Color(109, 109, 109));
+        comboTipo.setForeground(new Color(109, 109, 109));
+    }    
     private void limparCampos() {
         txtNome.setText("");
         txtTelefone.setValue("");
@@ -964,6 +1015,8 @@ public class FormSecretario extends javax.swing.JDialog {
         txtEntrada.setText("");
         txtSaida.setText("");
         txtSalario.setText("");
+        comboSetor.setSelectedIndex(0);
+        comboTipo.setSelectedIndex(0);
 
         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
@@ -975,7 +1028,7 @@ public class FormSecretario extends javax.swing.JDialog {
         labelImagem.setVisible(true);
     }//GEN-LAST:event_profileImagePanelMouseEntered
 
-    private void botMenuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAlterarActionPerformed
+    private void changeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBtnActionPerformed
         if (menuSelection == 0) {
             int linha = tableSecretarios.getSelectedRow();
             int codigo;
@@ -993,20 +1046,25 @@ public class FormSecretario extends javax.swing.JDialog {
                 }
 
             } else {
-                botMenuAlterar.unselect();
-                JOptionPane.showMessageDialog(null, "Selecione um secretário!");
+                changeBtn.unselect();
+                warningPanel1.setVisible(true);
+                warningPanel1.setBackground(new Color(255, 51, 51));
+                btnMessage.setBackground(new Color(255, 51, 51));
+                labMessage.setText("Selecione um secretário.");
+
+                //timer
             }
         } else {
             if (menuSelection == 1) {
-                botMenuAdicionar.select();
-                botMenuAlterar.unselect();
+                addBtn.select();
+                changeBtn.unselect();
             } else {
-                botMenuAlterar.select();
-                botMenuAdicionar.unselect();
+                changeBtn.select();
+                addBtn.unselect();
             }
         }
 
-    }//GEN-LAST:event_botMenuAlterarActionPerformed
+    }//GEN-LAST:event_changeBtnActionPerformed
 
     private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
         atualizaTabela();
@@ -1040,23 +1098,20 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
         txtCpf.setForeground(Color.black);
-        if (txtCpf.getText().equals("   .   .   -  ")) {
+        if (txtCpf.getText().equals("   .   .   -  "))
             txtCpf.setCaretPosition(0);
-        }
     }//GEN-LAST:event_txtCpfFocusGained
 
     private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
         txtRg.setForeground(Color.black);
-        if (txtRg.getText().equals("  .   .   - ")) {
+        if (txtRg.getText().equals("  .   .   - "))
             txtRg.setCaretPosition(0);
-        }
     }//GEN-LAST:event_txtRgFocusGained
 
     private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
         txtNascimento.setForeground(Color.black);
-        if (txtNascimento.getText().equals("  /  /    ")) {
+        if (txtNascimento.getText().equals("  /  /    "))
             txtNascimento.setCaretPosition(0);
-        }
     }//GEN-LAST:event_txtNascimentoFocusGained
 
     private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
@@ -1097,23 +1152,20 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void txtEntradaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusGained
         txtEntrada.setForeground(Color.black);
-        if (txtEntrada.getText().equals("")) {
+        if (txtEntrada.getText().equals(""))
             txtEntrada.setCaretPosition(0);
-        }
     }//GEN-LAST:event_txtEntradaFocusGained
 
     private void txtSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusGained
         txtSaida.setForeground(Color.black);
-        if (txtSaida.getText().equals("")) {
+        if (txtSaida.getText().equals(""))
             txtSaida.setCaretPosition(0);
-        }
     }//GEN-LAST:event_txtSaidaFocusGained
 
     private void txtSalarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusGained
         txtSalario.setForeground(Color.black);
-        if (txtSalario.getText().equals("")) {
+        if (txtSalario.getText().equals(""))
             txtSalario.setCaretPosition(0);
-        }
     }//GEN-LAST:event_txtSalarioFocusGained
 
     private void labelImagemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseExited
@@ -1147,6 +1199,22 @@ public class FormSecretario extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_labelImagemMouseClicked
 
+    private void btnErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErrorActionPerformed
+        warningPanel.setVisible(false);
+    }//GEN-LAST:event_btnErrorActionPerformed
+
+    private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
+        warningPanel1.setVisible(false);
+    }//GEN-LAST:event_btnMessageActionPerformed
+
+    private void comboSetorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboSetorFocusGained
+        comboSetor.setForeground(new Color(109,109,109));
+    }//GEN-LAST:event_comboSetorFocusGained
+
+    private void comboTipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboTipoFocusGained
+        comboTipo.setForeground(new Color(109,109,109));
+    }//GEN-LAST:event_comboTipoFocusGained
+
     private void setSecretario() {
         if (selecionado.getImagem() != null) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());
@@ -1158,6 +1226,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
         txtCpf.setText(selecionado.getCpf());
         txtCpf.setEnabled(false);
+        txtCpf.setBackground(Color.WHITE);
         txtRg.setText(selecionado.getRg());
         txtEmail.setText(selecionado.getEmail());
         txtCidade.setText(selecionado.getCidade());
@@ -1169,7 +1238,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
         txtSalario.setText(Double.toString(selecionado.getSalario()));
         comboSetor.setSelectedItem(selecionado.getDepartamento());
-        compoTipo.setSelectedIndex(selecionado.isTipo() ? 1 : 0);
+        comboTipo.setSelectedIndex(selecionado.isTipo() ? 1 : 0);
     }
 
     /**
@@ -1201,6 +1270,18 @@ public class FormSecretario extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1218,20 +1299,24 @@ public class FormSecretario extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton addBtn;
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAdicionar;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAlterar;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuExcluir;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnError;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;
     private javax.swing.JPanel cardPanel;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton changeBtn;
     private com.hq.swingmaterialdesign.materialdesign.MComboBox comboSetor;
-    private com.hq.swingmaterialdesign.materialdesign.MComboBox compoTipo;
+    private com.hq.swingmaterialdesign.materialdesign.MComboBox comboTipo;
     private javax.swing.JPanel dataPanel;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton excludeBtn;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labMessage;
     private javax.swing.JLabel labelImagem;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
@@ -1257,5 +1342,7 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSalario;
     private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtSenha;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtTelefone;
+    private javax.swing.JPanel warningPanel;
+    private javax.swing.JPanel warningPanel1;
     // End of variables declaration//GEN-END:variables
 }
