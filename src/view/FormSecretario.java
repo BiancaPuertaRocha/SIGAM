@@ -45,8 +45,8 @@ public class FormSecretario extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         labelImagem.setVisible(false);
-        warningPanel.setVisible(false);
-        warningPanel1.setVisible(false);
+        warningPanelForm.setVisible(false);
+        warningPanelData.setVisible(false);
     }
 
     private void atualizaTabela() {
@@ -81,9 +81,9 @@ public class FormSecretario extends javax.swing.JDialog {
         changeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
-        warningPanel1 = new javax.swing.JPanel();
+        warningPanelData = new javax.swing.JPanel();
         btnMessage = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        labMessage = new javax.swing.JLabel();
+        labelWarningData = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
@@ -91,9 +91,9 @@ public class FormSecretario extends javax.swing.JDialog {
         tableSecretarios = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
-        warningPanel = new javax.swing.JPanel();
+        warningPanelForm = new javax.swing.JPanel();
         btnError = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        jLabel2 = new javax.swing.JLabel();
+        labelWarningForm = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         txtNome = new com.hq.swingmaterialdesign.materialdesign.MTextField();
@@ -203,7 +203,7 @@ public class FormSecretario extends javax.swing.JDialog {
         dataPanel.setBackground(new java.awt.Color(255, 255, 255));
         dataPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        warningPanel1.setBackground(new java.awt.Color(0, 153, 0));
+        warningPanelData.setBackground(new java.awt.Color(0, 153, 0));
 
         btnMessage.setBackground(new java.awt.Color(0, 153, 0));
         btnMessage.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
@@ -216,27 +216,27 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
-        labMessage.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
-        labMessage.setForeground(new java.awt.Color(255, 255, 255));
-        labMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labMessage.setText("Cadastro efetuado com sucesso.");
+        labelWarningData.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        labelWarningData.setForeground(new java.awt.Color(255, 255, 255));
+        labelWarningData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWarningData.setText("Cadastro efetuado com sucesso.");
 
-        javax.swing.GroupLayout warningPanel1Layout = new javax.swing.GroupLayout(warningPanel1);
-        warningPanel1.setLayout(warningPanel1Layout);
-        warningPanel1Layout.setHorizontalGroup(
-            warningPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanel1Layout.createSequentialGroup()
-                .addComponent(labMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+        javax.swing.GroupLayout warningPanelDataLayout = new javax.swing.GroupLayout(warningPanelData);
+        warningPanelData.setLayout(warningPanelDataLayout);
+        warningPanelDataLayout.setHorizontalGroup(
+            warningPanelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelDataLayout.createSequentialGroup()
+                .addComponent(labelWarningData, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        warningPanel1Layout.setVerticalGroup(
-            warningPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        warningPanelDataLayout.setVerticalGroup(
+            warningPanelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelWarningData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        dataPanel.add(warningPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
+        dataPanel.add(warningPanelData, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
         searchPanel.setBackground(new java.awt.Color(50, 60, 69));
 
@@ -358,7 +358,7 @@ public class FormSecretario extends javax.swing.JDialog {
         formPanel.setBackground(new java.awt.Color(255, 255, 255));
         formPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        warningPanel.setBackground(new java.awt.Color(255, 51, 51));
+        warningPanelForm.setBackground(new java.awt.Color(255, 51, 51));
 
         btnError.setBackground(new java.awt.Color(255, 51, 51));
         btnError.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
@@ -371,27 +371,27 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Preencha os campos corretamente.");
+        labelWarningForm.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        labelWarningForm.setForeground(new java.awt.Color(255, 255, 255));
+        labelWarningForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWarningForm.setText("Preencha os campos corretamente.");
 
-        javax.swing.GroupLayout warningPanelLayout = new javax.swing.GroupLayout(warningPanel);
-        warningPanel.setLayout(warningPanelLayout);
-        warningPanelLayout.setHorizontalGroup(
-            warningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelLayout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+        javax.swing.GroupLayout warningPanelFormLayout = new javax.swing.GroupLayout(warningPanelForm);
+        warningPanelForm.setLayout(warningPanelFormLayout);
+        warningPanelFormLayout.setHorizontalGroup(
+            warningPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelFormLayout.createSequentialGroup()
+                .addComponent(labelWarningForm, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnError, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        warningPanelLayout.setVerticalGroup(
-            warningPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        warningPanelFormLayout.setVerticalGroup(
+            warningPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelWarningForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnError, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        formPanel.add(warningPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
+        formPanel.add(warningPanelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
         mButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
@@ -721,25 +721,25 @@ public class FormSecretario extends javax.swing.JDialog {
                         cp.delete(sExcluir);
                         DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
                         dtm.removeRow(linha);
-                        warningPanel1.setVisible(true);
-                        warningPanel1.setBackground(new Color(0, 153, 0));
+                        warningPanelData.setVisible(true);
+                        warningPanelData.setBackground(new Color(0, 153, 0));
                         btnMessage.setBackground(new Color(0, 153, 0));
-                        labMessage.setText("Excluído com sucesso!");
+                        labelWarningData.setText("Excluído com sucesso!");
 
                     } catch (Exception e) {
-                        warningPanel1.setVisible(true);
-                        warningPanel1.setBackground(new Color(255, 51, 51));
+                        warningPanelData.setVisible(true);
+                        warningPanelData.setBackground(new Color(255, 51, 51));
                         btnMessage.setBackground(new Color(255, 51, 51));
-                        labMessage.setText("Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                        labelWarningData.setText("Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
 
             }
 
         } else {
-            warningPanel1.setVisible(true);
-            warningPanel1.setBackground(new Color(255, 51, 51));
-            labMessage.setText("Selecione um secretário.");
+            warningPanelData.setVisible(true);
+            warningPanelData.setBackground(new Color(255, 51, 51));
+            labelWarningData.setText("Selecione um secretário.");
         }
     }//GEN-LAST:event_excludeBtnActionPerformed
 
@@ -792,8 +792,8 @@ public class FormSecretario extends javax.swing.JDialog {
         menuSelection = 0;
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
-        warningPanel1.setVisible(false);
-        warningPanel.setVisible(false);
+        warningPanelData.setVisible(false);
+        warningPanelForm.setVisible(false);
         makeAllBlack();
         limparCampos();
     }//GEN-LAST:event_botCancelarActionPerformed
@@ -870,10 +870,13 @@ public class FormSecretario extends javax.swing.JDialog {
             txtLogin.setForeground(errorColor);
             flag = true;
         }
-        if (txtSenha.getText().equals("") || txtSenha.getPassword().length < 4) {
+        if (txtSenha.getText().equals("")) {
             txtSenha.setForeground(errorColor);
-            passerr = true;
             flag = true;
+        }
+        if(txtSenha.getPassword().length < 4){
+            txtSenha.setForeground(errorColor);
+             passerr = true;
         }
         if (txtConfirmar.getText().equals("")) {
             txtConfirmar.setForeground(errorColor);
@@ -900,23 +903,24 @@ public class FormSecretario extends javax.swing.JDialog {
 
         if (flag) {
             message = "Preencha todos os campos corretamente.";
+           
         }
-
         if (passerr) {
             message += " A senha deve ter no mínimo 4 caracteres!";
+             
         }
-
-        if (!txtSenha.getText().equals(txtConfirmar.getText())) {
-            message += "As senhas não correspondem";
+        if (!txtSenha.getText().equals(txtConfirmar.getText()) && !passerr) {
+            txtSenha.setForeground(errorColor);
+            message += " As senhas não correspondem";
             flag = true;
         }
         if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
-            txtEntrada.setForeground(Color.black);
+            txtSaida.setForeground(errorColor);
             flag = true;
-            message += "O horário de entrada deve anteceder o de saída";
+            message += " O horário de entrada deve anteceder o de saída";
         }
-
-        if (!flag) {
+        
+        if (!flag && !passerr) {
             p.setNome(txtNome.getText());
             p.setCidade(txtCidade.getText());
             p.setBairro(txtBairro.getText());
@@ -945,36 +949,44 @@ public class FormSecretario extends javax.swing.JDialog {
 
                     cp.persist(p);
                     message = "Cadastro efetuado com sucesso.";
-                    warningPanel1.setBackground(new Color(0, 153, 0));
+                    warningPanelData.setBackground(new Color(0, 153, 0));
                     btnMessage.setBackground(new Color(0, 153, 0));
+                    warningPanelData.setVisible(true);
                     limparCampos();
                 } catch (DatabaseException ex) {
                     message = "Secretário já cadastrado.";
-                    warningPanel1.setBackground(new Color(255, 51, 51));
+                    warningPanelData.setBackground(new Color(255, 51, 51));
                     btnMessage.setBackground(new Color(255, 51, 51));
+                    labelWarningData.setText(message);
+                    warningPanelData.setVisible(true);
                 }
             } else {
                 p.setCodigo(selecionado.getCodigo());
                 cp.alter(p);
                 message = "Alteração efetuada com sucesso.";
-                warningPanel1.setBackground(new Color(0, 153, 0));
+                labelWarningData.setText(message);
+                warningPanelData.setBackground(new Color(0, 153, 0));
                 btnMessage.setBackground(new Color(0, 153, 0));
+                warningPanelData.setVisible(true);
                 limparCampos();
             }
+            labelWarningData.setText(message);
             menuSelection = 0;
             addBtn.unselect();
             changeBtn.unselect();
             dataPanel.setVisible(true);
             formPanel.setVisible(false);
-            warningPanel1.setVisible(true);
+            warningPanelData.setVisible(true);
             //timer
-            labMessage.setText(message);
+            
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         } else {
-            warningPanel.setVisible(true);
-            warningPanel.setBackground(new Color(255, 51, 51));
+            
+            labelWarningForm.setText(message);
+            warningPanelForm.setVisible(true);
+            warningPanelForm.setBackground(new Color(255, 51, 51));
             btnError.setBackground(new Color(255, 51, 51));
-            labMessage.setText(message);
+            
         }
     }//GEN-LAST:event_botConfirmarActionPerformed
     
@@ -1047,10 +1059,11 @@ public class FormSecretario extends javax.swing.JDialog {
 
             } else {
                 changeBtn.unselect();
-                warningPanel1.setVisible(true);
-                warningPanel1.setBackground(new Color(255, 51, 51));
+                labelWarningData.setText("Selecione um secretário.");
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                labMessage.setText("Selecione um secretário.");
+                
 
                 //timer
             }
@@ -1200,11 +1213,11 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_labelImagemMouseClicked
 
     private void btnErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErrorActionPerformed
-        warningPanel.setVisible(false);
+        warningPanelForm.setVisible(false);
     }//GEN-LAST:event_btnErrorActionPerformed
 
     private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
-        warningPanel1.setVisible(false);
+        warningPanelData.setVisible(false);
     }//GEN-LAST:event_btnMessageActionPerformed
 
     private void comboSetorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboSetorFocusGained
@@ -1314,10 +1327,10 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton excludeBtn;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labMessage;
     private javax.swing.JLabel labelImagem;
+    private javax.swing.JLabel labelWarningData;
+    private javax.swing.JLabel labelWarningForm;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
@@ -1342,7 +1355,7 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSalario;
     private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtSenha;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtTelefone;
-    private javax.swing.JPanel warningPanel;
-    private javax.swing.JPanel warningPanel1;
+    private javax.swing.JPanel warningPanelData;
+    private javax.swing.JPanel warningPanelForm;
     // End of variables declaration//GEN-END:variables
 }
