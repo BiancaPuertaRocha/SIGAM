@@ -615,7 +615,7 @@ public class FormAnamnese extends javax.swing.JDialog {
                         System.out.println(codigo);
                         selecionado = cp.findByCodigo(codigo);
 
-                        setTreinador();
+                        setAnamnese();
                         dataPanel.setVisible(false);
                         formPanel.setVisible(true);
                     }
@@ -627,7 +627,7 @@ public class FormAnamnese extends javax.swing.JDialog {
             }
         
     }//GEN-LAST:event_mButton1ActionPerformed
-    private void setTreinador() {
+    private void setAnamnese() {
         if (selecionado.getImagem() != null) {
             if (selecionado.getImagem().length > 0) {
                 ImageIcon im = new ImageIcon(selecionado.getImagem());

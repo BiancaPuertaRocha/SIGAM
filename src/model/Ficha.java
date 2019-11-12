@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
  * @author Aluno
  */
 @Entity
-@Table(name = "ficha")
+@Table(name = "Ficha")
 @NamedQueries({
     @NamedQuery(name = "Ficha.findAll", query = "SELECT f FROM Ficha f"),
     @NamedQuery(name = "Ficha.findByCodigo", query = "SELECT f FROM Ficha f WHERE f.codigo = :codigo"),

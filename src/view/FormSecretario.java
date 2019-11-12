@@ -146,6 +146,7 @@ public class FormSecretario extends javax.swing.JDialog {
         jLabel1.setText("SECRETÁRIO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
+        excludeBtn.setBorder(null);
         excludeBtn.setForeground(new java.awt.Color(255, 255, 255));
         excludeBtn.setText("Excluir");
         excludeBtn.setEndColor(new java.awt.Color(37, 46, 55));
@@ -162,6 +163,7 @@ public class FormSecretario extends javax.swing.JDialog {
         });
         sidePanel.add(excludeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
 
+        addBtn.setBorder(null);
         addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("Adicionar");
         addBtn.setEndColor(new java.awt.Color(37, 46, 55));
@@ -180,6 +182,7 @@ public class FormSecretario extends javax.swing.JDialog {
         });
         sidePanel.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
 
+        changeBtn.setBorder(null);
         changeBtn.setForeground(new java.awt.Color(255, 255, 255));
         changeBtn.setText("Alterar");
         changeBtn.setEndColor(new java.awt.Color(37, 46, 55));
@@ -330,7 +333,7 @@ public class FormSecretario extends javax.swing.JDialog {
         }
         tableSecretarios.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
-        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 460));
+        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 390));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setForeground(new java.awt.Color(153, 153, 153));

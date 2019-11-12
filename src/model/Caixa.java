@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author Aluno
  */
 @Entity
-@Table(name = "caixa")
+@Table(name = "Caixa")
 @NamedQueries({
     @NamedQuery(name = "Caixa.findAll", query = "SELECT c FROM Caixa c"),
     @NamedQuery(name = "Caixa.findByCodigo", query = "SELECT c FROM Caixa c WHERE c.codigo = :codigo"),
@@ -31,6 +33,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Caixa.findBySaldoInicial", query = "SELECT c FROM Caixa c WHERE c.saldoInicial = :saldoInicial"),
     @NamedQuery(name = "Caixa.findBySaldoFinal", query = "SELECT c FROM Caixa c WHERE c.saldoFinal = :saldoFinal"),
     @NamedQuery(name = "Caixa.findByEntradas", query = "SELECT c FROM Caixa c WHERE c.entradas = :entradas"),
+    @NamedQuery(name = "Caixa.findByData", query = "SELECT c FROM Caixa c WHERE c.data between :data1 and :data2"),
+    @NamedQuery(name = "Caixa.findByAbertoFuncionario", query = "SELECT c FROM Caixa c WHERE c.secretario =  :secretario and c.data = :data2 and c.hrFechamento = null"),
+    
     @NamedQuery(name = "Caixa.findBySaidas", query = "SELECT c FROM Caixa c WHERE c.saidas = :saidas")})
 public class Caixa implements Serializable {
 
@@ -45,6 +50,9 @@ public class Caixa implements Serializable {
     @Column(name = "hrFechamento")
     @Temporal(TemporalType.TIME)
     private Date hrFechamento;
+    @Column(name = "data")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date data;
     @Column(name = "saldoInicial")
     private Double saldoInicial;
     @Column(name = "saldoFinal")
@@ -53,7 +61,29 @@ public class Caixa implements Serializable {
     private Double entradas;
     @Column(name = "saidas")
     private Double saidas;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "codigo", name = "secretario")
+    private Secretario secretario;
 
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    
+    
+    
+    public Secretario getSecretario() {
+        return secretario;
+    }
+
+    public void setSecretario(Secretario secretario) {
+        this.secretario = secretario;
+    }
+    
     public Caixa() {
     }
 

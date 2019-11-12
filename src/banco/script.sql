@@ -44,7 +44,7 @@ create table Treinador(
 
 );
 create table Aluno(
-    codigo    int primary key,
+    codigo          int   primary key,
     dataUltima      date,
     freqAtFisica    varchar(20),
     probOrtop       varchar(50),
@@ -55,27 +55,30 @@ create table Aluno(
     foreign key(codigo) references Pessoa(codigo)
 );
 create table Caixa (
-    codigo          int primary key,
-    hrAbertura      time,
+    codigo          int auto_increment primary key,
+    secretario      int,
+    hrAbertura      time not null,
     hrFechamento    time,
-    saldoInicial    double,
+    data            date not null,
+    saldoInicial    double not null,
     saldoFinal      double,
     entradas        double,
-    saidas          double
+    saidas          double,
+ foreign key (secretario) references Secretario (codigo)
 );
 create table Despesa (
-    codigo          int primary key,
+    codigo          int auto_increment primary key,
     descricao       varchar(50) not null,
     vencimento      date not null,
     pagamento       date not null,
     valor           double not null,
     secretario      int,
     caixa           int,
-    foreign key (caixa) references Caixa (codigo),
-    foreign key (secretario) references Secretario (codigo)
+    foreign key (caixa) references Caixa (codigo)
+   
 );
 create table Pagamento(
-    codigo          int primary key,
+    codigo          int auto_increment primary key,
     aluno           int not null,
     dias            int not null,
     valor           double not null,
@@ -85,13 +88,13 @@ create table Pagamento(
     foreign key(aluno) references Aluno(codigo)
 );
 create table Atividade(
-    codigo          int primary key,
+    codigo          int auto_increment primary key ,
     equipamentos    varchar(100),
     musculo         varchar(50),
     descricao       varchar(50) not null
 );
 create table Ficha(
-    codigo          int primary key,
+    codigo          int auto_increment primary key,
     matricula       int not null,
     peso            double not null,
     altura          double not null,
@@ -120,4 +123,65 @@ create table ItemDeAtividade(
     foreign key(atividade) references Atividade(codigo),
     foreign key(ficha) references Ficha(codigo)
 );
+DELIMITER $ 
+CREATE TRIGGER addMensalidadeCaixa AFTER INSERT
+ON Pagamento
+FOR EACH ROW
+BEGIN
+    UPDATE Caixa SET entradas = entradas + NEW.valor
+WHERE codigo = NEW.codigo;
+END$
+DELIMITER ;
+DELIMITER $ 
+CREATE TRIGGER updateMensalidadeCaixa AFTER UPDATE
+ON Pagamento
+FOR EACH ROW
+BEGIN
+    UPDATE Caixa SET entradas = entradas + NEW.valor - OLD.valor
+WHERE codigo = NEW.codigo;
+END$
+DELIMITER ;
+DELIMITER $ 
+CREATE TRIGGER deleteMensalidadeCaixa AFTER DELETE
+ON Pagamento
+FOR EACH ROW
+BEGIN
+    UPDATE Caixa SET entradas = entradas - OLD.valor
+WHERE codigo = OLD.codigo;
+END$
+DELIMITER ;
+
+DELIMITER $ 
+CREATE TRIGGER addDespesasCaixa AFTER INSERT
+ON Despesa
+FOR EACH ROW
+BEGIN
+    IF NEW.pagamento != NULL THEN
+        UPDATE Caixa SET saidas = saidas + NEW.valor 
+        WHERE codigo = NEW.codigo;
+    END IF;
+END$
+DELIMITER ;
+DELIMITER $ 
+CREATE TRIGGER updateDespesasCaixa AFTER UPDATE
+ON Despesa
+FOR EACH ROW
+BEGIN
+    IF NEW.pagamento != NULL THEN
+        UPDATE Caixa SET saidas = saidas + NEW.valor - OLD.valor
+        WHERE codigo = NEW.codigo;
+    END IF;
+END$
+DELIMITER ;
+DELIMITER $ 
+CREATE TRIGGER deleteDespesasCaixa AFTER DELETE
+ON Despesa
+FOR EACH ROW
+BEGIN
+   IF OLD.pagamento != NULL THEN
+        UPDATE Caixa SET saidas = saidas - OLD.valor 
+        WHERE codigo = OLD.codigo;
+    END IF;
+END$
+DELIMITER ;
 

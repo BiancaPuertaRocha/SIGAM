@@ -6,6 +6,7 @@
 package view;
 
 import control.ControleAluno;
+import control.ControleSecretario;
 import control.ControleTreinador;
 import java.awt.Color;
 import java.awt.Image;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.Aluno;
+import model.Secretario;
 import model.Treinador;
 import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
@@ -33,6 +35,8 @@ import util.LimitText;
  */
 public class FormAluno extends javax.swing.JDialog {
 
+    private int xMouse, yMouse;
+    private Aluno p = new Aluno();
     private ControleAluno cp = new ControleAluno();
     private File file;
     private ArrayList<Aluno> listaPesquisa = new ArrayList();
@@ -45,16 +49,23 @@ public class FormAluno extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         labelImagem.setVisible(false);
+        warningPanelForm.setVisible(false);
+        warningPanelData.setVisible(false);
     }
 
     private void atualizaTabela() {
-        listaPesquisa.clear();
-        listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
-        DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
-        dtm.setNumRows(0);
-        for (Aluno s : listaPesquisa) {
-            dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getTelefone()});
-        }
+        new Thread() {
+            @Override
+            public void run() {
+                listaPesquisa.clear();
+                listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
+                DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
+                dtm.setNumRows(0);
+                for (Aluno  s : listaPesquisa) {
+                    dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getTelefone()});
+                }
+            }
+        }.start();
     }
 
     /**
@@ -69,17 +80,24 @@ public class FormAluno extends javax.swing.JDialog {
         bg = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        botMenuExcluir = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        botMenuAdicionar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        botMenuAlterar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        excludeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        addBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        changeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
+        warningPanelData = new javax.swing.JPanel();
+        btnMessage = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        labelWarningData = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         tablePanel = new javax.swing.JScrollPane();
         tableAlunos = new javax.swing.JTable();
         formPanel = new javax.swing.JPanel();
+        warningPanelForm = new javax.swing.JPanel();
+        btnError = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        labelWarningForm = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         txtNome = new com.hq.swingmaterialdesign.materialdesign.MTextField();
@@ -103,6 +121,19 @@ public class FormAluno extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
+        bg.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                bgMouseDragged(evt);
+            }
+        });
+        bg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                bgMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                bgMouseReleased(evt);
+            }
+        });
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidePanel.setBackground(new java.awt.Color(37, 46, 55));
@@ -114,58 +145,58 @@ public class FormAluno extends javax.swing.JDialog {
         jLabel1.setText("ALUNO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
-        botMenuExcluir.setBorder(null);
-        botMenuExcluir.setForeground(new java.awt.Color(255, 255, 255));
-        botMenuExcluir.setText("Excluir");
-        botMenuExcluir.setEndColor(new java.awt.Color(37, 46, 55));
-        botMenuExcluir.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        botMenuExcluir.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        botMenuExcluir.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        botMenuExcluir.setSelectedColor(new java.awt.Color(0, 153, 153));
-        botMenuExcluir.setStartColor(new java.awt.Color(37, 46, 55));
-        botMenuExcluir.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        botMenuExcluir.addActionListener(new java.awt.event.ActionListener() {
+        excludeBtn.setBorder(null);
+        excludeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        excludeBtn.setText("Excluir");
+        excludeBtn.setEndColor(new java.awt.Color(37, 46, 55));
+        excludeBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        excludeBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        excludeBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        excludeBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
+        excludeBtn.setStartColor(new java.awt.Color(37, 46, 55));
+        excludeBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        excludeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botMenuExcluirActionPerformed(evt);
+                excludeBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(botMenuExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
+        sidePanel.add(excludeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
 
-        botMenuAdicionar.setBorder(null);
-        botMenuAdicionar.setForeground(new java.awt.Color(255, 255, 255));
-        botMenuAdicionar.setText("Adicionar");
-        botMenuAdicionar.setEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAdicionar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        botMenuAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        botMenuAdicionar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        botMenuAdicionar.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAdicionar.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        botMenuAdicionar.setSelectedColor(new java.awt.Color(0, 153, 153));
-        botMenuAdicionar.setStartColor(new java.awt.Color(37, 46, 55));
-        botMenuAdicionar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        botMenuAdicionar.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setBorder(null);
+        addBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addBtn.setText("Adicionar");
+        addBtn.setEndColor(new java.awt.Color(37, 46, 55));
+        addBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        addBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        addBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        addBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        addBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
+        addBtn.setStartColor(new java.awt.Color(37, 46, 55));
+        addBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botMenuAdicionarActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(botMenuAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
+        sidePanel.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
 
-        botMenuAlterar.setBorder(null);
-        botMenuAlterar.setForeground(new java.awt.Color(255, 255, 255));
-        botMenuAlterar.setText("Alterar");
-        botMenuAlterar.setEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        botMenuAlterar.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        botMenuAlterar.setSelectedColor(new java.awt.Color(0, 153, 153));
-        botMenuAlterar.setStartColor(new java.awt.Color(37, 46, 55));
-        botMenuAlterar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        botMenuAlterar.addActionListener(new java.awt.event.ActionListener() {
+        changeBtn.setBorder(null);
+        changeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        changeBtn.setText("Alterar");
+        changeBtn.setEndColor(new java.awt.Color(37, 46, 55));
+        changeBtn.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        changeBtn.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        changeBtn.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        changeBtn.setSelectedColor(new java.awt.Color(0, 153, 153));
+        changeBtn.setStartColor(new java.awt.Color(37, 46, 55));
+        changeBtn.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        changeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botMenuAlterarActionPerformed(evt);
+                changeBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(botMenuAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
+        sidePanel.add(changeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -173,6 +204,41 @@ public class FormAluno extends javax.swing.JDialog {
 
         dataPanel.setBackground(new java.awt.Color(255, 255, 255));
         dataPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        warningPanelData.setBackground(new java.awt.Color(0, 153, 0));
+
+        btnMessage.setBackground(new java.awt.Color(0, 153, 0));
+        btnMessage.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnMessage.setBorderRadius(0);
+        btnMessage.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnMessage.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMessageActionPerformed(evt);
+            }
+        });
+
+        labelWarningData.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        labelWarningData.setForeground(new java.awt.Color(255, 255, 255));
+        labelWarningData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWarningData.setText("Cadastro efetuado com sucesso.");
+
+        javax.swing.GroupLayout warningPanelDataLayout = new javax.swing.GroupLayout(warningPanelData);
+        warningPanelData.setLayout(warningPanelDataLayout);
+        warningPanelDataLayout.setHorizontalGroup(
+            warningPanelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelDataLayout.createSequentialGroup()
+                .addComponent(labelWarningData, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        warningPanelDataLayout.setVerticalGroup(
+            warningPanelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelWarningData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        dataPanel.add(warningPanelData, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
         searchPanel.setBackground(new java.awt.Color(50, 60, 69));
 
@@ -218,8 +284,8 @@ public class FormAluno extends javax.swing.JDialog {
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -228,6 +294,27 @@ public class FormAluno extends javax.swing.JDialog {
         );
 
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
+
+        btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        btnExit.setForeground(new java.awt.Color(153, 153, 153));
+        btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnExit.setBorderRadius(0);
+        btnExit.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnExit.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnExitMouseExited(evt);
+            }
+        });
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 50, 40));
 
         tablePanel.setBackground(new java.awt.Color(255, 255, 255));
         tablePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -265,11 +352,47 @@ public class FormAluno extends javax.swing.JDialog {
         }
         tableAlunos.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
-        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 460));
+        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 390));
 
         cardPanel.add(dataPanel, "card2");
 
         formPanel.setBackground(new java.awt.Color(255, 255, 255));
+        formPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        warningPanelForm.setBackground(new java.awt.Color(255, 51, 51));
+
+        btnError.setBackground(new java.awt.Color(255, 51, 51));
+        btnError.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnError.setBorderRadius(0);
+        btnError.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnError.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnErrorActionPerformed(evt);
+            }
+        });
+
+        labelWarningForm.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        labelWarningForm.setForeground(new java.awt.Color(255, 255, 255));
+        labelWarningForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWarningForm.setText("Preencha os campos corretamente.");
+
+        javax.swing.GroupLayout warningPanelFormLayout = new javax.swing.GroupLayout(warningPanelForm);
+        warningPanelForm.setLayout(warningPanelFormLayout);
+        warningPanelFormLayout.setHorizontalGroup(
+            warningPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelFormLayout.createSequentialGroup()
+                .addComponent(labelWarningForm, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnError, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        warningPanelFormLayout.setVerticalGroup(
+            warningPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelWarningForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnError, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        formPanel.add(warningPanelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
         mButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
@@ -303,19 +426,17 @@ public class FormAluno extends javax.swing.JDialog {
             .addComponent(mButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        formPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
+
         txtNome.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtNome.setLabel("Nome");
-        txtNome.setDocument(new LimitText(50));
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNomeFocusGained(evt);
             }
         });
-        txtNome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtNomeMouseClicked(evt);
-            }
-        });
+        txtNome.setDocument(new LimitText(50));
+        formPanel.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 58, 503, 51));
 
         botCancelar.setBorder(null);
         botCancelar.setText("CANCELAR");
@@ -327,6 +448,7 @@ public class FormAluno extends javax.swing.JDialog {
                 botCancelarActionPerformed(evt);
             }
         });
+        formPanel.add(botCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 514, 180, 50));
 
         botConfirmar.setBackground(new java.awt.Color(51, 51, 51));
         botConfirmar.setBorder(null);
@@ -339,6 +461,7 @@ public class FormAluno extends javax.swing.JDialog {
                 botConfirmarActionPerformed(evt);
             }
         });
+        formPanel.add(botConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 514, 180, 50));
 
         profileImagePanel.setBackground(new java.awt.Color(255, 255, 255));
         profileImagePanel.setBorderRadius(120);
@@ -350,12 +473,10 @@ public class FormAluno extends javax.swing.JDialog {
             }
         });
 
+        labelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/profileImageHover.png"))); // NOI18N
         labelImagem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelImagemMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                labelImagemMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 labelImagemMouseExited(evt);
@@ -366,13 +487,16 @@ public class FormAluno extends javax.swing.JDialog {
         profileImagePanel.setLayout(profileImagePanelLayout);
         profileImagePanelLayout.setHorizontalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         profileImagePanelLayout.setVerticalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        formPanel.add(profileImagePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 58, 120, 120));
+
+        txtNascimento.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
             txtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -384,9 +508,11 @@ public class FormAluno extends javax.swing.JDialog {
                 txtNascimentoFocusGained(evt);
             }
         });
+        formPanel.add(txtNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 116, 155, 51));
 
+        txtTelefone.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -396,63 +522,79 @@ public class FormAluno extends javax.swing.JDialog {
                 txtTelefoneFocusGained(evt);
             }
         });
+        formPanel.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 174, 168, 54));
 
-        txtNumero.setLabel("Numero");
-        txtNumero.setDocument(new LimitText(5));
+        txtNumero.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtNumero.setLabel("Número");
         txtNumero.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNumeroFocusGained(evt);
             }
         });
+        txtNumero.setDocument(new LimitText(5));
+        formPanel.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 290, 117, 50));
 
+        txtCidade.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtCidade.setLabel("Cidade");
-        txtCidade.setDocument(new LimitText(50));
         txtCidade.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCidadeFocusGained(evt);
             }
         });
+        txtCidade.setDocument(new LimitText(50));
+        formPanel.add(txtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 234, 302, 50));
 
+        txtBairro.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtBairro.setLabel("Bairro");
-        txtBairro.setDocument(new LimitText(50));
         txtBairro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtBairroFocusGained(evt);
             }
         });
+        txtBairro.setDocument(new LimitText(50));
+        formPanel.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 234, 195, 50));
 
-        txtRua.setLabel("Rua");
-        txtRua.setDocument(new LimitText(50));
+        txtRua.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtRua.setLabel("Logradouro");
         txtRua.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtRuaFocusGained(evt);
             }
         });
+        txtRua.setDocument(new LimitText(50));
+        formPanel.add(txtRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 290, 380, 50));
 
-        txtLogin.setLabel("Login");
-        txtLogin.setDocument(new LimitText(10));
+        txtLogin.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtLogin.setLabel("Nome de usuário");
         txtLogin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtLoginFocusGained(evt);
             }
         });
+        txtLogin.setDocument(new LimitText(10));
+        formPanel.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 347, 191, 50));
 
+        txtSenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSenha.setLabel("Senha");
-        txtSenha.setDocument(new LimitText(10));
         txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSenhaFocusGained(evt);
             }
         });
+        txtSenha.setDocument(new LimitText(10));
+        formPanel.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 346, 155, 50));
 
+        txtConfirmar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtConfirmar.setLabel("Confirmar Senha");
-        txtConfirmar.setDocument(new LimitText(10));
         txtConfirmar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtConfirmarFocusGained(evt);
             }
         });
+        txtConfirmar.setDocument(new LimitText(10));
+        formPanel.add(txtConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(541, 346, 145, 50));
 
+        txtRg.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
             txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
         } catch (java.text.ParseException ex) {
@@ -464,7 +606,9 @@ public class FormAluno extends javax.swing.JDialog {
                 txtRgFocusGained(evt);
             }
         });
+        formPanel.add(txtRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 115, 168, 53));
 
+        txtCpf.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
@@ -476,98 +620,17 @@ public class FormAluno extends javax.swing.JDialog {
                 txtCpfFocusGained(evt);
             }
         });
+        formPanel.add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 115, 168, 53));
 
+        txtEmail.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtEmail.setLabel("E-mail");
-        txtEmail.setDocument(new LimitText(50));
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtEmailFocusGained(evt);
             }
         });
-
-        javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
-        formPanel.setLayout(formPanelLayout);
-        formPanelLayout.setHorizontalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(formPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(formPanelLayout.createSequentialGroup()
-                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(formPanelLayout.createSequentialGroup()
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(formPanelLayout.createSequentialGroup()
-                                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtRg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 24, Short.MAX_VALUE))
-        );
-        formPanelLayout.setVerticalGroup(
-            formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(formPanelLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(formPanelLayout.createSequentialGroup()
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        txtEmail.setDocument(new LimitText(50));
+        formPanel.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 174, 329, 54));
 
         cardPanel.add(formPanel, "card3");
 
@@ -581,56 +644,65 @@ public class FormAluno extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botMenuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuExcluirActionPerformed
+    private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
         int linha = tableAlunos.getSelectedRow();
         int codigo;
         Aluno sExcluir = null;
-        if (menuSelection == 0) {
-            if (linha != -1) {
-                int colunas = tableAlunos.getColumnCount();
-                for (int x = 0; x < colunas; x++) {
-                    if (tableAlunos.getColumnName(x).equals("Código")) {
-                        codigo = (int) tableAlunos.getValueAt(linha, x);
-                        sExcluir = cp.findByCodigo(codigo);
-
-                    }
-                }
-                if (sExcluir != null) {
-                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo ecluir " + sExcluir.getNome() + "?");
-                    if (op == 0) {
-                        try {
-                            cp.delete(sExcluir);
-                            JOptionPane.showMessageDialog(null, "Excluido com sucesso");
-                            DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
-                            dtm.removeRow(linha);
-
-                        } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "Este treinador possui registros vinculados.\nNão foi possível realizar a exclusao!");
-                        }
-                    }
+        if (linha != -1) {
+            int colunas = tableAlunos.getColumnCount();
+            for (int x = 0; x < colunas; x++) {
+                if (tableAlunos.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableAlunos.getValueAt(linha, x);
+                    sExcluir = cp.findByCodigo(codigo);
 
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecione um treinador!");
             }
+            if (sExcluir != null) {
+                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                if (op == 0) {
+                    try {
+                        cp.delete(sExcluir);
+                        DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
+                        dtm.removeRow(linha);
+                        warningPanelData.setVisible(true);
+                        warningPanelData.setBackground(new Color(0, 153, 0));
+                        btnMessage.setBackground(new Color(0, 153, 0));
+                        labelWarningData.setText("Excluído com sucesso!");
+
+                    } catch (Exception e) {
+                        warningPanelData.setVisible(true);
+                        warningPanelData.setBackground(new Color(255, 51, 51));
+                        btnMessage.setBackground(new Color(255, 51, 51));
+                        labelWarningData.setText("Este aluno possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                    }
+                }
+
+            }
+
         } else {
-            if (menuSelection == 1) {
-                botMenuAdicionar.select();
-                botMenuAlterar.unselect();
-            } else {
-                botMenuAlterar.select();
-                botMenuAdicionar.unselect();
-            }
+            warningPanelData.setVisible(true);
+            warningPanelData.setBackground(new Color(255, 51, 51));
+            labelWarningData.setText("Selecione um aluno.");
         }
+    }//GEN-LAST:event_excludeBtnActionPerformed
 
-    }//GEN-LAST:event_botMenuExcluirActionPerformed
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        btnExit.setForeground(new java.awt.Color(50, 60, 69));
+    }//GEN-LAST:event_btnExitMouseEntered
+
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        btnExit.setForeground(new java.awt.Color(153, 153, 153));
+    }//GEN-LAST:event_btnExitMouseExited
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void mButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton4MouseEntered
         mButton4.setForeground(new java.awt.Color(50, 60, 69));
@@ -644,7 +716,7 @@ public class FormAluno extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_mButton4ActionPerformed
 
-    private void botMenuAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAdicionarActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         if (menuSelection == 0) {
             menuSelection = 1;
             dataPanel.setVisible(false);
@@ -654,24 +726,28 @@ public class FormAluno extends javax.swing.JDialog {
             limparCampos();
         } else {
             if (menuSelection == 1) {
-                botMenuAdicionar.select();
-                botMenuAlterar.unselect();
+                addBtn.select();
+                changeBtn.unselect();
             } else {
-                botMenuAlterar.select();
-                botMenuAdicionar.unselect();
+                changeBtn.select();
+                addBtn.unselect();
             }
         }
-    }//GEN-LAST:event_botMenuAdicionarActionPerformed
+    }//GEN-LAST:event_addBtnActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        botMenuAdicionar.unselect();
+        addBtn.unselect();
+        changeBtn.unselect();
+        menuSelection = 0;
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
+        warningPanelData.setVisible(false);
+        warningPanelForm.setVisible(false);
+        makeAllBlack();
         limparCampos();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
-        Aluno p = new Aluno();
         byte[] imageInByte = null;
         Color errorColor = new Color(255, 0, 0);
         if (file != null) {
@@ -682,19 +758,20 @@ public class FormAluno extends javax.swing.JDialog {
                 fis.read(imageInByte);
                 fis.close();
             } catch (IOException ex) {
-                Logger.getLogger(FormSecretario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormAluno.class.getName()).log(Level.SEVERE, null, ex);
                 fis = null;
             }
         }
         boolean flag = false;
         String message = "";
         boolean passerr = false;
+       
+
         if (txtNome.getText().equals("")) {
             txtNome.setForeground(errorColor);
-            txtNome.repaint();
             flag = true;
         }
-        if (txtTelefone.getText().equals("(  )     -    ")) {
+        if (txtTelefone.getText().equals("(  )      -    ")) {
             txtTelefone.setForeground(errorColor);
             flag = true;
         }
@@ -734,34 +811,38 @@ public class FormAluno extends javax.swing.JDialog {
             txtLogin.setForeground(errorColor);
             flag = true;
         }
-        if (txtSenha.getText().equals("") || txtSenha.getPassword().length < 4) {
+        if (txtSenha.getText().equals("")) {
+            txtSenha.setForeground(errorColor);
+            flag = true;
+        }
+        if (txtSenha.getPassword().length < 4) {
             txtSenha.setForeground(errorColor);
             passerr = true;
-            flag = true;
         }
         if (txtConfirmar.getText().equals("")) {
             txtConfirmar.setForeground(errorColor);
             flag = true;
         }
-        
+      
 
         this.repaint();
 
         if (flag) {
             message = "Preencha todos os campos corretamente.";
-        }
 
+        }
         if (passerr) {
             message += " A senha deve ter no mínimo 4 caracteres!";
-        }
 
-        if (!txtSenha.getText().equals(txtConfirmar.getText())) {
+        }
+        if (!txtSenha.getText().equals(txtConfirmar.getText()) && !passerr) {
+            txtSenha.setForeground(errorColor);
             message += " As senhas não correspondem";
             flag = true;
         }
-       
+        
 
-        if (!flag) {
+        if (!flag && !passerr) {
             p.setNome(txtNome.getText());
             p.setCidade(txtCidade.getText());
             p.setBairro(txtBairro.getText());
@@ -773,13 +854,9 @@ public class FormAluno extends javax.swing.JDialog {
             p.setRg(txtRg.getText());
             p.setSenha(txtSenha.getText());
             p.setTelefone(txtTelefone.getText());
+            
+           
             p.setRua(txtRua.getText());
-            p.setColesterol("");
-            p.setFreqAtFisica("");
-            p.setFumante(false);
-            p.setInfSobrepeso("");
-            p.setMedicamentos("");
-            p.setProbOrto("");
 
             if (file != null) {
                 p.setImagem(imageInByte);
@@ -789,31 +866,65 @@ public class FormAluno extends javax.swing.JDialog {
 
                     cp.persist(p);
                     message = "Cadastro efetuado com sucesso.";
+                    warningPanelData.setBackground(new Color(0, 153, 0));
+                    btnMessage.setBackground(new Color(0, 153, 0));
+                    warningPanelData.setVisible(true);
                     limparCampos();
                 } catch (DatabaseException ex) {
-                    message = "Secretário já cadastrado.";
+                    message = "Treinador já cadastrado.";
+                    warningPanelData.setBackground(new Color(255, 51, 51));
+                    btnMessage.setBackground(new Color(255, 51, 51));
+                    labelWarningData.setText(message);
+                    warningPanelData.setVisible(true);
                 }
             } else {
                 p.setCodigo(selecionado.getCodigo());
                 cp.alter(p);
                 message = "Alteração efetuada com sucesso.";
+                labelWarningData.setText(message);
+                warningPanelData.setBackground(new Color(0, 153, 0));
+                btnMessage.setBackground(new Color(0, 153, 0));
+                warningPanelData.setVisible(true);
                 limparCampos();
             }
+            labelWarningData.setText(message);
             menuSelection = 0;
-            botMenuAdicionar.unselect();
-            botMenuAlterar.unselect();
+            addBtn.unselect();
+            changeBtn.unselect();
             dataPanel.setVisible(true);
             formPanel.setVisible(false);
+            warningPanelData.setVisible(true);
+            //timer
+
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         } else {
-            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+
+            labelWarningForm.setText(message);
+            warningPanelForm.setVisible(true);
+            warningPanelForm.setBackground(new Color(255, 51, 51));
+            btnError.setBackground(new Color(255, 51, 51));
+
         }
-
-
     }//GEN-LAST:event_botConfirmarActionPerformed
 
-    private void limparCampos() {
+    private void makeAllBlack() {
+        txtNome.setForeground(Color.black);
+        txtTelefone.setForeground(Color.black);
+        txtNascimento.setForeground(Color.black);
+        txtCpf.setForeground(Color.black);
+        txtRg.setForeground(Color.black);
+        txtEmail.setForeground(Color.black);
+        txtCidade.setForeground(Color.black);
+        txtBairro.setForeground(Color.black);
+        txtRua.setForeground(Color.black);
+        txtNumero.setForeground(Color.black);
+        txtLogin.setForeground(Color.black);
+        txtSenha.setForeground(Color.black);
+        txtConfirmar.setForeground(Color.black);
+        
+    }
 
+    private void limparCampos() {
         txtNome.setText("");
         txtTelefone.setValue("");
         txtNascimento.setValue("");
@@ -827,25 +938,143 @@ public class FormAluno extends javax.swing.JDialog {
         txtLogin.setText("");
         txtSenha.setText("");
         txtConfirmar.setText("");
-        
-        
-         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
+       
+
+        String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
         Image img = icon.getImage();
         profileImagePanel.setImage(img);
 
     }
-    private void labelImagemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseEntered
+    private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
+        labelImagem.setVisible(true);
+    }//GEN-LAST:event_profileImagePanelMouseEntered
 
-    }//GEN-LAST:event_labelImagemMouseEntered
+    private void changeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBtnActionPerformed
+        if (menuSelection == 0) {
+            int linha = tableAlunos.getSelectedRow();
+            int codigo;
+            if (linha != -1) {
+                menuSelection = 2;
+                int colunas = tableAlunos.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableAlunos.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableAlunos.getValueAt(linha, x);
+                        selecionado = cp.findByCodigo(codigo);
+                        setAluno();
+                        dataPanel.setVisible(false);
+                        formPanel.setVisible(true);
+                    }
+                }
+
+            } else {
+                changeBtn.unselect();
+                labelWarningData.setText("Selecione um aluno.");
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                btnMessage.setBackground(new Color(255, 51, 51));
+
+                //timer
+            }
+        } else {
+            if (menuSelection == 1) {
+                addBtn.select();
+                changeBtn.unselect();
+            } else {
+                changeBtn.select();
+                addBtn.unselect();
+            }
+        }
+
+    }//GEN-LAST:event_changeBtnActionPerformed
+
+    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
+        atualizaTabela();
+    }//GEN-LAST:event_mGradientButton1ActionPerformed
+
+    private void bgMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_bgMousePressed
+
+    private void bgMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseReleased
+        this.setOpacity((float) 1.0);
+    }//GEN-LAST:event_bgMouseReleased
+
+    private void bgMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseDragged
+        setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
+        setOpacity((float) 0.9);
+    }//GEN-LAST:event_bgMouseDragged
+
+    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
+        mGradientButton1.setForeground(Color.white);
+    }//GEN-LAST:event_mGradientButton1MouseEntered
+
+    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
+        mGradientButton1.setForeground(new Color(204, 204, 204));
+    }//GEN-LAST:event_mGradientButton1MouseExited
+
+    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
+        txtNome.setForeground(Color.black);
+    }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
+        txtCpf.setForeground(Color.black);
+        if (txtCpf.getText().equals("   .   .   -  "))
+            txtCpf.setCaretPosition(0);
+    }//GEN-LAST:event_txtCpfFocusGained
+
+    private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
+        txtRg.setForeground(Color.black);
+        if (txtRg.getText().equals("  .   .   - "))
+            txtRg.setCaretPosition(0);
+    }//GEN-LAST:event_txtRgFocusGained
+
+    private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
+        txtNascimento.setForeground(Color.black);
+        if (txtNascimento.getText().equals("  /  /    "))
+            txtNascimento.setCaretPosition(0);
+    }//GEN-LAST:event_txtNascimentoFocusGained
+
+    private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
+        txtTelefone.setForeground(Color.black);
+    }//GEN-LAST:event_txtTelefoneFocusGained
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        txtEmail.setForeground(Color.black);
+    }//GEN-LAST:event_txtEmailFocusGained
+
+    private void txtCidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusGained
+        txtCidade.setForeground(Color.black);
+    }//GEN-LAST:event_txtCidadeFocusGained
+
+    private void txtBairroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusGained
+        txtBairro.setForeground(Color.black);
+    }//GEN-LAST:event_txtBairroFocusGained
+
+    private void txtRuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusGained
+        txtRua.setForeground(Color.black);
+    }//GEN-LAST:event_txtRuaFocusGained
+
+    private void txtNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusGained
+        txtNumero.setForeground(Color.black);
+    }//GEN-LAST:event_txtNumeroFocusGained
+
+    private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
+        txtLogin.setForeground(Color.black);
+    }//GEN-LAST:event_txtLoginFocusGained
+
+    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
+        txtSenha.setForeground(Color.black);
+    }//GEN-LAST:event_txtSenhaFocusGained
+
+    private void txtConfirmarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusGained
+        txtConfirmar.setForeground(Color.black);
+    }//GEN-LAST:event_txtConfirmarFocusGained
 
     private void labelImagemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseExited
         labelImagem.setVisible(false);
     }//GEN-LAST:event_labelImagemMouseExited
-
-    private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
-        labelImagem.setVisible(true);
-    }//GEN-LAST:event_profileImagePanelMouseEntered
 
     private void labelImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseClicked
         JFileChooser jfc = new JFileChooser();
@@ -867,130 +1096,33 @@ public class FormAluno extends javax.swing.JDialog {
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
             } finally {
-                // System.out.println(file.getAbsolutePath());
+                System.out.println(file.getAbsolutePath());
                 profileImagePanel.setImage(image);
                 profileImagePanel.repaint();
             }
         }
-
-
     }//GEN-LAST:event_labelImagemMouseClicked
 
-    private void botMenuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botMenuAlterarActionPerformed
-        int linha = tableAlunos.getSelectedRow();
-        int codigo;
-        if (menuSelection == 0) {
-            menuSelection = 1;
-            if (linha != -1) {
-                int colunas = tableAlunos.getColumnCount();
-                for (int x = 0; x < colunas; x++) {
-                    if (tableAlunos.getColumnName(x).equals("Código")) {
-                        codigo = (int) tableAlunos.getValueAt(linha, x);
-                        System.out.println(codigo);
-                        selecionado = cp.findByCodigo(codigo);
+    private void btnErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErrorActionPerformed
+        warningPanelForm.setVisible(false);
+    }//GEN-LAST:event_btnErrorActionPerformed
 
-                        setTreinador();
-                        dataPanel.setVisible(false);
-                        formPanel.setVisible(true);
-                    }
-                }
+    private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
+        warningPanelData.setVisible(false);
+    }//GEN-LAST:event_btnMessageActionPerformed
 
-            } else {
-                botMenuAlterar.unselect();
-                JOptionPane.showMessageDialog(null, "Selecione um treinador!");
-            }
-        } else {
-            if (menuSelection == 1) {
-                botMenuAdicionar.select();
-                botMenuAlterar.unselect();
-            } else {
-                botMenuAlterar.select();
-                botMenuAdicionar.unselect();
-            }
-        }
-
-    }//GEN-LAST:event_botMenuAlterarActionPerformed
-
-    private void mGradientButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseEntered
-        mGradientButton1.setForeground(Color.white);
-    }//GEN-LAST:event_mGradientButton1MouseEntered
-
-    private void mGradientButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mGradientButton1MouseExited
-        mGradientButton1.setForeground(new Color(204, 204, 204));
-    }//GEN-LAST:event_mGradientButton1MouseExited
-
-    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
-        atualizaTabela();
-    }//GEN-LAST:event_mGradientButton1ActionPerformed
-
-    private void txtNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeMouseClicked
-
-    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
-       txtNome.setForeground(Color.black);
-    }//GEN-LAST:event_txtNomeFocusGained
-
-    private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
-        txtTelefone.setForeground(Color.black);
-    }//GEN-LAST:event_txtTelefoneFocusGained
-
-    private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
-        txtNascimento.setForeground(Color.black);
-    }//GEN-LAST:event_txtNascimentoFocusGained
-
-    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
-        txtCpf.setForeground(Color.black);
-    }//GEN-LAST:event_txtCpfFocusGained
-
-    private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
-        txtRg.setForeground(Color.black);
-    }//GEN-LAST:event_txtRgFocusGained
-
-    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
-     txtEmail.setForeground(Color.black);
-    }//GEN-LAST:event_txtEmailFocusGained
-
-    private void txtCidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusGained
-      txtCidade.setForeground(Color.black);
-    }//GEN-LAST:event_txtCidadeFocusGained
-
-    private void txtBairroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusGained
-       txtBairro.setForeground(Color.black);
-    }//GEN-LAST:event_txtBairroFocusGained
-
-    private void txtRuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusGained
-      txtRua.setForeground(Color.black);
-    }//GEN-LAST:event_txtRuaFocusGained
-
-    private void txtNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusGained
-     txtNumero.setForeground(Color.black);
-    }//GEN-LAST:event_txtNumeroFocusGained
-
-    private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
-        txtLogin.setForeground(Color.black);
-    }//GEN-LAST:event_txtLoginFocusGained
-
-    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
-      txtSenha.setForeground(Color.black);
-    }//GEN-LAST:event_txtSenhaFocusGained
-
-    private void txtConfirmarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusGained
-     txtConfirmar.setForeground(Color.black);
-    }//GEN-LAST:event_txtConfirmarFocusGained
-    private void setTreinador() {
-
-        if (selecionado.getImagem().length > 0) {
+    private void setAluno() {
+        if (selecionado.getImagem() != null) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());
             profileImagePanel.setImage(im.getImage());
             profileImagePanel.repaint();
         }
-
         txtNome.setText(selecionado.getNome());
         txtTelefone.setText(selecionado.getTelefone());
         txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
         txtCpf.setText(selecionado.getCpf());
         txtCpf.setEnabled(false);
+        txtCpf.setBackground(Color.WHITE);
         txtRg.setText(selecionado.getRg());
         txtEmail.setText(selecionado.getEmail());
         txtCidade.setText(selecionado.getCidade());
@@ -1012,7 +1144,7 @@ public class FormAluno extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -1027,261 +1159,9 @@ public class FormAluno extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(FormAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1299,18 +1179,23 @@ public class FormAluno extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton addBtn;
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAdicionar;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuAlterar;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton botMenuExcluir;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnError;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;
     private javax.swing.JPanel cardPanel;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton changeBtn;
     private javax.swing.JPanel dataPanel;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton excludeBtn;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelImagem;
+    private javax.swing.JLabel labelWarningData;
+    private javax.swing.JLabel labelWarningForm;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
@@ -1332,5 +1217,7 @@ public class FormAluno extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtRua;
     private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtSenha;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtTelefone;
+    private javax.swing.JPanel warningPanelData;
+    private javax.swing.JPanel warningPanelForm;
     // End of variables declaration//GEN-END:variables
 }
