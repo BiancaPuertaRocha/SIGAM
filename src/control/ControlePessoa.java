@@ -24,12 +24,12 @@ public class ControlePessoa extends Controle<Pessoa> {
         consulta.setParameter("nome", parSQL);
         return consulta.getResultList();
     }
-    public List<Pessoa> findByLoginSenha(String login, String senha) {
+    public Pessoa findByLoginSenha(String login, String senha) {
         EntityManager em = getEntityManager();
         TypedQuery<Pessoa> consulta = em.createNamedQuery("Pessoa.findByLoginESenha", Pessoa.class);
         consulta.setParameter("login", login);
         consulta.setParameter("senha", senha);
-        return consulta.getResultList();
+        return consulta.getSingleResult();
     }
 
 }

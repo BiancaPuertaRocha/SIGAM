@@ -547,6 +547,7 @@ public class FormCaixa extends javax.swing.JDialog {
         warningPanelForm1.setBackground(new java.awt.Color(255, 51, 51));
 
         btnError1.setBackground(new java.awt.Color(255, 51, 51));
+        btnError1.setBorder(null);
         btnError1.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         btnError1.setBorderRadius(0);
         btnError1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));

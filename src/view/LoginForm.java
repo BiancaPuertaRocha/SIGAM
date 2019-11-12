@@ -5,7 +5,11 @@
  */
 package view;
 
+import control.ControlePessoa;
+import java.awt.Color;
 import java.awt.Toolkit;
+import javax.persistence.NoResultException;
+import model.Pessoa;
 
 /**
  *
@@ -15,7 +19,8 @@ public class LoginForm extends javax.swing.JFrame {
 
     private int xMouse;
     private int yMouse;
-
+    private ControlePessoa cp = new ControlePessoa();
+    
     /**
      * Creates new form loginForm
      */
@@ -23,6 +28,7 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/images/favicon2.png")));
+        warningPanelForm1.setVisible(false);
     }
 
     /**
@@ -57,6 +63,9 @@ public class LoginForm extends javax.swing.JFrame {
         mGradientButton14 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         mGradientButton15 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         mGradientButton16 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        warningPanelForm1 = new javax.swing.JPanel();
+        btnError1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        labelWarningForm1 = new javax.swing.JLabel();
         loadingPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,6 +99,11 @@ public class LoginForm extends javax.swing.JFrame {
         txtUsuario.setAccent(new java.awt.Color(220, 148, 74));
         txtUsuario.setLabel("Nome de usuário");
         txtUsuario.setSelectionColor(new java.awt.Color(220, 148, 74));
+        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusGained(evt);
+            }
+        });
         formPanel.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 310, 60));
 
         txtSenha.setBackground(new java.awt.Color(37, 46, 55));
@@ -97,6 +111,11 @@ public class LoginForm extends javax.swing.JFrame {
         txtSenha.setAccent(new java.awt.Color(220, 148, 74));
         txtSenha.setLabel("Senha");
         txtSenha.setSelectionColor(new java.awt.Color(220, 148, 74));
+        txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSenhaFocusGained(evt);
+            }
+        });
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSenhaActionPerformed(evt);
@@ -139,7 +158,7 @@ public class LoginForm extends javax.swing.JFrame {
                 mButton3ActionPerformed(evt);
             }
         });
-        formPanel.add(mButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 40, 40));
+        formPanel.add(mButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 40, 40));
 
         mGradientButton2.setBorderRadius(10);
         mGradientButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -275,6 +294,45 @@ public class LoginForm extends javax.swing.JFrame {
         mGradientButton16.setStartColor(new java.awt.Color(223, 108, 54));
         formPanel.add(mGradientButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 76, 13, 25));
 
+        warningPanelForm1.setBackground(new java.awt.Color(255, 51, 51));
+
+        btnError1.setBackground(new java.awt.Color(255, 51, 51));
+        btnError1.setBorder(null);
+        btnError1.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnError1.setBorderRadius(0);
+        btnError1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnError1.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnError1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnError1ActionPerformed(evt);
+            }
+        });
+
+        labelWarningForm1.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        labelWarningForm1.setForeground(new java.awt.Color(255, 255, 255));
+        labelWarningForm1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWarningForm1.setText("Preencha os campos corretamente.");
+
+        javax.swing.GroupLayout warningPanelForm1Layout = new javax.swing.GroupLayout(warningPanelForm1);
+        warningPanelForm1.setLayout(warningPanelForm1Layout);
+        warningPanelForm1Layout.setHorizontalGroup(
+            warningPanelForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelForm1Layout.createSequentialGroup()
+                .addComponent(labelWarningForm1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnError1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        warningPanelForm1Layout.setVerticalGroup(
+            warningPanelForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(warningPanelForm1Layout.createSequentialGroup()
+                .addGroup(warningPanelForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnError1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelWarningForm1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        formPanel.add(warningPanelForm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 430, -1));
+
         loginPanel.add(formPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 430, 540));
 
         bg.add(loginPanel, "card2");
@@ -285,7 +343,7 @@ public class LoginForm extends javax.swing.JFrame {
         loadingPanel.setLayout(loadingPanelLayout);
         loadingPanelLayout.setHorizontalGroup(
             loadingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGap(0, 770, Short.MAX_VALUE)
         );
         loadingPanelLayout.setVerticalGroup(
             loadingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,7 +356,7 @@ public class LoginForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 761, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,11 +417,42 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_bgMouseDragged
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        
-        
-        
-        
+        if (txtSenha.getText().equals("") || txtUsuario.getText().equals("")) {
+            labelWarningForm1.setText("Preencha os campos corretamente");
+            warningPanelForm1.setVisible(true);
+            Color errorColor = new Color(255, 0, 0);
+            if (txtSenha.getText().equals("")) {
+                txtSenha.setForeground(errorColor);
+            }
+            if (txtUsuario.getText().equals("")) {
+                txtUsuario.setForeground(errorColor);
+            }
+        } else {
+            Pessoa p = null;
+            try {
+                p = cp.findByLoginSenha(txtUsuario.getText(), txtSenha.getText());
+                loadingPanel.setVisible(true);
+                formPanel.setVisible(false);
+            } catch (NoResultException e) {
+                labelWarningForm1.setText("Usuário ou senha incorretos");
+                warningPanelForm1.setVisible(true);
+            }
+        }
+
+
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnError1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnError1ActionPerformed
+        warningPanelForm1.setVisible(false);
+    }//GEN-LAST:event_btnError1ActionPerformed
+
+    private void txtUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusGained
+       txtUsuario.setForeground(new Color(240,240,240));
+    }//GEN-LAST:event_txtUsuarioFocusGained
+
+    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
+        txtSenha.setForeground(new Color(240,240,240));
+    }//GEN-LAST:event_txtSenhaFocusGained
 
     /**
      * @param args the command line arguments
@@ -404,8 +493,10 @@ public class LoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton btnEntrar;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnError1;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labelWarningForm1;
     private javax.swing.JPanel loadingPanel;
     private javax.swing.JPanel loginPanel;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton3;
@@ -426,5 +517,6 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel sideImage;
     private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtSenha;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtUsuario;
+    private javax.swing.JPanel warningPanelForm1;
     // End of variables declaration//GEN-END:variables
 }

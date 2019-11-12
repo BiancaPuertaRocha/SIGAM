@@ -211,6 +211,7 @@ public class FormTreinador extends javax.swing.JDialog {
         warningPanelData.setBackground(new java.awt.Color(0, 153, 0));
 
         btnMessage.setBackground(new java.awt.Color(0, 153, 0));
+        btnMessage.setBorder(null);
         btnMessage.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         btnMessage.setBorderRadius(0);
         btnMessage.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
