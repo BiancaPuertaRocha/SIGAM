@@ -126,7 +126,7 @@ public class PrincipalSecretario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setLayout(new java.awt.GridLayout(2, 3));
@@ -425,7 +425,7 @@ public class PrincipalSecretario extends javax.swing.JFrame {
             mPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(mPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(69, Short.MAX_VALUE))
         );
@@ -433,7 +433,7 @@ public class PrincipalSecretario extends javax.swing.JFrame {
             mPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(146, 146, 146)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(127, Short.MAX_VALUE))
         );
@@ -576,18 +576,14 @@ public class PrincipalSecretario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit1;
-    private com.hq.swingmaterialdesign.materialdesign.MButton btnExit2;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit3;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit4;
-    private com.hq.swingmaterialdesign.materialdesign.MButton btnExit5;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit6;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit7;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -597,14 +593,10 @@ public class PrincipalSecretario extends javax.swing.JFrame {
     private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel1;
     private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel10;
     private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel11;
-    private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel12;
     private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel13;
     private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel14;
     private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel15;
     private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel6;
-    private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel7;
-    private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel8;
-    private com.hq.swingmaterialdesign.materialdesign.MPanel mPanel9;
     private javax.swing.JLabel txtData;
     private javax.swing.JLabel txtTime;
     // End of variables declaration//GEN-END:variables
