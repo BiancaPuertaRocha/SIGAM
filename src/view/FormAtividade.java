@@ -5,8 +5,8 @@
  */
 package view;
 
-import control.ControleSecretario;
-import control.ControleTreinador;
+import control.ControleAluno;
+import control.ControleAtividade;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -15,14 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import model.Secretario;
-import model.Treinador;
+import model.Aluno;
+import model.Atividade;
 import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
 import util.LimitText;
@@ -31,22 +28,21 @@ import util.LimitText;
  *
  * @author abner
  */
-public class FormTreinador extends javax.swing.JDialog {
+public class FormAtividade extends javax.swing.JDialog {
 
     private int xMouse, yMouse;
-    private Treinador p = new Treinador();
-    private ControleTreinador cp = new ControleTreinador();
-    private File file;
-    private ArrayList<Treinador> listaPesquisa = new ArrayList();
-    private Treinador selecionado;
+    private Atividade p = new Atividade();
+    private ControleAtividade cp = new ControleAtividade();
+    private ArrayList<Atividade> listaPesquisa = new ArrayList();
+    private Atividade selecionado;
     private int menuSelection = 0;
 
-    public FormTreinador(java.awt.Frame parent, boolean modal) {
+    public FormAtividade(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
         initComponents();
         this.setLocationRelativeTo(null);
-        labelImagem.setVisible(false);
+       
         warningPanelForm.setVisible(false);
         warningPanelData.setVisible(false);
     }
@@ -56,11 +52,11 @@ public class FormTreinador extends javax.swing.JDialog {
             @Override
             public void run() {
                 listaPesquisa.clear();
-                listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
-                DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
+                listaPesquisa.addAll(cp.findByDescricao(txtPesquisa.getText()));
+                DefaultTableModel dtm = (DefaultTableModel) tableAtividade.getModel();
                 dtm.setNumRows(0);
-                for (Treinador s : listaPesquisa) {
-                    dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getEspecialidade(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
+                for (Atividade  s : listaPesquisa) {
+                    dtm.addRow(new Object[]{s.getCodigo(), s.getDescricao(), s.getMusculo().equals("")? "-" : s.getMusculo(), s.getEquipamentos().equals("")? "-" : s.getEquipamentos()});
                 }
             }
         }.start();
@@ -91,35 +87,18 @@ public class FormTreinador extends javax.swing.JDialog {
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         tablePanel = new javax.swing.JScrollPane();
-        tableTreinadores = new javax.swing.JTable();
+        tableAtividade = new javax.swing.JTable();
         formPanel = new javax.swing.JPanel();
         warningPanelForm = new javax.swing.JPanel();
         btnError = new com.hq.swingmaterialdesign.materialdesign.MButton();
         labelWarningForm = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        txtNome = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtEquipamentos = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         botCancelar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botConfirmar = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
-        labelImagem = new javax.swing.JLabel();
-        txtNascimento = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtTelefone = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtNumero = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtCidade = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtBairro = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtRua = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtLogin = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtSenha = new com.hq.swingmaterialdesign.materialdesign.MPasswordField();
-        txtConfirmar = new com.hq.swingmaterialdesign.materialdesign.MPasswordField();
-        txtRg = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtCpf = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtEmail = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtEntrada = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtSaida = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtSalario = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtEspecialidade = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtCref = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtDescricao = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtMusculos = new com.hq.swingmaterialdesign.materialdesign.MTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -145,7 +124,7 @@ public class FormTreinador extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("TREINADOR");
+        jLabel1.setText("ATIVIDADE");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
         excludeBtn.setBorder(null);
@@ -324,15 +303,15 @@ public class FormTreinador extends javax.swing.JDialog {
         tablePanel.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
         tablePanel.setHorizontalScrollBar(null);
 
-        tableTreinadores.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        tableTreinadores.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
-        tableTreinadores.setForeground(new java.awt.Color(72, 72, 72));
-        tableTreinadores.setModel(new javax.swing.table.DefaultTableModel(
+        tableAtividade.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tableAtividade.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
+        tableAtividade.setForeground(new java.awt.Color(72, 72, 72));
+        tableAtividade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "Especialidade", "Horário"
+                "Código", "Descrição", "Musculo", "Equipamentos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -343,12 +322,18 @@ public class FormTreinador extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tableTreinadores.setGridColor(new java.awt.Color(255, 255, 255));
-        tableTreinadores.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tableTreinadores.setRowHeight(30);
-        tableTreinadores.setSelectionBackground(new java.awt.Color(205, 205, 205));
-        tablePanel.setViewportView(tableTreinadores);
-        tableTreinadores.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
+        tableAtividade.setGridColor(new java.awt.Color(255, 255, 255));
+        tableAtividade.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tableAtividade.setRowHeight(30);
+        tableAtividade.setSelectionBackground(new java.awt.Color(205, 205, 205));
+        tablePanel.setViewportView(tableAtividade);
+        if (tableAtividade.getColumnModel().getColumnCount() > 0) {
+            tableAtividade.getColumnModel().getColumn(0).setResizable(false);
+            tableAtividade.getColumnModel().getColumn(1).setResizable(false);
+            tableAtividade.getColumnModel().getColumn(2).setResizable(false);
+            tableAtividade.getColumnModel().getColumn(3).setResizable(false);
+        }
+        tableAtividade.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
         dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 390));
 
@@ -426,15 +411,15 @@ public class FormTreinador extends javax.swing.JDialog {
 
         formPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
 
-        txtNome.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtNome.setLabel("Nome");
-        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtEquipamentos.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtEquipamentos.setLabel("Equipamento");
+        txtEquipamentos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNomeFocusGained(evt);
+                txtEquipamentosFocusGained(evt);
             }
         });
-        txtNome.setDocument(new LimitText(50));
-        formPanel.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 58, 503, 51));
+        txtEquipamentos.setDocument(new LimitText(100));
+        formPanel.add(txtEquipamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 503, 51));
 
         botCancelar.setBorder(null);
         botCancelar.setText("CANCELAR");
@@ -461,222 +446,25 @@ public class FormTreinador extends javax.swing.JDialog {
         });
         formPanel.add(botConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 514, 180, 50));
 
-        profileImagePanel.setBackground(new java.awt.Color(255, 255, 255));
-        profileImagePanel.setBorderRadius(120);
-        profileImagePanel.setFillBackground(false);
-        profileImagePanel.setFillImage(true);
-        profileImagePanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                profileImagePanelMouseEntered(evt);
-            }
-        });
-
-        labelImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/profileImageHover.png"))); // NOI18N
-        labelImagem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelImagemMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                labelImagemMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout profileImagePanelLayout = new javax.swing.GroupLayout(profileImagePanel);
-        profileImagePanel.setLayout(profileImagePanelLayout);
-        profileImagePanelLayout.setHorizontalGroup(
-            profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        profileImagePanelLayout.setVerticalGroup(
-            profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        formPanel.add(profileImagePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 58, 120, 120));
-
-        txtNascimento.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        try {
-            txtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtNascimento.setLabel("Data de Nascimento");
-        txtNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDescricao.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtDescricao.setLabel("Descrição");
+        txtDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNascimentoFocusGained(evt);
+                txtDescricaoFocusGained(evt);
             }
         });
-        formPanel.add(txtNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 116, 155, 51));
+        txtEquipamentos.setDocument(new LimitText(50));
+        formPanel.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 503, 51));
 
-        txtTelefone.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtTelefone.setLabel("Telefone");
-        txtTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtMusculos.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtMusculos.setLabel("Músculos");
+        txtMusculos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTelefoneFocusGained(evt);
+                txtMusculosFocusGained(evt);
             }
         });
-        formPanel.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 174, 168, 54));
-
-        txtNumero.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtNumero.setLabel("Número");
-        txtNumero.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNumeroFocusGained(evt);
-            }
-        });
-        txtNumero.setDocument(new LimitText(5));
-        formPanel.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 290, 117, 50));
-
-        txtCidade.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtCidade.setLabel("Cidade");
-        txtCidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCidadeFocusGained(evt);
-            }
-        });
-        txtCidade.setDocument(new LimitText(50));
-        formPanel.add(txtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 234, 302, 50));
-
-        txtBairro.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtBairro.setLabel("Bairro");
-        txtBairro.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtBairroFocusGained(evt);
-            }
-        });
-        txtBairro.setDocument(new LimitText(50));
-        formPanel.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 234, 195, 50));
-
-        txtRua.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtRua.setLabel("Logradouro");
-        txtRua.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtRuaFocusGained(evt);
-            }
-        });
-        txtRua.setDocument(new LimitText(50));
-        formPanel.add(txtRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 290, 380, 50));
-
-        txtLogin.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtLogin.setLabel("Nome de usuário");
-        txtLogin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtLoginFocusGained(evt);
-            }
-        });
-        txtLogin.setDocument(new LimitText(10));
-        formPanel.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 347, 191, 50));
-
-        txtSenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtSenha.setLabel("Senha");
-        txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSenhaFocusGained(evt);
-            }
-        });
-        txtSenha.setDocument(new LimitText(10));
-        formPanel.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 346, 155, 50));
-
-        txtConfirmar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtConfirmar.setLabel("Confirmar Senha");
-        txtConfirmar.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtConfirmarFocusGained(evt);
-            }
-        });
-        txtConfirmar.setDocument(new LimitText(10));
-        formPanel.add(txtConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(541, 346, 145, 50));
-
-        txtRg.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        try {
-            txtRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtRg.setLabel("RG");
-        txtRg.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtRgFocusGained(evt);
-            }
-        });
-        formPanel.add(txtRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 115, 168, 53));
-
-        txtCpf.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        try {
-            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtCpf.setLabel("CPF");
-        txtCpf.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCpfFocusGained(evt);
-            }
-        });
-        formPanel.add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 115, 168, 53));
-
-        txtEmail.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtEmail.setLabel("E-mail");
-        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEmailFocusGained(evt);
-            }
-        });
-        txtEmail.setDocument(new LimitText(50));
-        formPanel.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 174, 329, 54));
-
-        txtEntrada.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        txtEntrada.setLabel("Horário de entrada");
-        txtEntrada.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEntradaFocusGained(evt);
-            }
-        });
-        formPanel.add(txtEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 160, 50));
-
-        txtSaida.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        txtSaida.setLabel("Horário de saída");
-        txtSaida.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSaidaFocusGained(evt);
-            }
-        });
-        formPanel.add(txtSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, 150, 50));
-
-        txtSalario.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        txtSalario.setLabel("Salário");
-        txtSalario.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSalarioFocusGained(evt);
-            }
-        });
-        formPanel.add(txtSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, 180, 50));
-
-        txtEspecialidade.setLabel("Especialidade");
-        txtCref.setDocument(new LimitText(11));
-        txtEspecialidade.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEspecialidadeFocusGained(evt);
-            }
-        });
-        formPanel.add(txtEspecialidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 260, 50));
-
-        txtCref.setLabel("CREF");
-        txtCref.setDocument(new LimitText(11));
-        txtCref.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCrefFocusGained(evt);
-            }
-        });
-        formPanel.add(txtCref, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 240, 50));
+        txtEquipamentos.setDocument(new LimitText(50));
+        formPanel.add(txtMusculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 503, 50));
 
         cardPanel.add(formPanel, "card3");
 
@@ -697,24 +485,24 @@ public class FormTreinador extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
-        int linha = tableTreinadores.getSelectedRow();
+        int linha = tableAtividade.getSelectedRow();
         int codigo;
-        Treinador sExcluir = null;
+        Atividade sExcluir = null;
         if (linha != -1) {
-            int colunas = tableTreinadores.getColumnCount();
+            int colunas = tableAtividade.getColumnCount();
             for (int x = 0; x < colunas; x++) {
-                if (tableTreinadores.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableTreinadores.getValueAt(linha, x);
+                if (tableAtividade.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableAtividade.getValueAt(linha, x);
                     sExcluir = cp.findByCodigo(codigo);
 
                 }
             }
             if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getDescricao()+ "?");
                 if (op == 0) {
                     try {
                         cp.delete(sExcluir);
-                        DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
+                        DefaultTableModel dtm = (DefaultTableModel) tableAtividade.getModel();
                         dtm.removeRow(linha);
                         warningPanelData.setVisible(true);
                         warningPanelData.setBackground(new Color(0, 153, 0));
@@ -725,7 +513,7 @@ public class FormTreinador extends javax.swing.JDialog {
                         warningPanelData.setVisible(true);
                         warningPanelData.setBackground(new Color(255, 51, 51));
                         btnMessage.setBackground(new Color(255, 51, 51));
-                        labelWarningData.setText("Este treinador possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                        labelWarningData.setText("Esta atividade possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
 
@@ -734,7 +522,7 @@ public class FormTreinador extends javax.swing.JDialog {
         } else {
             warningPanelData.setVisible(true);
             warningPanelData.setBackground(new Color(255, 51, 51));
-            labelWarningData.setText("Selecione um treinador.");
+            labelWarningData.setText("Selecione uma atividade.");
         }
     }//GEN-LAST:event_excludeBtnActionPerformed
 
@@ -768,7 +556,6 @@ public class FormTreinador extends javax.swing.JDialog {
             dataPanel.setVisible(false);
             formPanel.setVisible(true);
             selecionado = null;
-            txtCpf.setEnabled(true);
             limparCampos();
         } else {
             if (menuSelection == 1) {
@@ -794,151 +581,32 @@ public class FormTreinador extends javax.swing.JDialog {
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
-        byte[] imageInByte = null;
+       
         Color errorColor = new Color(255, 0, 0);
-        if (file != null) {
-            imageInByte = new byte[(int) file.length()];
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(file);
-                fis.read(imageInByte);
-                fis.close();
-            } catch (IOException ex) {
-                Logger.getLogger(FormTreinador.class.getName()).log(Level.SEVERE, null, ex);
-                fis = null;
-            }
-        }
         boolean flag = false;
         String message = "";
-        boolean passerr = false;
-        if (txtCref.getText().equals("")) {
-            txtCref.setForeground(new Color(255, 102, 102));
-            flag = true;
-        }
+       
 
-        if (txtEspecialidade.getText().equals("")) {
-            txtEspecialidade.setForeground(new Color(255, 102, 102));
+        if (txtDescricao.getText().equals("")) {
+            txtDescricao.setForeground(errorColor);
             flag = true;
         }
-
-        if (txtNome.getText().equals("")) {
-            txtNome.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtTelefone.getText().equals("(  )      -    ")) {
-            txtTelefone.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtNascimento.getText().equals("  /  /    ")) {
-            txtNascimento.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtCpf.getText().equals("   .   .   -  ")) {
-            txtCpf.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtRg.getText().equals("  .   .   - ")) {
-            txtRg.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtEmail.getText().equals("")) {
-            txtEmail.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtCidade.getText().equals("")) {
-            txtCidade.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtBairro.getText().equals("")) {
-            txtBairro.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtRua.getText().equals("")) {
-            txtRua.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtNumero.getText().equals("")) {
-            txtNumero.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtLogin.getText().equals("")) {
-            txtLogin.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtSenha.getText().equals("")) {
-            txtSenha.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtSenha.getPassword().length < 4) {
-            txtSenha.setForeground(errorColor);
-            passerr = true;
-        }
-        if (txtConfirmar.getText().equals("")) {
-            txtConfirmar.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtEntrada.getText().equals("")) {
-            txtEntrada.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtSaida.getText().equals("")) {
-            txtSaida.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtSalario.getText().equals("")) {
-            txtSalario.setForeground(errorColor);
-            flag = true;
-        }
-        if (!txtSalario.getText().equals("") && Double.parseDouble(txtSalario.getText().replace(',', '.')) <= 0) {
-            txtSalario.setForeground(errorColor);
-            flag = true;
-        }
-
+       
+        
+       
         this.repaint();
 
         if (flag) {
-            message = "Preencha todos os campos corretamente.";
+            message = "Descricao obrigatória";
 
         }
-        if (passerr) {
-            message += " A senha deve ter no mínimo 4 caracteres!";
+        
+       
 
-        }
-        if (!txtSenha.getText().equals(txtConfirmar.getText()) && !passerr) {
-            txtSenha.setForeground(errorColor);
-            message += " As senhas não correspondem";
-            flag = true;
-        }
-        if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
-            txtSaida.setForeground(errorColor);
-            flag = true;
-            message += " O horário de entrada deve anteceder o de saída";
-        }
-
-        if (!flag && !passerr) {
-            p.setNome(txtNome.getText());
-            p.setCidade(txtCidade.getText());
-            p.setBairro(txtBairro.getText());
-            p.setCpf(txtCpf.getText());
-            p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
-            p.setEmail(txtEmail.getText());
-            p.setLogin(txtLogin.getText());
-            p.setNumero(Integer.parseInt(txtNumero.getText()));
-            p.setRg(txtRg.getText());
-            p.setSenha(txtSenha.getText());
-            p.setTelefone(txtTelefone.getText());
-            p.setEspecialidade(txtEspecialidade.getText());
-            p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
-            p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
-
-            p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
-            p.setCREF(txtCref.getText());
-           
-            p.setRua(txtRua.getText());
-
-            if (file != null) {
-                p.setImagem(imageInByte);
-            }
+        if (!flag ) {
+            p.setDescricao(txtDescricao.getText());
+            p.setEquipamentos(txtEquipamentos.getText());
+            p.setMusculo(txtMusculos.getText());
             if (selecionado == null) {
                 try {
 
@@ -949,7 +617,7 @@ public class FormTreinador extends javax.swing.JDialog {
                     warningPanelData.setVisible(true);
                     limparCampos();
                 } catch (DatabaseException ex) {
-                    message = "Treinador já cadastrado.";
+                    message = "Atividade já cadastrada.";
                     warningPanelData.setBackground(new Color(255, 51, 51));
                     btnMessage.setBackground(new Color(255, 51, 51));
                     labelWarningData.setText(message);
@@ -986,68 +654,35 @@ public class FormTreinador extends javax.swing.JDialog {
     }//GEN-LAST:event_botConfirmarActionPerformed
 
     private void makeAllBlack() {
-        txtNome.setForeground(Color.black);
-        txtTelefone.setForeground(Color.black);
-        txtNascimento.setForeground(Color.black);
-        txtCpf.setForeground(Color.black);
-        txtRg.setForeground(Color.black);
-        txtEmail.setForeground(Color.black);
-        txtCidade.setForeground(Color.black);
-        txtBairro.setForeground(Color.black);
-        txtRua.setForeground(Color.black);
-        txtNumero.setForeground(Color.black);
-        txtLogin.setForeground(Color.black);
-        txtSenha.setForeground(Color.black);
-        txtConfirmar.setForeground(Color.black);
-        txtEntrada.setForeground(Color.black);
-        txtSaida.setForeground(Color.black);
-        txtSalario.setForeground(Color.black);
-        txtEspecialidade.setForeground(new Color(109, 109, 109));
-        txtCref.setForeground(new Color(109, 109, 109));
+        txtEquipamentos.setForeground(Color.black);
+        txtDescricao.setForeground(Color.black);
+        txtMusculos.setForeground(Color.black);
+        
+        
     }
 
     private void limparCampos() {
-        txtNome.setText("");
-        txtTelefone.setValue("");
-        txtNascimento.setValue("");
-        txtCpf.setValue("");
-        txtRg.setText("");
-        txtEmail.setText("");
-        txtCidade.setText("");
-        txtBairro.setText("");
-        txtRua.setText("");
-        txtNumero.setText("");
-        txtLogin.setText("");
-        txtSenha.setText("");
-        txtConfirmar.setText("");
-        txtEntrada.setText("");
-        txtSaida.setText("");
-        txtSalario.setText("");
-        txtEspecialidade.setText("");
-        txtCref.setText("");
+        txtEquipamentos.setText("");
+        txtMusculos.setText("");
+        txtDescricao.setText("");
+        
+       
 
-        String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
-        ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-        Image img = icon.getImage();
-        profileImagePanel.setImage(img);
+       
 
     }
-    private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
-        labelImagem.setVisible(true);
-    }//GEN-LAST:event_profileImagePanelMouseEntered
-
     private void changeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBtnActionPerformed
         if (menuSelection == 0) {
-            int linha = tableTreinadores.getSelectedRow();
+            int linha = tableAtividade.getSelectedRow();
             int codigo;
             if (linha != -1) {
                 menuSelection = 2;
-                int colunas = tableTreinadores.getColumnCount();
+                int colunas = tableAtividade.getColumnCount();
                 for (int x = 0; x < colunas; x++) {
-                    if (tableTreinadores.getColumnName(x).equals("Código")) {
-                        codigo = (int) tableTreinadores.getValueAt(linha, x);
+                    if (tableAtividade.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableAtividade.getValueAt(linha, x);
                         selecionado = cp.findByCodigo(codigo);
-                        setSecretario();
+                        setAtividade();
                         dataPanel.setVisible(false);
                         formPanel.setVisible(true);
                     }
@@ -1055,7 +690,7 @@ public class FormTreinador extends javax.swing.JDialog {
 
             } else {
                 changeBtn.unselect();
-                labelWarningData.setText("Selecione um treinador.");
+                labelWarningData.setText("Selecione uma atividade.");
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
@@ -1100,112 +735,9 @@ public class FormTreinador extends javax.swing.JDialog {
         mGradientButton1.setForeground(new Color(204, 204, 204));
     }//GEN-LAST:event_mGradientButton1MouseExited
 
-    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
-        txtNome.setForeground(Color.black);
-    }//GEN-LAST:event_txtNomeFocusGained
-
-    private void txtCpfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCpfFocusGained
-        txtCpf.setForeground(Color.black);
-        if (txtCpf.getText().equals("   .   .   -  "))
-            txtCpf.setCaretPosition(0);
-    }//GEN-LAST:event_txtCpfFocusGained
-
-    private void txtRgFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRgFocusGained
-        txtRg.setForeground(Color.black);
-        if (txtRg.getText().equals("  .   .   - "))
-            txtRg.setCaretPosition(0);
-    }//GEN-LAST:event_txtRgFocusGained
-
-    private void txtNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusGained
-        txtNascimento.setForeground(Color.black);
-        if (txtNascimento.getText().equals("  /  /    "))
-            txtNascimento.setCaretPosition(0);
-    }//GEN-LAST:event_txtNascimentoFocusGained
-
-    private void txtTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefoneFocusGained
-        txtTelefone.setForeground(Color.black);
-    }//GEN-LAST:event_txtTelefoneFocusGained
-
-    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
-        txtEmail.setForeground(Color.black);
-    }//GEN-LAST:event_txtEmailFocusGained
-
-    private void txtCidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCidadeFocusGained
-        txtCidade.setForeground(Color.black);
-    }//GEN-LAST:event_txtCidadeFocusGained
-
-    private void txtBairroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBairroFocusGained
-        txtBairro.setForeground(Color.black);
-    }//GEN-LAST:event_txtBairroFocusGained
-
-    private void txtRuaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRuaFocusGained
-        txtRua.setForeground(Color.black);
-    }//GEN-LAST:event_txtRuaFocusGained
-
-    private void txtNumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFocusGained
-        txtNumero.setForeground(Color.black);
-    }//GEN-LAST:event_txtNumeroFocusGained
-
-    private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
-        txtLogin.setForeground(Color.black);
-    }//GEN-LAST:event_txtLoginFocusGained
-
-    private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
-        txtSenha.setForeground(Color.black);
-    }//GEN-LAST:event_txtSenhaFocusGained
-
-    private void txtConfirmarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmarFocusGained
-        txtConfirmar.setForeground(Color.black);
-    }//GEN-LAST:event_txtConfirmarFocusGained
-
-    private void txtEntradaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEntradaFocusGained
-        txtEntrada.setForeground(Color.black);
-        if (txtEntrada.getText().equals(""))
-            txtEntrada.setCaretPosition(0);
-    }//GEN-LAST:event_txtEntradaFocusGained
-
-    private void txtSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaidaFocusGained
-        txtSaida.setForeground(Color.black);
-        if (txtSaida.getText().equals(""))
-            txtSaida.setCaretPosition(0);
-    }//GEN-LAST:event_txtSaidaFocusGained
-
-    private void txtSalarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSalarioFocusGained
-        txtSalario.setForeground(Color.black);
-        if (txtSalario.getText().equals(""))
-            txtSalario.setCaretPosition(0);
-    }//GEN-LAST:event_txtSalarioFocusGained
-
-    private void labelImagemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseExited
-        labelImagem.setVisible(false);
-    }//GEN-LAST:event_labelImagemMouseExited
-
-    private void labelImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelImagemMouseClicked
-        JFileChooser jfc = new JFileChooser();
-        jfc.setDialogTitle("Selecione a imagem de perfil");
-        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
-
-        jfc.setFileFilter(ext);
-
-        int r = jfc.showOpenDialog(this);
-
-        if (r == JFileChooser.APPROVE_OPTION) {
-            file = jfc.getSelectedFile();
-            Image image = null;
-            try {
-                image = ImageIO.read(file);
-
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
-            } finally {
-                System.out.println(file.getAbsolutePath());
-                profileImagePanel.setImage(image);
-                profileImagePanel.repaint();
-            }
-        }
-    }//GEN-LAST:event_labelImagemMouseClicked
+    private void txtEquipamentosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEquipamentosFocusGained
+        txtEquipamentos.setForeground(Color.black);
+    }//GEN-LAST:event_txtEquipamentosFocusGained
 
     private void btnErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErrorActionPerformed
         warningPanelForm.setVisible(false);
@@ -1215,38 +747,21 @@ public class FormTreinador extends javax.swing.JDialog {
         warningPanelData.setVisible(false);
     }//GEN-LAST:event_btnMessageActionPerformed
 
-    private void txtEspecialidadeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEspecialidadeFocusGained
-        txtEspecialidade.setForeground(Color.black);
-    }//GEN-LAST:event_txtEspecialidadeFocusGained
+    private void txtDescricaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescricaoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescricaoFocusGained
 
-    private void txtCrefFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCrefFocusGained
-        txtCref.setForeground(Color.black);
-    }//GEN-LAST:event_txtCrefFocusGained
+    private void txtMusculosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMusculosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMusculosFocusGained
 
-    private void setSecretario() {
-        if (selecionado.getImagem() != null) {
-            ImageIcon im = new ImageIcon(selecionado.getImagem());
-            profileImagePanel.setImage(im.getImage());
-            profileImagePanel.repaint();
-        }
-        txtNome.setText(selecionado.getNome());
-        txtTelefone.setText(selecionado.getTelefone());
-        txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
-        txtCpf.setText(selecionado.getCpf());
-        txtCpf.setEnabled(false);
-        txtCpf.setBackground(Color.WHITE);
-        txtRg.setText(selecionado.getRg());
-        txtEmail.setText(selecionado.getEmail());
-        txtCidade.setText(selecionado.getCidade());
-        txtBairro.setText(selecionado.getBairro());
-        txtRua.setText(selecionado.getRua());
-        txtNumero.setText(Integer.toString(selecionado.getNumero()));
-        txtLogin.setText(selecionado.getLogin());
-        txtEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
-        txtSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
-        txtSalario.setText(Double.toString(selecionado.getSalario()));
-        txtEspecialidade.setText(selecionado.getEspecialidade());
-        txtCref.setText(selecionado.getCREF());
+    private void setAtividade() {
+        
+        txtEquipamentos.setText(selecionado.getEquipamentos());
+        txtMusculos.setText(selecionado.getMusculo());
+        txtDescricao.setText(selecionado.getDescricao());
+        
+        
     }
 
     /**
@@ -1266,83 +781,25 @@ public class FormTreinador extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAtividade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAtividade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAtividade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormTreinador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAtividade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormTreinador dialog = new FormTreinador(new javax.swing.JFrame(), true);
+                FormAtividade dialog = new FormAtividade(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1369,35 +826,18 @@ public class FormTreinador extends javax.swing.JDialog {
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelImagem;
     private javax.swing.JLabel labelWarningData;
     private javax.swing.JLabel labelWarningForm;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
-    private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JTable tableAtividade;
     private javax.swing.JScrollPane tablePanel;
-    private javax.swing.JTable tableTreinadores;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtBairro;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtCidade;
-    private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtConfirmar;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtCpf;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtCref;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtEmail;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtEntrada;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtEspecialidade;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtLogin;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtNascimento;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtNome;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtNumero;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtDescricao;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtEquipamentos;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtMusculos;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtPesquisa;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtRg;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtRua;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSaida;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSalario;
-    private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtSenha;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtTelefone;
     private javax.swing.JPanel warningPanelData;
     private javax.swing.JPanel warningPanelForm;
     // End of variables declaration//GEN-END:variables

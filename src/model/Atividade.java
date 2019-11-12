@@ -23,13 +23,11 @@ import javax.persistence.Table;
  * @author Aluno
  */
 @Entity
-@Table(name = "atividade")
+@Table(name = "Atividade")
 
 @NamedQueries({
     @NamedQuery(name = "Atividade.findAll", query = "SELECT a FROM Atividade a"),
     @NamedQuery(name = "Atividade.findByCodigo", query = "SELECT a FROM Atividade a WHERE a.codigo = :codigo"),
-    @NamedQuery(name = "Atividade.findByEquipamentos", query = "SELECT a FROM Atividade a WHERE a.equipamentos = :equipamentos"),
-    @NamedQuery(name = "Atividade.findByMusculo", query = "SELECT a FROM Atividade a WHERE a.musculo = :musculo"),
     @NamedQuery(name = "Atividade.findByDescricao", query = "SELECT a FROM Atividade a WHERE a.descricao = :descricao")})
 public class Atividade implements Serializable {
 

@@ -31,9 +31,7 @@ public class Despesa implements Serializable {
     private Date pagamento;
     @Column(name = "valor", nullable = true)
     private double valor;
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "codigo", name = "secretario")
-    private Secretario secretario;
+    
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "caixa", nullable = false)
     private Caixa caixa;
@@ -71,13 +69,6 @@ public class Despesa implements Serializable {
         this.caixa = caixa;
     }
 
-    public Secretario getSecretario() {
-        return secretario;
-    }
-
-    public void setSecretario(Secretario secretario) {
-        this.secretario = secretario;
-    }
 
     public int getCodigo() {
         return codigo;
