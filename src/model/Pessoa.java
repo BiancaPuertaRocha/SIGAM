@@ -28,7 +28,7 @@ import javax.persistence.Temporal;
 @Table(name="Pessoa")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
-public class Pessoa implements Serializable{
+public abstract class Pessoa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="codigo")

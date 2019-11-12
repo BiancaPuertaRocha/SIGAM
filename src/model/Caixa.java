@@ -34,6 +34,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Caixa.findBySaldoFinal", query = "SELECT c FROM Caixa c WHERE c.saldoFinal = :saldoFinal"),
     @NamedQuery(name = "Caixa.findByEntradas", query = "SELECT c FROM Caixa c WHERE c.entradas = :entradas"),
     @NamedQuery(name = "Caixa.findByData", query = "SELECT c FROM Caixa c WHERE c.data between :data1 and :data2"),
+    @NamedQuery(name = "Caixa.findByAbertoFuncionario", query = "SELECT c FROM Caixa c WHERE c.secretario =  :secretario and c.data = :data2 and c.hrFechamento = null"),
+    
     @NamedQuery(name = "Caixa.findBySaidas", query = "SELECT c FROM Caixa c WHERE c.saidas = :saidas")})
 public class Caixa implements Serializable {
 

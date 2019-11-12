@@ -5,10 +5,12 @@
  */
 package control;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import model.Caixa;
+import model.Funcionario;
 
 import util.Conversoes;
 
@@ -41,5 +43,16 @@ public class ControleCaixa extends Controle<Caixa>{
         consulta.setParameter("codigo", cod);
         return consulta.getSingleResult();
     }
+     public Caixa findByAbertoFuncionario(Funcionario f, Date data) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Caixa> consulta = em.createNamedQuery("Caixa.findByAbertoFuncionario", Caixa.class);
+        consulta.setParameter("funcionario", f);
+        consulta.setParameter("data", data);
+        return consulta.getSingleResult();
+    }
+     
+     public void persist(Caixa c){
+         
+     }
     
 }

@@ -45,6 +45,7 @@ public class FormCaixa extends javax.swing.JDialog {
 
         warningPanelForm.setVisible(false);
         warningPanelData.setVisible(false);
+        warningPanelForm1.setVisible(false);
     }
 
     private void atualizaTabela() {
@@ -745,11 +746,11 @@ public class FormCaixa extends javax.swing.JDialog {
             selecionado = null;
             limparCampos();
         } else {
-            if (menuSelection == 1) {
-                btnAbrir.select();
-                btnVisualizar.unselect();
-            } else {
-                btnVisualizar.select();
+            if (menuSelection == 2) {
+                btnFechar.select();
+                btnAbrir.unselect();
+            } else if(menuSelection==3){
+               btnVisualizar.select();
                 btnAbrir.unselect();
             }
         }
@@ -768,20 +769,9 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
-        byte[] imageInByte = null;
+       
         
-        if (file != null) {
-            imageInByte = new byte[(int) file.length()];
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(file);
-                fis.read(imageInByte);
-                fis.close();
-            } catch (IOException ex) {
-                Logger.getLogger(FormCaixa.class.getName()).log(Level.SEVERE, null, ex);
-                fis = null;
-            }
-        }
+        
         boolean flag = false;
         String message = "";
 
@@ -862,7 +852,7 @@ public class FormCaixa extends javax.swing.JDialog {
             int linha = tableAlunos.getSelectedRow();
             int codigo;
             if (linha != -1) {
-                menuSelection = 2;
+                menuSelection = 3;
                 int colunas = tableAlunos.getColumnCount();
                 for (int x = 0; x < colunas; x++) {
                     if (tableAlunos.getColumnName(x).equals("Código")) {
@@ -887,9 +877,9 @@ public class FormCaixa extends javax.swing.JDialog {
             if (menuSelection == 1) {
                 btnAbrir.select();
                 btnVisualizar.unselect();
-            } else {
-                btnVisualizar.select();
-                btnAbrir.unselect();
+            } else if(menuSelection==2){
+               btnFechar.select();
+                btnVisualizar.unselect();
             }
         }
 
@@ -930,7 +920,21 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMessageActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        // TODO add your handling code here:
+        if (menuSelection == 0) {
+            menuSelection=2;
+            dataPanel.setVisible(false);
+            formPanelFechar.setVisible(true);
+            selecionado = null;
+            limparCampos();
+        } else {
+             if (menuSelection == 1) {
+                btnAbrir.select();
+                btnFechar.unselect();
+            } else if(menuSelection==3){
+               btnVisualizar.select();
+                btnFechar.unselect();
+            }
+        }
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void txtSaldoInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaldoInicialFocusGained
@@ -951,11 +955,20 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton5MouseExited
 
     private void mButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton5ActionPerformed
-        // TODO add your handling code here:
+       dispose();
     }//GEN-LAST:event_mButton5ActionPerformed
 
     private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
-        // TODO add your handling code here:
+        btnAbrir.unselect();
+        btnFechar.unselect();
+        btnVisualizar.unselect();
+        menuSelection = 0;
+        dataPanel.setVisible(true);
+        formPanelAbrir.setVisible(false);
+        warningPanelData.setVisible(false);
+        warningPanelForm1.setVisible(false);
+        makeAllBlack();
+        limparCampos();
     }//GEN-LAST:event_botCancelarFechamentoActionPerformed
 
     private void botConfirmarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarFechamentoActionPerformed
@@ -1091,8 +1104,6 @@ public class FormCaixa extends javax.swing.JDialog {
     private javax.swing.JScrollPane tablePanel;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtData1;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtData2;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtNascimento;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtNascimento1;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSaldoFinal;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtSaldoInicial;
     private javax.swing.JPanel warningPanelData;
