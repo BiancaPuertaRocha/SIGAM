@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -28,21 +29,20 @@ import util.LimitText;
  * @author abner
  */
 public class FormAnamnese extends javax.swing.JDialog {
-
+    
     private ControleAluno cp = new ControleAluno();
     private File file;
     private ArrayList<Aluno> listaPesquisa = new ArrayList();
     private Aluno selecionado;
     
-
     public FormAnamnese(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
+        
         initComponents();
         this.setLocationRelativeTo(null);
-       
+        
     }
-
+    
     private void atualizaTabela() {
         listaPesquisa.clear();
         listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
@@ -50,9 +50,9 @@ public class FormAnamnese extends javax.swing.JDialog {
         dtm.setNumRows(0);
         String ultima;
         for (Aluno s : listaPesquisa) {
-            if(s.getDataUltima()==null){
+            if (s.getDataUltima() == null) {
                 ultima = "Não há";
-            }else{
+            } else {
                 ultima = Conversoes.getDateFormatedToString(s.getDataUltima());
             }
             dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getTelefone(), ultima});
@@ -493,7 +493,7 @@ public class FormAnamnese extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton4ActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-         
+        
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         limparCampos();
@@ -515,76 +515,45 @@ public class FormAnamnese extends javax.swing.JDialog {
                 fis = null;
             }
         }
-        boolean flag = false;
-        String message = "";
-        boolean passerr = false;
-        if (txtAtvidadeFisica.getText().equals("")) {
-            txtAtvidadeFisica.setForeground(errorColor);
-            txtAtvidadeFisica.repaint();
-            flag = true;
-        }
         
-        
-     
-        
-
         this.repaint();
-
-        if (flag) {
-            message = "Preencha todos os campos corretamente.";
+        
+        p.setDataUltima(new Date());
+        
+        if (file != null) {
+            p.setImagem(imageInByte);
         }
-
-        if (passerr) {
-            message += " A senha deve ter no mínimo 4 caracteres!";
-        }
-
-       
-
-        if (!flag) {
-            p.setNome(txtAtvidadeFisica.getText());
-           
-           
-
-            if (file != null) {
-                p.setImagem(imageInByte);
-            }
-            if (selecionado == null) {
-                try {
-
-                    cp.persist(p);
-                    message = "Cadastro efetuado com sucesso.";
-                    limparCampos();
-                } catch (DatabaseException ex) {
-                    message = "Secretário já cadastrado.";
-                }
-            } else {
-                p.setCodigo(selecionado.getCodigo());
-                cp.alter(p);
-                message = "Alteração efetuada com sucesso.";
+        if (selecionado == null) {
+            try {
+                
+                cp.persist(p);
+                
                 limparCampos();
+            } catch (DatabaseException ex) {
+                
             }
-         
-          
-            dataPanel.setVisible(true);
-            formPanel.setVisible(false);
-            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         } else {
-            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+            p.setCodigo(selecionado.getCodigo());
+            cp.alter(p);
+            
+            limparCampos();
         }
-
+        
+        dataPanel.setVisible(true);
+        formPanel.setVisible(false);
+        
 
     }//GEN-LAST:event_botConfirmarActionPerformed
-
+    
     private void limparCampos() {
-
+        
         txtAtvidadeFisica.setText("");
-       
-
+        
         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
         Image img = icon.getImage();
         profileImagePanel.setImage(img);
-
+        
     }
     private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
 
@@ -603,28 +572,27 @@ public class FormAnamnese extends javax.swing.JDialog {
     }//GEN-LAST:event_mGradientButton1ActionPerformed
 
     private void mButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton1ActionPerformed
-          int linha = tableAlunos.getSelectedRow();
+        int linha = tableAlunos.getSelectedRow();
         int codigo;
         
-        
-            if (linha != -1) {
-                int colunas = tableAlunos.getColumnCount();
-                for (int x = 0; x < colunas; x++) {
-                    if (tableAlunos.getColumnName(x).equals("Código")) {
-                        codigo = (int) tableAlunos.getValueAt(linha, x);
-                        System.out.println(codigo);
-                        selecionado = cp.findByCodigo(codigo);
-
-                        setAnamnese();
-                        dataPanel.setVisible(false);
-                        formPanel.setVisible(true);
-                    }
+        if (linha != -1) {
+            int colunas = tableAlunos.getColumnCount();
+            for (int x = 0; x < colunas; x++) {
+                if (tableAlunos.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableAlunos.getValueAt(linha, x);
+                    System.out.println(codigo);
+                    selecionado = cp.findByCodigo(codigo);
+                    
+                    setAnamnese();
+                    dataPanel.setVisible(false);
+                    formPanel.setVisible(true);
                 }
-
-            } else {
-              
-                JOptionPane.showMessageDialog(null, "Selecione um treinador!");
             }
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Selecione um treinador!");
+        }
         
     }//GEN-LAST:event_mButton1ActionPerformed
     private void setAnamnese() {
@@ -635,16 +603,15 @@ public class FormAnamnese extends javax.swing.JDialog {
                 profileImagePanel.repaint();
             }
         }
-
+        
         labelNome.setText(selecionado.getNome());
         try {
             labelIdade.setText(Conversoes.calculaIdade(selecionado.getDataNasc()).toString());
         } catch (ParseException ex) {
-             labelIdade.setText("--");
+            labelIdade.setText("--");
         }
         labelTelefone.setText(selecionado.getTelefone());
         
-
     }
 
     /**
@@ -674,9 +641,6 @@ public class FormAnamnese extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-
-
-
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {

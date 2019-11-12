@@ -12,9 +12,18 @@ import model.Aluno;
 
 
 public class ControleAluno extends Controle<Aluno> {
-
+    private static Aluno logado;
+    
     public ControleAluno() {
         super(Aluno.class);
+    }
+
+    public static Aluno getLogado() {
+        return logado;
+    }
+
+    public static void setLogado(Aluno logado) {
+        ControleAluno.logado = logado;
     }
 
     public List<Aluno> findByNome(String nome) {
