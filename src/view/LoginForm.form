@@ -82,7 +82,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="mTextField1">
+                <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtUsuario">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="37" green="2e" red="25" type="rgb"/>
@@ -104,7 +104,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="com.hq.swingmaterialdesign.materialdesign.MPasswordField" name="mPasswordField1">
+                <Component class="com.hq.swingmaterialdesign.materialdesign.MPasswordField" name="txtSenha">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="37" green="2e" red="25" type="rgb"/>
@@ -121,7 +121,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mPasswordField1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSenhaActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -129,7 +129,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="com.hq.swingmaterialdesign.materialdesign.MGradientButton" name="mGradientButton1">
+                <Component class="com.hq.swingmaterialdesign.materialdesign.MGradientButton" name="btnEntrar">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -153,7 +153,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mGradientButton1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEntrarActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -165,6 +165,9 @@
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="37" green="2e" red="25" type="rgb"/>
+                    </Property>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="null"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f0" green="f0" red="f0" type="rgb"/>
@@ -195,7 +198,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="2d" green="31" red="e3" type="rgb"/>
@@ -223,7 +226,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="1e" green="19" red="e8" type="rgb"/>
@@ -248,7 +251,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="24" green="23" red="e4" type="rgb"/>
@@ -273,7 +276,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="3f" green="80" red="de" type="rgb"/>
@@ -302,7 +305,7 @@
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="44" green="8a" red="dc" type="rgb"/>
@@ -370,7 +373,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="30" green="47" red="e1" type="rgb"/>
@@ -395,7 +398,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="57" red="df" type="rgb"/>
@@ -420,7 +423,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f0" green="f0" red="f0" type="rgb"/>
@@ -445,7 +448,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="48" green="92" red="dc" type="rgb"/>
@@ -470,7 +473,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f0" green="f0" red="f0" type="rgb"/>
@@ -495,7 +498,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f0" green="f0" red="f0" type="rgb"/>
@@ -520,7 +523,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="f0" green="f0" red="f0" type="rgb"/>
@@ -545,7 +548,7 @@
                   <Properties>
                     <Property name="borderRadius" type="int" value="10"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="35" green="64" red="df" type="rgb"/>

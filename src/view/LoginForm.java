@@ -11,18 +11,17 @@ import java.awt.Toolkit;
  *
  * @author abner
  */
-public class loginForm extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame {
 
     private int xMouse;
     private int yMouse;
-    
+
     /**
      * Creates new form loginForm
      */
-    public loginForm() {
+    public LoginForm() {
         initComponents();
         setLocationRelativeTo(null);
-        
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/images/favicon2.png")));
     }
 
@@ -39,9 +38,9 @@ public class loginForm extends javax.swing.JFrame {
         loginPanel = new javax.swing.JPanel();
         sideImage = new javax.swing.JLabel();
         formPanel = new javax.swing.JPanel();
-        mTextField1 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        mPasswordField1 = new com.hq.swingmaterialdesign.materialdesign.MPasswordField();
-        mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        txtUsuario = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtSenha = new com.hq.swingmaterialdesign.materialdesign.MPasswordField();
+        btnEntrar = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         mButton3 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         mGradientButton2 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         mGradientButton3 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
@@ -86,41 +85,42 @@ public class loginForm extends javax.swing.JFrame {
         formPanel.setBackground(new java.awt.Color(37, 46, 55));
         formPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        mTextField1.setBackground(new java.awt.Color(37, 46, 55));
-        mTextField1.setForeground(new java.awt.Color(240, 240, 240));
-        mTextField1.setAccent(new java.awt.Color(220, 148, 74));
-        mTextField1.setLabel("Nome de usuário");
-        mTextField1.setSelectionColor(new java.awt.Color(220, 148, 74));
-        formPanel.add(mTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 310, 60));
+        txtUsuario.setBackground(new java.awt.Color(37, 46, 55));
+        txtUsuario.setForeground(new java.awt.Color(240, 240, 240));
+        txtUsuario.setAccent(new java.awt.Color(220, 148, 74));
+        txtUsuario.setLabel("Nome de usuário");
+        txtUsuario.setSelectionColor(new java.awt.Color(220, 148, 74));
+        formPanel.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 310, 60));
 
-        mPasswordField1.setBackground(new java.awt.Color(37, 46, 55));
-        mPasswordField1.setForeground(new java.awt.Color(240, 240, 240));
-        mPasswordField1.setAccent(new java.awt.Color(220, 148, 74));
-        mPasswordField1.setLabel("Senha");
-        mPasswordField1.setSelectionColor(new java.awt.Color(220, 148, 74));
-        mPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        txtSenha.setBackground(new java.awt.Color(37, 46, 55));
+        txtSenha.setForeground(new java.awt.Color(240, 240, 240));
+        txtSenha.setAccent(new java.awt.Color(220, 148, 74));
+        txtSenha.setLabel("Senha");
+        txtSenha.setSelectionColor(new java.awt.Color(220, 148, 74));
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mPasswordField1ActionPerformed(evt);
+                txtSenhaActionPerformed(evt);
             }
         });
-        formPanel.add(mPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 310, 60));
+        formPanel.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 310, 60));
 
-        mGradientButton1.setForeground(new java.awt.Color(255, 255, 255));
-        mGradientButton1.setText("ENTRAR");
-        mGradientButton1.setBorderRadius(40);
-        mGradientButton1.setEndColor(new java.awt.Color(232, 25, 30));
-        mGradientButton1.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        mGradientButton1.setHoverEndColor(new java.awt.Color(244, 12, 17));
-        mGradientButton1.setHoverStartColor(new java.awt.Color(220, 126, 30));
-        mGradientButton1.setStartColor(new java.awt.Color(220, 148, 74));
-        mGradientButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setText("ENTRAR");
+        btnEntrar.setBorderRadius(40);
+        btnEntrar.setEndColor(new java.awt.Color(232, 25, 30));
+        btnEntrar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        btnEntrar.setHoverEndColor(new java.awt.Color(244, 12, 17));
+        btnEntrar.setHoverStartColor(new java.awt.Color(220, 126, 30));
+        btnEntrar.setStartColor(new java.awt.Color(220, 148, 74));
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mGradientButton1ActionPerformed(evt);
+                btnEntrarActionPerformed(evt);
             }
         });
-        formPanel.add(mGradientButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 310, 40));
+        formPanel.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 310, 40));
 
         mButton3.setBackground(new java.awt.Color(37, 46, 55));
+        mButton3.setBorder(null);
         mButton3.setForeground(new java.awt.Color(240, 240, 240));
         mButton3.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         mButton3.setBorderRadius(0);
@@ -308,16 +308,16 @@ public class loginForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPasswordField1ActionPerformed
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_mPasswordField1ActionPerformed
+    }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void mButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_mButton3ActionPerformed
 
     private void mButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton3MouseEntered
-        mButton3.setForeground(new java.awt.Color(232,25,30));
+        mButton3.setForeground(new java.awt.Color(232, 25, 30));
     }//GEN-LAST:event_mButton3MouseEntered
 
     private void mButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton3MouseExited
@@ -342,17 +342,28 @@ public class loginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_bgMousePressed
 
     private void bgMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseReleased
-        setOpacity((float) 1.0);
+        try {
+            setOpacity((float) 1);
+        } catch (java.lang.UnsupportedOperationException e) {
+
+        }
     }//GEN-LAST:event_bgMouseReleased
 
     private void bgMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseDragged
         setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
-        setOpacity((float) 0.9);
+        try {
+            setOpacity((float) 0.9);
+        } catch (java.lang.UnsupportedOperationException e) {
+
+        }
     }//GEN-LAST:event_bgMouseDragged
 
-    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mGradientButton1ActionPerformed
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        
+        
+        
+        
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,32 +382,33 @@ public class loginForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(loginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(loginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(loginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(loginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new loginForm().setVisible(true);
+                new LoginForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton btnEntrar;
     private javax.swing.JPanel formPanel;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel loadingPanel;
     private javax.swing.JPanel loginPanel;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton3;
-    private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton10;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton12;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton13;
@@ -411,8 +423,8 @@ public class loginForm extends javax.swing.JFrame {
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton7;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton8;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton9;
-    private com.hq.swingmaterialdesign.materialdesign.MPasswordField mPasswordField1;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField mTextField1;
     private javax.swing.JLabel sideImage;
+    private com.hq.swingmaterialdesign.materialdesign.MPasswordField txtSenha;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

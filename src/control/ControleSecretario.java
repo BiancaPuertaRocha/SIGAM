@@ -11,10 +11,20 @@ import javax.persistence.TypedQuery;
 import model.Secretario;
 
 public class ControleSecretario extends Controle<Secretario>{
+    private static Secretario logado;
     
     public ControleSecretario() {
         super(Secretario.class);
     }
+
+    public static Secretario getLogado() {
+        return logado;
+    }
+
+    public static void setLogado(Secretario logado) {
+        ControleSecretario.logado = logado;
+    }
+    
     public List<Secretario> findByNome(String nome) {
         EntityManager em = getEntityManager();
         TypedQuery<Secretario> consulta = em.createNamedQuery("Secretario.findByNome", Secretario.class);
