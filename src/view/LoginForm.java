@@ -6,10 +6,14 @@
 package view;
 
 import control.ControlePessoa;
+import control.ControleSecretario;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.persistence.NoResultException;
+import model.Aluno;
 import model.Pessoa;
+import model.Secretario;
+import model.Treinador;
 
 /**
  *
@@ -68,7 +72,7 @@ public class LoginForm extends javax.swing.JFrame {
         labelWarningForm1 = new javax.swing.JLabel();
         loadingPanel = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         bg.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -433,6 +437,17 @@ public class LoginForm extends javax.swing.JFrame {
                 p = cp.findByLoginSenha(txtUsuario.getText(), txtSenha.getText());
                 loadingPanel.setVisible(true);
                 formPanel.setVisible(false);
+                if(p instanceof Secretario){
+                    ControleSecretario.setLogado((Secretario) p);
+                    Dashboard tela = new Dashboard();
+                    tela.setVisible(true);
+                    this.dispose();
+                }else if (p instanceof Treinador){
+                    System.out.println("treinador");
+                }else if (p instanceof Aluno){
+                    System.out.println("aluno");
+                }
+                
             } catch (NoResultException e) {
                 labelWarningForm1.setText("Usuário ou senha incorretos");
                 warningPanelForm1.setVisible(true);
