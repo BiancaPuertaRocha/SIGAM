@@ -5,8 +5,20 @@
  */
 package view;
 
+import control.ControleSecretario;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.DatasetUtils;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import util.AtualizadorHorario;
 
 /**
@@ -29,14 +41,21 @@ public class Dashboard extends javax.swing.JFrame {
         Thread thHora2 = ah2;
         thHora.start();
         thHora2.start();
-        
+
         this.setTitle("SIGAM");
         this.setIconImage(Toolkit.getDefaultToolkit().
                 getImage(getClass().getResource("/view/images/favicon2.png")));
         this.setExtendedState(MAXIMIZED_BOTH);
+
+        try {
+            ImageIcon im = new ImageIcon(ControleSecretario.getLogado().getImagem());
+            profileImagePanel.setImage(im.getImage());
+            profileImagePanel.repaint();
+        } catch (Exception e) {
+
+        }
         
-        panHome.setVisible(false);
-        panButtons.setVisible(true);
+        renderChart();
     }
 
     /**
@@ -55,14 +74,15 @@ public class Dashboard extends javax.swing.JFrame {
         logo3 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         panToggle = new javax.swing.JPanel();
-        mToggleButton1 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        mToggleButton2 = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        toggleHome = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        toggleButtons = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         panGuia = new javax.swing.JPanel();
         panHome = new javax.swing.JPanel();
         panHomeGradient = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         txtHora = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         txtDataHora = new javax.swing.JLabel();
+        panChart = new javax.swing.JPanel();
         panButtons = new javax.swing.JPanel();
         panButtonsGradient = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         txtHora1 = new javax.swing.JLabel();
@@ -131,30 +151,43 @@ public class Dashboard extends javax.swing.JFrame {
 
         panToggle.setLayout(new java.awt.GridLayout(2, 1));
 
-        mToggleButton1.setBorder(null);
-        mToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
-        mToggleButton1.setText("HOME");
-        mToggleButton1.setEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton1.setHoverEndColor(new java.awt.Color(69, 86, 103));
-        mToggleButton1.setHoverStartColor(new java.awt.Color(37, 46, 55));
-        mToggleButton1.setStartColor(new java.awt.Color(37, 46, 55));
-        mToggleButton1.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        mToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        toggleHome.setBorder(null);
+        toggleHome.setForeground(new java.awt.Color(255, 255, 255));
+        toggleHome.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.HOME));
+        toggleHome.setBorderRadius(0);
+        toggleHome.setEndColor(new java.awt.Color(37, 46, 55));
+        toggleHome.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        toggleHome.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        toggleHome.setHoverStartColor(new java.awt.Color(69, 86, 103));
+        toggleHome.setIndicatorColor(new java.awt.Color(223, 95, 52));
+        toggleHome.setSelectedColor(new java.awt.Color(69, 86, 103));
+        toggleHome.setStartColor(new java.awt.Color(37, 46, 55));
+        toggleHome.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        toggleHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mToggleButton1ActionPerformed(evt);
+                toggleHomeActionPerformed(evt);
             }
         });
-        panToggle.add(mToggleButton1);
+        panToggle.add(toggleHome);
 
-        mToggleButton2.setBorder(null);
-        mToggleButton2.setForeground(new java.awt.Color(255, 255, 255));
-        mToggleButton2.setText("INÍCIO");
-        mToggleButton2.setEndColor(new java.awt.Color(37, 46, 55));
-        mToggleButton2.setHoverEndColor(new java.awt.Color(69, 86, 103));
-        mToggleButton2.setHoverStartColor(new java.awt.Color(37, 46, 55));
-        mToggleButton2.setStartColor(new java.awt.Color(37, 46, 55));
-        mToggleButton2.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        panToggle.add(mToggleButton2);
+        toggleButtons.setBorder(null);
+        toggleButtons.setForeground(new java.awt.Color(255, 255, 255));
+        toggleButtons.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ADD));
+        toggleButtons.setBorderRadius(0);
+        toggleButtons.setEndColor(new java.awt.Color(37, 46, 55));
+        toggleButtons.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        toggleButtons.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        toggleButtons.setHoverStartColor(new java.awt.Color(69, 86, 103));
+        toggleButtons.setIndicatorColor(new java.awt.Color(223, 95, 52));
+        toggleButtons.setSelectedColor(new java.awt.Color(69, 86, 103));
+        toggleButtons.setStartColor(new java.awt.Color(37, 46, 55));
+        toggleButtons.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        toggleButtons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleButtonsActionPerformed(evt);
+            }
+        });
+        panToggle.add(toggleButtons);
 
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
@@ -188,7 +221,7 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(sidePanelLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(logo2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(129, 129, 129)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addComponent(panToggle, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
                 .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,23 +242,32 @@ public class Dashboard extends javax.swing.JFrame {
         txtDataHora.setForeground(new java.awt.Color(255, 255, 255));
         txtDataHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        panChart.setBackground(new Color(0,0,0,0));
+        panChart.setLayout(new java.awt.BorderLayout());
+
         javax.swing.GroupLayout panHomeGradientLayout = new javax.swing.GroupLayout(panHomeGradient);
         panHomeGradient.setLayout(panHomeGradientLayout);
         panHomeGradientLayout.setHorizontalGroup(
             panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
-                .addContainerGap(865, Short.MAX_VALUE)
-                .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDataHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31))
+                .addGap(40, 40, 40)
+                .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panChart, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+                    .addGroup(panHomeGradientLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(40, 40, 40))
         );
         panHomeGradientLayout.setVerticalGroup(
             panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
-                .addContainerGap(510, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(panChart, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
                 .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,9 +280,9 @@ public class Dashboard extends javax.swing.JFrame {
         panHome.setLayout(panHomeLayout);
         panHomeLayout.setHorizontalGroup(
             panHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1098, Short.MAX_VALUE)
+            .addGap(0, 1110, Short.MAX_VALUE)
             .addGroup(panHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panHomeGradient, javax.swing.GroupLayout.DEFAULT_SIZE, 1098, Short.MAX_VALUE))
+                .addComponent(panHomeGradient, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE))
         );
         panHomeLayout.setVerticalGroup(
             panHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,6 +312,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton1.setBorderRadius(40);
         mGradientButton1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
         mGradientButton1.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+        mGradientButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGradientButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Nunito ExtraBold", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -290,6 +337,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton2.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
         mGradientButton2.setStartColor(new java.awt.Color(232, 37, 80));
         mGradientButton2.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+        mGradientButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGradientButton2ActionPerformed(evt);
+            }
+        });
 
         mGradientButton3.setBackground(new Color(0,0,0,0));
         mGradientButton3.setBorder(null);
@@ -300,6 +352,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton3.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
         mGradientButton3.setStartColor(new java.awt.Color(252, 74, 26));
         mGradientButton3.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+        mGradientButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGradientButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Nunito ExtraBold", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -360,16 +417,8 @@ public class Dashboard extends javax.swing.JFrame {
         panButtonsGradient.setLayout(panButtonsGradientLayout);
         panButtonsGradientLayout.setHorizontalGroup(
             panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtDataHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31))
             .addGroup(panButtonsGradientLayout.createSequentialGroup()
-                .addContainerGap(268, Short.MAX_VALUE)
+                .addContainerGap(274, Short.MAX_VALUE)
                 .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,12 +450,20 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(panButtonsGradientLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(mGradientButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataHora1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
         panButtonsGradientLayout.setVerticalGroup(
             panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
+                .addContainerGap(132, Short.MAX_VALUE)
                 .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
                         .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,7 +493,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(mGradientButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(txtHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -451,7 +508,7 @@ public class Dashboard extends javax.swing.JFrame {
             panButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panButtonsLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(panButtonsGradient, javax.swing.GroupLayout.DEFAULT_SIZE, 1098, Short.MAX_VALUE)
+                .addComponent(panButtonsGradient, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         panButtonsLayout.setVerticalGroup(
@@ -501,14 +558,71 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_logo1ActionPerformed
 
-    private void mToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mToggleButton1ActionPerformed
-        System.out.println(panButtons.isVisible());
-    }//GEN-LAST:event_mToggleButton1ActionPerformed
+    private void toggleHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleHomeActionPerformed
+        panButtons.setVisible(false);
+        panHome.setVisible(true);
+    }//GEN-LAST:event_toggleHomeActionPerformed
 
     private void mGradientButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton4ActionPerformed
-     FormCaixa tela = new FormCaixa(this,true);
-     tela.setVisible(true);
+        FormCaixa tela = new FormCaixa(this, true);
+        tela.setVisible(true);
     }//GEN-LAST:event_mGradientButton4ActionPerformed
+
+    private void toggleButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonsActionPerformed
+        panButtons.setVisible(true);
+        panHome.setVisible(false);
+    }//GEN-LAST:event_toggleButtonsActionPerformed
+
+    private void mGradientButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton2ActionPerformed
+        FormSecretario form = new FormSecretario(this, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_mGradientButton2ActionPerformed
+
+    private void mGradientButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton3ActionPerformed
+        FormTreinador form = new FormTreinador(this, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_mGradientButton3ActionPerformed
+
+    private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
+        FormAluno form = new FormAluno(this, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_mGradientButton1ActionPerformed
+
+    
+    private XYDataset createDataset() {
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        
+        XYSeries s = new XYSeries("Y = X + 2");
+        s.add(2,4);
+        s.add(8,10);
+        s.add(10,12);
+        s.add(13,15);
+        s.add(17,19);
+        s.add(18,20);
+        s.add(21,23);
+                
+        dataset.addSeries(s);
+        
+        return dataset;
+    }
+    
+    private void renderChart() {
+        XYDataset ds = createDataset();
+        JFreeChart chart = ChartFactory.createXYLineChart("FLUXO MONETÁRIO", "x-axis", "y-axis", ds, PlotOrientation.VERTICAL, true, true, false);
+        chart.setBackgroundPaint(new Color(0,0,0,0));
+        chart.setBorderVisible(false);
+        chart.setBorderPaint(new Color(0,0,0,0));
+        chart.getXYPlot().setBackgroundPaint(new Color(0,0,0,0));
+        
+        chart.getXYPlot().setDomainGridlinePaint(new Color(0,0,0,0));
+        chart.getXYPlot().setDomainGridlinesVisible(false);
+        chart.getXYPlot().setOutlinePaint(new Color(0,0,0,0));
+        
+        ChartPanel cp = new ChartPanel(chart);
+        cp.setBackground(new Color(0,0,0,0));
+        panChart.add(cp, BorderLayout.CENTER);
+        panChart.validate();
+    }
     
     /**
      * @param args the command line arguments
@@ -564,16 +678,17 @@ public class Dashboard extends javax.swing.JFrame {
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton7;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton8;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton1;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton mToggleButton2;
     private javax.swing.JPanel panButtons;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panButtonsGradient;
+    private javax.swing.JPanel panChart;
     private javax.swing.JPanel panGuia;
     private javax.swing.JPanel panHome;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panHomeGradient;
     private javax.swing.JPanel panToggle;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel sidePanel;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton toggleButtons;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton toggleHome;
     private javax.swing.JLabel txtDataHora;
     private javax.swing.JLabel txtDataHora1;
     private javax.swing.JLabel txtHora;
