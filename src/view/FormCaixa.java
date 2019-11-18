@@ -5,21 +5,14 @@
  */
 package view;
 
-import control.ControleAluno;
 import control.ControleCaixa;
 import control.ControleSecretario;
 import java.awt.Color;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import model.Aluno;
 import model.Caixa;
-import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
 
 /**
@@ -59,7 +52,10 @@ public class FormCaixa extends javax.swing.JDialog {
                     DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
                     dtm.setNumRows(0);
                     for (Caixa s : listaPesquisa) {
-                        dtm.addRow(new Object[]{s.getCodigo(), s.getSecretario().getNome(), s.getData(), s.getHrAbertura() + " - " + s.getHrFechamento() == null ? " " : s.getHrFechamento()});
+                        dtm.addRow(new Object[]{s.getCodigo(), 
+                            s.getSecretario().getNome(), 
+                            Conversoes.getDateFormatedToString(s.getData()),Conversoes.getStringOfTime( s.getHrAbertura()) + " - " + s.getHrFechamento() == null ? " " : Conversoes.getStringOfTime(s.getHrFechamento()),
+                            s.getHrFechamento() == null ? "Aberto" : "Fechado" });
                     }
                 } else {
                     warningPanelData.setBackground(new Color(255, 51, 51));
@@ -381,11 +377,11 @@ public class FormCaixa extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Funcionário", "Data", "Hora"
+                "Código", "Funcionário", "Data", "Hora", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -402,6 +398,7 @@ public class FormCaixa extends javax.swing.JDialog {
             tableAlunos.getColumnModel().getColumn(1).setResizable(false);
             tableAlunos.getColumnModel().getColumn(2).setResizable(false);
             tableAlunos.getColumnModel().getColumn(3).setResizable(false);
+            tableAlunos.getColumnModel().getColumn(4).setResizable(false);
         }
         tableAlunos.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
@@ -742,16 +739,23 @@ public class FormCaixa extends javax.swing.JDialog {
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         if (menuSelection == 0) {
-            menuSelection = 1;
-            
-            labelDataAbertura.setText(Conversoes.getDateFormatedToString(new Date()));
-            labelHorarioAbertura.setText(Conversoes.getStringOfTime(new Date()));
-            labelFuncionario.setText(ControleSecretario.getLogado().getNome());
-            this.repaint();
-            dataPanel.setVisible(false);
-            formPanelAbrir.setVisible(true);
-            selecionado = null;
-            
+            if (ControleCaixa.getCaixa() == null) {
+                menuSelection = 1;
+
+                labelDataAbertura.setText(Conversoes.getDateFormatedToString(new Date()));
+                labelHorarioAbertura.setText(Conversoes.getStringOfTime(new Date()));
+                labelFuncionario.setText(ControleSecretario.getLogado().getNome());
+                this.repaint();
+                dataPanel.setVisible(false);
+                formPanelAbrir.setVisible(true);
+                selecionado = null;
+            } else {
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                btnMessage.setBackground(new Color(255, 51, 51));
+                labelWarningData.setText("Já há um caixa aberto");
+                warningPanelData.setVisible(true);
+            }
+
         } else {
             if (menuSelection == 2) {
                 btnFechar.select();
@@ -761,8 +765,8 @@ public class FormCaixa extends javax.swing.JDialog {
                 btnAbrir.unselect();
             }
         }
-        System.out.println("idjfd");
-        
+
+
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
@@ -795,33 +799,28 @@ public class FormCaixa extends javax.swing.JDialog {
         }
 
         if (!flag) {
+            
+            p.setData(new Date());
+            p.setEntradas(0.0);
+            p.setSaidas(0.0);
+            p.setHrAbertura(new Date());
+            p.setHrFechamento(null);
+            p.setSaldoFinal(null);
+            p.setSaldoInicial(Double.parseDouble(txtSaldoInicial.getText().replace(',', '.')));
+              
+            p.setSecretario(ControleSecretario.getLogado());
+            
+            cp.persist(p);
+            
+            ControleCaixa.setCaixa(p);
+            
+            System.out.println(p.toString());
+            message = "Cadastro efetuado com sucesso.";
+            warningPanelData.setBackground(new Color(0, 153, 0));
+            btnMessage.setBackground(new Color(0, 153, 0));
+            warningPanelData.setVisible(true);
+            limparCampos();
 
-            if (selecionado == null) {
-                try {
-
-                    // cp.persist(p);
-                    message = "Cadastro efetuado com sucesso.";
-                    warningPanelData.setBackground(new Color(0, 153, 0));
-                    btnMessage.setBackground(new Color(0, 153, 0));
-                    warningPanelData.setVisible(true);
-                    limparCampos();
-                } catch (DatabaseException ex) {
-                    message = "Caixa já aberto.";
-                    warningPanelData.setBackground(new Color(255, 51, 51));
-                    btnMessage.setBackground(new Color(255, 51, 51));
-                    labelWarningData.setText(message);
-                    warningPanelData.setVisible(true);
-                }
-            } else {
-                p.setCodigo(selecionado.getCodigo());
-                // cp.alter(p);
-                message = "Alteração efetuada com sucesso.";
-                labelWarningData.setText(message);
-                warningPanelData.setBackground(new Color(0, 153, 0));
-                btnMessage.setBackground(new Color(0, 153, 0));
-                warningPanelData.setVisible(true);
-                limparCampos();
-            }
             labelWarningData.setText(message);
             menuSelection = 0;
             btnAbrir.unselect();
@@ -829,9 +828,7 @@ public class FormCaixa extends javax.swing.JDialog {
             dataPanel.setVisible(true);
             formPanelAbrir.setVisible(false);
             warningPanelData.setVisible(true);
-            //timer
-
-            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
+         
         } else {
 
             labelWarningForm.setText(message);
@@ -1009,7 +1006,7 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_txtData1FocusGained
 
     private void txtData2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtData2FocusGained
-        txtData2.setForeground(Color.black);
+        txtData2.setForeground(branco);
         if (txtData2.getText().equals("  /  /    "))
             txtData2.setCaretPosition(0);
     }//GEN-LAST:event_txtData2FocusGained

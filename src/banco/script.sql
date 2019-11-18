@@ -184,4 +184,4 @@ BEGIN
     END IF;
 END$
 DELIMITER ;
-
+select * from Caixa;

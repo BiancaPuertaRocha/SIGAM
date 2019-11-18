@@ -1,6 +1,8 @@
 
+import control.ControleCaixa;
 import control.ControleSecretario;
 import java.util.Date;
+import model.Caixa;
 import model.Secretario;
 import util.Conversoes;
 
@@ -16,6 +18,7 @@ import util.Conversoes;
 public class teste {
 
     private static ControleSecretario cp = new ControleSecretario();
+    private static ControleCaixa cont  =new ControleCaixa();
     public static void main(String[] args) {
         System.out.println(Conversoes.getDateOfTime("03:00").toString());
         Secretario p = new Secretario();
@@ -41,6 +44,15 @@ public class teste {
         p.setRua("rua um");
         
         cp.persist(p);
+        
+        Caixa c = new Caixa();
+        c.setData(new Date());
+        c.setEntradas(0.0);
+        c.setSaidas(0.0);
+        c.setHrAbertura(new Date());
+        c.setSecretario(p);
+        cont.persist(c);
+        
 
     }
 }

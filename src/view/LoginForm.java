@@ -5,12 +5,15 @@
  */
 package view;
 
+import control.ControleCaixa;
 import control.ControlePessoa;
 import control.ControleSecretario;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.util.Date;
 import javax.persistence.NoResultException;
 import model.Aluno;
+import model.Caixa;
 import model.Pessoa;
 import model.Secretario;
 import model.Treinador;
@@ -24,6 +27,7 @@ public class LoginForm extends javax.swing.JFrame {
     private int xMouse;
     private int yMouse;
     private ControlePessoa cp = new ControlePessoa();
+    private ControleCaixa cc = new ControleCaixa();
     
     /**
      * Creates new form loginForm
@@ -442,6 +446,13 @@ public class LoginForm extends javax.swing.JFrame {
                     Dashboard tela = new Dashboard();
                     tela.setVisible(true);
                     this.dispose();
+                    Caixa c = null;
+                    try{
+                        c = cc.findByAbertoFuncionario((Secretario) p,new Date());
+                    }catch(NoResultException ex){
+                        System.out.println("nao encontrou caixa");
+                    }
+                    ControleCaixa.setCaixa(c);
                 }else if (p instanceof Treinador){
                     System.out.println("treinador");
                 }else if (p instanceof Aluno){

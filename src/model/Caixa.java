@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,7 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Caixa.findBySaldoFinal", query = "SELECT c FROM Caixa c WHERE c.saldoFinal = :saldoFinal"),
     @NamedQuery(name = "Caixa.findByEntradas", query = "SELECT c FROM Caixa c WHERE c.entradas = :entradas"),
     @NamedQuery(name = "Caixa.findByData", query = "SELECT c FROM Caixa c WHERE c.data between :data1 and :data2"),
-    @NamedQuery(name = "Caixa.findByAbertoFuncionario", query = "SELECT c FROM Caixa c WHERE c.secretario =  :secretario and c.data = :data2 and c.hrFechamento = null"),
+    @NamedQuery(name = "Caixa.findByAbertoFuncionario", query = "SELECT c FROM Caixa c WHERE c.secretario =  :secretario and c.data = :data and c.hrFechamento = null"),
     
     @NamedQuery(name = "Caixa.findBySaidas", query = "SELECT c FROM Caixa c WHERE c.saidas = :saidas")})
 public class Caixa implements Serializable {
@@ -42,6 +44,7 @@ public class Caixa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+      @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo")
     private Integer codigo;
     @Column(name = "hrAbertura")
@@ -169,7 +172,9 @@ public class Caixa implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Caixa[ codigo=" + codigo + " ]";
+        return "Caixa{" + "codigo=" + codigo + ", hrAbertura=" + hrAbertura + ", hrFechamento=" + hrFechamento + ", data=" + data + ", saldoInicial=" + saldoInicial + ", saldoFinal=" + saldoFinal + ", entradas=" + entradas + ", saidas=" + saidas + ", secretario=" + secretario + '}';
     }
+
+   
     
 }
