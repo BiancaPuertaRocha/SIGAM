@@ -738,6 +738,7 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton4ActionPerformed
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
+        System.out.println("idjfd");
         if (menuSelection == 0) {
             if (ControleCaixa.getCaixa() == null) {
                 menuSelection = 1;
