@@ -77,8 +77,11 @@ public class FormAnamnese extends javax.swing.JDialog {
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         tablePanel = new javax.swing.JScrollPane();
         tableAlunos = new javax.swing.JTable();
-        btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        warningPanelData = new javax.swing.JPanel();
+        labelWarningData = new javax.swing.JLabel();
+        btnMessage = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botConfirmar1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
@@ -202,6 +205,55 @@ public class FormAnamnese extends javax.swing.JDialog {
 
         dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 690, 440));
 
+        warningPanelData.setBackground(new java.awt.Color(0, 153, 0));
+
+        labelWarningData.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
+        labelWarningData.setForeground(new java.awt.Color(255, 255, 255));
+        labelWarningData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelWarningData.setText("Cadastro efetuado com sucesso.");
+
+        btnMessage.setBackground(new java.awt.Color(0, 153, 0));
+        btnMessage.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        btnMessage.setBorderRadius(0);
+        btnMessage.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        btnMessage.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        btnMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMessageActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout warningPanelDataLayout = new javax.swing.GroupLayout(warningPanelData);
+        warningPanelData.setLayout(warningPanelDataLayout);
+        warningPanelDataLayout.setHorizontalGroup(
+            warningPanelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelDataLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelWarningData, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        warningPanelDataLayout.setVerticalGroup(
+            warningPanelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelWarningData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        dataPanel.add(warningPanelData, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 730, 40));
+
+        botConfirmar1.setBackground(new java.awt.Color(51, 51, 51));
+        botConfirmar1.setBorder(null);
+        botConfirmar1.setText("Realizar");
+        botConfirmar1.setBorderRadius(50);
+        botConfirmar1.setFont(new java.awt.Font("Nunito Black", 0, 14)); // NOI18N
+        botConfirmar1.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.RAISED);
+        botConfirmar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botConfirmar1ActionPerformed(evt);
+            }
+        });
+        dataPanel.add(botConfirmar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 600, 180, 50));
+
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setForeground(new java.awt.Color(153, 153, 153));
         btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
@@ -222,19 +274,6 @@ public class FormAnamnese extends javax.swing.JDialog {
             }
         });
         dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 50, 40));
-
-        botConfirmar1.setBackground(new java.awt.Color(51, 51, 51));
-        botConfirmar1.setBorder(null);
-        botConfirmar1.setText("Realizar");
-        botConfirmar1.setBorderRadius(50);
-        botConfirmar1.setFont(new java.awt.Font("Nunito Black", 0, 14)); // NOI18N
-        botConfirmar1.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.RAISED);
-        botConfirmar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botConfirmar1ActionPerformed(evt);
-            }
-        });
-        dataPanel.add(botConfirmar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 600, 180, 50));
 
         cardPanel.add(dataPanel, "card2");
 
@@ -555,6 +594,7 @@ public class FormAnamnese extends javax.swing.JDialog {
 
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
+        warningPanelData.setVisible(true);
         atualizaTabela();
 
     }//GEN-LAST:event_botConfirmarActionPerformed
@@ -609,6 +649,10 @@ public class FormAnamnese extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
     }//GEN-LAST:event_botConfirmar1ActionPerformed
+
+    private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
+        warningPanelData.setVisible(false);
+    }//GEN-LAST:event_btnMessageActionPerformed
     private void setAnamnese() {
         if (selecionado.getImagem() != null) {
             if (selecionado.getImagem().length > 0) {
@@ -688,6 +732,7 @@ public class FormAnamnese extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar1;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
+    private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel dataPanel;
@@ -700,6 +745,7 @@ public class FormAnamnese extends javax.swing.JDialog {
     private javax.swing.JLabel labelIdade;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
+    private javax.swing.JLabel labelWarningData;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
@@ -714,5 +760,6 @@ public class FormAnamnese extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtMedicamentos;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtOrtopedico;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtPesquisa;
+    private javax.swing.JPanel warningPanelData;
     // End of variables declaration//GEN-END:variables
 }
