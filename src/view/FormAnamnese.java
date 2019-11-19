@@ -29,23 +29,23 @@ import util.LimitText;
  * @author abner
  */
 public class FormAnamnese extends javax.swing.JDialog {
-    
+
     private ControleAluno cp = new ControleAluno();
     private File file;
     private ArrayList<Aluno> listaPesquisa = new ArrayList();
     private Aluno selecionado;
-    
+
     public FormAnamnese(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
     }
-    
+
     private void atualizaTabela() {
         listaPesquisa.clear();
-        listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
+        listaPesquisa.addAll(cp.findDesatualizado(txtPesquisa.getText()));
         DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
         dtm.setNumRows(0);
         String ultima;
@@ -68,6 +68,7 @@ public class FormAnamnese extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         bg = new javax.swing.JPanel();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
@@ -77,7 +78,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         tablePanel = new javax.swing.JScrollPane();
         tableAlunos = new javax.swing.JTable();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        mButton1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        botConfirmar1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         formPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
@@ -87,11 +88,11 @@ public class FormAnamnese extends javax.swing.JDialog {
         profileImagePanel = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         txtOrtopedico = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         txtInfSobrepeso = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtInfSobrepeso1 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
-        txtInfSobrepeso2 = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtColesterol = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtMedicamentos = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radioSim = new javax.swing.JRadioButton();
+        radioNao = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -114,7 +115,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         txtPesquisa.setBackground(new java.awt.Color(50, 60, 69));
         txtPesquisa.setForeground(new java.awt.Color(240, 240, 240));
         txtPesquisa.setFont(new java.awt.Font("Nunito", 0, 18)); // NOI18N
-        txtPesquisa.setLabel("Pesquisar");
+        txtPesquisa.setLabel("Pesquisar Desatualizados");
         txtPesquisa.setSelectionColor(new java.awt.Color(0, 153, 153));
 
         mGradientButton1.setForeground(new java.awt.Color(204, 204, 204));
@@ -126,11 +127,11 @@ public class FormAnamnese extends javax.swing.JDialog {
         mGradientButton1.setHoverStartColor(new java.awt.Color(50, 60, 69));
         mGradientButton1.setStartColor(new java.awt.Color(50, 60, 69));
         mGradientButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                mGradientButton1MouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mGradientButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mGradientButton1MouseExited(evt);
             }
         });
         mGradientButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,11 +145,11 @@ public class FormAnamnese extends javax.swing.JDialog {
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +200,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         }
         tableAlunos.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
-        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 680, 440));
+        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 690, 440));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setForeground(new java.awt.Color(153, 153, 153));
@@ -222,14 +223,18 @@ public class FormAnamnese extends javax.swing.JDialog {
         });
         dataPanel.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 50, 40));
 
-        mButton1.setBackground(new java.awt.Color(50, 60, 69));
-        mButton1.setText("mButton1");
-        mButton1.addActionListener(new java.awt.event.ActionListener() {
+        botConfirmar1.setBackground(new java.awt.Color(51, 51, 51));
+        botConfirmar1.setBorder(null);
+        botConfirmar1.setText("Realizar");
+        botConfirmar1.setBorderRadius(50);
+        botConfirmar1.setFont(new java.awt.Font("Nunito Black", 0, 14)); // NOI18N
+        botConfirmar1.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.RAISED);
+        botConfirmar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mButton1ActionPerformed(evt);
+                botConfirmar1ActionPerformed(evt);
             }
         });
-        dataPanel.add(mButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 620, 130, 40));
+        dataPanel.add(botConfirmar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 600, 180, 50));
 
         cardPanel.add(dataPanel, "card2");
 
@@ -323,19 +328,21 @@ public class FormAnamnese extends javax.swing.JDialog {
         txtInfSobrepeso.setLabel("Informações de sobrepeso");
         txtAtvidadeFisica.setDocument(new LimitText(50));
 
-        txtInfSobrepeso1.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtInfSobrepeso1.setLabel("Colesterol");
+        txtColesterol.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtColesterol.setLabel("Colesterol");
         txtAtvidadeFisica.setDocument(new LimitText(50));
 
-        txtInfSobrepeso2.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        txtInfSobrepeso2.setLabel("Medicamentos");
+        txtMedicamentos.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        txtMedicamentos.setLabel("Medicamentos");
         txtAtvidadeFisica.setDocument(new LimitText(50));
 
         jLabel1.setText("Fumante");
 
-        jRadioButton1.setText("Sim");
+        buttonGroup1.add(radioSim);
+        radioSim.setText("Sim");
 
-        jRadioButton2.setText("Não");
+        buttonGroup1.add(radioNao);
+        radioNao.setText("Não");
 
         jLabel2.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         jLabel2.setText("Nome");
@@ -378,14 +385,14 @@ public class FormAnamnese extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(formPanelLayout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(radioSim)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton2))
+                                        .addComponent(radioNao))
                                     .addComponent(jLabel1)
                                     .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtInfSobrepeso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtInfSobrepeso1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtInfSobrepeso2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtColesterol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtMedicamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(formPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -434,15 +441,15 @@ public class FormAnamnese extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(txtInfSobrepeso, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtInfSobrepeso1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtColesterol, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtInfSobrepeso2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(radioSim)
+                            .addComponent(radioNao))
                         .addGap(26, 26, 26)))
                 .addGroup(formPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,14 +500,14 @@ public class FormAnamnese extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton4ActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        
+
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         limparCampos();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
-        Aluno p = new Aluno();
+        Aluno p = selecionado;
         byte[] imageInByte = null;
         Color errorColor = new Color(255, 0, 0);
         if (file != null) {
@@ -515,45 +522,53 @@ public class FormAnamnese extends javax.swing.JDialog {
                 fis = null;
             }
         }
-        
+        boolean flag = false;
         this.repaint();
         
         p.setDataUltima(new Date());
-        
+        p.atualizaStatus(true);
+        p.setFreqAtFisica(txtAtvidadeFisica.getText());
+        p.setProbOrto(txtOrtopedico.getText());
+        p.setInfSobrepeso(txtInfSobrepeso.getText());
+        p.setColesterol(txtColesterol.getText());
+        p.setMedicamentos(txtMedicamentos.getText());
+        p.setFumante(radioSim.isSelected());
+     
         if (file != null) {
             p.setImagem(imageInByte);
         }
         if (selecionado == null) {
             try {
-                
+
                 cp.persist(p);
-                
+
                 limparCampos();
             } catch (DatabaseException ex) {
-                
+
             }
         } else {
             p.setCodigo(selecionado.getCodigo());
             cp.alter(p);
-            
+
             limparCampos();
         }
-        
+
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
-        
+        atualizaTabela();
 
     }//GEN-LAST:event_botConfirmarActionPerformed
-    
+
     private void limparCampos() {
-        
+
         txtAtvidadeFisica.setText("");
-        
+
         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
         Image img = icon.getImage();
         profileImagePanel.setImage(img);
-        
+        buttonGroup1.clearSelection();
+
     }
     private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
 
@@ -571,10 +586,10 @@ public class FormAnamnese extends javax.swing.JDialog {
         atualizaTabela();
     }//GEN-LAST:event_mGradientButton1ActionPerformed
 
-    private void mButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton1ActionPerformed
-        int linha = tableAlunos.getSelectedRow();
+    private void botConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmar1ActionPerformed
+       int linha = tableAlunos.getSelectedRow();
         int codigo;
-        
+
         if (linha != -1) {
             int colunas = tableAlunos.getColumnCount();
             for (int x = 0; x < colunas; x++) {
@@ -582,19 +597,18 @@ public class FormAnamnese extends javax.swing.JDialog {
                     codigo = (int) tableAlunos.getValueAt(linha, x);
                     System.out.println(codigo);
                     selecionado = cp.findByCodigo(codigo);
-                    
+
                     setAnamnese();
                     dataPanel.setVisible(false);
                     formPanel.setVisible(true);
                 }
             }
-            
+
         } else {
-            
+
             JOptionPane.showMessageDialog(null, "Selecione um treinador!");
         }
-        
-    }//GEN-LAST:event_mButton1ActionPerformed
+    }//GEN-LAST:event_botConfirmar1ActionPerformed
     private void setAnamnese() {
         if (selecionado.getImagem() != null) {
             if (selecionado.getImagem().length > 0) {
@@ -603,7 +617,7 @@ public class FormAnamnese extends javax.swing.JDialog {
                 profileImagePanel.repaint();
             }
         }
-        
+
         labelNome.setText(selecionado.getNome());
         try {
             labelIdade.setText(Conversoes.calculaIdade(selecionado.getDataNasc()).toString());
@@ -611,7 +625,18 @@ public class FormAnamnese extends javax.swing.JDialog {
             labelIdade.setText("--");
         }
         labelTelefone.setText(selecionado.getTelefone());
-        
+        txtAtvidadeFisica.setText(selecionado.getFreqAtFisica());
+        txtOrtopedico.setText(selecionado.getProbOrtop());
+        txtInfSobrepeso.setText(selecionado.getInfSobrepeso());
+        txtColesterol.setText(selecionado.getColesterol());
+        txtMedicamentos.setText(selecionado.getMedicamentos());
+        if(selecionado.isFumante()){
+            radioSim.setSelected(true);
+        }else if (!selecionado.isFumante()){
+            radioNao.setSelected(false);
+        }
+       
+
     }
 
     /**
@@ -661,7 +686,9 @@ public class FormAnamnese extends javax.swing.JDialog {
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
+    private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar1;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JPanel formPanel;
@@ -670,22 +697,21 @@ public class FormAnamnese extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel labelIdade;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelTelefone;
-    private com.hq.swingmaterialdesign.materialdesign.MButton mButton1;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
+    private javax.swing.JRadioButton radioNao;
+    private javax.swing.JRadioButton radioSim;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JTable tableAlunos;
     private javax.swing.JScrollPane tablePanel;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtAtvidadeFisica;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtColesterol;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtInfSobrepeso;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtInfSobrepeso1;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtInfSobrepeso2;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtMedicamentos;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtOrtopedico;
     private com.hq.swingmaterialdesign.materialdesign.MTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables

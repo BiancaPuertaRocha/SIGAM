@@ -61,7 +61,7 @@ public class FormAluno extends javax.swing.JDialog {
                 listaPesquisa.addAll(cp.findByNome(txtPesquisa.getText()));
                 DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
                 dtm.setNumRows(0);
-                for (Aluno  s : listaPesquisa) {
+                for (Aluno s : listaPesquisa) {
                     dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getTelefone()});
                 }
             }
@@ -655,41 +655,53 @@ public class FormAluno extends javax.swing.JDialog {
         int linha = tableAlunos.getSelectedRow();
         int codigo;
         Aluno sExcluir = null;
-        if (linha != -1) {
-            int colunas = tableAlunos.getColumnCount();
-            for (int x = 0; x < colunas; x++) {
-                if (tableAlunos.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableAlunos.getValueAt(linha, x);
-                    sExcluir = cp.findByCodigo(codigo);
+        if (menuSelection == 0) {
+            if (linha != -1) {
+                menuSelection = 3;
+                int colunas = tableAlunos.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableAlunos.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableAlunos.getValueAt(linha, x);
+                        sExcluir = cp.findByCodigo(codigo);
 
-                }
-            }
-            if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
-                if (op == 0) {
-                    try {
-                        cp.delete(sExcluir);
-                        DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
-                        dtm.removeRow(linha);
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(0, 153, 0));
-                        btnMessage.setBackground(new Color(0, 153, 0));
-                        labelWarningData.setText("Excluído com sucesso!");
-
-                    } catch (Exception e) {
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(255, 51, 51));
-                        btnMessage.setBackground(new Color(255, 51, 51));
-                        labelWarningData.setText("Este aluno possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
+                if (sExcluir != null) {
+                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                    if (op == 0) {
+                        try {
+                            cp.delete(sExcluir);
+                            DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
+                            dtm.removeRow(linha);
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(0, 153, 0));
+                            btnMessage.setBackground(new Color(0, 153, 0));
+                            labelWarningData.setText("Excluído com sucesso!");
+                            menuSelection = 0;
 
+                        } catch (Exception e) {
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(255, 51, 51));
+                            btnMessage.setBackground(new Color(255, 51, 51));
+                            labelWarningData.setText("Este aluno possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                        }
+                    }
+
+                }
+
+            } else {
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                labelWarningData.setText("Selecione um aluno.");
             }
-
         } else {
-            warningPanelData.setVisible(true);
-            warningPanelData.setBackground(new Color(255, 51, 51));
-            labelWarningData.setText("Selecione um aluno.");
+               if (menuSelection == 1) {
+                addBtn.select();
+                excludeBtn.unselect();
+            } else {
+                changeBtn.select();
+                excludeBtn.unselect();
+            }
         }
     }//GEN-LAST:event_excludeBtnActionPerformed
 
@@ -766,7 +778,6 @@ public class FormAluno extends javax.swing.JDialog {
         boolean flag = false;
         String message = "";
         boolean passerr = false;
-       
 
         if (txtNome.getText().equals("")) {
             txtNome.setForeground(errorColor);
@@ -824,7 +835,6 @@ public class FormAluno extends javax.swing.JDialog {
             txtConfirmar.setForeground(errorColor);
             flag = true;
         }
-      
 
         this.repaint();
 
@@ -841,7 +851,6 @@ public class FormAluno extends javax.swing.JDialog {
             message += " As senhas não correspondem";
             flag = true;
         }
-        
 
         if (!flag && !passerr) {
             p.setNome(txtNome.getText());
@@ -855,8 +864,8 @@ public class FormAluno extends javax.swing.JDialog {
             p.setRg(txtRg.getText());
             p.setSenha(txtSenha.getText());
             p.setTelefone(txtTelefone.getText());
-            
-           
+            p.atualizaStatus(false);
+
             p.setRua(txtRua.getText());
 
             if (file != null) {
@@ -922,7 +931,7 @@ public class FormAluno extends javax.swing.JDialog {
         txtLogin.setForeground(Color.black);
         txtSenha.setForeground(Color.black);
         txtConfirmar.setForeground(Color.black);
-        
+
     }
 
     private void limparCampos() {
@@ -939,7 +948,6 @@ public class FormAluno extends javax.swing.JDialog {
         txtLogin.setText("");
         txtSenha.setText("");
         txtConfirmar.setText("");
-       
 
         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
@@ -999,7 +1007,7 @@ public class FormAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_bgMousePressed
 
     private void bgMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseReleased
-      try {
+        try {
             setOpacity((float) 1);
         } catch (java.lang.UnsupportedOperationException e) {
 
@@ -1139,7 +1147,7 @@ public class FormAluno extends javax.swing.JDialog {
         txtRua.setText(selecionado.getRua());
         txtNumero.setText(Integer.toString(selecionado.getNumero()));
         txtLogin.setText(selecionado.getLogin());
-        
+
     }
 
     /**
@@ -1170,8 +1178,6 @@ public class FormAluno extends javax.swing.JDialog {
         //</editor-fold>
 
         //</editor-fold>
-
-
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

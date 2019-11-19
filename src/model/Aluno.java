@@ -19,7 +19,11 @@ import javax.persistence.Temporal;
 @NamedQueries({
    
     @NamedQuery(name="Aluno.findByCodigo",
-                query="SELECT p FROM Aluno p where p.codigo = :codigo")
+                query="SELECT p FROM Aluno p where p.codigo = :codigo"),
+    @NamedQuery(name="Aluno.findByNome",
+                query="SELECT p FROM Aluno p where p.nome like :nome"),
+    @NamedQuery(name="Aluno.desatualizadoNome",
+                query="SELECT p FROM Aluno p where p.status = false and p.nome like :nome")
 }) 
 public class Aluno extends Pessoa{
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL)
@@ -41,6 +45,10 @@ public class Aluno extends Pessoa{
     private String colesterol;
     @Column(name="medicamentos", length = 100)
     private String medicamentos;
+    @Column(name="status")
+    private boolean status;
+    
+    
 
     public String getFreqAtFisica() {
         return freqAtFisica;
@@ -113,6 +121,8 @@ public class Aluno extends Pessoa{
     public void setListaPagamentos(List<Pagamento> listaPagamentos) {
         this.listaPagamentos = listaPagamentos;
     }
-    
+    public void atualizaStatus(boolean sta){
+        status = sta;
+    }
     
 }

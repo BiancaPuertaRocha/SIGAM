@@ -52,6 +52,7 @@ create table Aluno(
     infSobrepeso    varchar(50),
     colesterol      varchar(20),
     medicamentos    varchar(100),
+    status          boolean,
     foreign key(codigo) references Pessoa(codigo)
 );
 create table Caixa (
@@ -184,4 +185,4 @@ BEGIN
     END IF;
 END$
 DELIMITER ;
-select * from Caixa;
+select * from Aluno;

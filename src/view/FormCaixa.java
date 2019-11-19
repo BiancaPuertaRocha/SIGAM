@@ -939,8 +939,8 @@ public class FormCaixa extends javax.swing.JDialog {
                 menuSelection = 2;
                 dataPanel.setVisible(false);
                 formPanelFechar.setVisible(true);
-                selecionado = null;
-                limparCampos();
+                selecionado = ControleCaixa.getCaixa();
+                setCaixa();
             } else {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
@@ -993,11 +993,53 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_botCancelarFechamentoActionPerformed
 
     private void botConfirmarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarFechamentoActionPerformed
-        // TODO add your handling code here:
+        
+        boolean flag = false;
+        String message = "";
+
+        if (txtSaldoInicial.getText().equals("")) {
+            txtSaldoInicial.setForeground(errorColor);
+            flag = true;
+        }
+
+        this.repaint();
+        if (flag) {
+            message = "Preencha todos os campos corretamente.";
+        }
+        if (!flag) {
+                       
+            p.setSaldoFinal(Double.parseDouble(txtSaldoFinal.getText().replace(',', '.')));
+            cp.persist(p);
+            
+            ControleCaixa.setCaixa(null);
+            
+            System.out.println(p.toString());
+            message = "Cadastro efetuado com sucesso.";
+            warningPanelData.setBackground(new Color(0, 153, 0));
+            btnMessage.setBackground(new Color(0, 153, 0));
+            warningPanelData.setVisible(true);
+            limparCampos();
+
+            labelWarningData.setText(message);
+            menuSelection = 0;
+            btnAbrir.unselect();
+            btnVisualizar.unselect();
+            dataPanel.setVisible(true);
+            formPanelAbrir.setVisible(false);
+            warningPanelData.setVisible(true);
+         
+        } else {
+
+            labelWarningForm.setText(message);
+            warningPanelForm.setVisible(true);
+            warningPanelForm.setBackground(new Color(255, 51, 51));
+            btnError.setBackground(new Color(255, 51, 51));
+
+        }
     }//GEN-LAST:event_botConfirmarFechamentoActionPerformed
 
     private void txtSaldoFinalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSaldoFinalFocusGained
-        txtSaldoFinal.setForeground(branco);
+        txtSaldoFinal.setForeground(Color.BLACK);
     }//GEN-LAST:event_txtSaldoFinalFocusGained
 
     private void txtData1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtData1FocusGained

@@ -10,6 +10,7 @@ import control.ControlePessoa;
 import control.ControleSecretario;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.util.Date;
 import javax.persistence.NoResultException;
 import model.Aluno;
@@ -28,7 +29,7 @@ public class LoginForm extends javax.swing.JFrame {
     private int yMouse;
     private ControlePessoa cp = new ControlePessoa();
     private ControleCaixa cc = new ControleCaixa();
-    
+
     /**
      * Creates new form loginForm
      */
@@ -37,6 +38,7 @@ public class LoginForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/images/favicon2.png")));
         warningPanelForm1.setVisible(false);
+        txtUsuario.requestFocus();
     }
 
     /**
@@ -112,6 +114,14 @@ public class LoginForm extends javax.swing.JFrame {
                 txtUsuarioFocusGained(evt);
             }
         });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
+            }
+        });
         formPanel.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 310, 60));
 
         txtSenha.setBackground(new java.awt.Color(37, 46, 55));
@@ -127,6 +137,14 @@ public class LoginForm extends javax.swing.JFrame {
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSenhaActionPerformed(evt);
+            }
+        });
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyTyped(evt);
             }
         });
         formPanel.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 310, 60));
@@ -425,7 +443,10 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_bgMouseDragged
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        if (txtSenha.getText().equals("") || txtUsuario.getText().equals("")) {
+       entrar();
+    }//GEN-LAST:event_btnEntrarActionPerformed
+    private void entrar(){
+         if (txtSenha.getText().equals("") || txtUsuario.getText().equals("")) {
             labelWarningForm1.setText("Preencha os campos corretamente");
             warningPanelForm1.setVisible(true);
             Color errorColor = new Color(255, 0, 0);
@@ -441,44 +462,65 @@ public class LoginForm extends javax.swing.JFrame {
                 p = cp.findByLoginSenha(txtUsuario.getText(), txtSenha.getText());
                 loadingPanel.setVisible(true);
                 formPanel.setVisible(false);
-                if(p instanceof Secretario){
+                if (p instanceof Secretario) {
                     ControleSecretario.setLogado((Secretario) p);
                     Dashboard tela = new Dashboard();
                     tela.setVisible(true);
                     this.dispose();
                     Caixa c = null;
-                    try{
-                        c = cc.findByAbertoFuncionario((Secretario) p,new Date());
-                    }catch(NoResultException ex){
+                    try {
+                        c = cc.findByAbertoFuncionario((Secretario) p, new Date());
+                    } catch (NoResultException ex) {
                         System.out.println("nao encontrou caixa");
                     }
                     ControleCaixa.setCaixa(c);
-                }else if (p instanceof Treinador){
+                } else if (p instanceof Treinador) {
                     System.out.println("treinador");
-                }else if (p instanceof Aluno){
+                } else if (p instanceof Aluno) {
                     System.out.println("aluno");
                 }
-                
+
             } catch (NoResultException e) {
                 labelWarningForm1.setText("Usuário ou senha incorretos");
                 warningPanelForm1.setVisible(true);
             }
         }
-
-
-    }//GEN-LAST:event_btnEntrarActionPerformed
-
+    }
     private void btnError1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnError1ActionPerformed
         warningPanelForm1.setVisible(false);
     }//GEN-LAST:event_btnError1ActionPerformed
 
     private void txtUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusGained
-       txtUsuario.setForeground(new Color(240,240,240));
+        txtUsuario.setForeground(new Color(240, 240, 240));
     }//GEN-LAST:event_txtUsuarioFocusGained
 
     private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
-        txtSenha.setForeground(new Color(240,240,240));
+        txtSenha.setForeground(new Color(240, 240, 240));
     }//GEN-LAST:event_txtSenhaFocusGained
+
+    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
+      
+    }//GEN-LAST:event_txtSenhaKeyTyped
+
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+       
+    }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+       if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+          entrar();
+            
+        }
+         
+    }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+          entrar();
+            
+        }
+         
+    }//GEN-LAST:event_txtUsuarioKeyPressed
 
     /**
      * @param args the command line arguments

@@ -13,11 +13,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Pagamento")
+@NamedQueries({
+    @NamedQuery(name = "Pagamento.findByAluno", query = "SELECT c FROM Caixa c"),
+    @NamedQuery(name = "Caixa.findByAbertoFuncionario", query = "SELECT c FROM Caixa c WHERE c.secretario =  :secretario and c.data = :data and c.hrFechamento = null"),
+    
+    @NamedQuery(name = "Caixa.findBySaidas", query = "SELECT c FROM Caixa c WHERE c.saidas = :saidas")})
 public class Pagamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

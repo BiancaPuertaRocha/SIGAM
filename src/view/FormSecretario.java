@@ -708,7 +708,10 @@ public class FormSecretario extends javax.swing.JDialog {
         int linha = tableSecretarios.getSelectedRow();
         int codigo;
         Secretario sExcluir = null;
+        if(menuSelection==0){
+            
         if (linha != -1) {
+            menuSelection= 3;
             int colunas = tableSecretarios.getColumnCount();
             for (int x = 0; x < colunas; x++) {
                 if (tableSecretarios.getColumnName(x).equals("Código")) {
@@ -728,6 +731,7 @@ public class FormSecretario extends javax.swing.JDialog {
                         warningPanelData.setBackground(new Color(0, 153, 0));
                         btnMessage.setBackground(new Color(0, 153, 0));
                         labelWarningData.setText("Excluído com sucesso!");
+                        menuSelection = 0;
 
                     } catch (Exception e) {
                         warningPanelData.setVisible(true);
@@ -743,6 +747,15 @@ public class FormSecretario extends javax.swing.JDialog {
             warningPanelData.setVisible(true);
             warningPanelData.setBackground(new Color(255, 51, 51));
             labelWarningData.setText("Selecione um secretário.");
+        }
+        }else{
+             if (menuSelection == 1) {
+                addBtn.select();
+                excludeBtn.unselect();
+            } else {
+                changeBtn.select();
+                excludeBtn.unselect();
+            }
         }
     }//GEN-LAST:event_excludeBtnActionPerformed
 
@@ -1074,7 +1087,7 @@ public class FormSecretario extends javax.swing.JDialog {
             if (menuSelection == 1) {
                 addBtn.select();
                 changeBtn.unselect();
-            } else {
+            } else  {
                 changeBtn.select();
                 addBtn.unselect();
             }

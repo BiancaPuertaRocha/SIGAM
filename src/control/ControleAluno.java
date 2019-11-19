@@ -28,7 +28,7 @@ public class ControleAluno extends Controle<Aluno> {
 
     public List<Aluno> findByNome(String nome) {
         EntityManager em = getEntityManager();
-        TypedQuery<Aluno> consulta = em.createNamedQuery("Pessoa.findByNome", Aluno.class);
+        TypedQuery<Aluno> consulta = em.createNamedQuery("Aluno.findByNome", Aluno.class);
         String parSQL;
         parSQL = "%" + nome + "%";
         consulta.setParameter("nome", parSQL);
@@ -39,6 +39,12 @@ public class ControleAluno extends Controle<Aluno> {
         TypedQuery<Aluno> consulta = em.createNamedQuery("Aluno.findByCodigo", Aluno.class);
         consulta.setParameter("codigo", cod);
         return consulta.getSingleResult();
+    }
+     public List<Aluno> findDesatualizado(String nome) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Aluno> consulta = em.createNamedQuery("Aluno.desatualizadoNome", Aluno.class);
+        consulta.setParameter("nome","%"+ nome+"%");
+        return consulta.getResultList();
     }
 
 }
