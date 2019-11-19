@@ -701,41 +701,55 @@ public class FormTreinador extends javax.swing.JDialog {
         int linha = tableTreinadores.getSelectedRow();
         int codigo;
         Treinador sExcluir = null;
-        if (linha != -1) {
-            int colunas = tableTreinadores.getColumnCount();
-            for (int x = 0; x < colunas; x++) {
-                if (tableTreinadores.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableTreinadores.getValueAt(linha, x);
-                    sExcluir = cp.findByCodigo(codigo);
+        if (menuSelection == 0) {
+            if (linha != -1) {
+                menuSelection = 3;
+                int colunas = tableTreinadores.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableTreinadores.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableTreinadores.getValueAt(linha, x);
+                        sExcluir = cp.findByCodigo(codigo);
 
-                }
-            }
-            if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
-                if (op == 0) {
-                    try {
-                        cp.delete(sExcluir);
-                        DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
-                        dtm.removeRow(linha);
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(0, 153, 0));
-                        btnMessage.setBackground(new Color(0, 153, 0));
-                        labelWarningData.setText("Excluído com sucesso!");
-
-                    } catch (Exception e) {
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(255, 51, 51));
-                        btnMessage.setBackground(new Color(255, 51, 51));
-                        labelWarningData.setText("Este treinador possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
+                if (sExcluir != null) {
+                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                    if (op == 0) {
+                        try {
+                            cp.delete(sExcluir);
+                            DefaultTableModel dtm = (DefaultTableModel) tableTreinadores.getModel();
+                            dtm.removeRow(linha);
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(0, 153, 0));
+                            btnMessage.setBackground(new Color(0, 153, 0));
+                            labelWarningData.setText("Excluído com sucesso!");
+                            menuSelection = 0;
 
+                        } catch (Exception e) {
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(255, 51, 51));
+                            btnMessage.setBackground(new Color(255, 51, 51));
+                            labelWarningData.setText("Este treinador possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                            menuSelection=0;
+                            excludeBtn.unselect();
+                        }
+                    }
+
+                }
+
+            } else {
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                labelWarningData.setText("Selecione um aluno.");
             }
-
         } else {
-            warningPanelData.setVisible(true);
-            warningPanelData.setBackground(new Color(255, 51, 51));
-            labelWarningData.setText("Selecione um treinador.");
+               if (menuSelection == 1) {
+                addBtn.select();
+                excludeBtn.unselect();
+            } else {
+                changeBtn.select();
+                excludeBtn.unselect();
+            }
         }
     }//GEN-LAST:event_excludeBtnActionPerformed
 
@@ -1060,7 +1074,7 @@ public class FormTreinador extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-
+                menuSelection=0;
                 //timer
             }
         } else {

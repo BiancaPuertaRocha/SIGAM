@@ -708,48 +708,49 @@ public class FormSecretario extends javax.swing.JDialog {
         int linha = tableSecretarios.getSelectedRow();
         int codigo;
         Secretario sExcluir = null;
-        if(menuSelection==0){
-            
-        if (linha != -1) {
-            menuSelection= 3;
-            int colunas = tableSecretarios.getColumnCount();
-            for (int x = 0; x < colunas; x++) {
-                if (tableSecretarios.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableSecretarios.getValueAt(linha, x);
-                    sExcluir = cp.findByCodigo(codigo);
+        if (menuSelection == 0) {
 
-                }
-            }
-            if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
-                if (op == 0) {
-                    try {
-                        cp.delete(sExcluir);
-                        DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
-                        dtm.removeRow(linha);
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(0, 153, 0));
-                        btnMessage.setBackground(new Color(0, 153, 0));
-                        labelWarningData.setText("Excluído com sucesso!");
-                        menuSelection = 0;
+            if (linha != -1) {
+                menuSelection = 3;
+                int colunas = tableSecretarios.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableSecretarios.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableSecretarios.getValueAt(linha, x);
+                        sExcluir = cp.findByCodigo(codigo);
 
-                    } catch (Exception e) {
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(255, 51, 51));
-                        btnMessage.setBackground(new Color(255, 51, 51));
-                        labelWarningData.setText("Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
+                if (sExcluir != null) {
+                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getNome() + "?");
+                    if (op == 0) {
+                        try {
+                            cp.delete(sExcluir);
+                            DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
+                            dtm.removeRow(linha);
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(0, 153, 0));
+                            btnMessage.setBackground(new Color(0, 153, 0));
+                            labelWarningData.setText("Excluído com sucesso!");
+                            menuSelection = 0;
 
+                        } catch (Exception e) {
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(255, 51, 51));
+                            btnMessage.setBackground(new Color(255, 51, 51));
+                            labelWarningData.setText("Este secretário possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                            menuSelection=0;
+                        }
+                    }
+
+                }
+
+            } else {
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                labelWarningData.setText("Selecione um secretário.");
             }
-
         } else {
-            warningPanelData.setVisible(true);
-            warningPanelData.setBackground(new Color(255, 51, 51));
-            labelWarningData.setText("Selecione um secretário.");
-        }
-        }else{
-             if (menuSelection == 1) {
+            if (menuSelection == 1) {
                 addBtn.select();
                 excludeBtn.unselect();
             } else {
@@ -832,16 +833,16 @@ public class FormSecretario extends javax.swing.JDialog {
         boolean flag = false;
         String message = "";
         boolean passerr = false;
-        if (comboTipo.getSelectedIndex() == 0){
+        if (comboTipo.getSelectedIndex() == 0) {
             comboTipo.setForeground(new Color(255, 102, 102));
             flag = true;
         }
-        
-        if (comboSetor.getSelectedIndex() == 0){
+
+        if (comboSetor.getSelectedIndex() == 0) {
             comboSetor.setForeground(new Color(255, 102, 102));
             flag = true;
         }
-                
+
         if (txtNome.getText().equals("")) {
             txtNome.setForeground(errorColor);
             flag = true;
@@ -890,9 +891,9 @@ public class FormSecretario extends javax.swing.JDialog {
             txtSenha.setForeground(errorColor);
             flag = true;
         }
-        if(txtSenha.getPassword().length < 4){
+        if (txtSenha.getPassword().length < 4) {
             txtSenha.setForeground(errorColor);
-             passerr = true;
+            passerr = true;
         }
         if (txtConfirmar.getText().equals("")) {
             txtConfirmar.setForeground(errorColor);
@@ -919,11 +920,11 @@ public class FormSecretario extends javax.swing.JDialog {
 
         if (flag) {
             message = "Preencha todos os campos corretamente.";
-           
+
         }
         if (passerr) {
             message += " A senha deve ter no mínimo 4 caracteres!";
-             
+
         }
         if (!txtSenha.getText().equals(txtConfirmar.getText()) && !passerr) {
             txtSenha.setForeground(errorColor);
@@ -935,7 +936,7 @@ public class FormSecretario extends javax.swing.JDialog {
             flag = true;
             message += " O horário de entrada deve anteceder o de saída";
         }
-        
+
         if (!flag && !passerr) {
             p.setNome(txtNome.getText());
             p.setCidade(txtCidade.getText());
@@ -994,18 +995,18 @@ public class FormSecretario extends javax.swing.JDialog {
             formPanel.setVisible(false);
             warningPanelData.setVisible(true);
             //timer
-            
+
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         } else {
-            
+
             labelWarningForm.setText(message);
             warningPanelForm.setVisible(true);
             warningPanelForm.setBackground(new Color(255, 51, 51));
             btnError.setBackground(new Color(255, 51, 51));
-            
+
         }
     }//GEN-LAST:event_botConfirmarActionPerformed
-    
+
     private void makeAllBlack() {
         txtNome.setForeground(Color.black);
         txtTelefone.setForeground(Color.black);
@@ -1025,7 +1026,8 @@ public class FormSecretario extends javax.swing.JDialog {
         txtSalario.setForeground(Color.black);
         comboSetor.setForeground(new Color(109, 109, 109));
         comboTipo.setForeground(new Color(109, 109, 109));
-    }    
+    }
+
     private void limparCampos() {
         txtNome.setText("");
         txtTelefone.setValue("");
@@ -1079,15 +1081,14 @@ public class FormSecretario extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                
-
+                menuSelection=0;
                 //timer
             }
         } else {
             if (menuSelection == 1) {
                 addBtn.select();
                 changeBtn.unselect();
-            } else  {
+            } else {
                 changeBtn.select();
                 addBtn.unselect();
             }
@@ -1105,7 +1106,7 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_bgMousePressed
 
     private void bgMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseReleased
-        
+
         try {
             setOpacity((float) 1);
         } catch (java.lang.UnsupportedOperationException e) {
@@ -1114,8 +1115,8 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_bgMouseReleased
 
     private void bgMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseDragged
-        
-       setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
+
+        setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
         try {
             setOpacity((float) 0.9);
         } catch (java.lang.UnsupportedOperationException e) {
@@ -1247,11 +1248,11 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMessageActionPerformed
 
     private void comboSetorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboSetorFocusGained
-        comboSetor.setForeground(new Color(109,109,109));
+        comboSetor.setForeground(new Color(109, 109, 109));
     }//GEN-LAST:event_comboSetorFocusGained
 
     private void comboTipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboTipoFocusGained
-        comboTipo.setForeground(new Color(109,109,109));
+        comboTipo.setForeground(new Color(109, 109, 109));
     }//GEN-LAST:event_comboTipoFocusGained
 
     private void setSecretario() {

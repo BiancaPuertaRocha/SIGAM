@@ -9,12 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "Despesa")
-
+@NamedQueries({
+    @NamedQuery(name = "Despesa.findByCodigo", query = "SELECT c FROM Despesa c WHERE c.codigo = :codigo"),
+    @NamedQuery(name = "Despesa.findByDataVencimento", query = "SELECT c FROM Despesa c WHERE c.vencimento between :data1 and :data2")})
 public class Despesa implements Serializable {
 
     @Id
@@ -31,7 +35,8 @@ public class Despesa implements Serializable {
     private Date pagamento;
     @Column(name = "valor", nullable = true)
     private double valor;
-    
+    @Column(name = "tipo", length = 50, nullable = false)
+    private String tipo;
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "caixa", nullable = false)
     private Caixa caixa;
@@ -41,6 +46,14 @@ public class Despesa implements Serializable {
         int hash = 7;
         hash = 47 * hash + this.codigo;
         return hash;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override

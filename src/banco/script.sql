@@ -71,19 +71,19 @@ create table Despesa (
     codigo          int auto_increment primary key,
     descricao       varchar(50) not null,
     vencimento      date not null,
-    pagamento       date not null,
+    pagamento       date ,
     valor           double not null,
-    secretario      int,
-    caixa           int,
+    tipo            varchar(20),
+    caixa           int, 
     foreign key (caixa) references Caixa (codigo)
-   
 );
+
 create table Pagamento(
     codigo          int auto_increment primary key,
     aluno           int not null,
     dias            int not null,
     valor           double not null,
-    dataPag         date not null,
+    dataPag         date,
     caixa           int,
     foreign key (caixa) references Caixa (codigo),
     foreign key(aluno) references Aluno(codigo)
@@ -139,7 +139,7 @@ ON Pagamento
 FOR EACH ROW
 BEGIN
     UPDATE Caixa SET entradas = entradas + NEW.valor - OLD.valor
-WHERE codigo = NEW.codigo;
+WHERE codigo = NEW.caixa;
 END$
 DELIMITER ;
 DELIMITER $ 
@@ -157,9 +157,9 @@ CREATE TRIGGER addDespesasCaixa AFTER INSERT
 ON Despesa
 FOR EACH ROW
 BEGIN
-    IF NEW.pagamento != NULL THEN
+    IF NEW.pagamento is not NULL THEN
         UPDATE Caixa SET saidas = saidas + NEW.valor 
-        WHERE codigo = NEW.codigo;
+        WHERE codigo = NEW.caixa;
     END IF;
 END$
 DELIMITER ;
@@ -168,9 +168,9 @@ CREATE TRIGGER updateDespesasCaixa AFTER UPDATE
 ON Despesa
 FOR EACH ROW
 BEGIN
-    IF NEW.pagamento != NULL THEN
+    IF NEW.caixa is not NULL THEN
         UPDATE Caixa SET saidas = saidas + NEW.valor - OLD.valor
-        WHERE codigo = NEW.codigo;
+        WHERE codigo = NEW.caixa;
     END IF;
 END$
 DELIMITER ;
@@ -179,10 +179,10 @@ CREATE TRIGGER deleteDespesasCaixa AFTER DELETE
 ON Despesa
 FOR EACH ROW
 BEGIN
-   IF OLD.pagamento != NULL THEN
+   IF OLD.pagamento is not NULL THEN
         UPDATE Caixa SET saidas = saidas - OLD.valor 
-        WHERE codigo = OLD.codigo;
+        WHERE codigo = OLD.caixa;
     END IF;
 END$
 DELIMITER ;
-select * from Aluno;
+select * from Caixa;

@@ -489,41 +489,55 @@ public class FormAtividade extends javax.swing.JDialog {
         int linha = tableAtividade.getSelectedRow();
         int codigo;
         Atividade sExcluir = null;
-        if (linha != -1) {
-            int colunas = tableAtividade.getColumnCount();
-            for (int x = 0; x < colunas; x++) {
-                if (tableAtividade.getColumnName(x).equals("Código")) {
-                    codigo = (int) tableAtividade.getValueAt(linha, x);
-                    sExcluir = cp.findByCodigo(codigo);
+        if (menuSelection == 0) {
+            if (linha != -1) {
+                menuSelection = 3;
+                int colunas = tableAtividade.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableAtividade.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableAtividade.getValueAt(linha, x);
+                        sExcluir = cp.findByCodigo(codigo);
 
-                }
-            }
-            if (sExcluir != null) {
-                int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getDescricao()+ "?");
-                if (op == 0) {
-                    try {
-                        cp.delete(sExcluir);
-                        DefaultTableModel dtm = (DefaultTableModel) tableAtividade.getModel();
-                        dtm.removeRow(linha);
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(0, 153, 0));
-                        btnMessage.setBackground(new Color(0, 153, 0));
-                        labelWarningData.setText("Excluído com sucesso!");
-
-                    } catch (Exception e) {
-                        warningPanelData.setVisible(true);
-                        warningPanelData.setBackground(new Color(255, 51, 51));
-                        btnMessage.setBackground(new Color(255, 51, 51));
-                        labelWarningData.setText("Esta atividade possui registros vinculados.\nNão foi possível realizar a exclusão!");
                     }
                 }
+                if (sExcluir != null) {
+                    int op = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir " + sExcluir.getDescricao()+ "?");
+                    if (op == 0) {
+                        try {
+                            cp.delete(sExcluir);
+                            DefaultTableModel dtm = (DefaultTableModel) tableAtividade.getModel();
+                            dtm.removeRow(linha);
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(0, 153, 0));
+                            btnMessage.setBackground(new Color(0, 153, 0));
+                            labelWarningData.setText("Excluído com sucesso!");
+                            menuSelection = 0;
 
+                        } catch (Exception e) {
+                            warningPanelData.setVisible(true);
+                            warningPanelData.setBackground(new Color(255, 51, 51));
+                            btnMessage.setBackground(new Color(255, 51, 51));
+                            labelWarningData.setText("Esta atividade possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                            menuSelection=0;
+                            excludeBtn.unselect();
+                        }
+                    }
+
+                }
+
+            } else {
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                labelWarningData.setText("Selecione uma atividade.");
             }
-
         } else {
-            warningPanelData.setVisible(true);
-            warningPanelData.setBackground(new Color(255, 51, 51));
-            labelWarningData.setText("Selecione uma atividade.");
+               if (menuSelection == 1) {
+                addBtn.select();
+                excludeBtn.unselect();
+            } else {
+                changeBtn.select();
+                excludeBtn.unselect();
+            }
         }
     }//GEN-LAST:event_excludeBtnActionPerformed
 
@@ -695,7 +709,7 @@ public class FormAtividade extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-
+                menuSelection=0;
                 //timer
             }
         } else {

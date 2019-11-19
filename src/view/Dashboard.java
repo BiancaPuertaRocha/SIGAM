@@ -397,6 +397,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton7.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
         mGradientButton7.setStartColor(new java.awt.Color(225, 238, 195));
         mGradientButton7.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+        mGradientButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGradientButton7ActionPerformed(evt);
+            }
+        });
 
         mGradientButton8.setBackground(new Color(0,0,0,0));
         mGradientButton8.setBorder(null);
@@ -587,6 +592,11 @@ public class Dashboard extends javax.swing.JFrame {
         FormAluno form = new FormAluno(this, true);
         form.setVisible(true);
     }//GEN-LAST:event_mGradientButton1ActionPerformed
+
+    private void mGradientButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton7ActionPerformed
+        FormDespesas form = new FormDespesas(this, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_mGradientButton7ActionPerformed
 
     
     private XYDataset createDataset() {

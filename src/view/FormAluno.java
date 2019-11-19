@@ -684,6 +684,8 @@ public class FormAluno extends javax.swing.JDialog {
                             warningPanelData.setBackground(new Color(255, 51, 51));
                             btnMessage.setBackground(new Color(255, 51, 51));
                             labelWarningData.setText("Este aluno possui registros vinculados.\nNão foi possível realizar a exclusão!");
+                            menuSelection=0;
+                            excludeBtn.unselect();
                         }
                     }
 
@@ -982,7 +984,7 @@ public class FormAluno extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-
+                menuSelection=0;
                 //timer
             }
         } else {
