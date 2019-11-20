@@ -279,6 +279,7 @@ public class FormAtividade extends javax.swing.JDialog {
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        btnExit.setBorder(null);
         btnExit.setForeground(new java.awt.Color(153, 153, 153));
         btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         btnExit.setBorderRadius(0);
@@ -378,6 +379,7 @@ public class FormAtividade extends javax.swing.JDialog {
 
         formPanel.add(warningPanelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
+        mButton4.setBorder(null);
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
         mButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         mButton4.setBorderRadius(0);

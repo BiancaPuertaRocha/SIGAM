@@ -344,6 +344,7 @@ public class FormCaixa extends javax.swing.JDialog {
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        btnExit.setBorder(null);
         btnExit.setForeground(new java.awt.Color(153, 153, 153));
         btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         btnExit.setBorderRadius(0);
@@ -444,6 +445,7 @@ public class FormCaixa extends javax.swing.JDialog {
 
         formPanelAbrir.add(warningPanelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
+        mButton4.setBorder(null);
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
         mButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         mButton4.setBorderRadius(0);
@@ -511,31 +513,34 @@ public class FormCaixa extends javax.swing.JDialog {
                 txtSaldoInicialFocusGained(evt);
             }
         });
-        formPanelAbrir.add(txtSaldoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 280, 50));
+        formPanelAbrir.add(txtSaldoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 330, 50));
 
-        jLabel2.setFont(new java.awt.Font("Noto Sans", 1, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel2.setText("Data");
-        formPanelAbrir.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+        formPanelAbrir.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Noto Sans", 1, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel3.setText("Horário de abertura");
-        formPanelAbrir.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, -1, -1));
+        formPanelAbrir.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Noto Sans", 1, 15)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel4.setText("Funcionário");
-        formPanelAbrir.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, -1, -1));
+        formPanelAbrir.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, -1, -1));
 
+        labelDataAbertura.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         labelDataAbertura.setText("jLabel5");
         formPanelAbrir.add(labelDataAbertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(339, 210, 130, -1));
 
+        labelHorarioAbertura.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         labelHorarioAbertura.setText("jLabel6");
         formPanelAbrir.add(labelHorarioAbertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 260, 120, -1));
 
+        labelFuncionario.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         labelFuncionario.setText("jLabel7");
         formPanelAbrir.add(labelFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 310, 180, -1));
-        formPanelAbrir.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 280, -1));
-        formPanelAbrir.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 280, 10));
-        formPanelAbrir.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 280, 10));
+        formPanelAbrir.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 330, -1));
+        formPanelAbrir.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 330, 10));
+        formPanelAbrir.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 330, 10));
 
         cardPanel.add(formPanelAbrir, "card3");
 
@@ -578,6 +583,7 @@ public class FormCaixa extends javax.swing.JDialog {
 
         formPanelFechar.add(warningPanelForm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
+        mButton5.setBorder(null);
         mButton5.setForeground(new java.awt.Color(153, 153, 153));
         mButton5.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         mButton5.setBorderRadius(0);

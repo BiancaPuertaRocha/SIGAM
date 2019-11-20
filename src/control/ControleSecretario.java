@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import model.Secretario;
 
 public class ControleSecretario extends Controle<Secretario>{
+    
     private static Secretario logado;
     
     public ControleSecretario() {

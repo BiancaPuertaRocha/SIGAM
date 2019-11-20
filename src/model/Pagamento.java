@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,14 +18,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "Pagamento")
 @NamedQueries({
-    @NamedQuery(name = "Pagamento.findByAluno", query = "SELECT c FROM Caixa c"),
-    @NamedQuery(name = "Caixa.findByAbertoFuncionario", query = "SELECT c FROM Caixa c WHERE c.secretario =  :secretario and c.data = :data and c.hrFechamento = null"),
-    
-    @NamedQuery(name = "Caixa.findBySaidas", query = "SELECT c FROM Caixa c WHERE c.saidas = :saidas")})
+    @NamedQuery(name = "Pagamento.findByAluno", query = "SELECT c FROM Pagamento c WHERE c.aluno =  :aluno"),
+    @NamedQuery(name = "Pagamento.findByAlunoLast", query = "select p from Pagamento p where p.codigo = (SELECT max(c.codigo) FROM Pagamento c WHERE c.aluno =  :aluno) and p.aluno = :aluno")
+    })
 public class Pagamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,14 +36,18 @@ public class Pagamento implements Serializable {
     @Column(name = "valor", nullable = false)
     private double valor;
     @Column(name = "dataPag", nullable = false)
-    private int dataPag;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataPag;
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "aluno")
     private Aluno aluno;
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "caixa", nullable = false)
     private Caixa caixa;
-
+    @Column(name = "validade", nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date validade;
+    
     public int getCodigo() {
         return codigo;
     }
@@ -84,13 +89,15 @@ public class Pagamento implements Serializable {
         this.valor = valor;
     }
 
-    public int getDataPag() {
+    public Date getDataPag() {
         return dataPag;
     }
 
-    public void setDataPag(int dataPag) {
+    public void setDataPag(Date dataPag) {
         this.dataPag = dataPag;
     }
+
+ 
 
     @Override
     public int hashCode() {
@@ -115,6 +122,14 @@ public class Pagamento implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public Date getValidade() {
+        return validade;
+    }
+
+    public void setValidade(Date validade) {
+        this.validade = validade;
     }
     
     

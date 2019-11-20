@@ -255,6 +255,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         dataPanel.add(botConfirmar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 600, 180, 50));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        btnExit.setBorder(null);
         btnExit.setForeground(new java.awt.Color(153, 153, 153));
         btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         btnExit.setBorderRadius(0);
@@ -279,6 +280,7 @@ public class FormAnamnese extends javax.swing.JDialog {
 
         formPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        mButton4.setBorder(null);
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
         mButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         mButton4.setBorderRadius(0);

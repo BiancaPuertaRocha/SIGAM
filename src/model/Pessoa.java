@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.UniqueConstraint;
 @Entity
 @NamedQueries({
     @NamedQuery(name="Pessoa.findByNome",
@@ -25,7 +26,9 @@ import javax.persistence.Temporal;
     @NamedQuery(name="Pessoa.findByLoginESenha",
                 query="SELECT p FROM Pessoa p WHERE p.login = :login and p.senha = :senha")
 }) 
-@Table(name="Pessoa")
+@Table(name="Pessoa", uniqueConstraints = {
+@UniqueConstraint(name="login", columnNames = {"login"}), @UniqueConstraint(name="cpf", columnNames = {"cpf"})
+})
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
 public abstract class Pessoa implements Serializable{

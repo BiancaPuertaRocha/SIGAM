@@ -5,35 +5,40 @@
  */
 package view;
 
+import control.ControleAluno;
 import control.ControleCaixa;
 import control.ControleDespesa;
+import control.ControlePagamento;
 import control.ControleSecretario;
 import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.persistence.NoResultException;
 import javax.swing.table.DefaultTableModel;
+import model.Aluno;
+import model.Pagamento;
 
-import model.Despesa;
 import util.Conversoes;
 
 /**
  *
  * @author abner
  */
-public class FormDespesas extends javax.swing.JDialog {
+public class FormPagamento extends javax.swing.JDialog {
 
     private int xMouse, yMouse;
-    private Despesa p = new Despesa();
-    private ControleDespesa cp = new ControleDespesa();
+    private Pagamento p = new Pagamento();
+    private ControlePagamento cpag = new ControlePagamento();
+    private ControleAluno ca = new ControleAluno();
     private File file;
-    private ArrayList<Despesa> listaPesquisa = new ArrayList();
-    private Despesa selecionado;
+    private ArrayList<Aluno> listaPesquisa = new ArrayList();
+    private Aluno selecionado;
     private int menuSelection = 0;
     private Color errorColor = new Color(255, 0, 0);
     private Color branco = new Color(240, 240, 240);
 
-    public FormDespesas(java.awt.Frame parent, boolean modal) {
+    public FormPagamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
         initComponents();
@@ -41,7 +46,7 @@ public class FormDespesas extends javax.swing.JDialog {
 
         warningPanelForm.setVisible(false);
         warningPanelData.setVisible(false);
-        warningPanelForm1.setVisible(false);
+
     }
 
     private void atualizaTabela() {
@@ -49,15 +54,31 @@ public class FormDespesas extends javax.swing.JDialog {
             @Override
             public void run() {
                 listaPesquisa.clear();
-                if (!txtData1.getText().equals("  /  /    ") || !txtData1.getText().equals("  /  /    ")) {
-                    listaPesquisa.addAll(cp.findByDatas(txtData1.getText(), txtData2.getText()));
+                if (!txtPesquisa.getText().equals("")) {
+                    listaPesquisa.addAll(ca.findByNome(txtPesquisa.getText()));
                     DefaultTableModel dtm = (DefaultTableModel) tableDespesas.getModel();
                     dtm.setNumRows(0);
-                    for (Despesa s : listaPesquisa) {
+                    String data;
+                    Pagamento ultimo = null;
+                    int dias;
+                    for (Aluno s : listaPesquisa) {
+                        data = "Não há";
+                        dias = 0;
+                        try {
+                            ultimo = cpag.findByAlunoLast(s);
+                            data = Conversoes.getDateFormatedToString(ultimo.getDataPag());
+                            dias = ultimo.getDias() - Conversoes.getDaysBetween(new Date(), ultimo.getValidade());
+                            if (dias < 0) {
+                                dias = 0;
+                            }
+                        } catch (NoResultException e) {
+
+                        }
+
                         dtm.addRow(new Object[]{s.getCodigo(),
-                            s.getDescricao(),
-                            Conversoes.getDateFormatedToString(s.getVencimento()),
-                            s.getPagamento() != null ? Conversoes.getDateFormatedToString(s.getPagamento()) : "não pago", s.getTipo()});
+                            s.getNome(),
+                            data,
+                            Integer.toString(dias), ultimo == null ? "-" : Conversoes.getDateFormatedToString(ultimo.getValidade())});
                     }
                 } else {
                     warningPanelData.setBackground(new Color(255, 51, 51));
@@ -84,7 +105,6 @@ public class FormDespesas extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         btnAdicionar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         btnVisualizar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
-        btnPagar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         warningPanelData = new javax.swing.JPanel();
@@ -92,12 +112,11 @@ public class FormDespesas extends javax.swing.JDialog {
         labelWarningData = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         mGradientButton1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
-        txtData1 = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtData2 = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
+        txtPesquisa = new com.hq.swingmaterialdesign.materialdesign.MTextField();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
         tablePanel = new javax.swing.JScrollPane();
         tableDespesas = new javax.swing.JTable();
-        formPanelAdicionar = new javax.swing.JPanel();
+        formAdicionar = new javax.swing.JPanel();
         warningPanelForm = new javax.swing.JPanel();
         btnError = new com.hq.swingmaterialdesign.materialdesign.MButton();
         labelWarningForm = new javax.swing.JLabel();
@@ -105,30 +124,30 @@ public class FormDespesas extends javax.swing.JDialog {
         mButton4 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botCancelar = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botConfirmar = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        txtVencimento = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        txtDescricao = new com.hq.swingmaterialdesign.materialdesign.MTextField();
+        txtQtdDias = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtValor = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
-        comboTipo = new com.hq.swingmaterialdesign.materialdesign.MComboBox();
-        formPanelPagar = new javax.swing.JPanel();
-        warningPanelForm1 = new javax.swing.JPanel();
-        btnError1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        labelWarningForm1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        labelAluno = new javax.swing.JLabel();
+        jSeparator10 = new javax.swing.JSeparator();
+        formVisualizar = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         mButton5 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         botCancelarFechamento = new com.hq.swingmaterialdesign.materialdesign.MButton();
-        botConfirmarFechamento = new com.hq.swingmaterialdesign.materialdesign.MButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        labelDataPagamento = new javax.swing.JLabel();
-        labelDescricao = new javax.swing.JLabel();
+        labelDataPagtoVisu = new javax.swing.JLabel();
+        labelQtdeDiasVisu = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
-        labelDataVencimento = new javax.swing.JLabel();
+        labelAlunoVisu = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        labelValor = new javax.swing.JLabel();
+        labelValorPagoVisu = new javax.swing.JLabel();
         jSeparator9 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        labelDiasRestantesVisu = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -154,12 +173,12 @@ public class FormDespesas extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Montserrat", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DESPESAS");
+        jLabel1.setText("PAGAMENTO");
         sidePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 230, 40));
 
         btnAdicionar.setBorder(null);
         btnAdicionar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdicionar.setText("Adicionar");
+        btnAdicionar.setText("Realizar Pagamento");
         btnAdicionar.setEndColor(new java.awt.Color(37, 46, 55));
         btnAdicionar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
         btnAdicionar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -174,7 +193,7 @@ public class FormDespesas extends javax.swing.JDialog {
                 btnAdicionarActionPerformed(evt);
             }
         });
-        sidePanel.add(btnAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 230, 50));
+        sidePanel.add(btnAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 230, 50));
 
         btnVisualizar.setBorder(null);
         btnVisualizar.setForeground(new java.awt.Color(255, 255, 255));
@@ -192,23 +211,6 @@ public class FormDespesas extends javax.swing.JDialog {
             }
         });
         sidePanel.add(btnVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 230, 50));
-
-        btnPagar.setBorder(null);
-        btnPagar.setForeground(new java.awt.Color(255, 255, 255));
-        btnPagar.setText("Pagar");
-        btnPagar.setEndColor(new java.awt.Color(37, 46, 55));
-        btnPagar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
-        btnPagar.setHoverEndColor(new java.awt.Color(37, 46, 55));
-        btnPagar.setHoverStartColor(new java.awt.Color(0, 153, 153));
-        btnPagar.setSelectedColor(new java.awt.Color(0, 153, 153));
-        btnPagar.setStartColor(new java.awt.Color(37, 46, 55));
-        btnPagar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
-        btnPagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagarActionPerformed(evt);
-            }
-        });
-        sidePanel.add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -276,58 +278,31 @@ public class FormDespesas extends javax.swing.JDialog {
             }
         });
 
-        txtData1.setBackground(new java.awt.Color(50, 60, 69));
-        txtData1.setForeground(new java.awt.Color(240, 240, 240));
-        txtData1.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        try {
-            txtData1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtData1.setLabel("Data Inicial");
-        txtData1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtData1FocusGained(evt);
-            }
-        });
-
-        txtData2.setBackground(new java.awt.Color(50, 60, 69));
-        txtData2.setForeground(new java.awt.Color(240, 240, 240));
-        txtData2.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
-        try {
-            txtData2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtData2.setLabel("Data Final");
-        txtData2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtData2FocusGained(evt);
-            }
-        });
+        txtPesquisa.setBackground(new java.awt.Color(50, 60, 69));
+        txtPesquisa.setForeground(new java.awt.Color(240, 240, 240));
+        txtPesquisa.setFont(new java.awt.Font("Nunito", 0, 18)); // NOI18N
+        txtPesquisa.setLabel("Pesquisar por nome");
+        txtPesquisa.setSelectionColor(new java.awt.Color(0, 153, 153));
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
-                .addContainerGap(134, Short.MAX_VALUE)
-                .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
-                .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGap(20, 20, 20))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                .addGap(11, 11, 11))
         );
 
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
@@ -367,7 +342,7 @@ public class FormDespesas extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Descricao", "Data Vencimento", "Data Pagamento", "Tipo"
+                "Código", "Aluno", "Ultimo Pag", "Dias Restantes", "Validade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -392,12 +367,12 @@ public class FormDespesas extends javax.swing.JDialog {
         }
         tableDespesas.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
-        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 670, 390));
+        dataPanel.add(tablePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 670, 390));
 
         cardPanel.add(dataPanel, "card2");
 
-        formPanelAdicionar.setBackground(new java.awt.Color(255, 255, 255));
-        formPanelAdicionar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        formAdicionar.setBackground(new java.awt.Color(255, 255, 255));
+        formAdicionar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         warningPanelForm.setBackground(new java.awt.Color(255, 51, 51));
 
@@ -432,7 +407,7 @@ public class FormDespesas extends javax.swing.JDialog {
             .addComponent(btnError, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        formPanelAdicionar.add(warningPanelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
+        formAdicionar.add(warningPanelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
         mButton4.setBorder(null);
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
@@ -467,7 +442,7 @@ public class FormDespesas extends javax.swing.JDialog {
             .addComponent(mButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        formPanelAdicionar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
+        formAdicionar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
 
         botCancelar.setBorder(null);
         botCancelar.setText("CANCELAR");
@@ -479,7 +454,7 @@ public class FormDespesas extends javax.swing.JDialog {
                 botCancelarActionPerformed(evt);
             }
         });
-        formPanelAdicionar.add(botCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 514, 180, 50));
+        formAdicionar.add(botCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 514, 180, 50));
 
         botConfirmar.setBackground(new java.awt.Color(51, 51, 51));
         botConfirmar.setBorder(null);
@@ -492,69 +467,31 @@ public class FormDespesas extends javax.swing.JDialog {
                 botConfirmarActionPerformed(evt);
             }
         });
-        formPanelAdicionar.add(botConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 514, 180, 50));
+        formAdicionar.add(botConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 514, 180, 50));
 
-        try {
-            txtVencimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtVencimento.setLabel("Data de Vencimento");
-        formPanelAdicionar.add(txtVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 350, 60));
-
-        txtDescricao.setLabel("Descrição");
-        formPanelAdicionar.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 350, 60));
+        txtQtdDias.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txtQtdDias.setLabel("Quantidade de dias");
+        formAdicionar.add(txtQtdDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 350, 60));
 
         txtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         txtValor.setLabel("Valor");
-        formPanelAdicionar.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 230, 60));
+        formAdicionar.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 150, 60));
 
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Adicional", "Fixa" }));
-        formPanelAdicionar.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 350, 50));
+        jLabel9.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel9.setText("Aluno");
+        formAdicionar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(162, 170, 60, -1));
 
-        cardPanel.add(formPanelAdicionar, "card3");
+        labelAluno.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        labelAluno.setText("jLabel10");
+        formAdicionar.add(labelAluno, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 160, -1));
+        formAdicionar.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 350, 10));
 
-        formPanelPagar.setBackground(new java.awt.Color(255, 255, 255));
-        formPanelPagar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        cardPanel.add(formAdicionar, "card3");
 
-        warningPanelForm1.setBackground(new java.awt.Color(255, 51, 51));
+        formVisualizar.setBackground(new java.awt.Color(255, 255, 255));
+        formVisualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnError1.setBackground(new java.awt.Color(255, 51, 51));
-        btnError1.setBorder(null);
-        btnError1.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
-        btnError1.setBorderRadius(0);
-        btnError1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
-        btnError1.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
-        btnError1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnError1ActionPerformed(evt);
-            }
-        });
-
-        labelWarningForm1.setFont(new java.awt.Font("Nunito", 1, 14)); // NOI18N
-        labelWarningForm1.setForeground(new java.awt.Color(255, 255, 255));
-        labelWarningForm1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelWarningForm1.setText("Preencha os campos corretamente.");
-
-        javax.swing.GroupLayout warningPanelForm1Layout = new javax.swing.GroupLayout(warningPanelForm1);
-        warningPanelForm1.setLayout(warningPanelForm1Layout);
-        warningPanelForm1Layout.setHorizontalGroup(
-            warningPanelForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, warningPanelForm1Layout.createSequentialGroup()
-                .addComponent(labelWarningForm1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnError1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        warningPanelForm1Layout.setVerticalGroup(
-            warningPanelForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelWarningForm1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnError1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        formPanelPagar.add(warningPanelForm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
-
-        jPanel2.setBorder(null);
-
+        mButton5.setBorder(null);
         mButton5.setForeground(new java.awt.Color(153, 153, 153));
         mButton5.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         mButton5.setBorderRadius(0);
@@ -587,10 +524,10 @@ public class FormDespesas extends javax.swing.JDialog {
             .addComponent(mButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        formPanelPagar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
+        formVisualizar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
 
         botCancelarFechamento.setBorder(null);
-        botCancelarFechamento.setText("CANCELAR");
+        botCancelarFechamento.setText("Voltar");
         botCancelarFechamento.setBorderRadius(50);
         botCancelarFechamento.setFont(new java.awt.Font("Nunito Black", 0, 14)); // NOI18N
         botCancelarFechamento.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.RAISED);
@@ -599,58 +536,54 @@ public class FormDespesas extends javax.swing.JDialog {
                 botCancelarFechamentoActionPerformed(evt);
             }
         });
-        formPanelPagar.add(botCancelarFechamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 514, 180, 50));
-
-        botConfirmarFechamento.setBackground(new java.awt.Color(51, 51, 51));
-        botConfirmarFechamento.setBorder(null);
-        botConfirmarFechamento.setText("Confirmar");
-        botConfirmarFechamento.setBorderRadius(50);
-        botConfirmarFechamento.setFont(new java.awt.Font("Nunito Black", 0, 14)); // NOI18N
-        botConfirmarFechamento.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.RAISED);
-        botConfirmarFechamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botConfirmarFechamentoActionPerformed(evt);
-            }
-        });
-        formPanelPagar.add(botConfirmarFechamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 514, 180, 50));
+        formVisualizar.add(botCancelarFechamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 510, 180, 50));
 
         jLabel5.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
         jLabel5.setText("Data Pagamento");
-        formPanelPagar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
+        formVisualizar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel7.setText("Descrição");
-        formPanelPagar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, -1, -1));
+        jLabel7.setText("Quantidade Dias");
+        formVisualizar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 290, -1, -1));
 
-        labelDataPagamento.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        labelDataPagamento.setText("jLabel5");
-        formPanelPagar.add(labelDataPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 180, -1));
+        labelDataPagtoVisu.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        labelDataPagtoVisu.setText("jLabel5");
+        formVisualizar.add(labelDataPagtoVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 150, -1));
 
-        labelDescricao.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        labelDescricao.setText("jLabel7");
-        formPanelPagar.add(labelDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 240, -1));
-        formPanelPagar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 340, 10));
+        labelQtdeDiasVisu.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        labelQtdeDiasVisu.setText("jLabel7");
+        formVisualizar.add(labelQtdeDiasVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 150, -1));
+        formVisualizar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 340, 10));
 
         jLabel8.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel8.setText("Data Vencimento");
-        formPanelPagar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, -1, -1));
-        formPanelPagar.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 340, 10));
-        formPanelPagar.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 340, 10));
+        jLabel8.setText("Aluno");
+        formVisualizar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, -1, -1));
+        formVisualizar.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, 340, 10));
+        formVisualizar.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 340, 10));
 
-        labelDataVencimento.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        labelDataVencimento.setText("jLabel10");
-        formPanelPagar.add(labelDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 150, -1));
+        labelAlunoVisu.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        labelAlunoVisu.setText("jLabel10");
+        formVisualizar.add(labelAlunoVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 150, -1));
 
         jLabel10.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel10.setText("Valor");
-        formPanelPagar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, -1, -1));
+        jLabel10.setText("Valor Pago");
+        formVisualizar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, -1, -1));
 
-        labelValor.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        labelValor.setText("jLabel5");
-        formPanelPagar.add(labelValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 190, -1));
-        formPanelPagar.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 340, 10));
+        labelValorPagoVisu.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        labelValorPagoVisu.setText("jLabel5");
+        formVisualizar.add(labelValorPagoVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 150, -1));
+        formVisualizar.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 340, 10));
 
-        cardPanel.add(formPanelPagar, "card4");
+        jLabel6.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        jLabel6.setText("Dias Restantes");
+        formVisualizar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, -1, -1));
+
+        labelDiasRestantesVisu.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        labelDiasRestantesVisu.setText("jLabel5");
+        formVisualizar.add(labelDiasRestantesVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 150, -1));
+        formVisualizar.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 340, 10));
+
+        cardPanel.add(formVisualizar, "card4");
 
         bg.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 710, 670));
 
@@ -681,30 +614,42 @@ public class FormDespesas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        System.out.println("idjfd");
-        if (menuSelection == 0) {
-            if (ControleCaixa.getCaixa() != null) {
-                menuSelection = 1;
 
-                this.repaint();
-                dataPanel.setVisible(false);
-                formPanelAdicionar.setVisible(true);
-                selecionado = null;
+        if (menuSelection == 0) {
+            int linha = tableDespesas.getSelectedRow();
+            if (linha != -1) {
+                int codigo;
+                if (ControleCaixa.getCaixa() != null) {
+                    menuSelection = 1;
+                    int colunas = tableDespesas.getColumnCount();
+                    for (int x = 0; x < colunas; x++) {
+                        if (tableDespesas.getColumnName(x).equals("Código")) {
+                            codigo = (int) tableDespesas.getValueAt(linha, x);
+                            selecionado = ca.findByCodigo(codigo);
+                            setPagamento();
+                            dataPanel.setVisible(false);
+                            formAdicionar.setVisible(true);
+                        }
+                    }
+                } else {
+                    warningPanelData.setBackground(new Color(255, 51, 51));
+                    btnMessage.setBackground(new Color(255, 51, 51));
+                    labelWarningData.setText("Abra um caixa!");
+                    warningPanelData.setVisible(true);
+                    menuSelection = 0;
+                    btnAdicionar.unselect();
+                }
             } else {
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                labelWarningData.setText("Abra um caixa!");
+                labelWarningData.setText("Selecione um aluno.");
                 warningPanelData.setVisible(true);
-                menuSelection=0;
+                menuSelection = 0;
                 btnAdicionar.unselect();
-                
             }
 
         } else {
-            if (menuSelection == 2) {
-                btnPagar.select();
-                btnAdicionar.unselect();
-            } else if (menuSelection == 3) {
+            if (menuSelection == 3) {
                 btnVisualizar.select();
                 btnAdicionar.unselect();
             }
@@ -715,15 +660,13 @@ public class FormDespesas extends javax.swing.JDialog {
 
     private void makeAllBlack() {
         txtValor.setForeground(Color.black);
-        txtDescricao.setForeground(Color.black);
-        txtVencimento.setForeground(Color.black);
+        txtQtdDias.setForeground(Color.black);
 
     }
 
     private void limparCampos() {
         txtValor.setText("");
-        txtDescricao.setText("");
-        txtVencimento.setText("");
+        txtQtdDias.setText("");
     }
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         if (menuSelection == 0) {
@@ -735,10 +678,10 @@ public class FormDespesas extends javax.swing.JDialog {
                 for (int x = 0; x < colunas; x++) {
                     if (tableDespesas.getColumnName(x).equals("Código")) {
                         codigo = (int) tableDespesas.getValueAt(linha, x);
-                        selecionado = cp.findByCodigo(codigo);
-                        setDespesa();
+                        selecionado = ca.findByCodigo(codigo);
+                        setPagamento();
                         dataPanel.setVisible(false);
-                        formPanelAdicionar.setVisible(true);
+                        formVisualizar.setVisible(true);
                     }
                 }
 
@@ -748,15 +691,12 @@ public class FormDespesas extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                menuSelection=0;
+                menuSelection = 0;
                 //timer
             }
         } else {
             if (menuSelection == 1) {
                 btnAdicionar.select();
-                btnVisualizar.unselect();
-            } else if (menuSelection == 2) {
-                btnPagar.select();
                 btnVisualizar.unselect();
             }
         }
@@ -801,145 +741,18 @@ public class FormDespesas extends javax.swing.JDialog {
         warningPanelData.setVisible(false);
     }//GEN-LAST:event_btnMessageActionPerformed
 
-    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-
-        if (menuSelection == 0) {
-            if (ControleCaixa.getCaixa() != null) {
-                int linha = tableDespesas.getSelectedRow();
-                int codigo;
-                if (linha != -1) {
-                    menuSelection = 2;
-                    int colunas = tableDespesas.getColumnCount();
-                    for (int x = 0; x < colunas; x++) {
-                        if (tableDespesas.getColumnName(x).equals("Código")) {
-                            codigo = (int) tableDespesas.getValueAt(linha, x);
-                            selecionado = cp.findByCodigo(codigo);
-                            if (selecionado.getCaixa() == null) {
-                                setDespesa();
-                                dataPanel.setVisible(false);
-                                formPanelPagar.setVisible(true);
-                            } else {
-                                btnPagar.unselect();
-                                labelWarningData.setText("Despesa já paga");
-                                warningPanelData.setVisible(true);
-                                warningPanelData.setBackground(new Color(255, 51, 51));
-                                btnMessage.setBackground(new Color(255, 51, 51));
-                                menuSelection=0;
-                               
-                            }
-                        }
-                    }
-
-                } else {
-                    btnPagar.unselect();
-                    labelWarningData.setText("Selecione uma despesa.");
-                    warningPanelData.setVisible(true);
-                    warningPanelData.setBackground(new Color(255, 51, 51));
-                    btnMessage.setBackground(new Color(255, 51, 51));
-                    menuSelection=0;
-
-                    //timer
-                }
-            } else {
-                btnPagar.unselect();
-                labelWarningData.setText("Abra um caixa.");
-                warningPanelData.setVisible(true);
-                warningPanelData.setBackground(new Color(255, 51, 51));
-                btnMessage.setBackground(new Color(255, 51, 51));
-                menuSelection=0;
-            }
-        } else {
-            if (menuSelection == 1) {
-                btnAdicionar.select();
-                btnPagar.unselect();
-            } else if (menuSelection == 3) {
-                btnVisualizar.select();
-                btnPagar.unselect();
-            }
-        }
-    }//GEN-LAST:event_btnPagarActionPerformed
-
-    private void btnError1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnError1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnError1ActionPerformed
-
-    private void mButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton5MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mButton5MouseEntered
-
-    private void mButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton5MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mButton5MouseExited
-
-    private void mButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton5ActionPerformed
-        dispose();
-    }//GEN-LAST:event_mButton5ActionPerformed
-
-    private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
-        btnAdicionar.unselect();
-        btnPagar.unselect();
-        btnVisualizar.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanelAdicionar.setVisible(false);
-        warningPanelData.setVisible(false);
-        warningPanelForm1.setVisible(false);
-        makeAllBlack();
-        limparCampos();
-    }//GEN-LAST:event_botCancelarFechamentoActionPerformed
-
-    private void botConfirmarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarFechamentoActionPerformed
-
-        String message = "";
-
-        p = selecionado;
-        p.setCaixa(ControleCaixa.getCaixa());
-        p.setPagamento(new Date());
-        cp.alter(p);
-        message = "Cadastro efetuado com sucesso.";
-        warningPanelData.setBackground(new Color(0, 153, 0));
-        btnMessage.setBackground(new Color(0, 153, 0));
-        warningPanelData.setVisible(true);
-        limparCampos();
-
-        labelWarningData.setText(message);
-        menuSelection = 0;
-        btnAdicionar.unselect();
-        btnVisualizar.unselect();
-        dataPanel.setVisible(true);
-        formPanelAdicionar.setVisible(false);
-        warningPanelData.setVisible(true);
-
-
-    }//GEN-LAST:event_botConfirmarFechamentoActionPerformed
-
-    private void txtData1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtData1FocusGained
-        txtData1.setForeground(branco);
-        if (txtData1.getText().equals("  /  /    "))
-            txtData1.setCaretPosition(0);
-    }//GEN-LAST:event_txtData1FocusGained
-
-    private void txtData2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtData2FocusGained
-        txtData2.setForeground(branco);
-        if (txtData2.getText().equals("  /  /    "))
-            txtData2.setCaretPosition(0);
-    }//GEN-LAST:event_txtData2FocusGained
-
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
 
         boolean flag = false;
         String message = "";
-
+        Pagamento ultimo = null;
         if (txtValor.getText().equals("")) {
             txtValor.setForeground(errorColor);
             flag = true;
         }
-        if (txtDescricao.getText().equals("")) {
-            txtDescricao.setForeground(errorColor);
-            flag = true;
-        }
-        if (txtVencimento.getText().equals("  /  /    ")) {
-            txtVencimento.setForeground(errorColor);
+
+        if (txtQtdDias.getText().equals("  /  /    ")) {
+            txtQtdDias.setForeground(errorColor);
             flag = true;
         }
 
@@ -948,11 +761,26 @@ public class FormDespesas extends javax.swing.JDialog {
             message = "Preencha todos os campos corretamente.";
         }
         if (!flag) {
-            p.setTipo(comboTipo.getSelectedItem().toString());
+            try {
+                ultimo = cpag.findByAlunoLast(selecionado);
+            } catch (NoResultException e) {
+
+            }
+            p.setDataPag(new Date());
+            if (ultimo == null) {
+                p.setValidade(Conversoes.somaData(new Date(), p.getDias()));
+            } else if (ultimo.getValidade().before(new Date())) {
+                p.setValidade(Conversoes.somaData(new Date(), p.getDias()));
+            } else {
+                p.setValidade(Conversoes.somaData(ultimo.getValidade(), p.getDias()+1));
+            }
+            p.setAluno(selecionado);
+            p.setDataPag(new Date());
+            p.setCaixa(ControleCaixa.getCaixa());
             p.setValor(Double.parseDouble(txtValor.getText().replace(',', '.')));
-            p.setDescricao(txtDescricao.getText());
-            p.setVencimento(Conversoes.getDateOfString(txtVencimento.getText()));
-            cp.persist(p);
+            p.setDias(Integer.parseInt(txtQtdDias.getText()));
+
+            cpag.persist(p);
             message = "Cadastro efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
             btnMessage.setBackground(new Color(0, 153, 0));
@@ -964,7 +792,7 @@ public class FormDespesas extends javax.swing.JDialog {
             btnAdicionar.unselect();
             btnVisualizar.unselect();
             dataPanel.setVisible(true);
-            formPanelAdicionar.setVisible(false);
+            formAdicionar.setVisible(false);
             warningPanelData.setVisible(true);
 
         } else {
@@ -982,7 +810,7 @@ public class FormDespesas extends javax.swing.JDialog {
         btnVisualizar.unselect();
         menuSelection = 0;
         dataPanel.setVisible(true);
-        formPanelAdicionar.setVisible(false);
+        formAdicionar.setVisible(false);
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
         makeAllBlack();
@@ -1005,11 +833,66 @@ public class FormDespesas extends javax.swing.JDialog {
         warningPanelForm.setVisible(false);
     }//GEN-LAST:event_btnErrorActionPerformed
 
-    private void setDespesa() {
-        labelValor.setText(Double.toString(selecionado.getValor()));
-        labelDataVencimento.setText(Conversoes.getDateFormatedToString(selecionado.getVencimento()));
-        labelDataPagamento.setText(Conversoes.getDateFormatedToString(new Date()));
-        labelDescricao.setText(selecionado.getDescricao());
+    private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
+        btnAdicionar.unselect();
+        btnVisualizar.unselect();
+        menuSelection = 0;
+        dataPanel.setVisible(true);
+        formAdicionar.setVisible(false);
+        warningPanelData.setVisible(false);
+        makeAllBlack();
+        limparCampos();
+    }//GEN-LAST:event_botCancelarFechamentoActionPerformed
+
+    private void mButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton5ActionPerformed
+        dispose();
+    }//GEN-LAST:event_mButton5ActionPerformed
+
+    private void mButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton5MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mButton5MouseExited
+
+    private void mButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton5MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mButton5MouseEntered
+
+    private void setPagamento() {
+        Pagamento ultimo = null;
+        String data = "Não há";
+        int dias = 0;
+        if (menuSelection != 1) {
+            try {
+                ultimo = cpag.findByAlunoLast(selecionado);
+                data = Conversoes.getDateFormatedToString(ultimo.getDataPag());
+                dias = ultimo.getDias() - Conversoes.getDaysBetween(ultimo.getDataPag(), new Date());
+                if (dias < 0) {
+                    dias = 0;
+                }
+                labelValorPagoVisu.setText(Double.toString(ultimo.getValor()));
+                labelAlunoVisu.setText(selecionado.getNome());
+                labelDataPagtoVisu.setText(Conversoes.getDateFormatedToString(ultimo.getDataPag()));
+                labelQtdeDiasVisu.setText(Integer.toString(ultimo.getDias()));
+                labelDiasRestantesVisu.setText(Integer.toString(dias));
+
+            } catch (NoResultException e) {
+                btnAdicionar.unselect();
+                btnVisualizar.unselect();
+                menuSelection = 0;
+                dataPanel.setVisible(true);
+                formAdicionar.setVisible(false);
+                warningPanelData.setVisible(false);
+                makeAllBlack();
+                limparCampos();
+                btnVisualizar.unselect();
+                labelWarningData.setText("Não há pagamentos para este aluno ainda");
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                btnMessage.setBackground(new Color(255, 51, 51));
+                menuSelection = 0;
+            }
+        } else {
+            labelAluno.setText(selecionado.getNome());
+        }
 
     }
 
@@ -1030,20 +913,20 @@ public class FormDespesas extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormDespesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormDespesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormDespesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormDespesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormDespesas dialog = new FormDespesas(new javax.swing.JFrame(), true);
+                FormPagamento dialog = new FormPagamento(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1060,37 +943,38 @@ public class FormDespesas extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelarFechamento;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
-    private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmarFechamento;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnAdicionar;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnError;
-    private com.hq.swingmaterialdesign.materialdesign.MButton btnError1;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;
-    private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnPagar;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnVisualizar;
     private javax.swing.JPanel cardPanel;
-    private com.hq.swingmaterialdesign.materialdesign.MComboBox comboTipo;
     private javax.swing.JPanel dataPanel;
-    private javax.swing.JPanel formPanelAdicionar;
-    private javax.swing.JPanel formPanelPagar;
+    private javax.swing.JPanel formAdicionar;
+    private javax.swing.JPanel formVisualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JLabel labelDataPagamento;
-    private javax.swing.JLabel labelDataVencimento;
-    private javax.swing.JLabel labelDescricao;
-    private javax.swing.JLabel labelValor;
+    private javax.swing.JLabel labelAluno;
+    private javax.swing.JLabel labelAlunoVisu;
+    private javax.swing.JLabel labelDataPagtoVisu;
+    private javax.swing.JLabel labelDiasRestantesVisu;
+    private javax.swing.JLabel labelQtdeDiasVisu;
+    private javax.swing.JLabel labelValorPagoVisu;
     private javax.swing.JLabel labelWarningData;
     private javax.swing.JLabel labelWarningForm;
-    private javax.swing.JLabel labelWarningForm1;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton5;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
@@ -1098,13 +982,10 @@ public class FormDespesas extends javax.swing.JDialog {
     private javax.swing.JPanel sidePanel;
     private javax.swing.JTable tableDespesas;
     private javax.swing.JScrollPane tablePanel;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtData1;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtData2;
-    private com.hq.swingmaterialdesign.materialdesign.MTextField txtDescricao;
+    private com.hq.swingmaterialdesign.materialdesign.MTextField txtPesquisa;
+    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtQtdDias;
     private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtValor;
-    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtVencimento;
     private javax.swing.JPanel warningPanelData;
     private javax.swing.JPanel warningPanelForm;
-    private javax.swing.JPanel warningPanelForm1;
     // End of variables declaration//GEN-END:variables
 }

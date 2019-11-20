@@ -42,6 +42,7 @@ public class FormAluno extends javax.swing.JDialog {
     private ArrayList<Aluno> listaPesquisa = new ArrayList();
     private Aluno selecionado;
     private int menuSelection = 0;
+    private Color errorColor = new Color(255, 0, 0);
 
     public FormAluno(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -297,6 +298,7 @@ public class FormAluno extends javax.swing.JDialog {
         dataPanel.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 710, 100));
 
         btnExit.setBackground(new java.awt.Color(255, 255, 255));
+        btnExit.setBorder(null);
         btnExit.setForeground(new java.awt.Color(153, 153, 153));
         btnExit.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         btnExit.setBorderRadius(0);
@@ -395,6 +397,7 @@ public class FormAluno extends javax.swing.JDialog {
 
         formPanel.add(warningPanelForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 710, 40));
 
+        mButton4.setBorder(null);
         mButton4.setForeground(new java.awt.Color(153, 153, 153));
         mButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
         mButton4.setBorderRadius(0);
@@ -684,7 +687,7 @@ public class FormAluno extends javax.swing.JDialog {
                             warningPanelData.setBackground(new Color(255, 51, 51));
                             btnMessage.setBackground(new Color(255, 51, 51));
                             labelWarningData.setText("Este aluno possui registros vinculados.\nNão foi possível realizar a exclusão!");
-                            menuSelection=0;
+                            menuSelection = 0;
                             excludeBtn.unselect();
                         }
                     }
@@ -697,7 +700,7 @@ public class FormAluno extends javax.swing.JDialog {
                 labelWarningData.setText("Selecione um aluno.");
             }
         } else {
-               if (menuSelection == 1) {
+            if (menuSelection == 1) {
                 addBtn.select();
                 excludeBtn.unselect();
             } else {
@@ -764,7 +767,7 @@ public class FormAluno extends javax.swing.JDialog {
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
         byte[] imageInByte = null;
-        Color errorColor = new Color(255, 0, 0);
+      
         if (file != null) {
             imageInByte = new byte[(int) file.length()];
             FileInputStream fis = null;
@@ -882,12 +885,21 @@ public class FormAluno extends javax.swing.JDialog {
                     btnMessage.setBackground(new Color(0, 153, 0));
                     warningPanelData.setVisible(true);
                     limparCampos();
-                } catch (DatabaseException ex) {
-                    message = "Treinador já cadastrado.";
-                    warningPanelData.setBackground(new Color(255, 51, 51));
-                    btnMessage.setBackground(new Color(255, 51, 51));
                     labelWarningData.setText(message);
+                    menuSelection = 0;
+                    addBtn.unselect();
+                    changeBtn.unselect();
+                    dataPanel.setVisible(true);
+                    formPanel.setVisible(false);
                     warningPanelData.setVisible(true);
+                } catch (Exception ex) {
+                    message = "Login ou cpf ja cadastrado.";
+                    txtLogin.requestFocus();
+                    txtLogin.setForeground(errorColor);
+                    warningPanelForm.setBackground(new Color(255, 51, 51));
+                    btnError.setBackground(new Color(255, 51, 51));
+                    labelWarningForm.setText(message);
+                    warningPanelForm.setVisible(true);
                 }
             } else {
                 p.setCodigo(selecionado.getCodigo());
@@ -898,17 +910,14 @@ public class FormAluno extends javax.swing.JDialog {
                 btnMessage.setBackground(new Color(0, 153, 0));
                 warningPanelData.setVisible(true);
                 limparCampos();
+                labelWarningData.setText(message);
+                menuSelection = 0;
+                addBtn.unselect();
+                changeBtn.unselect();
+                dataPanel.setVisible(true);
+                formPanel.setVisible(false);
+                warningPanelData.setVisible(true);
             }
-            labelWarningData.setText(message);
-            menuSelection = 0;
-            addBtn.unselect();
-            changeBtn.unselect();
-            dataPanel.setVisible(true);
-            formPanel.setVisible(false);
-            warningPanelData.setVisible(true);
-            //timer
-
-            // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         } else {
 
             labelWarningForm.setText(message);
@@ -984,7 +993,7 @@ public class FormAluno extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                menuSelection=0;
+                menuSelection = 0;
                 //timer
             }
         } else {

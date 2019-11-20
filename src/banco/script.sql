@@ -10,9 +10,9 @@ create table Pessoa(
     bairro      varchar(50) not null,
     rua         varchar(50) not null,
     numero      int not null,
-    login       varchar(10) not null,
+    login       varchar(10) not null unique,
     senha       varchar(10) not null,
-    cpf         varchar(14) not null,
+    cpf         varchar(14) not null unique,
     rg          varchar(12) not null,
     email       varchar(50) not null,
     imagem      longblob,
@@ -85,6 +85,7 @@ create table Pagamento(
     valor           double not null,
     dataPag         date,
     caixa           int,
+    validade        date,
     foreign key (caixa) references Caixa (codigo),
     foreign key(aluno) references Aluno(codigo)
 );
@@ -130,7 +131,7 @@ ON Pagamento
 FOR EACH ROW
 BEGIN
     UPDATE Caixa SET entradas = entradas + NEW.valor
-WHERE codigo = NEW.codigo;
+WHERE codigo = NEW.caixa;
 END$
 DELIMITER ;
 DELIMITER $ 
@@ -148,7 +149,7 @@ ON Pagamento
 FOR EACH ROW
 BEGIN
     UPDATE Caixa SET entradas = entradas - OLD.valor
-WHERE codigo = OLD.codigo;
+WHERE codigo = OLD.caixa;
 END$
 DELIMITER ;
 
@@ -169,7 +170,7 @@ ON Despesa
 FOR EACH ROW
 BEGIN
     IF NEW.caixa is not NULL THEN
-        UPDATE Caixa SET saidas = saidas + NEW.valor - OLD.valor
+        UPDATE Caixa SET saidas = saidas + NEW.valor
         WHERE codigo = NEW.caixa;
     END IF;
 END$

@@ -59,6 +59,15 @@ public class Conversoes {
         BigDecimal idade = qtdDias.divide(ano,0, RoundingMode.DOWN);
         return idade.multiply(new BigDecimal(-1));        
     }
+    public static Date somaData(Date data, int somaDias)
+    {
+                 
+        Date dt = data;
+   
+        dt.setDate(dt.getDate() + somaDias);        
+ 
+        return dt;
+    }
    
     
 }
