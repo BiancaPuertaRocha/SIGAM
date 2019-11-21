@@ -94,6 +94,15 @@ public class Aluno extends Pessoa{
         return medicamentos;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
+
     public void setMedicamentos(String medicamentos) {
         this.medicamentos = medicamentos;
     }

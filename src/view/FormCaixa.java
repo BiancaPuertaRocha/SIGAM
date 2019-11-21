@@ -742,7 +742,17 @@ public class FormCaixa extends javax.swing.JDialog {
     private void mButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton4ActionPerformed
         this.dispose();
     }//GEN-LAST:event_mButton4ActionPerformed
-
+        private void voltar() {
+        menuSelection = 0;
+        btnAbrir.unselect();;
+        btnFechar.unselect();;
+        btnVisualizar.unselect();
+        limparCampos();
+        makeAllBlack();
+        dataPanel.setVisible(true);
+        formPanelAbrir.setVisible(false);
+        formPanelFechar.setVisible(false);
+    }
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         System.out.println("idjfd");
         if (menuSelection == 0) {
@@ -779,15 +789,10 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        btnAbrir.unselect();
-        btnVisualizar.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanelAbrir.setVisible(false);
+        
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+       voltar();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
@@ -827,16 +832,9 @@ public class FormCaixa extends javax.swing.JDialog {
             message = "Cadastro efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
             btnMessage.setBackground(new Color(0, 153, 0));
-            warningPanelData.setVisible(true);
-            limparCampos();
-
             labelWarningData.setText(message);
-            menuSelection = 0;
-            btnAbrir.unselect();
-            btnVisualizar.unselect();
-            dataPanel.setVisible(true);
-            formPanelAbrir.setVisible(false);
             warningPanelData.setVisible(true);
+            voltar();
          
         } else {
 
@@ -878,13 +876,12 @@ public class FormCaixa extends javax.swing.JDialog {
                 }
 
             } else {
-                btnVisualizar.unselect();
+              
                 labelWarningData.setText("Selecione um caixa.");
-                warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                btnVisualizar.unselect();
-                menuSelection=0;
+                warningPanelData.setVisible(true);
+                voltar();
                 //timer
             }
         } else {
@@ -951,12 +948,11 @@ public class FormCaixa extends javax.swing.JDialog {
                 selecionado = ControleCaixa.getCaixa();
                 setCaixa();
             } else {
+                labelWarningData.setText("Não há caixa aberto");
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                labelWarningData.setText("Não há caixa aberto");
-                btnFechar.unselect();
-                menuSelection=0;
+               voltar();
             }
         } else {
             if (menuSelection == 1) {
@@ -991,16 +987,10 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton5ActionPerformed
 
     private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
-        btnAbrir.unselect();
-        btnFechar.unselect();
-        btnVisualizar.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanelAbrir.setVisible(false);
+       
         warningPanelData.setVisible(false);
         warningPanelForm1.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+        voltar();
     }//GEN-LAST:event_botCancelarFechamentoActionPerformed
 
     private void botConfirmarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarFechamentoActionPerformed
@@ -1028,16 +1018,9 @@ public class FormCaixa extends javax.swing.JDialog {
             message = "Cadastro efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
             btnMessage.setBackground(new Color(0, 153, 0));
-            warningPanelData.setVisible(true);
-            limparCampos();
-
             labelWarningData.setText(message);
-            menuSelection = 0;
-            btnAbrir.unselect();
-            btnVisualizar.unselect();
-            dataPanel.setVisible(true);
-            formPanelAbrir.setVisible(false);
             warningPanelData.setVisible(true);
+            voltar();
          
         } else {
 

@@ -800,20 +800,25 @@ public class FormTreinador extends javax.swing.JDialog {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        addBtn.unselect();
-        changeBtn.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanel.setVisible(false);
+
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
-        makeAllBlack();
-        limparCampos();
-    }//GEN-LAST:event_botCancelarActionPerformed
+        voltar();
 
+    }//GEN-LAST:event_botCancelarActionPerformed
+    private void voltar() {
+        menuSelection = 0;
+        addBtn.unselect();;
+        changeBtn.unselect();;
+        excludeBtn.unselect();
+        limparCampos();
+        makeAllBlack();
+        dataPanel.setVisible(true);
+        formPanel.setVisible(false);
+    }
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
         byte[] imageInByte = null;
-       
+
         if (file != null) {
             imageInByte = new byte[(int) file.length()];
             FileInputStream fis = null;
@@ -964,15 +969,9 @@ public class FormTreinador extends javax.swing.JDialog {
                     message = "Cadastro efetuado com sucesso.";
                     warningPanelData.setBackground(new Color(0, 153, 0));
                     btnMessage.setBackground(new Color(0, 153, 0));
-                    warningPanelData.setVisible(true);
-                    limparCampos();
                     labelWarningData.setText(message);
-                    menuSelection = 0;
-                    addBtn.unselect();
-                    changeBtn.unselect();
-                    dataPanel.setVisible(true);
-                    formPanel.setVisible(false);
                     warningPanelData.setVisible(true);
+                    voltar();
                 } catch (Exception ex) {
                     message = "Login ou cpf ja cadastrado.";
                     txtLogin.requestFocus();
@@ -990,24 +989,14 @@ public class FormTreinador extends javax.swing.JDialog {
                 warningPanelData.setBackground(new Color(0, 153, 0));
                 btnMessage.setBackground(new Color(0, 153, 0));
                 warningPanelData.setVisible(true);
-                limparCampos();
-                labelWarningData.setText(message);
-                menuSelection = 0;
-                addBtn.unselect();
-                changeBtn.unselect();
-                dataPanel.setVisible(true);
-                formPanel.setVisible(false);
-                warningPanelData.setVisible(true);
+                voltar();
             }
 
-            
         } else {
-
             labelWarningForm.setText(message);
             warningPanelForm.setVisible(true);
             warningPanelForm.setBackground(new Color(255, 51, 51));
             btnError.setBackground(new Color(255, 51, 51));
-
         }
     }//GEN-LAST:event_botConfirmarActionPerformed
 

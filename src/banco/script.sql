@@ -187,3 +187,5 @@ BEGIN
 END$
 DELIMITER ;
 select * from Caixa;
+select * from Pagamento;
+delete from Pagamento where codigo = 4;

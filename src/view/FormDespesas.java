@@ -679,7 +679,17 @@ public class FormDespesas extends javax.swing.JDialog {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
-
+    private void voltar() {
+        menuSelection = 0;
+        btnAdicionar.unselect();;
+        btnPagar.unselect();;
+        btnVisualizar.unselect();
+        limparCampos();
+        makeAllBlack();
+        dataPanel.setVisible(true);
+        formPanelAdicionar.setVisible(false);
+        formPanelPagar.setVisible(false);
+    }
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         System.out.println("idjfd");
         if (menuSelection == 0) {
@@ -695,8 +705,7 @@ public class FormDespesas extends javax.swing.JDialog {
                 btnMessage.setBackground(new Color(255, 51, 51));
                 labelWarningData.setText("Abra um caixa!");
                 warningPanelData.setVisible(true);
-                menuSelection=0;
-                btnAdicionar.unselect();
+                voltar();
                 
             }
 
@@ -743,12 +752,12 @@ public class FormDespesas extends javax.swing.JDialog {
                 }
 
             } else {
-                btnVisualizar.unselect();
+                
                 labelWarningData.setText("Selecione uma despesa.");
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                menuSelection=0;
+                voltar();
                 //timer
             }
         } else {
@@ -819,34 +828,34 @@ public class FormDespesas extends javax.swing.JDialog {
                                 dataPanel.setVisible(false);
                                 formPanelPagar.setVisible(true);
                             } else {
-                                btnPagar.unselect();
+                                
                                 labelWarningData.setText("Despesa já paga");
                                 warningPanelData.setVisible(true);
                                 warningPanelData.setBackground(new Color(255, 51, 51));
                                 btnMessage.setBackground(new Color(255, 51, 51));
-                                menuSelection=0;
+                                voltar();
                                
                             }
                         }
                     }
 
                 } else {
-                    btnPagar.unselect();
+                    
                     labelWarningData.setText("Selecione uma despesa.");
                     warningPanelData.setVisible(true);
                     warningPanelData.setBackground(new Color(255, 51, 51));
                     btnMessage.setBackground(new Color(255, 51, 51));
-                    menuSelection=0;
+                    voltar();
 
                     //timer
                 }
             } else {
-                btnPagar.unselect();
+                
                 labelWarningData.setText("Abra um caixa.");
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                menuSelection=0;
+                voltar();
             }
         } else {
             if (menuSelection == 1) {
@@ -876,16 +885,10 @@ public class FormDespesas extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton5ActionPerformed
 
     private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
-        btnAdicionar.unselect();
-        btnPagar.unselect();
-        btnVisualizar.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanelAdicionar.setVisible(false);
+        
         warningPanelData.setVisible(false);
         warningPanelForm1.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+       voltar();
     }//GEN-LAST:event_botCancelarFechamentoActionPerformed
 
     private void botConfirmarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarFechamentoActionPerformed
@@ -899,16 +902,9 @@ public class FormDespesas extends javax.swing.JDialog {
         message = "Cadastro efetuado com sucesso.";
         warningPanelData.setBackground(new Color(0, 153, 0));
         btnMessage.setBackground(new Color(0, 153, 0));
-        warningPanelData.setVisible(true);
-        limparCampos();
-
         labelWarningData.setText(message);
-        menuSelection = 0;
-        btnAdicionar.unselect();
-        btnVisualizar.unselect();
-        dataPanel.setVisible(true);
-        formPanelAdicionar.setVisible(false);
         warningPanelData.setVisible(true);
+        voltar();
 
 
     }//GEN-LAST:event_botConfirmarFechamentoActionPerformed
@@ -956,16 +952,9 @@ public class FormDespesas extends javax.swing.JDialog {
             message = "Cadastro efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
             btnMessage.setBackground(new Color(0, 153, 0));
-            warningPanelData.setVisible(true);
-            limparCampos();
-
             labelWarningData.setText(message);
-            menuSelection = 0;
-            btnAdicionar.unselect();
-            btnVisualizar.unselect();
-            dataPanel.setVisible(true);
-            formPanelAdicionar.setVisible(false);
             warningPanelData.setVisible(true);
+            voltar();
 
         } else {
 
@@ -978,15 +967,10 @@ public class FormDespesas extends javax.swing.JDialog {
     }//GEN-LAST:event_botConfirmarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        btnAdicionar.unselect();
-        btnVisualizar.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanelAdicionar.setVisible(false);
+       
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+        voltar();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void mButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton4ActionPerformed

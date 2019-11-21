@@ -486,7 +486,16 @@ public class FormAtividade extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void voltar() {
+        menuSelection = 0;
+        addBtn.unselect();;
+        changeBtn.unselect();;
+        excludeBtn.unselect();
+        limparCampos();
+        makeAllBlack();
+        dataPanel.setVisible(true);
+        formPanel.setVisible(false);
+    }
     private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
         int linha = tableAtividade.getSelectedRow();
         int codigo;
@@ -513,15 +522,14 @@ public class FormAtividade extends javax.swing.JDialog {
                             warningPanelData.setBackground(new Color(0, 153, 0));
                             btnMessage.setBackground(new Color(0, 153, 0));
                             labelWarningData.setText("Excluído com sucesso!");
-                            menuSelection = 0;
+                           voltar();
 
                         } catch (Exception e) {
                             warningPanelData.setVisible(true);
                             warningPanelData.setBackground(new Color(255, 51, 51));
                             btnMessage.setBackground(new Color(255, 51, 51));
                             labelWarningData.setText("Esta atividade possui registros vinculados.\nNão foi possível realizar a exclusão!");
-                            menuSelection=0;
-                            excludeBtn.unselect();
+                           voltar();
                         }
                     }
 
@@ -586,15 +594,10 @@ public class FormAtividade extends javax.swing.JDialog {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        addBtn.unselect();
-        changeBtn.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanel.setVisible(false);
+        
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+        voltar();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
@@ -648,15 +651,11 @@ public class FormAtividade extends javax.swing.JDialog {
                 warningPanelData.setBackground(new Color(0, 153, 0));
                 btnMessage.setBackground(new Color(0, 153, 0));
                 warningPanelData.setVisible(true);
-                limparCampos();
+                voltar();
             }
             labelWarningData.setText(message);
-            menuSelection = 0;
-            addBtn.unselect();
-            changeBtn.unselect();
-            dataPanel.setVisible(true);
-            formPanel.setVisible(false);
             warningPanelData.setVisible(true);
+            voltar();
             //timer
 
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
@@ -706,12 +705,12 @@ public class FormAtividade extends javax.swing.JDialog {
                 }
 
             } else {
-                changeBtn.unselect();
+                
                 labelWarningData.setText("Selecione uma atividade.");
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                menuSelection=0;
+                voltar();
                 //timer
             }
         } else {

@@ -30,7 +30,7 @@ import util.LimitText;
  * @author abner
  */
 public class FormSecretario extends javax.swing.JDialog {
-
+    
     private int xMouse, yMouse;
     private Secretario p = new Secretario();
     private ControleSecretario cp = new ControleSecretario();
@@ -39,17 +39,17 @@ public class FormSecretario extends javax.swing.JDialog {
     private Secretario selecionado;
     private int menuSelection = 0;
     private Color errorColor = new Color(255, 0, 0);
-
+    
     public FormSecretario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
+        
         initComponents();
         this.setLocationRelativeTo(null);
         labelImagem.setVisible(false);
         warningPanelForm.setVisible(false);
         warningPanelData.setVisible(false);
     }
-
+    
     private void atualizaTabela() {
         new Thread() {
             @Override
@@ -713,7 +713,7 @@ public class FormSecretario extends javax.swing.JDialog {
         int codigo;
         Secretario sExcluir = null;
         if (menuSelection == 0) {
-
+            
             if (linha != -1) {
                 menuSelection = 3;
                 int colunas = tableSecretarios.getColumnCount();
@@ -721,7 +721,7 @@ public class FormSecretario extends javax.swing.JDialog {
                     if (tableSecretarios.getColumnName(x).equals("Código")) {
                         codigo = (int) tableSecretarios.getValueAt(linha, x);
                         sExcluir = cp.findByCodigo(codigo);
-
+                        
                     }
                 }
                 if (sExcluir != null) {
@@ -736,7 +736,7 @@ public class FormSecretario extends javax.swing.JDialog {
                             btnMessage.setBackground(new Color(0, 153, 0));
                             labelWarningData.setText("Excluído com sucesso!");
                             menuSelection = 0;
-
+                            
                         } catch (Exception e) {
                             warningPanelData.setVisible(true);
                             warningPanelData.setBackground(new Color(255, 51, 51));
@@ -745,9 +745,9 @@ public class FormSecretario extends javax.swing.JDialog {
                             menuSelection = 0;
                         }
                     }
-
+                    
                 }
-
+                
             } else {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
@@ -808,17 +808,21 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        addBtn.unselect();
-        changeBtn.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formPanel.setVisible(false);
+        
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+        voltar();
     }//GEN-LAST:event_botCancelarActionPerformed
-
+    private void voltar() {
+        menuSelection = 0;
+        addBtn.unselect();;
+        changeBtn.unselect();;
+        excludeBtn.unselect();
+        limparCampos();
+        makeAllBlack();
+        dataPanel.setVisible(true);
+        formPanel.setVisible(false);
+    }
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
         byte[] imageInByte = null;
         
@@ -841,12 +845,12 @@ public class FormSecretario extends javax.swing.JDialog {
             comboTipo.setForeground(new Color(255, 102, 102));
             flag = true;
         }
-
+        
         if (comboSetor.getSelectedIndex() == 0) {
             comboSetor.setForeground(new Color(255, 102, 102));
             flag = true;
         }
-
+        
         if (txtNome.getText().equals("")) {
             txtNome.setForeground(errorColor);
             flag = true;
@@ -919,16 +923,16 @@ public class FormSecretario extends javax.swing.JDialog {
             txtSalario.setForeground(errorColor);
             flag = true;
         }
-
+        
         this.repaint();
-
+        
         if (flag) {
             message = "Preencha todos os campos corretamente.";
-
+            
         }
         if (passerr) {
             message += " A senha deve ter no mínimo 4 caracteres!";
-
+            
         }
         if (!txtSenha.getText().equals(txtConfirmar.getText()) && !passerr) {
             txtSenha.setForeground(errorColor);
@@ -940,7 +944,7 @@ public class FormSecretario extends javax.swing.JDialog {
             flag = true;
             message += " O horário de entrada deve anteceder o de saída";
         }
-
+        
         if (!flag && !passerr) {
             p.setNome(txtNome.getText());
             p.setCidade(txtCidade.getText());
@@ -956,18 +960,18 @@ public class FormSecretario extends javax.swing.JDialog {
             p.setDepartamento(comboSetor.getSelectedItem().toString());
             p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
             p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
-
+            
             p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
             p.setTipo(comboTipo.getSelectedIndex() == 2);
             p.setDepartamento(String.valueOf(comboSetor.getSelectedItem()));
             p.setRua(txtRua.getText());
-
+            
             if (file != null) {
                 p.setImagem(imageInByte);
             }
             if (selecionado == null) {
                 try {
-
+                    
                     cp.persist(p);
                     message = "Cadastro efetuado com sucesso.";
                     warningPanelData.setBackground(new Color(0, 153, 0));
@@ -975,52 +979,42 @@ public class FormSecretario extends javax.swing.JDialog {
                     warningPanelData.setVisible(true);
                     limparCampos();
                     labelWarningData.setText(message);
-                    menuSelection = 0;
-                    addBtn.unselect();
-                    changeBtn.unselect();
-                    dataPanel.setVisible(true);
-                    formPanel.setVisible(false);
                     warningPanelData.setVisible(true);
+                    voltar();
                 } catch (Exception ex) {
                     message = "Login ou cpf ja cadastrado.";
                     txtLogin.requestFocus();
                     txtLogin.setForeground(errorColor);
+                    
                     warningPanelForm.setBackground(new Color(255, 51, 51));
                     btnError.setBackground(new Color(255, 51, 51));
                     labelWarningForm.setText(message);
                     warningPanelForm.setVisible(true);
-
+                    
                 }
             } else {
                 p.setCodigo(selecionado.getCodigo());
                 cp.alter(p);
                 message = "Alteração efetuada com sucesso.";
-                labelWarningData.setText(message);
                 warningPanelData.setBackground(new Color(0, 153, 0));
                 btnMessage.setBackground(new Color(0, 153, 0));
-                warningPanelData.setVisible(true);
-                limparCampos();
                 labelWarningData.setText(message);
-                menuSelection = 0;
-                addBtn.unselect();
-                changeBtn.unselect();
-                dataPanel.setVisible(true);
-                formPanel.setVisible(false);
                 warningPanelData.setVisible(true);
+                voltar();
             }
 
             //timer
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)
         } else {
-
+            
             labelWarningForm.setText(message);
             warningPanelForm.setVisible(true);
             warningPanelForm.setBackground(new Color(255, 51, 51));
             btnError.setBackground(new Color(255, 51, 51));
-
+            
         }
     }//GEN-LAST:event_botConfirmarActionPerformed
-
+    
     private void makeAllBlack() {
         txtNome.setForeground(Color.black);
         txtTelefone.setForeground(Color.black);
@@ -1041,7 +1035,7 @@ public class FormSecretario extends javax.swing.JDialog {
         comboSetor.setForeground(new Color(109, 109, 109));
         comboTipo.setForeground(new Color(109, 109, 109));
     }
-
+    
     private void limparCampos() {
         txtNome.setText("");
         txtTelefone.setValue("");
@@ -1061,12 +1055,12 @@ public class FormSecretario extends javax.swing.JDialog {
         txtSalario.setText("");
         comboSetor.setSelectedIndex(0);
         comboTipo.setSelectedIndex(0);
-
+        
         String imagePath = "/com/hq/swingmaterialdesign/images/profile.jpg";
         ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
         Image img = icon.getImage();
         profileImagePanel.setImage(img);
-
+        
     }
     private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
         labelImagem.setVisible(true);
@@ -1088,7 +1082,7 @@ public class FormSecretario extends javax.swing.JDialog {
                         formPanel.setVisible(true);
                     }
                 }
-
+                
             } else {
                 changeBtn.unselect();
                 labelWarningData.setText("Selecione um secretário.");
@@ -1120,21 +1114,21 @@ public class FormSecretario extends javax.swing.JDialog {
     }//GEN-LAST:event_bgMousePressed
 
     private void bgMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseReleased
-
+        
         try {
             setOpacity((float) 1);
         } catch (java.lang.UnsupportedOperationException e) {
-
+            
         }
     }//GEN-LAST:event_bgMouseReleased
 
     private void bgMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bgMouseDragged
-
+        
         setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
         try {
             setOpacity((float) 0.9);
         } catch (java.lang.UnsupportedOperationException e) {
-
+            
         }
     }//GEN-LAST:event_bgMouseDragged
 
@@ -1230,19 +1224,19 @@ public class FormSecretario extends javax.swing.JDialog {
         JFileChooser jfc = new JFileChooser();
         jfc.setDialogTitle("Selecione a imagem de perfil");
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+        
         FileNameExtensionFilter ext = new FileNameExtensionFilter("Imagem", "png", "jpg", "bmp");
-
+        
         jfc.setFileFilter(ext);
-
+        
         int r = jfc.showOpenDialog(this);
-
+        
         if (r == JFileChooser.APPROVE_OPTION) {
             file = jfc.getSelectedFile();
             Image image = null;
             try {
                 image = ImageIO.read(file);
-
+                
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Impossível carregar imagem!");
             } finally {
@@ -1268,7 +1262,7 @@ public class FormSecretario extends javax.swing.JDialog {
     private void comboTipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboTipoFocusGained
         comboTipo.setForeground(new Color(109, 109, 109));
     }//GEN-LAST:event_comboTipoFocusGained
-
+    
     private void setSecretario() {
         if (selecionado.getImagem() != null) {
             ImageIcon im = new ImageIcon(selecionado.getImagem());

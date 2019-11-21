@@ -740,12 +740,23 @@ public class FormPagamento extends javax.swing.JDialog {
     private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
         warningPanelData.setVisible(false);
     }//GEN-LAST:event_btnMessageActionPerformed
-
+ private void voltar() {
+        menuSelection = 0;
+        btnAdicionar.unselect();;
+        btnVisualizar.unselect();;
+        limparCampos();
+        makeAllBlack();
+        dataPanel.setVisible(true);
+        formAdicionar.setVisible(false);
+        formVisualizar.setVisible(false);
+    }
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
 
         boolean flag = false;
         String message = "";
         Pagamento ultimo = null;
+        Aluno a;
+        int dias=0;
         if (txtValor.getText().equals("")) {
             txtValor.setForeground(errorColor);
             flag = true;
@@ -774,26 +785,29 @@ public class FormPagamento extends javax.swing.JDialog {
             } else {
                 p.setValidade(Conversoes.somaData(ultimo.getValidade(), p.getDias()+1));
             }
+            
+            if(ultimo.getValidade().before(new Date())){
+                dias = Conversoes.getDaysBetween(new Date(), ultimo.getValidade());
+                if(dias>=90){
+                    
+                    a= selecionado;
+                    a.atualizaStatus(false);
+                    ca.alter(a);
+                }
+            }
             p.setAluno(selecionado);
             p.setDataPag(new Date());
             p.setCaixa(ControleCaixa.getCaixa());
             p.setValor(Double.parseDouble(txtValor.getText().replace(',', '.')));
             p.setDias(Integer.parseInt(txtQtdDias.getText()));
-
+            
             cpag.persist(p);
             message = "Cadastro efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
             btnMessage.setBackground(new Color(0, 153, 0));
-            warningPanelData.setVisible(true);
-            limparCampos();
-
             labelWarningData.setText(message);
-            menuSelection = 0;
-            btnAdicionar.unselect();
-            btnVisualizar.unselect();
-            dataPanel.setVisible(true);
-            formAdicionar.setVisible(false);
             warningPanelData.setVisible(true);
+            voltar();
 
         } else {
 
@@ -806,15 +820,11 @@ public class FormPagamento extends javax.swing.JDialog {
     }//GEN-LAST:event_botConfirmarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        btnAdicionar.unselect();
-        btnVisualizar.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
-        formAdicionar.setVisible(false);
+      
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+        voltar();
+     
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void mButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton4ActionPerformed
@@ -834,14 +844,10 @@ public class FormPagamento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnErrorActionPerformed
 
     private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
-        btnAdicionar.unselect();
-        btnVisualizar.unselect();
-        menuSelection = 0;
-        dataPanel.setVisible(true);
+        
         formAdicionar.setVisible(false);
         warningPanelData.setVisible(false);
-        makeAllBlack();
-        limparCampos();
+       voltar();
     }//GEN-LAST:event_botCancelarFechamentoActionPerformed
 
     private void mButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton5ActionPerformed
@@ -875,20 +881,14 @@ public class FormPagamento extends javax.swing.JDialog {
                 labelDiasRestantesVisu.setText(Integer.toString(dias));
 
             } catch (NoResultException e) {
-                btnAdicionar.unselect();
-                btnVisualizar.unselect();
-                menuSelection = 0;
-                dataPanel.setVisible(true);
-                formAdicionar.setVisible(false);
+                
                 warningPanelData.setVisible(false);
-                makeAllBlack();
-                limparCampos();
-                btnVisualizar.unselect();
                 labelWarningData.setText("Não há pagamentos para este aluno ainda");
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                menuSelection = 0;
+                voltar();
+                
             }
         } else {
             labelAluno.setText(selecionado.getNome());

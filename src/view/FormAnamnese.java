@@ -40,6 +40,7 @@ public class FormAnamnese extends javax.swing.JDialog {
 
         initComponents();
         this.setLocationRelativeTo(null);
+        warningPanelData.setVisible(false);
 
     }
 
