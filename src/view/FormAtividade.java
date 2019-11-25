@@ -495,6 +495,7 @@ public class FormAtividade extends javax.swing.JDialog {
         makeAllBlack();
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
+        atualizaTabela();
     }
     private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
         int linha = tableAtividade.getSelectedRow();
@@ -577,7 +578,9 @@ public class FormAtividade extends javax.swing.JDialog {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         if (menuSelection == 0) {
+            p = new Atividade();
             menuSelection = 1;
+            selecionado =null;
             dataPanel.setVisible(false);
             formPanel.setVisible(true);
             selecionado = null;
@@ -656,6 +659,7 @@ public class FormAtividade extends javax.swing.JDialog {
             labelWarningData.setText(message);
             warningPanelData.setVisible(true);
             voltar();
+            atualizaTabela();
             //timer
 
             // view panel aviso, setColor aviso (danger/success) -> flag , setText(message)

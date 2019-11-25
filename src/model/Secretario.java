@@ -31,6 +31,7 @@ public class Secretario extends Funcionario implements Serializable {
     private String departamento;
     @Column(name = "tipo", nullable = false)
     private boolean tipo;
+    
 
     public String getDepartamento() {
         return departamento;
@@ -47,5 +48,6 @@ public class Secretario extends Funcionario implements Serializable {
     public void setTipo(boolean tipo) {
         this.tipo = tipo;
     }
+    
 
 }

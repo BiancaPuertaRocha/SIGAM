@@ -51,6 +51,13 @@ public class ControleCaixa extends Controle<Caixa>{
         consulta.setParameter("data", data);
         return consulta.getSingleResult();
     }
+     public List<Caixa> findAll() {
+        EntityManager em = getEntityManager();
+        TypedQuery<Caixa> consulta = em.createNamedQuery("Caixa.findAll", Caixa.class);
+        String parSQL;
+      
+        return consulta.getResultList();
+    }
      
    
     

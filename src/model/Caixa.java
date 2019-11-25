@@ -7,7 +7,9 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +33,6 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Caixa.findAll", query = "SELECT c FROM Caixa c"),
     @NamedQuery(name = "Caixa.findByCodigo", query = "SELECT c FROM Caixa c WHERE c.codigo = :codigo"),
-    @NamedQuery(name = "Caixa.findByHrAbertura", query = "SELECT c FROM Caixa c WHERE c.hrAbertura = :hrAbertura"),
     @NamedQuery(name = "Caixa.findByHrFechamento", query = "SELECT c FROM Caixa c WHERE c.hrFechamento = :hrFechamento"),
     @NamedQuery(name = "Caixa.findBySaldoInicial", query = "SELECT c FROM Caixa c WHERE c.saldoInicial = :saldoInicial"),
     @NamedQuery(name = "Caixa.findBySaldoFinal", query = "SELECT c FROM Caixa c WHERE c.saldoFinal = :saldoFinal"),
@@ -67,13 +69,35 @@ public class Caixa implements Serializable {
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "secretario")
     private Secretario secretario;
-
+    
+    @OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
+    private List<Despesa> listaDespesas;
+    
+    @OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
+    private List<Pagamento> listaPagamentos;
+    
     public Date getData() {
         return data;
     }
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public List<Despesa> getListaDespesas() {
+        return listaDespesas;
+    }
+
+    public void setListaDespesas(List<Despesa> listaDespesas) {
+        this.listaDespesas = listaDespesas;
+    }
+
+    public List<Pagamento> getListaPagamentos() {
+        return listaPagamentos;
+    }
+
+    public void setListaPagamentos(List<Pagamento> listaPagamentos) {
+        this.listaPagamentos = listaPagamentos;
     }
 
     

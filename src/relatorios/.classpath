@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry exported="true" kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="com.jaspersoft.server.JRS_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/lib/javax.persistence-2.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/lib/mysql-connector-java-5.1.47.jar"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/lib/org.eclipse.persistence.antlr-2.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/lib/org.eclipse.persistence.asm-2.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/lib/org.eclipse.persistence.core-2.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/lib/org.eclipse.persistence.jpa.jpql-2.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/lib/org.eclipse.persistence.jpa-2.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/bianca/Documentos/SIGAM/SIGAM/dist/SIGAM.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

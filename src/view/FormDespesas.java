@@ -689,13 +689,15 @@ public class FormDespesas extends javax.swing.JDialog {
         dataPanel.setVisible(true);
         formPanelAdicionar.setVisible(false);
         formPanelPagar.setVisible(false);
+        atualizaTabela();
     }
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        System.out.println("idjfd");
+        
         if (menuSelection == 0) {
             if (ControleCaixa.getCaixa() != null) {
+                p = new Despesa();
                 menuSelection = 1;
-
+                selecionado =null;
                 this.repaint();
                 dataPanel.setVisible(false);
                 formPanelAdicionar.setVisible(true);
@@ -904,6 +906,7 @@ public class FormDespesas extends javax.swing.JDialog {
         btnMessage.setBackground(new Color(0, 153, 0));
         labelWarningData.setText(message);
         warningPanelData.setVisible(true);
+        atualizaTabela();
         voltar();
 
 
@@ -954,6 +957,7 @@ public class FormDespesas extends javax.swing.JDialog {
             btnMessage.setBackground(new Color(0, 153, 0));
             labelWarningData.setText(message);
             warningPanelData.setVisible(true);
+            
             voltar();
 
         } else {

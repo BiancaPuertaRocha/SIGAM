@@ -11,8 +11,17 @@ import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Caixa;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import util.Conversoes;
 
 /**
@@ -23,7 +32,7 @@ public class FormCaixa extends javax.swing.JDialog {
 
     private int xMouse, yMouse;
     private Caixa p = new Caixa();
-    private ControleCaixa cp = new ControleCaixa();
+    private ControleCaixa contCaixa = new ControleCaixa();
     private File file;
     private ArrayList<Caixa> listaPesquisa = new ArrayList();
     private Caixa selecionado;
@@ -48,14 +57,14 @@ public class FormCaixa extends javax.swing.JDialog {
             public void run() {
                 listaPesquisa.clear();
                 if (!txtData1.getText().equals("  /  /    ") || !txtData1.getText().equals("  /  /    ")) {
-                    listaPesquisa.addAll(cp.findByDatas(txtData1.getText(), txtData2.getText()));
+                    listaPesquisa.addAll(contCaixa.findByDatas(txtData1.getText(), txtData2.getText()));
                     DefaultTableModel dtm = (DefaultTableModel) tableAlunos.getModel();
                     dtm.setNumRows(0);
                     for (Caixa s : listaPesquisa) {
-                        dtm.addRow(new Object[]{s.getCodigo(), 
-                            s.getSecretario().getNome(), 
-                            Conversoes.getDateFormatedToString(s.getData()),Conversoes.getStringOfTime( s.getHrAbertura()) + " - " + (s.getHrFechamento() == null ? " " : Conversoes.getStringOfTime(s.getHrFechamento())),
-                            s.getHrFechamento() == null ? "Aberto" : "Fechado" });
+                        dtm.addRow(new Object[]{s.getCodigo(),
+                            s.getSecretario().getNome(),
+                            Conversoes.getDateFormatedToString(s.getData()), Conversoes.getStringOfTime(s.getHrAbertura()) + " - " + (s.getHrFechamento() == null ? " " : Conversoes.getStringOfTime(s.getHrFechamento())),
+                            s.getHrFechamento() == null ? "Aberto" : "Fechado"});
                     }
                 } else {
                     warningPanelData.setBackground(new Color(255, 51, 51));
@@ -83,6 +92,7 @@ public class FormCaixa extends javax.swing.JDialog {
         btnAbrir = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         btnVisualizar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         btnFechar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        btnRelatorio = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         warningPanelData = new javax.swing.JPanel();
@@ -220,6 +230,23 @@ public class FormCaixa extends javax.swing.JDialog {
             }
         });
         sidePanel.add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
+
+        btnRelatorio.setBorder(null);
+        btnRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        btnRelatorio.setText("GERAR RELATÓRIO");
+        btnRelatorio.setEndColor(new java.awt.Color(37, 46, 55));
+        btnRelatorio.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        btnRelatorio.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        btnRelatorio.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        btnRelatorio.setSelectedColor(new java.awt.Color(0, 153, 153));
+        btnRelatorio.setStartColor(new java.awt.Color(37, 46, 55));
+        btnRelatorio.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
+        sidePanel.add(btnRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -742,7 +769,7 @@ public class FormCaixa extends javax.swing.JDialog {
     private void mButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton4ActionPerformed
         this.dispose();
     }//GEN-LAST:event_mButton4ActionPerformed
-        private void voltar() {
+    private void voltar() {
         menuSelection = 0;
         btnAbrir.unselect();;
         btnFechar.unselect();;
@@ -752,13 +779,16 @@ public class FormCaixa extends javax.swing.JDialog {
         dataPanel.setVisible(true);
         formPanelAbrir.setVisible(false);
         formPanelFechar.setVisible(false);
+        btnRelatorio.unselect();
+        atualizaTabela();
     }
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         System.out.println("idjfd");
         if (menuSelection == 0) {
+            
             if (ControleCaixa.getCaixa() == null) {
                 menuSelection = 1;
-
+                p = new Caixa();
                 labelDataAbertura.setText(Conversoes.getDateFormatedToString(new Date()));
                 labelHorarioAbertura.setText(Conversoes.getStringOfTime(new Date()));
                 labelFuncionario.setText(ControleSecretario.getLogado().getNome());
@@ -772,7 +802,7 @@ public class FormCaixa extends javax.swing.JDialog {
                 labelWarningData.setText("Já há um caixa aberto");
                 warningPanelData.setVisible(true);
                 btnAbrir.unselect();
-                menuSelection=0;
+                menuSelection = 0;
             }
 
         } else {
@@ -782,6 +812,9 @@ public class FormCaixa extends javax.swing.JDialog {
             } else if (menuSelection == 3) {
                 btnVisualizar.select();
                 btnAbrir.unselect();
+            } else if (menuSelection == 4) {
+                btnRelatorio.select();
+                btnAbrir.unselect();
             }
         }
 
@@ -789,10 +822,10 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-        
+
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
-       voltar();
+        voltar();
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
@@ -813,7 +846,7 @@ public class FormCaixa extends javax.swing.JDialog {
         }
 
         if (!flag) {
-            
+
             p.setData(new Date());
             p.setEntradas(0.0);
             p.setSaidas(0.0);
@@ -821,13 +854,13 @@ public class FormCaixa extends javax.swing.JDialog {
             p.setHrFechamento(null);
             p.setSaldoFinal(null);
             p.setSaldoInicial(Double.parseDouble(txtSaldoInicial.getText().replace(',', '.')));
-              
+
             p.setSecretario(ControleSecretario.getLogado());
-            
-            cp.persist(p);
-            
+
+            contCaixa.persist(p);
+
             ControleCaixa.setCaixa(p);
-            
+
             System.out.println(p.toString());
             message = "Cadastro efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
@@ -835,7 +868,7 @@ public class FormCaixa extends javax.swing.JDialog {
             labelWarningData.setText(message);
             warningPanelData.setVisible(true);
             voltar();
-         
+
         } else {
 
             labelWarningForm.setText(message);
@@ -868,7 +901,7 @@ public class FormCaixa extends javax.swing.JDialog {
                 for (int x = 0; x < colunas; x++) {
                     if (tableAlunos.getColumnName(x).equals("Código")) {
                         codigo = (int) tableAlunos.getValueAt(linha, x);
-                        //selecionado = cp.findByCodigo(codigo);
+                        selecionado = contCaixa.findByCodigo(codigo);
                         setCaixa();
                         dataPanel.setVisible(false);
                         formPanelAbrir.setVisible(true);
@@ -876,7 +909,7 @@ public class FormCaixa extends javax.swing.JDialog {
                 }
 
             } else {
-              
+
                 labelWarningData.setText("Selecione um caixa.");
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
@@ -890,6 +923,9 @@ public class FormCaixa extends javax.swing.JDialog {
                 btnVisualizar.unselect();
             } else if (menuSelection == 2) {
                 btnFechar.select();
+                btnVisualizar.unselect();
+            } else if (menuSelection == 4) {
+                btnRelatorio.select();
                 btnVisualizar.unselect();
             }
         }
@@ -942,6 +978,7 @@ public class FormCaixa extends javax.swing.JDialog {
 
         if (menuSelection == 0) {
             if (ControleCaixa.getCaixa() != null) {
+
                 menuSelection = 2;
                 dataPanel.setVisible(false);
                 formPanelFechar.setVisible(true);
@@ -952,7 +989,7 @@ public class FormCaixa extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-               voltar();
+                voltar();
             }
         } else {
             if (menuSelection == 1) {
@@ -960,6 +997,9 @@ public class FormCaixa extends javax.swing.JDialog {
                 btnFechar.unselect();
             } else if (menuSelection == 3) {
                 btnVisualizar.select();
+                btnFechar.unselect();
+            } else if (menuSelection == 4) {
+                btnRelatorio.select();
                 btnFechar.unselect();
             }
         }
@@ -987,19 +1027,19 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton5ActionPerformed
 
     private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
-       
+
         warningPanelData.setVisible(false);
         warningPanelForm1.setVisible(false);
         voltar();
     }//GEN-LAST:event_botCancelarFechamentoActionPerformed
 
     private void botConfirmarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarFechamentoActionPerformed
-        
+
         boolean flag = false;
         String message = "";
 
-        if (txtSaldoInicial.getText().equals("")) {
-            txtSaldoInicial.setForeground(errorColor);
+        if (txtSaldoFinal.getText().equals("")) {
+            txtSaldoFinal.setForeground(errorColor);
             flag = true;
         }
 
@@ -1008,20 +1048,21 @@ public class FormCaixa extends javax.swing.JDialog {
             message = "Preencha todos os campos corretamente.";
         }
         if (!flag) {
-                       
+
             p.setSaldoFinal(Double.parseDouble(txtSaldoFinal.getText().replace(',', '.')));
-            cp.persist(p);
-            
+            p.setHrFechamento(new Date());
+            contCaixa.alter(p);
+
             ControleCaixa.setCaixa(null);
-            
+
             System.out.println(p.toString());
             message = "Cadastro efetuado com sucesso.";
+            voltar();
             warningPanelData.setBackground(new Color(0, 153, 0));
             btnMessage.setBackground(new Color(0, 153, 0));
             labelWarningData.setText(message);
             warningPanelData.setVisible(true);
-            voltar();
-         
+
         } else {
 
             labelWarningForm.setText(message);
@@ -1048,7 +1089,53 @@ public class FormCaixa extends javax.swing.JDialog {
             txtData2.setCaretPosition(0);
     }//GEN-LAST:event_txtData2FocusGained
 
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        if (menuSelection == 0) {
+
+            if (!txtData1.getText().equals("  /  /    ") && !txtData2.getText().equals("  /  /    ")) {
+                menuSelection = 3;
+                String caminho = new File("src/relatorios/Balanco.jrxml").getAbsolutePath();
+                JasperReport relatorio;
+
+                JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(contCaixa.findAll(), false);
+                JasperPrint print;
+                try {
+
+                    relatorio = JasperCompileManager.compileReport(caminho);
+                    print = JasperFillManager.fillReport(relatorio, null, dados);
+                    JasperViewer viw = new JasperViewer(print, false);
+                    viw.setVisible(true);
+                } catch (JRException ex) {
+                    Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+
+                labelWarningData.setText("Digite um período de datas.");
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                btnMessage.setBackground(new Color(255, 51, 51));
+                warningPanelData.setVisible(true);
+                voltar();
+                //timer
+            }
+        } else {
+            if (menuSelection == 1) {
+                btnAbrir.select();
+                btnRelatorio.unselect();
+            } else if (menuSelection == 2) {
+                btnFechar.select();
+                btnRelatorio.unselect();
+            } else if (menuSelection == 3) {
+                btnVisualizar.select();
+                btnRelatorio.unselect();
+            }
+        }
+
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
     private void setCaixa() {
+        p = ControleCaixa.getCaixa();
+        p = contCaixa.findByCodigo(p.getCodigo());
         labelSaldoInicial.setText(Double.toString(selecionado.getSaldoInicial()));
         labelEntradas.setText(Double.toString(selecionado.getEntradas()));
         labelSaidas.setText(Double.toString(selecionado.getSaidas()));
@@ -1114,6 +1201,7 @@ public class FormCaixa extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnFechar;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnRelatorio;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnVisualizar;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel dataPanel;

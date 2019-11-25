@@ -40,10 +40,8 @@ public class FormPagamento extends javax.swing.JDialog {
 
     public FormPagamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
         initComponents();
         this.setLocationRelativeTo(null);
-
         warningPanelForm.setVisible(false);
         warningPanelData.setVisible(false);
 
@@ -54,39 +52,33 @@ public class FormPagamento extends javax.swing.JDialog {
             @Override
             public void run() {
                 listaPesquisa.clear();
-                if (!txtPesquisa.getText().equals("")) {
-                    listaPesquisa.addAll(ca.findByNome(txtPesquisa.getText()));
-                    DefaultTableModel dtm = (DefaultTableModel) tableDespesas.getModel();
-                    dtm.setNumRows(0);
-                    String data;
-                    Pagamento ultimo = null;
-                    int dias;
-                    for (Aluno s : listaPesquisa) {
-                        data = "Não há";
-                        dias = 0;
-                        try {
-                            ultimo = cpag.findByAlunoLast(s);
-                            data = Conversoes.getDateFormatedToString(ultimo.getDataPag());
-                            dias = ultimo.getDias() - Conversoes.getDaysBetween(new Date(), ultimo.getValidade());
-                            if (dias < 0) {
-                                dias = 0;
-                            }
-                        } catch (NoResultException e) {
 
+                listaPesquisa.addAll(ca.findByNome(txtPesquisa.getText()));
+                DefaultTableModel dtm = (DefaultTableModel) tableDespesas.getModel();
+                dtm.setNumRows(0);
+                String data;
+                Pagamento ultimo = null;
+                int dias;
+                for (Aluno s : listaPesquisa) {
+                    data = "Não há";
+                    dias = 0;
+                    try {
+                        ultimo = cpag.findByAlunoLast(s);
+                        data = Conversoes.getDateFormatedToString(ultimo.getDataPag());
+                        dias = Conversoes.getDaysBetween( ultimo.getValidade(), new Date());
+                        if (dias < 0) {
+                            dias = 0;
                         }
+                    } catch (NoResultException e) {
 
-                        dtm.addRow(new Object[]{s.getCodigo(),
-                            s.getNome(),
-                            data,
-                            Integer.toString(dias), ultimo == null ? "-" : Conversoes.getDateFormatedToString(ultimo.getValidade())});
                     }
-                } else {
-                    warningPanelData.setBackground(new Color(255, 51, 51));
-                    btnMessage.setBackground(new Color(255, 51, 51));
-                    labelWarningData.setText("Digite a data de inicio e fim da pesquisa");
-                    warningPanelData.setVisible(true);
 
+                    dtm.addRow(new Object[]{s.getCodigo(),
+                        s.getNome(),
+                        data,
+                        Integer.toString(dias), ultimo == null ? "-" : Conversoes.getDateFormatedToString(ultimo.getValidade())});
                 }
+
             }
         }.start();
     }
@@ -740,7 +732,7 @@ public class FormPagamento extends javax.swing.JDialog {
     private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
         warningPanelData.setVisible(false);
     }//GEN-LAST:event_btnMessageActionPerformed
- private void voltar() {
+    private void voltar() {
         menuSelection = 0;
         btnAdicionar.unselect();;
         btnVisualizar.unselect();;
@@ -749,6 +741,7 @@ public class FormPagamento extends javax.swing.JDialog {
         dataPanel.setVisible(true);
         formAdicionar.setVisible(false);
         formVisualizar.setVisible(false);
+        atualizaTabela();
     }
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
 
@@ -756,7 +749,7 @@ public class FormPagamento extends javax.swing.JDialog {
         String message = "";
         Pagamento ultimo = null;
         Aluno a;
-        int dias=0;
+        int dias = 0;
         if (txtValor.getText().equals("")) {
             txtValor.setForeground(errorColor);
             flag = true;
@@ -774,39 +767,44 @@ public class FormPagamento extends javax.swing.JDialog {
         if (!flag) {
             try {
                 ultimo = cpag.findByAlunoLast(selecionado);
+                if (ultimo.getValidade().before(new Date())) {
+                    dias = Conversoes.getDaysBetween(new Date(), ultimo.getValidade());
+                    if (dias >= 90) {
+
+                        a = selecionado;
+                        a.atualizaStatus(false);
+                        ca.alter(a);
+                    }
+                }
             } catch (NoResultException e) {
 
             }
+            p.setDias(Integer.parseInt(txtQtdDias.getText()));
             p.setDataPag(new Date());
             if (ultimo == null) {
                 p.setValidade(Conversoes.somaData(new Date(), p.getDias()));
+                a = selecionado;
+                a.atualizaStatus(false);
+                ca.alter(a);
             } else if (ultimo.getValidade().before(new Date())) {
                 p.setValidade(Conversoes.somaData(new Date(), p.getDias()));
             } else {
-                p.setValidade(Conversoes.somaData(ultimo.getValidade(), p.getDias()+1));
+                p.setValidade(Conversoes.somaData(ultimo.getValidade(), p.getDias()));
             }
-            
-            if(ultimo.getValidade().before(new Date())){
-                dias = Conversoes.getDaysBetween(new Date(), ultimo.getValidade());
-                if(dias>=90){
-                    
-                    a= selecionado;
-                    a.atualizaStatus(false);
-                    ca.alter(a);
-                }
-            }
+
             p.setAluno(selecionado);
             p.setDataPag(new Date());
             p.setCaixa(ControleCaixa.getCaixa());
             p.setValor(Double.parseDouble(txtValor.getText().replace(',', '.')));
-            p.setDias(Integer.parseInt(txtQtdDias.getText()));
             
+
             cpag.persist(p);
-            message = "Cadastro efetuado com sucesso.";
+            message = "Pagamento efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
             btnMessage.setBackground(new Color(0, 153, 0));
             labelWarningData.setText(message);
             warningPanelData.setVisible(true);
+           
             voltar();
 
         } else {
@@ -820,11 +818,11 @@ public class FormPagamento extends javax.swing.JDialog {
     }//GEN-LAST:event_botConfirmarActionPerformed
 
     private void botCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarActionPerformed
-      
+
         warningPanelData.setVisible(false);
         warningPanelForm.setVisible(false);
         voltar();
-     
+
     }//GEN-LAST:event_botCancelarActionPerformed
 
     private void mButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton4ActionPerformed
@@ -844,10 +842,10 @@ public class FormPagamento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnErrorActionPerformed
 
     private void botCancelarFechamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelarFechamentoActionPerformed
-        
+
         formAdicionar.setVisible(false);
         warningPanelData.setVisible(false);
-       voltar();
+        voltar();
     }//GEN-LAST:event_botCancelarFechamentoActionPerformed
 
     private void mButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton5ActionPerformed
@@ -881,14 +879,14 @@ public class FormPagamento extends javax.swing.JDialog {
                 labelDiasRestantesVisu.setText(Integer.toString(dias));
 
             } catch (NoResultException e) {
-                
+
                 warningPanelData.setVisible(false);
                 labelWarningData.setText("Não há pagamentos para este aluno ainda");
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
                 voltar();
-                
+
             }
         } else {
             labelAluno.setText(selecionado.getNome());

@@ -134,15 +134,19 @@ BEGIN
 WHERE codigo = NEW.caixa;
 END$
 DELIMITER ;
+
+
 DELIMITER $ 
 CREATE TRIGGER updateMensalidadeCaixa AFTER UPDATE
 ON Pagamento
 FOR EACH ROW
 BEGIN
-    UPDATE Caixa SET entradas = entradas + NEW.valor - OLD.valor
+    UPDATE Caixa SET entradas = entradas + NEW.valor
 WHERE codigo = NEW.caixa;
 END$
 DELIMITER ;
+
+
 DELIMITER $ 
 CREATE TRIGGER deleteMensalidadeCaixa AFTER DELETE
 ON Pagamento
@@ -152,6 +156,8 @@ BEGIN
 WHERE codigo = OLD.caixa;
 END$
 DELIMITER ;
+
+
 
 DELIMITER $ 
 CREATE TRIGGER addDespesasCaixa AFTER INSERT
@@ -164,6 +170,8 @@ BEGIN
     END IF;
 END$
 DELIMITER ;
+
+
 DELIMITER $ 
 CREATE TRIGGER updateDespesasCaixa AFTER UPDATE
 ON Despesa
@@ -175,6 +183,8 @@ BEGIN
     END IF;
 END$
 DELIMITER ;
+
+
 DELIMITER $ 
 CREATE TRIGGER deleteDespesasCaixa AFTER DELETE
 ON Despesa
@@ -186,6 +196,8 @@ BEGIN
     END IF;
 END$
 DELIMITER ;
-select * from Caixa;
+
+
+select * from Aluno;
+
 select * from Pagamento;
-delete from Pagamento where codigo = 4;

@@ -80,6 +80,7 @@ public class FormSecretario extends javax.swing.JDialog {
         excludeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         addBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         changeBtn = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        btnVisualizar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         warningPanelData = new javax.swing.JPanel();
@@ -119,6 +120,46 @@ public class FormSecretario extends javax.swing.JDialog {
         txtEntrada = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSaida = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtSalario = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
+        formPanelVisualizar = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        mButton5 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        botCancelar1 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        profileImagePanel1 = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        labelNomeVisu = new javax.swing.JLabel();
+        labelNasc = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
+        labelTelefone = new javax.swing.JLabel();
+        labelCidade = new javax.swing.JLabel();
+        labelBairro = new javax.swing.JLabel();
+        labelRua = new javax.swing.JLabel();
+        labelRg = new javax.swing.JLabel();
+        labelCpf = new javax.swing.JLabel();
+        labelLogin = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        labeldepartamento = new javax.swing.JLabel();
+        labelEntrada = new javax.swing.JLabel();
+        labelSaida = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel15 = new javax.swing.JLabel();
+        labelSalario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -199,6 +240,23 @@ public class FormSecretario extends javax.swing.JDialog {
             }
         });
         sidePanel.add(changeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
+
+        btnVisualizar.setBorder(null);
+        btnVisualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnVisualizar.setText("VISUALIZAR");
+        btnVisualizar.setEndColor(new java.awt.Color(37, 46, 55));
+        btnVisualizar.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        btnVisualizar.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        btnVisualizar.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        btnVisualizar.setSelectedColor(new java.awt.Color(0, 153, 153));
+        btnVisualizar.setStartColor(new java.awt.Color(37, 46, 55));
+        btnVisualizar.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizarActionPerformed(evt);
+            }
+        });
+        sidePanel.add(btnVisualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -692,6 +750,186 @@ public class FormSecretario extends javax.swing.JDialog {
 
         cardPanel.add(formPanel, "card3");
 
+        formPanelVisualizar.setBackground(new java.awt.Color(255, 255, 255));
+        formPanelVisualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        mButton5.setBorder(null);
+        mButton5.setForeground(new java.awt.Color(153, 153, 153));
+        mButton5.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
+        mButton5.setBorderRadius(0);
+        mButton5.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
+        mButton5.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        mButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mButton5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mButton5MouseExited(evt);
+            }
+        });
+        mButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(mButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        formPanelVisualizar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
+
+        botCancelar1.setBorder(null);
+        botCancelar1.setText("Voltar");
+        botCancelar1.setBorderRadius(50);
+        botCancelar1.setFont(new java.awt.Font("Nunito Black", 0, 14)); // NOI18N
+        botCancelar1.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.RAISED);
+        botCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botCancelar1ActionPerformed(evt);
+            }
+        });
+        formPanelVisualizar.add(botCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 510, 180, 50));
+
+        profileImagePanel1.setBackground(new java.awt.Color(255, 255, 255));
+        profileImagePanel1.setBorderRadius(120);
+        profileImagePanel1.setFillBackground(false);
+        profileImagePanel1.setFillImage(true);
+        profileImagePanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                profileImagePanel1MouseEntered(evt);
+            }
+        });
+
+        javax.swing.GroupLayout profileImagePanel1Layout = new javax.swing.GroupLayout(profileImagePanel1);
+        profileImagePanel1.setLayout(profileImagePanel1Layout);
+        profileImagePanel1Layout.setHorizontalGroup(
+            profileImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+        profileImagePanel1Layout.setVerticalGroup(
+            profileImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
+        formPanelVisualizar.add(profileImagePanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 120, 120));
+
+        jLabel2.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel2.setText("Nome");
+        formPanelVisualizar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel3.setText("Telefone");
+        formPanelVisualizar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel4.setText("E-mail");
+        formPanelVisualizar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel5.setText("Data Nascimento");
+        formPanelVisualizar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel6.setText("Rua");
+        formPanelVisualizar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 40, -1));
+
+        jLabel7.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel7.setText("Bairro");
+        formPanelVisualizar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 50, -1));
+
+        jLabel8.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel8.setText("Cidade");
+        formPanelVisualizar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 60, -1));
+
+        jLabel9.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel9.setText("CPF");
+        formPanelVisualizar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel10.setText("RG");
+        formPanelVisualizar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel12.setText("Login");
+        formPanelVisualizar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+        formPanelVisualizar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 200, 10));
+        formPanelVisualizar.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 233, 650, 10));
+        formPanelVisualizar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 650, 10));
+        formPanelVisualizar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 650, 10));
+        formPanelVisualizar.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 650, 10));
+
+        labelNomeVisu.setText("jLabel13");
+        formPanelVisualizar.add(labelNomeVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 350, -1));
+
+        labelNasc.setText("jLabel11");
+        formPanelVisualizar.add(labelNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 90, -1));
+
+        labelEmail.setText("jLabel14");
+        formPanelVisualizar.add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 280, -1));
+
+        labelTelefone.setText("jLabel15");
+        formPanelVisualizar.add(labelTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 210, -1));
+
+        labelCidade.setText("jLabel11");
+        formPanelVisualizar.add(labelCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 180, -1));
+
+        labelBairro.setText("jLabel11");
+        formPanelVisualizar.add(labelBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 130, -1));
+
+        labelRua.setText("jLabel11");
+        formPanelVisualizar.add(labelRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 160, -1));
+
+        labelRg.setText("jLabel11");
+        formPanelVisualizar.add(labelRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 210, -1));
+
+        labelCpf.setText("jLabel11");
+        formPanelVisualizar.add(labelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 210, -1));
+
+        labelLogin.setText("jLabel11");
+        formPanelVisualizar.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 150, -1));
+        formPanelVisualizar.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 650, 10));
+
+        jLabel11.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel11.setText("Departamento");
+        formPanelVisualizar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel13.setText("Horário entrada");
+        formPanelVisualizar.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel14.setText("Saída");
+        formPanelVisualizar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
+
+        labeldepartamento.setText("jLabel15");
+        formPanelVisualizar.add(labeldepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 520, -1));
+
+        labelEntrada.setText("jLabel15");
+        formPanelVisualizar.add(labelEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 410, 120, -1));
+
+        labelSaida.setText("jLabel15");
+        formPanelVisualizar.add(labelSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 410, 110, -1));
+        formPanelVisualizar.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 650, 10));
+
+        jLabel15.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
+        jLabel15.setText("Salário");
+        formPanelVisualizar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, -1, -1));
+
+        labelSalario.setText("jLabel16");
+        formPanelVisualizar.add(labelSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 410, 160, -1));
+
+        cardPanel.add(formPanelVisualizar, "card3");
+
         bg.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 710, 670));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -757,8 +995,11 @@ public class FormSecretario extends javax.swing.JDialog {
             if (menuSelection == 1) {
                 addBtn.select();
                 excludeBtn.unselect();
-            } else {
+            } else if (menuSelection==2){
                 changeBtn.select();
+                excludeBtn.unselect();
+            }else if(menuSelection==4){
+                btnVisualizar.select();
                 excludeBtn.unselect();
             }
         }
@@ -790,6 +1031,8 @@ public class FormSecretario extends javax.swing.JDialog {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         if (menuSelection == 0) {
+            p = new Secretario();
+            selecionado =null;
             menuSelection = 1;
             dataPanel.setVisible(false);
             formPanel.setVisible(true);
@@ -797,11 +1040,14 @@ public class FormSecretario extends javax.swing.JDialog {
             txtCpf.setEnabled(true);
             limparCampos();
         } else {
-            if (menuSelection == 1) {
-                addBtn.select();
-                changeBtn.unselect();
-            } else {
+           if (menuSelection == 4) {
+                btnVisualizar.select();
+                addBtn.unselect();
+            } else if (menuSelection==2){
                 changeBtn.select();
+                addBtn.unselect();
+            }else if(menuSelection==3){
+                excludeBtn.select();
                 addBtn.unselect();
             }
         }
@@ -1062,6 +1308,27 @@ public class FormSecretario extends javax.swing.JDialog {
         profileImagePanel.setImage(img);
         
     }
+    private void setSecretarioVisualizar(){
+        if (selecionado.getImagem() != null) {
+            ImageIcon im = new ImageIcon(selecionado.getImagem());
+            profileImagePanel1.setImage(im.getImage());
+            profileImagePanel1.repaint();
+        }
+        labelBairro.setText(selecionado.getBairro());
+        labelCidade.setText(selecionado.getCidade() );
+        labelRua.setText(selecionado.getRua() + " "+ selecionado.getNumero());
+        labelNomeVisu.setText(selecionado.getNome());
+        labelNasc.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
+        labelLogin.setText(selecionado.getLogin());
+        labelCpf.setText(selecionado.getCpf());
+        labelRg.setText(selecionado.getRg());
+        labelEmail.setText(selecionado.getEmail());
+        labelTelefone.setText(selecionado.getTelefone());
+        labelEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
+        labelSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
+        labeldepartamento.setText(selecionado.getDepartamento());
+        labelSalario.setText("R$ "+Double.toString(selecionado.getSalario()));
+    }
     private void profileImagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseEntered
         labelImagem.setVisible(true);
     }//GEN-LAST:event_profileImagePanelMouseEntered
@@ -1096,9 +1363,12 @@ public class FormSecretario extends javax.swing.JDialog {
             if (menuSelection == 1) {
                 addBtn.select();
                 changeBtn.unselect();
-            } else {
-                changeBtn.select();
-                addBtn.unselect();
+            } else if (menuSelection==3){
+                excludeBtn.select();
+                changeBtn.unselect();
+            }else if(menuSelection==4){
+                btnVisualizar.select();
+                changeBtn.unselect();
             }
         }
 
@@ -1262,6 +1532,66 @@ public class FormSecretario extends javax.swing.JDialog {
     private void comboTipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboTipoFocusGained
         comboTipo.setForeground(new Color(109, 109, 109));
     }//GEN-LAST:event_comboTipoFocusGained
+
+    private void mButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton5MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mButton5MouseEntered
+
+    private void mButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButton5MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mButton5MouseExited
+
+    private void mButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton5ActionPerformed
+        dispose();
+    }//GEN-LAST:event_mButton5ActionPerformed
+
+    private void botCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botCancelar1ActionPerformed
+        voltar();
+    }//GEN-LAST:event_botCancelar1ActionPerformed
+
+    private void profileImagePanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanel1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_profileImagePanel1MouseEntered
+
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+        if (menuSelection == 0) {
+            int linha = tableSecretarios.getSelectedRow();
+            int codigo;
+            if (linha != -1) {
+                menuSelection = 4;
+                int colunas = tableSecretarios.getColumnCount();
+                for (int x = 0; x < colunas; x++) {
+                    if (tableSecretarios.getColumnName(x).equals("Código")) {
+                        codigo = (int) tableSecretarios.getValueAt(linha, x);
+                        selecionado = cp.findByCodigo(codigo);
+                        setSecretarioVisualizar();
+                        dataPanel.setVisible(false);
+                        formPanelVisualizar.setVisible(true);
+                    }
+                }
+
+            } else {
+                changeBtn.unselect();
+                labelWarningData.setText("Selecione um secretário.");
+                warningPanelData.setVisible(true);
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                btnMessage.setBackground(new Color(255, 51, 51));
+                menuSelection = 0;
+                //timer
+            }
+        } else {
+            if (menuSelection == 1) {
+                addBtn.select();
+                btnVisualizar.unselect();
+            } else if (menuSelection==2){
+                changeBtn.select();
+                btnVisualizar.unselect();
+            }else if(menuSelection==3){
+                excludeBtn.select();
+                btnVisualizar.unselect();
+            }
+        }
+    }//GEN-LAST:event_btnVisualizarActionPerformed
     
     private void setSecretario() {
         if (selecionado.getImagem() != null) {
@@ -1350,10 +1680,12 @@ public class FormSecretario extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton addBtn;
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
+    private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar1;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnError;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnVisualizar;
     private javax.swing.JPanel cardPanel;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton changeBtn;
     private com.hq.swingmaterialdesign.materialdesign.MComboBox comboSetor;
@@ -1361,14 +1693,53 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JPanel dataPanel;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton excludeBtn;
     private javax.swing.JPanel formPanel;
+    private javax.swing.JPanel formPanelVisualizar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JLabel labelBairro;
+    private javax.swing.JLabel labelCidade;
+    private javax.swing.JLabel labelCpf;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelEntrada;
     private javax.swing.JLabel labelImagem;
+    private javax.swing.JLabel labelLogin;
+    private javax.swing.JLabel labelNasc;
+    private javax.swing.JLabel labelNomeVisu;
+    private javax.swing.JLabel labelRg;
+    private javax.swing.JLabel labelRua;
+    private javax.swing.JLabel labelSaida;
+    private javax.swing.JLabel labelSalario;
+    private javax.swing.JLabel labelTelefone;
     private javax.swing.JLabel labelWarningData;
     private javax.swing.JLabel labelWarningForm;
+    private javax.swing.JLabel labeldepartamento;
     private com.hq.swingmaterialdesign.materialdesign.MButton mButton4;
+    private com.hq.swingmaterialdesign.materialdesign.MButton mButton5;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel1;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JScrollPane tablePanel;

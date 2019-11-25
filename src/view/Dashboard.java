@@ -5,11 +5,24 @@
  */
 package view;
 
+import control.ControleCaixa;
 import control.ControleSecretario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.io.File;
+import static java.util.Collections.list;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -30,6 +43,8 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
+    ControleCaixa contCaixa = new ControleCaixa();
+
     public Dashboard() {
         initComponents();
 
@@ -54,7 +69,7 @@ public class Dashboard extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-        
+
         renderChart();
     }
 
@@ -84,6 +99,7 @@ public class Dashboard extends javax.swing.JFrame {
         txtDataHora = new javax.swing.JLabel();
         panChart = new javax.swing.JPanel();
         btnExit2 = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        jButton1 = new javax.swing.JButton();
         panButtons = new javax.swing.JPanel();
         panButtonsGradient = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         txtHora1 = new javax.swing.JLabel();
@@ -268,6 +284,13 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panHomeGradientLayout = new javax.swing.GroupLayout(panHomeGradient);
         panHomeGradient.setLayout(panHomeGradientLayout);
         panHomeGradientLayout.setHorizontalGroup(
@@ -287,6 +310,10 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnExit2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panHomeGradientLayout.createSequentialGroup()
+                .addGap(372, 372, 372)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panHomeGradientLayout.setVerticalGroup(
             panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +321,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnExit2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panChart, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -658,7 +687,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_mGradientButton7ActionPerformed
 
     private void mGradientButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton8ActionPerformed
-        FormPagamento form = new FormPagamento(this,true);
+        FormPagamento form = new FormPagamento(this, true);
         form.setVisible(true);
     }//GEN-LAST:event_mGradientButton8ActionPerformed
 
@@ -686,42 +715,60 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExit2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String caminho = new File("src/relatorios/Balanco.jrxml").getAbsolutePath();
+        JasperReport relatorio;
+        
+        JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(contCaixa.findAll(), false);
+        JasperPrint print;
+        try {
     
+            relatorio = JasperCompileManager.compileReport(caminho);
+            print = JasperFillManager.fillReport(relatorio,null , dados);
+            JasperViewer viw = new JasperViewer(print, false);
+            viw.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private XYDataset createDataset() {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        
+
         XYSeries s = new XYSeries("Y = X + 2");
-        s.add(2,4);
-        s.add(8,10);
-        s.add(10,12);
-        s.add(13,15);
-        s.add(17,19);
-        s.add(18,20);
-        s.add(21,23);
-                
+        s.add(2, 4);
+        s.add(8, 10);
+        s.add(10, 12);
+        s.add(13, 15);
+        s.add(17, 19);
+        s.add(18, 20);
+        s.add(21, 23);
+
         dataset.addSeries(s);
-        
+
         return dataset;
     }
-    
+
     private void renderChart() {
         XYDataset ds = createDataset();
         JFreeChart chart = ChartFactory.createXYLineChart("FLUXO MONETÁRIO", "x-axis", "y-axis", ds, PlotOrientation.VERTICAL, true, true, false);
-        chart.setBackgroundPaint(new Color(0,0,0,0));
+        chart.setBackgroundPaint(new Color(0, 0, 0, 0));
         chart.setBorderVisible(false);
-        chart.setBorderPaint(new Color(0,0,0,0));
-        chart.getXYPlot().setBackgroundPaint(new Color(0,0,0,0));
-        
-        chart.getXYPlot().setDomainGridlinePaint(new Color(0,0,0,0));
+        chart.setBorderPaint(new Color(0, 0, 0, 0));
+        chart.getXYPlot().setBackgroundPaint(new Color(0, 0, 0, 0));
+
+        chart.getXYPlot().setDomainGridlinePaint(new Color(0, 0, 0, 0));
         chart.getXYPlot().setDomainGridlinesVisible(false);
-        chart.getXYPlot().setOutlinePaint(new Color(0,0,0,0));
-        
+        chart.getXYPlot().setOutlinePaint(new Color(0, 0, 0, 0));
+
         ChartPanel cp = new ChartPanel(chart);
-        cp.setBackground(new Color(0,0,0,0));
+        cp.setBackground(new Color(0, 0, 0, 0));
         panChart.add(cp, BorderLayout.CENTER);
         panChart.validate();
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -761,6 +808,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
