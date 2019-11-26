@@ -71,6 +71,8 @@ public class Dashboard extends javax.swing.JFrame {
         }
 
         renderChart();
+        toggleHome.select();
+        mostraMenu(false);
     }
 
     /**
@@ -100,6 +102,9 @@ public class Dashboard extends javax.swing.JFrame {
         panChart = new javax.swing.JPanel();
         btnExit2 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         jButton1 = new javax.swing.JButton();
+        panMenuUser1 = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
+        mGradientButton9 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        mGradientButton10 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         panButtons = new javax.swing.JPanel();
         panButtonsGradient = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         txtHora1 = new javax.swing.JLabel();
@@ -118,6 +123,9 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton8 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         jLabel6 = new javax.swing.JLabel();
         btnExit = new com.hq.swingmaterialdesign.materialdesign.MButton();
+        panMenuUser = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
+        mGradientButton5 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        mGradientButton6 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -155,6 +163,11 @@ public class Dashboard extends javax.swing.JFrame {
         profileImagePanel.setBorderRadius(120);
         profileImagePanel.setFillBackground(false);
         profileImagePanel.setFillImage(true);
+        profileImagePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileImagePanelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout profileImagePanelLayout = new javax.swing.GroupLayout(profileImagePanel);
         profileImagePanel.setLayout(profileImagePanelLayout);
@@ -251,6 +264,11 @@ public class Dashboard extends javax.swing.JFrame {
         panHomeGradient.setBorderRadius(0);
         panHomeGradient.setEndColor(new java.awt.Color(37, 46, 55));
         panHomeGradient.setStartColor(new java.awt.Color(50, 60, 69));
+        panHomeGradient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panHomeGradientMouseClicked(evt);
+            }
+        });
 
         txtHora.setFont(new java.awt.Font("Nunito SemiBold", 0, 48)); // NOI18N
         txtHora.setForeground(new java.awt.Color(255, 255, 255));
@@ -261,6 +279,11 @@ public class Dashboard extends javax.swing.JFrame {
         txtDataHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         panChart.setBackground(new Color(0,0,0,0));
+        panChart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panChartMouseClicked(evt);
+            }
+        });
         panChart.setLayout(new java.awt.BorderLayout());
 
         btnExit2.setBackground(new java.awt.Color(37, 46, 55));
@@ -291,22 +314,70 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        panMenuUser1.setBackground(new java.awt.Color(0,0,0,0));
+        panMenuUser1.setBorderRadius(35);
+        panMenuUser1.setEndColor(new java.awt.Color(73, 91, 109));
+        panMenuUser1.setStartColor(new java.awt.Color(92, 110, 127));
+
+        mGradientButton9.setForeground(new java.awt.Color(255, 255, 255));
+        mGradientButton9.setText("EDITAR PERFIL");
+        mGradientButton9.setEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton9.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        mGradientButton9.setHoverEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton9.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        mGradientButton9.setStartColor(new java.awt.Color(92, 110, 127));
+        mGradientButton9.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+
+        mGradientButton10.setForeground(new java.awt.Color(255, 255, 255));
+        mGradientButton10.setText("LOGOUT");
+        mGradientButton10.setEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton10.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        mGradientButton10.setHoverEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton10.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        mGradientButton10.setStartColor(new java.awt.Color(92, 110, 127));
+        mGradientButton10.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+        mGradientButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGradientButton10ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panMenuUser1Layout = new javax.swing.GroupLayout(panMenuUser1);
+        panMenuUser1.setLayout(panMenuUser1Layout);
+        panMenuUser1Layout.setHorizontalGroup(
+            panMenuUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mGradientButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+            .addComponent(mGradientButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panMenuUser1Layout.setVerticalGroup(
+            panMenuUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuUser1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(mGradientButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(mGradientButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panHomeGradientLayout = new javax.swing.GroupLayout(panHomeGradient);
         panHomeGradient.setLayout(panHomeGradientLayout);
         panHomeGradientLayout.setHorizontalGroup(
             panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panHomeGradientLayout.createSequentialGroup()
-                        .addGap(0, 674, Short.MAX_VALUE)
-                        .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(40, 40, 40)
+                        .addComponent(panChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panHomeGradientLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(panMenuUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 472, Short.MAX_VALUE)
+                        .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDataHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(40, 40, 40))
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(31, 31, 31))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnExit2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -321,14 +392,19 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnExit2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panChart, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
-                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panHomeGradientLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panHomeGradientLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                        .addComponent(panMenuUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
 
@@ -350,8 +426,13 @@ public class Dashboard extends javax.swing.JFrame {
         panGuia.add(panHome, "card4");
 
         panButtonsGradient.setBorderRadius(0);
-        panButtonsGradient.setEndColor(new java.awt.Color(37, 46, 55));
+        panButtonsGradient.setEndColor(new java.awt.Color(26, 33, 39));
         panButtonsGradient.setStartColor(new java.awt.Color(50, 60, 69));
+        panButtonsGradient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panButtonsGradientMouseClicked(evt);
+            }
+        });
 
         txtHora1.setFont(new java.awt.Font("Nunito SemiBold", 0, 48)); // NOI18N
         txtHora1.setForeground(new java.awt.Color(255, 255, 255));
@@ -366,9 +447,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton1.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton1.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton1.setBorderRadius(40);
-        mGradientButton1.setEndColor(new java.awt.Color(247, 183, 51));
+        mGradientButton1.setEndColor(new java.awt.Color(120, 255, 214));
         mGradientButton1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
-        mGradientButton1.setStartColor(new java.awt.Color(252, 74, 26));
+        mGradientButton1.setHoverEndColor(new java.awt.Color(144, 217, 104));
+        mGradientButton1.setHoverStartColor(new java.awt.Color(144, 217, 104));
+        mGradientButton1.setStartColor(new java.awt.Color(168, 255, 120));
         mGradientButton1.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
         mGradientButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,7 +476,9 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton2.setBorderRadius(40);
         mGradientButton2.setEndColor(new java.awt.Color(247, 183, 51));
         mGradientButton2.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
-        mGradientButton2.setStartColor(new java.awt.Color(252, 74, 26));
+        mGradientButton2.setHoverEndColor(new java.awt.Color(241, 215, 131));
+        mGradientButton2.setHoverStartColor(new java.awt.Color(241, 215, 131));
+        mGradientButton2.setStartColor(new java.awt.Color(255, 239, 186));
         mGradientButton2.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
         mGradientButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,9 +491,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton3.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton3.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton3.setBorderRadius(40);
-        mGradientButton3.setEndColor(new java.awt.Color(247, 183, 51));
+        mGradientButton3.setEndColor(new java.awt.Color(243, 115, 53));
         mGradientButton3.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
-        mGradientButton3.setStartColor(new java.awt.Color(252, 74, 26));
+        mGradientButton3.setHoverEndColor(new java.awt.Color(226, 176, 33));
+        mGradientButton3.setHoverStartColor(new java.awt.Color(226, 176, 33));
+        mGradientButton3.setStartColor(new java.awt.Color(253, 200, 48));
         mGradientButton3.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
         mGradientButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,9 +513,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton4.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton4.setBorderRadius(40);
-        mGradientButton4.setEndColor(new java.awt.Color(247, 183, 51));
+        mGradientButton4.setEndColor(new java.awt.Color(189, 194, 214));
         mGradientButton4.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
-        mGradientButton4.setStartColor(new java.awt.Color(252, 74, 26));
+        mGradientButton4.setHoverEndColor(new java.awt.Color(62, 208, 181));
+        mGradientButton4.setHoverStartColor(new java.awt.Color(62, 208, 181));
+        mGradientButton4.setStartColor(new java.awt.Color(116, 235, 213));
         mGradientButton4.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
         mGradientButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,9 +540,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton7.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton7.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton7.setBorderRadius(40);
-        mGradientButton7.setEndColor(new java.awt.Color(247, 183, 51));
+        mGradientButton7.setEndColor(new java.awt.Color(255, 94, 98));
         mGradientButton7.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
-        mGradientButton7.setStartColor(new java.awt.Color(252, 74, 26));
+        mGradientButton7.setHoverEndColor(new java.awt.Color(233, 129, 77));
+        mGradientButton7.setHoverStartColor(new java.awt.Color(233, 129, 77));
+        mGradientButton7.setStartColor(new java.awt.Color(255, 153, 102));
         mGradientButton7.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
         mGradientButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -466,9 +557,11 @@ public class Dashboard extends javax.swing.JFrame {
         mGradientButton8.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton8.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton8.setBorderRadius(40);
-        mGradientButton8.setEndColor(new java.awt.Color(247, 183, 51));
+        mGradientButton8.setEndColor(new java.awt.Color(240, 80, 83));
         mGradientButton8.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(40f));
-        mGradientButton8.setStartColor(new java.awt.Color(252, 74, 26));
+        mGradientButton8.setHoverEndColor(new java.awt.Color(200, 218, 158));
+        mGradientButton8.setHoverStartColor(new java.awt.Color(200, 218, 158));
+        mGradientButton8.setStartColor(new java.awt.Color(225, 238, 195));
         mGradientButton8.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
         mGradientButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -502,12 +595,57 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        panMenuUser.setBackground(new java.awt.Color(0,0,0,0));
+        panMenuUser.setBorderRadius(35);
+        panMenuUser.setEndColor(new java.awt.Color(73, 91, 109));
+        panMenuUser.setStartColor(new java.awt.Color(92, 110, 127));
+
+        mGradientButton5.setForeground(new java.awt.Color(255, 255, 255));
+        mGradientButton5.setText("EDITAR PERFIL");
+        mGradientButton5.setEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton5.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        mGradientButton5.setHoverEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton5.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        mGradientButton5.setStartColor(new java.awt.Color(92, 110, 127));
+        mGradientButton5.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+
+        mGradientButton6.setForeground(new java.awt.Color(255, 255, 255));
+        mGradientButton6.setText("LOGOUT");
+        mGradientButton6.setEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton6.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        mGradientButton6.setHoverEndColor(new java.awt.Color(81, 102, 122));
+        mGradientButton6.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        mGradientButton6.setStartColor(new java.awt.Color(92, 110, 127));
+        mGradientButton6.setType(com.hq.swingmaterialdesign.materialdesign.MGradientButton.Type.FLAT);
+        mGradientButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGradientButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panMenuUserLayout = new javax.swing.GroupLayout(panMenuUser);
+        panMenuUser.setLayout(panMenuUserLayout);
+        panMenuUserLayout.setHorizontalGroup(
+            panMenuUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mGradientButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+            .addComponent(mGradientButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panMenuUserLayout.setVerticalGroup(
+            panMenuUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuUserLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(mGradientButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(mGradientButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panButtonsGradientLayout = new javax.swing.GroupLayout(panButtonsGradient);
         panButtonsGradient.setLayout(panButtonsGradientLayout);
         panButtonsGradientLayout.setHorizontalGroup(
             panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panButtonsGradientLayout.createSequentialGroup()
-                .addContainerGap(274, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -539,9 +677,11 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(panButtonsGradientLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(mGradientButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(panMenuUser, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -555,43 +695,48 @@ public class Dashboard extends javax.swing.JFrame {
         panButtonsGradientLayout.setVerticalGroup(
             panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panButtonsGradientLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(panMenuUser, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panButtonsGradientLayout.createSequentialGroup()
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                                .addComponent(mGradientButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3))
+                                .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                                        .addComponent(mGradientButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel3))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                                        .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel1))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                                        .addComponent(mGradientButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel2)))
+                                .addGap(38, 38, 38)
+                                .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                                        .addComponent(mGradientButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel6))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                                        .addComponent(mGradientButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                                .addComponent(mGradientButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mGradientButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                                .addComponent(mGradientButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))
-                        .addGap(38, 38, 38)
-                        .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                                .addComponent(mGradientButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                                .addComponent(mGradientButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                        .addComponent(mGradientButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(txtHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDataHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDataHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
 
@@ -654,41 +799,49 @@ public class Dashboard extends javax.swing.JFrame {
     private void toggleHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleHomeActionPerformed
         panButtons.setVisible(false);
         panHome.setVisible(true);
+        mostraMenu(false);
     }//GEN-LAST:event_toggleHomeActionPerformed
 
     private void mGradientButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton4ActionPerformed
         FormCaixa tela = new FormCaixa(this, true);
         tela.setVisible(true);
+        mostraMenu(false);
     }//GEN-LAST:event_mGradientButton4ActionPerformed
 
     private void toggleButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonsActionPerformed
         panButtons.setVisible(true);
         panHome.setVisible(false);
+        mostraMenu(false);
     }//GEN-LAST:event_toggleButtonsActionPerformed
 
     private void mGradientButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton2ActionPerformed
         FormSecretario form = new FormSecretario(this, true);
         form.setVisible(true);
+        mostraMenu(false);
     }//GEN-LAST:event_mGradientButton2ActionPerformed
 
     private void mGradientButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton3ActionPerformed
         FormTreinador form = new FormTreinador(this, true);
         form.setVisible(true);
+        mostraMenu(false);
     }//GEN-LAST:event_mGradientButton3ActionPerformed
 
     private void mGradientButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton1ActionPerformed
         FormAluno form = new FormAluno(this, true);
         form.setVisible(true);
+        mostraMenu(false);
     }//GEN-LAST:event_mGradientButton1ActionPerformed
 
     private void mGradientButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton7ActionPerformed
         FormDespesas form = new FormDespesas(this, true);
         form.setVisible(true);
+        mostraMenu(false);
     }//GEN-LAST:event_mGradientButton7ActionPerformed
 
     private void mGradientButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton8ActionPerformed
         FormPagamento form = new FormPagamento(this, true);
         form.setVisible(true);
+        mostraMenu(false);
     }//GEN-LAST:event_mGradientButton8ActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
@@ -704,15 +857,15 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnExit2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseEntered
-        // TODO add your handling code here:
+        btnExit2.setForeground(new java.awt.Color(50, 60, 69));
     }//GEN-LAST:event_btnExit2MouseEntered
 
     private void btnExit2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseExited
-        // TODO add your handling code here:
+        btnExit2.setForeground(new java.awt.Color(153, 153, 153));
     }//GEN-LAST:event_btnExit2MouseExited
 
     private void btnExit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit2ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnExit2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -734,6 +887,30 @@ public class Dashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void mGradientButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton6ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_mGradientButton6ActionPerformed
+
+    private void mGradientButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mGradientButton10ActionPerformed
+
+    private void panHomeGradientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panHomeGradientMouseClicked
+        mostraMenu(false);
+    }//GEN-LAST:event_panHomeGradientMouseClicked
+
+    private void panChartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panChartMouseClicked
+        mostraMenu(false);
+    }//GEN-LAST:event_panChartMouseClicked
+
+    private void panButtonsGradientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panButtonsGradientMouseClicked
+        mostraMenu(false);
+    }//GEN-LAST:event_panButtonsGradientMouseClicked
+
+    private void profileImagePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseClicked
+        mostraMenu(true);
+    }//GEN-LAST:event_profileImagePanelMouseClicked
+
     private XYDataset createDataset() {
         XYSeriesCollection dataset = new XYSeriesCollection();
 
@@ -749,6 +926,11 @@ public class Dashboard extends javax.swing.JFrame {
         dataset.addSeries(s);
 
         return dataset;
+    }
+    
+    private void mostraMenu(boolean b) {
+        panMenuUser.setVisible(b);
+        panMenuUser1.setVisible(b);
     }
 
     private void renderChart() {
@@ -821,17 +1003,23 @@ public class Dashboard extends javax.swing.JFrame {
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton logo2;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton logo3;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton1;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton10;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton2;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton3;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton4;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton5;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton6;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton7;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton8;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton9;
     private javax.swing.JPanel panButtons;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panButtonsGradient;
     private javax.swing.JPanel panChart;
     private javax.swing.JPanel panGuia;
     private javax.swing.JPanel panHome;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panHomeGradient;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panMenuUser;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panMenuUser1;
     private javax.swing.JPanel panToggle;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel profileImagePanel;
     private javax.swing.JPanel sidePanel;
