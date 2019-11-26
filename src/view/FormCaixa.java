@@ -1097,7 +1097,7 @@ public class FormCaixa extends javax.swing.JDialog {
                 String caminho = new File("src/relatorios/Balanco.jrxml").getAbsolutePath();
                 JasperReport relatorio;
 
-                JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(contCaixa.findAll(), false);
+                JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(contCaixa.findByDatas(txtData1.getText(), txtData2.getText()), false);
                 JasperPrint print;
                 try {
 

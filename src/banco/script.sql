@@ -198,6 +198,6 @@ END$
 DELIMITER ;
 
 
-select * from Aluno;
+select * from Caixa;
 
 select * from Pagamento;
