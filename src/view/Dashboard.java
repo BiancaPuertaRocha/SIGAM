@@ -5,17 +5,17 @@
  */
 package view;
 
+import com.hq.swingmaterialdesign.materialdesign.MGradientPanel;
 import control.ControleCaixa;
 import control.ControleSecretario;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.File;
-import static java.util.Collections.list;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -23,15 +23,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.general.DatasetUtils;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 import util.AtualizadorHorario;
 
 /**
@@ -47,7 +38,17 @@ public class Dashboard extends javax.swing.JFrame {
 
     public Dashboard() {
         initComponents();
-
+        funcionariosAtivos("Juze", null, 0);
+        funcionariosAtivos("Abner", null, 1);
+        funcionariosAtivos("Bianca", null, 2);
+        funcionariosAtivos("Agnaldo", null, 3);
+        funcionariosAtivos("Clodovil", null, 4);
+        funcionariosAtivos("Fulano", null, 5);
+        funcionariosAtivos("dePaula", null, 6);
+        funcionariosAtivos("Pais", null, 7);
+        funcionariosAtivos("eAmor", null, 8);
+        
+        
         AtualizadorHorario ah = new AtualizadorHorario(txtHora, txtDataHora);
         AtualizadorHorario ah2 = new AtualizadorHorario(txtHora1, txtDataHora1);
         ah.mostrarData(true);
@@ -69,8 +70,6 @@ public class Dashboard extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-
-        renderChart();
         toggleHome.select();
         mostraMenu(false);
     }
@@ -99,12 +98,13 @@ public class Dashboard extends javax.swing.JFrame {
         txtHora = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         txtDataHora = new javax.swing.JLabel();
-        panChart = new javax.swing.JPanel();
-        btnExit2 = new com.hq.swingmaterialdesign.materialdesign.MButton();
         jButton1 = new javax.swing.JButton();
         panMenuUser1 = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         mGradientButton9 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         mGradientButton10 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         panButtons = new javax.swing.JPanel();
         panButtonsGradient = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         txtHora1 = new javax.swing.JLabel();
@@ -278,35 +278,6 @@ public class Dashboard extends javax.swing.JFrame {
         txtDataHora.setForeground(new java.awt.Color(255, 255, 255));
         txtDataHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
-        panChart.setBackground(new Color(0,0,0,0));
-        panChart.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panChartMouseClicked(evt);
-            }
-        });
-        panChart.setLayout(new java.awt.BorderLayout());
-
-        btnExit2.setBackground(new java.awt.Color(37, 46, 55));
-        btnExit2.setBorder(null);
-        btnExit2.setForeground(new java.awt.Color(247, 183, 51));
-        btnExit2.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.CLOSE));
-        btnExit2.setBorderRadius(0);
-        btnExit2.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
-        btnExit2.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
-        btnExit2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnExit2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnExit2MouseExited(evt);
-            }
-        });
-        btnExit2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExit2ActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,42 +330,55 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jScrollPane1.setBackground(new Color(0,0,0,0));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jPanel1.setBackground(new Color(0,0,0,0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jScrollPane1.setViewportView(jPanel1);
+
+        jLabel8.setFont(new java.awt.Font("Nunito ExtraBold", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Funcionários na academia");
+
         javax.swing.GroupLayout panHomeGradientLayout = new javax.swing.GroupLayout(panHomeGradient);
         panHomeGradient.setLayout(panHomeGradientLayout);
         panHomeGradientLayout.setHorizontalGroup(
             panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
-                .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panHomeGradientLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(panChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panHomeGradientLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(panMenuUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 472, Short.MAX_VALUE)
-                        .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDataHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(31, 31, 31))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnExit2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(panHomeGradientLayout.createSequentialGroup()
                 .addGap(372, 372, 372)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panHomeGradientLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panHomeGradientLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panHomeGradientLayout.createSequentialGroup()
+                        .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(panHomeGradientLayout.createSequentialGroup()
+                                .addComponent(panMenuUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 466, Short.MAX_VALUE)
+                                .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDataHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(31, 31, 31))))
         );
         panHomeGradientLayout.setVerticalGroup(
             panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panHomeGradientLayout.createSequentialGroup()
-                .addComponent(btnExit2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panChart, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(142, 142, 142)
                 .addGroup(panHomeGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panHomeGradientLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -403,7 +387,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panHomeGradientLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                         .addComponent(panMenuUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
@@ -856,28 +840,16 @@ public class Dashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnExit2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseEntered
-        btnExit2.setForeground(new java.awt.Color(50, 60, 69));
-    }//GEN-LAST:event_btnExit2MouseEntered
-
-    private void btnExit2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseExited
-        btnExit2.setForeground(new java.awt.Color(153, 153, 153));
-    }//GEN-LAST:event_btnExit2MouseExited
-
-    private void btnExit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit2ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnExit2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String caminho = new File("src/relatorios/Balanco.jrxml").getAbsolutePath();
         JasperReport relatorio;
-        
+
         JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(contCaixa.findAll(), false);
         JasperPrint print;
         try {
-    
+
             relatorio = JasperCompileManager.compileReport(caminho);
-            print = JasperFillManager.fillReport(relatorio,null , dados);
+            print = JasperFillManager.fillReport(relatorio, null, dados);
             JasperViewer viw = new JasperViewer(print, false);
             viw.setVisible(true);
         } catch (JRException ex) {
@@ -892,16 +864,12 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_mGradientButton6ActionPerformed
 
     private void mGradientButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton10ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_mGradientButton10ActionPerformed
 
     private void panHomeGradientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panHomeGradientMouseClicked
         mostraMenu(false);
     }//GEN-LAST:event_panHomeGradientMouseClicked
-
-    private void panChartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panChartMouseClicked
-        mostraMenu(false);
-    }//GEN-LAST:event_panChartMouseClicked
 
     private void panButtonsGradientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panButtonsGradientMouseClicked
         mostraMenu(false);
@@ -911,44 +879,74 @@ public class Dashboard extends javax.swing.JFrame {
         mostraMenu(true);
     }//GEN-LAST:event_profileImagePanelMouseClicked
 
-    private XYDataset createDataset() {
-        XYSeriesCollection dataset = new XYSeriesCollection();
-
-        XYSeries s = new XYSeries("Y = X + 2");
-        s.add(2, 4);
-        s.add(8, 10);
-        s.add(10, 12);
-        s.add(13, 15);
-        s.add(17, 19);
-        s.add(18, 20);
-        s.add(21, 23);
-
-        dataset.addSeries(s);
-
-        return dataset;
-    }
-    
     private void mostraMenu(boolean b) {
         panMenuUser.setVisible(b);
         panMenuUser1.setVisible(b);
     }
+    
+    
+    private void imageInPanel(JPanel panel, MGradientPanel image, JLabel label, String nome, byte[] profilePic){
+        panel.setBackground(new Color(0, 0, 0, 0));
 
-    private void renderChart() {
-        XYDataset ds = createDataset();
-        JFreeChart chart = ChartFactory.createXYLineChart("FLUXO MONETÁRIO", "x-axis", "y-axis", ds, PlotOrientation.VERTICAL, true, true, false);
-        chart.setBackgroundPaint(new Color(0, 0, 0, 0));
-        chart.setBorderVisible(false);
-        chart.setBorderPaint(new Color(0, 0, 0, 0));
-        chart.getXYPlot().setBackgroundPaint(new Color(0, 0, 0, 0));
+        image.setBackground(new Color(0, 0, 0, 0));
+        image.setBorderRadius(120);
+        image.setFillBackground(false);
+        image.setFillImage(true);
+        try {
+            ImageIcon im = new ImageIcon(profilePic);
+            image.setImage(im.getImage());
+            image.repaint();
+        } catch (Exception e) {
+        }
 
-        chart.getXYPlot().setDomainGridlinePaint(new Color(0, 0, 0, 0));
-        chart.getXYPlot().setDomainGridlinesVisible(false);
-        chart.getXYPlot().setOutlinePaint(new Color(0, 0, 0, 0));
+        label.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14));
+        label.setForeground(new java.awt.Color(255, 255, 255));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setText(nome);
+        
+        // swing layout spaces
+        
+        javax.swing.GroupLayout ativo1Layout = new javax.swing.GroupLayout(image);
+        image.setLayout(ativo1Layout);
+        ativo1Layout.setHorizontalGroup(
+            ativo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ativo1Layout.setVerticalGroup(
+            ativo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
-        ChartPanel cp = new ChartPanel(chart);
-        cp.setBackground(new Color(0, 0, 0, 0));
-        panChart.add(cp, BorderLayout.CENTER);
-        panChart.validate();
+        javax.swing.GroupLayout panFuncioLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panFuncioLayout);
+        panFuncioLayout.setHorizontalGroup(
+            panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panFuncioLayout.createSequentialGroup()
+                .addGroup(panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panFuncioLayout.setVerticalGroup(
+            panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panFuncioLayout.createSequentialGroup()
+                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label))
+        );
+    }    
+
+    private void funcionariosAtivos(String nome, byte[] profilePic, int index) {
+        JPanel panel = new JPanel();
+        MGradientPanel image = new MGradientPanel();
+        JLabel label = new javax.swing.JLabel();
+        
+        
+        imageInPanel(panel, image, label, nome, profilePic);
+        
+        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(118 * index, 0, -1, -1));
+
+        jScrollPane1.setViewportView(jPanel1);
     }
 
     /**
@@ -989,7 +987,6 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
-    private com.hq.swingmaterialdesign.materialdesign.MButton btnExit2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -997,6 +994,9 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton logo1;
@@ -1014,7 +1014,6 @@ public class Dashboard extends javax.swing.JFrame {
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton mGradientButton9;
     private javax.swing.JPanel panButtons;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panButtonsGradient;
-    private javax.swing.JPanel panChart;
     private javax.swing.JPanel panGuia;
     private javax.swing.JPanel panHome;
     private com.hq.swingmaterialdesign.materialdesign.MGradientPanel panHomeGradient;
