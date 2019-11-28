@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -785,7 +786,7 @@ public class FormCaixa extends javax.swing.JDialog {
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         System.out.println("idjfd");
         if (menuSelection == 0) {
-            
+
             if (ControleCaixa.getCaixa() == null) {
                 menuSelection = 1;
                 p = new Caixa();
@@ -1094,20 +1095,12 @@ public class FormCaixa extends javax.swing.JDialog {
 
             if (!txtData1.getText().equals("  /  /    ") && !txtData2.getText().equals("  /  /    ")) {
                 menuSelection = 3;
-                String caminho = new File("src/relatorios/Balanco.jrxml").getAbsolutePath();
-                JasperReport relatorio;
-
-                JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(contCaixa.findByDatas(txtData1.getText(), txtData2.getText()), false);
-                JasperPrint print;
-                try {
-
-                    relatorio = JasperCompileManager.compileReport(caminho);
-                    print = JasperFillManager.fillReport(relatorio, null, dados);
-                    JasperViewer viw = new JasperViewer(print, false);
-                    viw.setVisible(true);
-                } catch (JRException ex) {
-                    Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                HashMap<String, Object> parametros = new HashMap();
+                parametros.put("logo", "src/view/images/favicon2.png");
+                parametros.put("funcionario", ControleSecretario.getLogado().getNome());
+                parametros.put("data1", txtData1.getText());
+                parametros.put("data2", txtData2.getText());
+                contCaixa.gerarRelatorio(parametros, contCaixa.findByDatas(txtData1.getText(), txtData2.getText()), "src/relatorios/Balanco.jrxml");
 
             } else {
 

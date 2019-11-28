@@ -830,13 +830,11 @@ public class FormDespesas extends javax.swing.JDialog {
                                 dataPanel.setVisible(false);
                                 formPanelPagar.setVisible(true);
                             } else {
-                                
                                 labelWarningData.setText("Despesa já paga");
                                 warningPanelData.setVisible(true);
                                 warningPanelData.setBackground(new Color(255, 51, 51));
                                 btnMessage.setBackground(new Color(255, 51, 51));
                                 voltar();
-                               
                             }
                         }
                     }

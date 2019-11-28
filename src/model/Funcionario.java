@@ -10,6 +10,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -19,6 +21,8 @@ import javax.persistence.Temporal;
 @Table(name="Funcionario")
 @DiscriminatorValue("FUNCIONARIO")
 @DiscriminatorColumn(name="DTYPE",discriminatorType = DiscriminatorType.STRING,length = 20)
+@NamedQueries({
+    @NamedQuery(name = "Funcionario.findByHorario", query = "SELECT c FROM Funcionario c where :horario > c.hrEntrada and :horario < c.hrSaida")})
 public class Funcionario extends Pessoa implements Serializable{
     @Column(name = "salario")
     private Double salario;

@@ -25,7 +25,6 @@ import javax.persistence.Table;
 public class Itemdeatividade implements Serializable {
     @EmbeddedId
     protected ItemdeatividadePK itemdeatividadePK;
-   
    @ManyToOne
    @JoinColumn(referencedColumnName = "codigo", name = "atividade", nullable = false)
     private Atividade atividade;
@@ -40,6 +39,22 @@ public class Itemdeatividade implements Serializable {
     private Integer duracao;
 
     public Itemdeatividade() {
+    }
+
+    public Atividade getAtividade() {
+        return atividade;
+    }
+
+    public void setAtividade(Atividade atividade) {
+        this.atividade = atividade;
+    }
+
+    public Ficha getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(Ficha ficha) {
+        this.ficha = ficha;
     }
 
     public Itemdeatividade(ItemdeatividadePK itemdeatividadePK) {

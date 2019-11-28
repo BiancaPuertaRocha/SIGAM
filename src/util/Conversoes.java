@@ -34,6 +34,7 @@ public class Conversoes {
     public static Date getDateOfTime(String param) {
         SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
+        
         try {
             date.setTime(sdFormat.parse(param).getTime());
         } catch (ParseException ex) {

@@ -33,10 +33,6 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Caixa.findAll", query = "SELECT c FROM Caixa c"),
     @NamedQuery(name = "Caixa.findByCodigo", query = "SELECT c FROM Caixa c WHERE c.codigo = :codigo"),
-    @NamedQuery(name = "Caixa.findByHrFechamento", query = "SELECT c FROM Caixa c WHERE c.hrFechamento = :hrFechamento"),
-    @NamedQuery(name = "Caixa.findBySaldoInicial", query = "SELECT c FROM Caixa c WHERE c.saldoInicial = :saldoInicial"),
-    @NamedQuery(name = "Caixa.findBySaldoFinal", query = "SELECT c FROM Caixa c WHERE c.saldoFinal = :saldoFinal"),
-    @NamedQuery(name = "Caixa.findByEntradas", query = "SELECT c FROM Caixa c WHERE c.entradas = :entradas"),
     @NamedQuery(name = "Caixa.findByData", query = "SELECT c FROM Caixa c WHERE c.data between :data1 and :data2"),
     @NamedQuery(name = "Caixa.findByAbertoFuncionario", query = "SELECT c FROM Caixa c WHERE c.secretario =  :secretario and c.data = :data and c.hrFechamento = null"),
     

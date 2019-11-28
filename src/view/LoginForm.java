@@ -8,6 +8,7 @@ package view;
 import control.ControleCaixa;
 import control.ControlePessoa;
 import control.ControleSecretario;
+import control.ControleTreinador;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -463,8 +464,9 @@ public class LoginForm extends javax.swing.JFrame {
                 loadingPanel.setVisible(true);
                 formPanel.setVisible(false);
                 if (p instanceof Secretario) {
+                    System.out.println(((Secretario) p).getHrEntrada());
                     ControleSecretario.setLogado((Secretario) p);
-                    Dashboard tela = new Dashboard();
+                    DashboardSecretario tela = new DashboardSecretario();
                     tela.setVisible(true);
                     this.dispose();
                     Caixa c = null;
@@ -475,7 +477,10 @@ public class LoginForm extends javax.swing.JFrame {
                     }
                     ControleCaixa.setCaixa(c);
                 } else if (p instanceof Treinador) {
-                    System.out.println("treinador");
+                    ControleTreinador.setLogado((Treinador) p);
+                    DashboardTreinador tela = new DashboardTreinador();
+                    tela.setVisible(true);
+                    this.dispose();
                 } else if (p instanceof Aluno) {
                     System.out.println("aluno");
                 }

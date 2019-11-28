@@ -32,9 +32,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Ficha.findAll", query = "SELECT f FROM Ficha f"),
     @NamedQuery(name = "Ficha.findByCodigo", query = "SELECT f FROM Ficha f WHERE f.codigo = :codigo"),
     @NamedQuery(name = "Ficha.findByPeso", query = "SELECT f FROM Ficha f WHERE f.peso = :peso"),
-    @NamedQuery(name = "Ficha.findByAltura", query = "SELECT f FROM Ficha f WHERE f.altura = :altura"),
+    @NamedQuery(name = "Ficha.findByAlunoLast", query = "SELECT f FROM Ficha f WHERE f.codigo = (select max(c.codigo ) from Ficha c where c.matricula = :aluno)"),
     @NamedQuery(name = "Ficha.findByDataAv", query = "SELECT f FROM Ficha f WHERE f.dataAv = :dataAv"),
     @NamedQuery(name = "Ficha.findByProxAv", query = "SELECT f FROM Ficha f WHERE f.proxAv = :proxAv"),
+    @NamedQuery(name = "Ficha.findByAlunoPeriodo", query = "SELECT f FROM Ficha f WHERE f.matricula = :aluno and f.dataAv between :data1 and :data2")
     })
 public class Ficha implements Serializable {
 
@@ -91,6 +92,14 @@ public class Ficha implements Serializable {
 
     public void setItemdeatividades(List<Itemdeatividade> itemdeatividades) {
         this.itemdeatividades = itemdeatividades;
+    }
+
+    public Aluno getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Aluno matricula) {
+        this.matricula = matricula;
     }
 
     public Ficha() {

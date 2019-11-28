@@ -200,4 +200,4 @@ DELIMITER ;
 
 select * from Caixa;
 
-select * from Pagamento;
+select * from Pessoa;

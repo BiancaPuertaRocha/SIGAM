@@ -566,7 +566,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         }
         boolean flag = false;
         this.repaint();
-        
+
         p.setDataUltima(new Date());
         p.atualizaStatus(true);
         p.setFreqAtFisica(txtAtvidadeFisica.getText());
@@ -575,25 +575,14 @@ public class FormAnamnese extends javax.swing.JDialog {
         p.setColesterol(txtColesterol.getText());
         p.setMedicamentos(txtMedicamentos.getText());
         p.setFumante(radioSim.isSelected());
-     
+
         if (file != null) {
             p.setImagem(imageInByte);
         }
-        if (selecionado == null) {
-            try {
-
-                cp.persist(p);
-
-                limparCampos();
-            } catch (DatabaseException ex) {
-
-            }
-        } else {
-            p.setCodigo(selecionado.getCodigo());
-            cp.alter(p);
-
-            limparCampos();
-        }
+        
+        p.setCodigo(selecionado.getCodigo());
+        cp.alter(p);
+        limparCampos();
 
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
@@ -630,7 +619,7 @@ public class FormAnamnese extends javax.swing.JDialog {
     }//GEN-LAST:event_mGradientButton1ActionPerformed
 
     private void botConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmar1ActionPerformed
-       int linha = tableAlunos.getSelectedRow();
+        int linha = tableAlunos.getSelectedRow();
         int codigo;
 
         if (linha != -1) {
@@ -677,12 +666,11 @@ public class FormAnamnese extends javax.swing.JDialog {
         txtInfSobrepeso.setText(selecionado.getInfSobrepeso());
         txtColesterol.setText(selecionado.getColesterol());
         txtMedicamentos.setText(selecionado.getMedicamentos());
-        if(selecionado.isFumante()){
+        if (selecionado.isFumante()) {
             radioSim.setSelected(true);
-        }else if (!selecionado.isFumante()){
+        } else if (!selecionado.isFumante()) {
             radioNao.setSelected(false);
         }
-       
 
     }
 
