@@ -64,7 +64,7 @@ public class FormCaixa extends javax.swing.JDialog {
                     for (Caixa s : listaPesquisa) {
                         dtm.addRow(new Object[]{s.getCodigo(),
                             s.getSecretario().getNome(),
-                            Conversoes.getDateFormatedToString(s.getData()), Conversoes.getStringOfTime(s.getHrAbertura()) + " - " + (s.getHrFechamento() == null ? " " : Conversoes.getStringOfTime(s.getHrFechamento())),
+                            Conversoes.getDateToString(s.getData()), Conversoes.getTimeToString(s.getHrAbertura()) + " - " + (s.getHrFechamento() == null ? " " : Conversoes.getTimeToString(s.getHrFechamento())),
                             s.getHrFechamento() == null ? "Aberto" : "Fechado"});
                     }
                 } else {
@@ -772,8 +772,8 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_mButton4ActionPerformed
     private void voltar() {
         menuSelection = 0;
-        btnAbrir.unselect();;
-        btnFechar.unselect();;
+        btnAbrir.unselect();
+        btnFechar.unselect();
         btnVisualizar.unselect();
         limparCampos();
         makeAllBlack();
@@ -781,7 +781,10 @@ public class FormCaixa extends javax.swing.JDialog {
         formPanelAbrir.setVisible(false);
         formPanelFechar.setVisible(false);
         btnRelatorio.unselect();
-        atualizaTabela();
+        txtSaldoFinal.setEditable(true);
+        botConfirmarFechamento.setVisible(true);
+        botCancelarFechamento.setText("Cancelar");
+        
     }
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         System.out.println("idjfd");
@@ -790,8 +793,8 @@ public class FormCaixa extends javax.swing.JDialog {
             if (ControleCaixa.getCaixa() == null) {
                 menuSelection = 1;
                 p = new Caixa();
-                labelDataAbertura.setText(Conversoes.getDateFormatedToString(new Date()));
-                labelHorarioAbertura.setText(Conversoes.getStringOfTime(new Date()));
+                labelDataAbertura.setText(Conversoes.getDateToString(new Date()));
+                labelHorarioAbertura.setText(Conversoes.getTimeToString(new Date()));
                 labelFuncionario.setText(ControleSecretario.getLogado().getNome());
                 this.repaint();
                 dataPanel.setVisible(false);
@@ -892,6 +895,7 @@ public class FormCaixa extends javax.swing.JDialog {
         labelFuncionario.setText("");
         labelHorarioAbertura.setText("");
     }
+
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         if (menuSelection == 0) {
             int linha = tableAlunos.getSelectedRow();
@@ -903,9 +907,10 @@ public class FormCaixa extends javax.swing.JDialog {
                     if (tableAlunos.getColumnName(x).equals("Código")) {
                         codigo = (int) tableAlunos.getValueAt(linha, x);
                         selecionado = contCaixa.findByCodigo(codigo);
-                        setCaixa();
+                        setCaixa(selecionado);
                         dataPanel.setVisible(false);
-                        formPanelAbrir.setVisible(true);
+                        formPanelFechar.setVisible(true);
+
                     }
                 }
 
@@ -918,6 +923,7 @@ public class FormCaixa extends javax.swing.JDialog {
                 voltar();
                 //timer
             }
+            
         } else {
             if (menuSelection == 1) {
                 btnAbrir.select();
@@ -984,7 +990,8 @@ public class FormCaixa extends javax.swing.JDialog {
                 dataPanel.setVisible(false);
                 formPanelFechar.setVisible(true);
                 selecionado = ControleCaixa.getCaixa();
-                setCaixa();
+                selecionado = contCaixa.findByCodigo(selecionado.getCodigo());
+                setCaixa(selecionado);
             } else {
                 labelWarningData.setText("Não há caixa aberto");
                 warningPanelData.setVisible(true);
@@ -1091,13 +1098,12 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_txtData2FocusGained
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        if (menuSelection == 0) {
+      
 
             if (!txtData1.getText().equals("  /  /    ") && !txtData2.getText().equals("  /  /    ")) {
-                menuSelection = 3;
+                menuSelection = 4;
                 HashMap<String, Object> parametros = new HashMap();
-                parametros.put("logo", "src/view/images/favicon2.png");
-                parametros.put("funcionario", ControleSecretario.getLogado().getNome());
+                
                 parametros.put("data1", txtData1.getText());
                 parametros.put("data2", txtData2.getText());
                 contCaixa.gerarRelatorio(parametros, contCaixa.findByDatas(txtData1.getText(), txtData2.getText()), "src/relatorios/Balanco.jrxml");
@@ -1108,33 +1114,31 @@ public class FormCaixa extends javax.swing.JDialog {
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
                 warningPanelData.setVisible(true);
-                voltar();
-                //timer
+
             }
-        } else {
-            if (menuSelection == 1) {
-                btnAbrir.select();
-                btnRelatorio.unselect();
-            } else if (menuSelection == 2) {
-                btnFechar.select();
-                btnRelatorio.unselect();
-            } else if (menuSelection == 3) {
-                btnVisualizar.select();
-                btnRelatorio.unselect();
-            }
-        }
+            voltar();
+        
 
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
-    private void setCaixa() {
-        p = ControleCaixa.getCaixa();
-        p = contCaixa.findByCodigo(p.getCodigo());
+    private void setCaixa(Caixa p) {
+        try {
+            txtSaldoFinal.setText(Double.toString(p.getSaldoFinal()));
+
+        } catch (NullPointerException e) {
+
+        }
+        if (menuSelection == 3) {
+            txtSaldoFinal.setEditable(false);
+            botConfirmarFechamento.setVisible(false);
+            botCancelarFechamento.setText("Voltar");
+        }
         labelSaldoInicial.setText(Double.toString(selecionado.getSaldoInicial()));
         labelEntradas.setText(Double.toString(selecionado.getEntradas()));
         labelSaidas.setText(Double.toString(selecionado.getSaidas()));
-        labelHorarioFechamento.setText(Conversoes.getStringOfTime(selecionado.getHrAbertura()) + "-" + Conversoes.getStringOfTime(new Date()));
-        labelHorarioFechamento.setText(Conversoes.getStringOfTime(new Date()));
-        labelDataFechamento.setText(Conversoes.getDateFormatedToString(selecionado.getData()));
+        labelHorarioFechamento.setText(Conversoes.getTimeToString(selecionado.getHrAbertura()) + "-" + Conversoes.getTimeToString(new Date()));
+        labelHorarioFechamento.setText(Conversoes.getTimeToString(new Date()));
+        labelDataFechamento.setText(Conversoes.getDateToString(selecionado.getData()));
         labelFuncionarioFechamento.setText(selecionado.getSecretario().getNome());
         labelFuncionario.setText(selecionado.getSecretario().getNome());
 

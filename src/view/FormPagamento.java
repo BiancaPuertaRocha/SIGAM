@@ -64,7 +64,7 @@ public class FormPagamento extends javax.swing.JDialog {
                     dias = 0;
                     try {
                         ultimo = cpag.findByAlunoLast(s);
-                        data = Conversoes.getDateFormatedToString(ultimo.getDataPag());
+                        data = Conversoes.getDateToString(ultimo.getDataPag());
                         dias = Conversoes.getDaysBetween( ultimo.getValidade(), new Date());
                         if (dias < 0) {
                             dias = 0;
@@ -76,7 +76,7 @@ public class FormPagamento extends javax.swing.JDialog {
                     dtm.addRow(new Object[]{s.getCodigo(),
                         s.getNome(),
                         data,
-                        Integer.toString(dias), ultimo == null ? "-" : Conversoes.getDateFormatedToString(ultimo.getValidade())});
+                        Integer.toString(dias), ultimo == null ? "-" : Conversoes.getDateToString(ultimo.getValidade())});
                 }
 
             }
@@ -734,14 +734,14 @@ public class FormPagamento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMessageActionPerformed
     private void voltar() {
         menuSelection = 0;
-        btnAdicionar.unselect();;
-        btnVisualizar.unselect();;
+        btnAdicionar.unselect();
+        btnVisualizar.unselect();
         limparCampos();
         makeAllBlack();
         dataPanel.setVisible(true);
         formAdicionar.setVisible(false);
         formVisualizar.setVisible(false);
-        atualizaTabela();
+        
     }
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
 
@@ -867,14 +867,14 @@ public class FormPagamento extends javax.swing.JDialog {
         if (menuSelection != 1) {
             try {
                 ultimo = cpag.findByAlunoLast(selecionado);
-                data = Conversoes.getDateFormatedToString(ultimo.getDataPag());
+                data = Conversoes.getDateToString(ultimo.getDataPag());
                 dias = ultimo.getDias() - Conversoes.getDaysBetween(ultimo.getDataPag(), new Date());
                 if (dias < 0) {
                     dias = 0;
                 }
                 labelValorPagoVisu.setText(Double.toString(ultimo.getValor()));
                 labelAlunoVisu.setText(selecionado.getNome());
-                labelDataPagtoVisu.setText(Conversoes.getDateFormatedToString(ultimo.getDataPag()));
+                labelDataPagtoVisu.setText(Conversoes.getDateToString(ultimo.getDataPag()));
                 labelQtdeDiasVisu.setText(Integer.toString(ultimo.getDias()));
                 labelDiasRestantesVisu.setText(Integer.toString(dias));
 

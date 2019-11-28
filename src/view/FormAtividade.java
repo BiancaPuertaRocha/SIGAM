@@ -488,14 +488,14 @@ public class FormAtividade extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     private void voltar() {
         menuSelection = 0;
-        addBtn.unselect();;
-        changeBtn.unselect();;
+        addBtn.unselect();
+        changeBtn.unselect();
         excludeBtn.unselect();
         limparCampos();
         makeAllBlack();
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
-        atualizaTabela();
+        
     }
     private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
         int linha = tableAtividade.getSelectedRow();
@@ -698,6 +698,7 @@ public class FormAtividade extends javax.swing.JDialog {
             if (linha != -1) {
                 menuSelection = 2;
                 int colunas = tableAtividade.getColumnCount();
+                System.out.println(colunas);
                 for (int x = 0; x < colunas; x++) {
                     if (tableAtividade.getColumnName(x).equals("Código")) {
                         codigo = (int) tableAtividade.getValueAt(linha, x);
@@ -717,6 +718,7 @@ public class FormAtividade extends javax.swing.JDialog {
                 voltar();
                 //timer
             }
+            
         } else {
             if (menuSelection == 1) {
                 addBtn.select();

@@ -26,8 +26,15 @@ public class ControleDespesa extends Controle<Despesa>{
     public List<Despesa> findByDatas(String data1, String data2) {
         EntityManager em = getEntityManager();
         TypedQuery<Despesa> consulta = em.createNamedQuery("Despesa.findByDataVencimento", Despesa.class);
-        consulta.setParameter("data1", Conversoes.getDateOfString(data1));
-        consulta.setParameter("data2", Conversoes.getDateOfString(data2));
+        consulta.setParameter("data1", Conversoes.getStringToDate(data1));
+        consulta.setParameter("data2", Conversoes.getStringToDate(data2));
+        return consulta.getResultList();
+    }
+     public List<Despesa> findByDatasNaoPaga(String data1, String data2) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Despesa> consulta = em.createNamedQuery("Despesa.findByDataVencimentoNaoPaga", Despesa.class);
+        consulta.setParameter("data1", Conversoes.getStringToDate(data1));
+        consulta.setParameter("data2", Conversoes.getStringToDate(data2));
         return consulta.getResultList();
     }
      public Despesa findByCodigo(int cod) {

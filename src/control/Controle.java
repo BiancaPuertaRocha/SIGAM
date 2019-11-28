@@ -65,6 +65,8 @@ public abstract class Controle<T> {
         JRBeanCollectionDataSource dados = new JRBeanCollectionDataSource(lista, false);
         JasperPrint print;
         caminho = new File(caminho).getAbsolutePath();
+        parametros.put("logo", "src/view/images/favicon2.png");
+        parametros.put("funcionario", ControleSecretario.getLogado().getNome());
         try {
             relatorio = JasperCompileManager.compileReport(caminho);
             print = JasperFillManager.fillReport(relatorio, parametros, dados);

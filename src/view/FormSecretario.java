@@ -59,7 +59,7 @@ public class FormSecretario extends javax.swing.JDialog {
                 DefaultTableModel dtm = (DefaultTableModel) tableSecretarios.getModel();
                 dtm.setNumRows(0);
                 for (Secretario s : listaPesquisa) {
-                    dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getDepartamento(), Conversoes.getStringOfTime(s.getHrEntrada()) + " - " + Conversoes.getStringOfTime(s.getHrSaida())});
+                    dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getDepartamento(), Conversoes.getTimeToString(s.getHrEntrada()) + " - " + Conversoes.getTimeToString(s.getHrSaida())});
                 }
             }
         }.start();
@@ -160,6 +160,8 @@ public class FormSecretario extends javax.swing.JDialog {
         jSeparator7 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
         labelSalario = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jSeparator9 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -829,104 +831,120 @@ public class FormSecretario extends javax.swing.JDialog {
 
         jLabel3.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel3.setText("Telefone");
-        formPanelVisualizar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, -1, -1));
+        formPanelVisualizar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel4.setText("E-mail");
-        formPanelVisualizar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        formPanelVisualizar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel5.setText("Data Nascimento");
-        formPanelVisualizar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
+        formPanelVisualizar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel6.setText("Rua");
-        formPanelVisualizar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 40, -1));
+        formPanelVisualizar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 40, -1));
 
         jLabel7.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel7.setText("Bairro");
-        formPanelVisualizar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 50, -1));
+        formPanelVisualizar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 50, -1));
 
         jLabel8.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel8.setText("Cidade");
-        formPanelVisualizar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 60, -1));
+        formPanelVisualizar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 60, -1));
 
         jLabel9.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel9.setText("CPF");
-        formPanelVisualizar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
+        formPanelVisualizar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel10.setText("RG");
-        formPanelVisualizar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+        formPanelVisualizar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel12.setText("Login");
-        formPanelVisualizar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
-        formPanelVisualizar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 200, 10));
-        formPanelVisualizar.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 233, 650, 10));
-        formPanelVisualizar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 650, 10));
-        formPanelVisualizar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 650, 10));
-        formPanelVisualizar.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 650, 10));
+        formPanelVisualizar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
+        formPanelVisualizar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 200, 10));
+        formPanelVisualizar.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 650, 10));
+        formPanelVisualizar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 650, 10));
+        formPanelVisualizar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 650, 10));
+        formPanelVisualizar.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 650, 10));
 
+        labelNomeVisu.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelNomeVisu.setText("jLabel13");
-        formPanelVisualizar.add(labelNomeVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 350, -1));
+        formPanelVisualizar.add(labelNomeVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 570, -1));
 
+        labelNasc.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelNasc.setText("jLabel11");
-        formPanelVisualizar.add(labelNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 90, -1));
+        formPanelVisualizar.add(labelNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 200, -1));
 
+        labelEmail.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelEmail.setText("jLabel14");
-        formPanelVisualizar.add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 280, -1));
+        formPanelVisualizar.add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 280, -1));
 
+        labelTelefone.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelTelefone.setText("jLabel15");
-        formPanelVisualizar.add(labelTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 210, -1));
+        formPanelVisualizar.add(labelTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 210, -1));
 
+        labelCidade.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelCidade.setText("jLabel11");
-        formPanelVisualizar.add(labelCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 180, -1));
+        formPanelVisualizar.add(labelCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 180, -1));
 
+        labelBairro.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelBairro.setText("jLabel11");
-        formPanelVisualizar.add(labelBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 130, -1));
+        formPanelVisualizar.add(labelBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 220, -1));
 
+        labelRua.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelRua.setText("jLabel11");
-        formPanelVisualizar.add(labelRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 160, -1));
+        formPanelVisualizar.add(labelRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 310, -1));
 
+        labelRg.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelRg.setText("jLabel11");
-        formPanelVisualizar.add(labelRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 210, -1));
+        formPanelVisualizar.add(labelRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 210, -1));
 
+        labelCpf.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelCpf.setText("jLabel11");
-        formPanelVisualizar.add(labelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 210, -1));
+        formPanelVisualizar.add(labelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, 210, -1));
 
+        labelLogin.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelLogin.setText("jLabel11");
-        formPanelVisualizar.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 150, -1));
-        formPanelVisualizar.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 650, 10));
+        formPanelVisualizar.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 500, 150, -1));
+        formPanelVisualizar.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 650, 10));
 
         jLabel11.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel11.setText("Departamento");
-        formPanelVisualizar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, -1));
+        formPanelVisualizar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel13.setText("Horário entrada");
-        formPanelVisualizar.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+        formPanelVisualizar.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel14.setText("Saída");
-        formPanelVisualizar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
+        formPanelVisualizar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 460, -1, -1));
 
+        labeldepartamento.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labeldepartamento.setText("jLabel15");
-        formPanelVisualizar.add(labeldepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 520, -1));
+        formPanelVisualizar.add(labeldepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 520, -1));
 
+        labelEntrada.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelEntrada.setText("jLabel15");
-        formPanelVisualizar.add(labelEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 410, 120, -1));
+        formPanelVisualizar.add(labelEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 460, 120, -1));
 
+        labelSaida.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelSaida.setText("jLabel15");
-        formPanelVisualizar.add(labelSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 410, 110, -1));
-        formPanelVisualizar.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 650, 10));
+        formPanelVisualizar.add(labelSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 460, 110, -1));
+        formPanelVisualizar.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 650, 10));
 
         jLabel15.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel15.setText("Salário");
-        formPanelVisualizar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, -1, -1));
+        formPanelVisualizar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 460, -1, -1));
 
+        labelSalario.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelSalario.setText("jLabel16");
-        formPanelVisualizar.add(labelSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 410, 160, -1));
+        formPanelVisualizar.add(labelSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, 160, -1));
+        formPanelVisualizar.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 650, 10));
+        formPanelVisualizar.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 650, 10));
 
         cardPanel.add(formPanelVisualizar, "card3");
 
@@ -1037,7 +1055,7 @@ public class FormSecretario extends javax.swing.JDialog {
             dataPanel.setVisible(false);
             formPanel.setVisible(true);
             selecionado = null;
-            txtCpf.setEnabled(true);
+            txtCpf.setEditable(true);
             limparCampos();
         } else {
            if (menuSelection == 4) {
@@ -1067,6 +1085,7 @@ public class FormSecretario extends javax.swing.JDialog {
         limparCampos();
         makeAllBlack();
         dataPanel.setVisible(true);
+        formPanelVisualizar.setVisible(false);
         formPanel.setVisible(false);
     }
     private void botConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botConfirmarActionPerformed
@@ -1185,7 +1204,7 @@ public class FormSecretario extends javax.swing.JDialog {
             message += " As senhas não correspondem";
             flag = true;
         }
-        if (Conversoes.getDateOfTime(txtEntrada.getText()).after(Conversoes.getDateOfTime(txtSaida.getText()))) {
+        if (Conversoes.getStringToTime(txtEntrada.getText()).after(Conversoes.getStringToTime(txtSaida.getText()))) {
             txtSaida.setForeground(errorColor);
             flag = true;
             message += " O horário de entrada deve anteceder o de saída";
@@ -1196,7 +1215,7 @@ public class FormSecretario extends javax.swing.JDialog {
             p.setCidade(txtCidade.getText());
             p.setBairro(txtBairro.getText());
             p.setCpf(txtCpf.getText());
-            p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
+            p.setDataNasc(Conversoes.getStringToDate(txtNascimento.getText()));
             p.setEmail(txtEmail.getText());
             p.setLogin(txtLogin.getText());
             p.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -1204,8 +1223,8 @@ public class FormSecretario extends javax.swing.JDialog {
             p.setSenha(txtSenha.getText());
             p.setTelefone(txtTelefone.getText());
             p.setDepartamento(comboSetor.getSelectedItem().toString());
-            p.setHrEntrada(Conversoes.getDateOfTime(txtEntrada.getText()));
-            p.setHrSaida(Conversoes.getDateOfTime(txtSaida.getText()));
+            p.setHrEntrada(Conversoes.getStringToTime(txtEntrada.getText()));
+            p.setHrSaida(Conversoes.getStringToTime(txtSaida.getText()));
             
             p.setSalario(Double.parseDouble(txtSalario.getText().replace(',', '.')));
             p.setTipo(comboTipo.getSelectedIndex() == 2);
@@ -1318,14 +1337,14 @@ public class FormSecretario extends javax.swing.JDialog {
         labelCidade.setText(selecionado.getCidade() );
         labelRua.setText(selecionado.getRua() + " "+ selecionado.getNumero());
         labelNomeVisu.setText(selecionado.getNome());
-        labelNasc.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
+        labelNasc.setText(Conversoes.getDateToString(selecionado.getDataNasc()));
         labelLogin.setText(selecionado.getLogin());
         labelCpf.setText(selecionado.getCpf());
         labelRg.setText(selecionado.getRg());
         labelEmail.setText(selecionado.getEmail());
         labelTelefone.setText(selecionado.getTelefone());
-        labelEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
-        labelSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
+        labelEntrada.setText(Conversoes.getTimeToString(selecionado.getHrEntrada()));
+        labelSaida.setText(Conversoes.getTimeToString(selecionado.getHrSaida()));
         labeldepartamento.setText(selecionado.getDepartamento());
         labelSalario.setText("R$ "+Double.toString(selecionado.getSalario()));
     }
@@ -1601,9 +1620,9 @@ public class FormSecretario extends javax.swing.JDialog {
         }
         txtNome.setText(selecionado.getNome());
         txtTelefone.setText(selecionado.getTelefone());
-        txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
+        txtNascimento.setText(Conversoes.getDateToString(selecionado.getDataNasc()));
         txtCpf.setText(selecionado.getCpf());
-        txtCpf.setEnabled(false);
+        txtCpf.setEditable(false);
         txtCpf.setBackground(Color.WHITE);
         txtRg.setText(selecionado.getRg());
         txtEmail.setText(selecionado.getEmail());
@@ -1612,8 +1631,8 @@ public class FormSecretario extends javax.swing.JDialog {
         txtRua.setText(selecionado.getRua());
         txtNumero.setText(Integer.toString(selecionado.getNumero()));
         txtLogin.setText(selecionado.getLogin());
-        txtEntrada.setText(Conversoes.getStringOfTime(selecionado.getHrEntrada()));
-        txtSaida.setText(Conversoes.getStringOfTime(selecionado.getHrSaida()));
+        txtEntrada.setText(Conversoes.getTimeToString(selecionado.getHrEntrada()));
+        txtSaida.setText(Conversoes.getTimeToString(selecionado.getHrSaida()));
         txtSalario.setText(Double.toString(selecionado.getSalario()));
         comboSetor.setSelectedItem(selecionado.getDepartamento());
         comboTipo.setSelectedIndex(selecionado.isTipo() ? 1 : 0);
@@ -1718,6 +1737,8 @@ public class FormSecretario extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel labelBairro;
     private javax.swing.JLabel labelCidade;
     private javax.swing.JLabel labelCpf;

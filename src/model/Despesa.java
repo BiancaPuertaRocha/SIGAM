@@ -18,7 +18,9 @@ import javax.persistence.Temporal;
 @Table(name = "Despesa")
 @NamedQueries({
     @NamedQuery(name = "Despesa.findByCodigo", query = "SELECT c FROM Despesa c WHERE c.codigo = :codigo"),
-    @NamedQuery(name = "Despesa.findByDataVencimento", query = "SELECT c FROM Despesa c WHERE c.vencimento between :data1 and :data2")})
+    @NamedQuery(name = "Despesa.findByDataVencimento", query = "SELECT c FROM Despesa c WHERE c.vencimento between :data1 and :data2"),
+    @NamedQuery(name = "Despesa.findByDataVencimentoNaoPaga", query = "SELECT c FROM Despesa c WHERE c.pagamento is null and c.vencimento between :data1 and :data2")})
+
 public class Despesa implements Serializable {
 
     @Id

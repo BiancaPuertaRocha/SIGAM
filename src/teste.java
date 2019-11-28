@@ -20,7 +20,7 @@ public class teste {
     private static ControleSecretario cp = new ControleSecretario();
     private static ControleCaixa cont  =new ControleCaixa();
     public static void main(String[] args) {
-        System.out.println(Conversoes.getDateOfTime("03:00").toString());
+        System.out.println(Conversoes.getStringToTime("03:00").toString());
         Secretario p = new Secretario();
         p.setNome("Abner jose da silva");
         p.setCidade("sao paulo");

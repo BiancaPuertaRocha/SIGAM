@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 
 import model.Despesa;
@@ -56,8 +57,8 @@ public class FormDespesas extends javax.swing.JDialog {
                     for (Despesa s : listaPesquisa) {
                         dtm.addRow(new Object[]{s.getCodigo(),
                             s.getDescricao(),
-                            Conversoes.getDateFormatedToString(s.getVencimento()),
-                            s.getPagamento() != null ? Conversoes.getDateFormatedToString(s.getPagamento()) : "não pago", s.getTipo()});
+                            Conversoes.getDateToString(s.getVencimento()),
+                            s.getPagamento() != null ? Conversoes.getDateToString(s.getPagamento()) : "não pago", s.getTipo()});
                     }
                 } else {
                     warningPanelData.setBackground(new Color(255, 51, 51));
@@ -85,6 +86,7 @@ public class FormDespesas extends javax.swing.JDialog {
         btnAdicionar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         btnVisualizar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         btnPagar = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        btnRelatorio = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
         cardPanel = new javax.swing.JPanel();
         dataPanel = new javax.swing.JPanel();
         warningPanelData = new javax.swing.JPanel();
@@ -209,6 +211,23 @@ public class FormDespesas extends javax.swing.JDialog {
             }
         });
         sidePanel.add(btnPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 230, 50));
+
+        btnRelatorio.setBorder(null);
+        btnRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        btnRelatorio.setText("DESPESAS NÃO PAGAS");
+        btnRelatorio.setEndColor(new java.awt.Color(37, 46, 55));
+        btnRelatorio.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        btnRelatorio.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        btnRelatorio.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        btnRelatorio.setSelectedColor(new java.awt.Color(0, 153, 153));
+        btnRelatorio.setStartColor(new java.awt.Color(37, 46, 55));
+        btnRelatorio.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
+        sidePanel.add(btnRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 230, 50));
 
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 670));
 
@@ -510,6 +529,7 @@ public class FormDespesas extends javax.swing.JDialog {
         formPanelAdicionar.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 230, 60));
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Adicional", "Fixa" }));
+        comboTipo.setAccent(new java.awt.Color(0, 188, 212));
         formPanelAdicionar.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 350, 50));
 
         cardPanel.add(formPanelAdicionar, "card3");
@@ -681,15 +701,16 @@ public class FormDespesas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExitActionPerformed
     private void voltar() {
         menuSelection = 0;
-        btnAdicionar.unselect();;
-        btnPagar.unselect();;
+        btnAdicionar.unselect();
+        btnPagar.unselect();
         btnVisualizar.unselect();
+        btnRelatorio.unselect();
         limparCampos();
         makeAllBlack();
         dataPanel.setVisible(true);
         formPanelAdicionar.setVisible(false);
         formPanelPagar.setVisible(false);
-        atualizaTabela();
+        
     }
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         
@@ -742,14 +763,16 @@ public class FormDespesas extends javax.swing.JDialog {
             int codigo;
             if (linha != -1) {
                 menuSelection = 3;
+                
                 int colunas = tableDespesas.getColumnCount();
+                System.out.println(colunas);
                 for (int x = 0; x < colunas; x++) {
                     if (tableDespesas.getColumnName(x).equals("Código")) {
                         codigo = (int) tableDespesas.getValueAt(linha, x);
                         selecionado = cp.findByCodigo(codigo);
                         setDespesa();
                         dataPanel.setVisible(false);
-                        formPanelAdicionar.setVisible(true);
+                        formPanelPagar.setVisible(true);
                     }
                 }
 
@@ -759,9 +782,10 @@ public class FormDespesas extends javax.swing.JDialog {
                 warningPanelData.setVisible(true);
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
-                voltar();
+               voltar();
                 //timer
             }
+             
         } else {
             if (menuSelection == 1) {
                 btnAdicionar.select();
@@ -948,7 +972,7 @@ public class FormDespesas extends javax.swing.JDialog {
             p.setTipo(comboTipo.getSelectedItem().toString());
             p.setValor(Double.parseDouble(txtValor.getText().replace(',', '.')));
             p.setDescricao(txtDescricao.getText());
-            p.setVencimento(Conversoes.getDateOfString(txtVencimento.getText()));
+            p.setVencimento(Conversoes.getStringToDate(txtVencimento.getText()));
             cp.persist(p);
             message = "Cadastro efetuado com sucesso.";
             warningPanelData.setBackground(new Color(0, 153, 0));
@@ -991,10 +1015,46 @@ public class FormDespesas extends javax.swing.JDialog {
         warningPanelForm.setVisible(false);
     }//GEN-LAST:event_btnErrorActionPerformed
 
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+      
+
+            if (!txtData1.getText().equals("  /  /    ") && !txtData2.getText().equals("  /  /    ")) {
+                menuSelection = 4;
+                HashMap<String, Object> parametros = new HashMap();
+               
+                parametros.put("data1", txtData1.getText());
+                parametros.put("data2", txtData2.getText());
+                cp.gerarRelatorio(parametros, cp.findByDatasNaoPaga(txtData1.getText(), txtData2.getText()), "src/relatorios/Inadimplentes.jrxml");
+
+            } else {
+
+                labelWarningData.setText("Digite um período de datas.");
+                warningPanelData.setBackground(new Color(255, 51, 51));
+                btnMessage.setBackground(new Color(255, 51, 51));
+                warningPanelData.setVisible(true);
+
+            }
+            voltar();
+    
+           
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
     private void setDespesa() {
+        if(menuSelection==3){
+            botConfirmarFechamento.setVisible(false);
+            botCancelarFechamento.setText("Voltar");
+            if(selecionado.getPagamento()!=null)
+                labelDataPagamento.setText(Conversoes.getDateToString(selecionado.getPagamento()));
+            else 
+                  labelDataPagamento.setText("-");
+            
+        }else{
+            botConfirmarFechamento.setVisible(true);
+            botCancelarFechamento.setText("Cancelar");
+              labelDataPagamento.setText(Conversoes.getDateToString(new Date()));
+        }
         labelValor.setText(Double.toString(selecionado.getValor()));
-        labelDataVencimento.setText(Conversoes.getDateFormatedToString(selecionado.getVencimento()));
-        labelDataPagamento.setText(Conversoes.getDateFormatedToString(new Date()));
+        labelDataVencimento.setText(Conversoes.getDateToString(selecionado.getVencimento()));
         labelDescricao.setText(selecionado.getDescricao());
 
     }
@@ -1053,6 +1113,7 @@ public class FormDespesas extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnPagar;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnRelatorio;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnVisualizar;
     private javax.swing.JPanel cardPanel;
     private com.hq.swingmaterialdesign.materialdesign.MComboBox comboTipo;

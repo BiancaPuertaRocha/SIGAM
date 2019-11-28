@@ -54,7 +54,7 @@ public class FormAnamnese extends javax.swing.JDialog {
             if (s.getDataUltima() == null) {
                 ultima = "Não há";
             } else {
-                ultima = Conversoes.getDateFormatedToString(s.getDataUltima());
+                ultima = Conversoes.getDateToString(s.getDataUltima());
             }
             dtm.addRow(new Object[]{s.getCodigo(), s.getNome(), s.getTelefone(), ultima});
         }
@@ -587,7 +587,7 @@ public class FormAnamnese extends javax.swing.JDialog {
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         warningPanelData.setVisible(true);
-        atualizaTabela();
+      
 
     }//GEN-LAST:event_botConfirmarActionPerformed
 

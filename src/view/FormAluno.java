@@ -149,6 +149,8 @@ public class FormAluno extends javax.swing.JDialog {
         labelCpf = new javax.swing.JLabel();
         labelLogin = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -773,66 +775,78 @@ public class FormAluno extends javax.swing.JDialog {
 
         jLabel5.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel5.setText("Data Nascimento");
-        formPanelVisualizar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
+        formPanelVisualizar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel6.setText("Rua");
-        formPanelVisualizar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 40, -1));
+        formPanelVisualizar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 40, -1));
 
         jLabel7.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel7.setText("Bairro");
-        formPanelVisualizar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 50, -1));
+        formPanelVisualizar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 50, -1));
 
         jLabel8.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel8.setText("Cidade");
-        formPanelVisualizar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 60, -1));
+        formPanelVisualizar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 60, -1));
 
         jLabel9.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel9.setText("CPF");
-        formPanelVisualizar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
+        formPanelVisualizar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel10.setText("RG");
-        formPanelVisualizar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+        formPanelVisualizar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Noto Sans", 1, 16)); // NOI18N
         jLabel12.setText("Login");
         formPanelVisualizar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
         formPanelVisualizar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 200, 10));
         formPanelVisualizar.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 233, 650, 10));
-        formPanelVisualizar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 650, 10));
-        formPanelVisualizar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 650, 10));
+        formPanelVisualizar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 650, 10));
+        formPanelVisualizar.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 650, 10));
 
+        labelNomeVisu.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelNomeVisu.setText("jLabel13");
         formPanelVisualizar.add(labelNomeVisu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 350, -1));
 
+        labelNasc.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelNasc.setText("jLabel11");
-        formPanelVisualizar.add(labelNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 90, -1));
+        formPanelVisualizar.add(labelNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 200, -1));
 
+        labelEmail.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelEmail.setText("jLabel14");
         formPanelVisualizar.add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 280, -1));
 
+        labelTelefone.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelTelefone.setText("jLabel15");
         formPanelVisualizar.add(labelTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 210, -1));
 
+        labelCidade.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelCidade.setText("jLabel11");
-        formPanelVisualizar.add(labelCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 180, -1));
+        formPanelVisualizar.add(labelCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 180, -1));
 
+        labelBairro.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelBairro.setText("jLabel11");
-        formPanelVisualizar.add(labelBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 130, -1));
+        formPanelVisualizar.add(labelBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 240, -1));
 
+        labelRua.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelRua.setText("jLabel11");
-        formPanelVisualizar.add(labelRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 160, -1));
+        formPanelVisualizar.add(labelRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 290, -1));
 
+        labelRg.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelRg.setText("jLabel11");
-        formPanelVisualizar.add(labelRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 210, -1));
+        formPanelVisualizar.add(labelRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 210, -1));
 
+        labelCpf.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelCpf.setText("jLabel11");
-        formPanelVisualizar.add(labelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 210, -1));
+        formPanelVisualizar.add(labelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 410, 210, -1));
 
+        labelLogin.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         labelLogin.setText("jLabel11");
         formPanelVisualizar.add(labelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, 150, -1));
-        formPanelVisualizar.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 650, 10));
+        formPanelVisualizar.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 650, 10));
+        formPanelVisualizar.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 650, 10));
+        formPanelVisualizar.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 650, 10));
 
         cardPanel.add(formPanelVisualizar, "card3");
 
@@ -853,8 +867,8 @@ public class FormAluno extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     private void voltar() {
          menuSelection = 0;
-        addBtn.unselect();;
-        changeBtn.unselect();;
+        addBtn.unselect();
+        changeBtn.unselect();
         excludeBtn.unselect();
         btnVisualizar.unselect();
         limparCampos();
@@ -862,7 +876,7 @@ public class FormAluno extends javax.swing.JDialog {
         dataPanel.setVisible(true);
         formPanel.setVisible(false);
         formPanelVisualizar.setVisible(false);
-        atualizaTabela();
+      
     }
     private void excludeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excludeBtnActionPerformed
         int linha = tableAlunos.getSelectedRow();
@@ -956,7 +970,7 @@ public class FormAluno extends javax.swing.JDialog {
             dataPanel.setVisible(false);
             formPanel.setVisible(true);
             selecionado = null;
-            txtCpf.setEnabled(true);
+            txtCpf.setEditable(true);
             limparCampos();
         } else {
             if (menuSelection == 4) {
@@ -1076,7 +1090,7 @@ public class FormAluno extends javax.swing.JDialog {
             p.setCidade(txtCidade.getText());
             p.setBairro(txtBairro.getText());
             p.setCpf(txtCpf.getText());
-            p.setDataNasc(Conversoes.getDateOfString(txtNascimento.getText()));
+            p.setDataNasc(Conversoes.getStringToDate(txtNascimento.getText()));
             p.setEmail(txtEmail.getText());
             p.setLogin(txtLogin.getText());
             p.setNumero(Integer.parseInt(txtNumero.getText()));
@@ -1417,7 +1431,7 @@ public class FormAluno extends javax.swing.JDialog {
         labelCidade.setText(selecionado.getCidade() );
         labelRua.setText(selecionado.getRua() + " "+ selecionado.getNumero());
         labelNomeVisu.setText(selecionado.getNome());
-        labelNasc.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
+        labelNasc.setText(Conversoes.getDateToString(selecionado.getDataNasc()));
         labelLogin.setText(selecionado.getLogin());
         labelCpf.setText(selecionado.getCpf());
         labelRg.setText(selecionado.getRg());
@@ -1433,9 +1447,9 @@ public class FormAluno extends javax.swing.JDialog {
         }
         txtNome.setText(selecionado.getNome());
         txtTelefone.setText(selecionado.getTelefone());
-        txtNascimento.setText(Conversoes.getDateFormatedToString(selecionado.getDataNasc()));
+        txtNascimento.setText(Conversoes.getDateToString(selecionado.getDataNasc()));
         txtCpf.setText(selecionado.getCpf());
-        txtCpf.setEnabled(false);
+        txtCpf.setEditable(false);
         txtCpf.setBackground(Color.WHITE);
         txtRg.setText(selecionado.getRg());
         txtEmail.setText(selecionado.getEmail());
@@ -1523,7 +1537,9 @@ public class FormAluno extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JLabel labelBairro;
     private javax.swing.JLabel labelCidade;
     private javax.swing.JLabel labelCpf;
