@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,6 +43,7 @@ public class Ficha implements Serializable {
 
    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo")
     private Integer codigo;
@@ -80,7 +83,7 @@ public class Ficha implements Serializable {
     @Column(name = "panturrilhaDir")
     private Double panturrilhaDir;
     @ManyToOne
-   @JoinColumn(referencedColumnName = "codigo", name = "matricula", nullable = false)
+    @JoinColumn(referencedColumnName = "codigo", name = "matricula", nullable = false)
     private Aluno matricula;
     
     @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL)
