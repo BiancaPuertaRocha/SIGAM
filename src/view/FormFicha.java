@@ -10,15 +10,19 @@ import control.ControleAluno;
 import control.ControleAtividade;
 import control.ControleCaixa;
 import control.ControleFicha;
+import control.ControleItemDeAtividade;
 import control.ControleSecretario;
+import control.ControleTreinador;
 import java.awt.Color;
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import javax.persistence.NoResultException;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Aluno;
 import model.Atividade;
@@ -60,6 +64,7 @@ public class FormFicha extends javax.swing.JDialog {
             public void run() {
                 listaPesquisa.clear();
                 String ultima = "-";
+                String trein = "-";
                 String proxima = "-";
 
                 listaPesquisa.addAll(contAluno.findByNome(txtPesquisa.getText()));
@@ -70,12 +75,13 @@ public class FormFicha extends javax.swing.JDialog {
                     try {
                         ultima = Conversoes.getDateToString(contFicha.findByAlunoLast(s).getDataAv());
                         proxima = Conversoes.getDateToString(contFicha.findByAlunoLast(s).getProxAv());
-                    } catch (NoResultException e) {
+                        trein = contFicha.findByAlunoLast(s).getTreinador().getNome();
+                    } catch (Exception e) {
 
                     }
                     dtm.addRow(new Object[]{s.getCodigo(),
                         s.getNome(),
-                        ultima, proxima, s.getDataUltima() == null ? "-" : Conversoes.getDateToString(s.getDataUltima())});
+                        ultima, proxima, s.getDataUltima() == null ? "-" : Conversoes.getDateToString(s.getDataUltima()), trein});
                 }
 
             }
@@ -152,6 +158,7 @@ public class FormFicha extends javax.swing.JDialog {
         txtSeries = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtRepeticoes = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         botPesqAtividade = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        botRemAtiv1 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         jPanel4 = new javax.swing.JPanel();
         txtPanturrilhaEsq = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
         txtAltura = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
@@ -432,11 +439,11 @@ public class FormFicha extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Nome", "Ultima Ficha", "Próxima Ficha", "Ultima Anamnese"
+                "Código", "Nome", "Ultima Ficha", "Próxima Ficha", "Ultima Anamnese", "Treinador"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -454,6 +461,7 @@ public class FormFicha extends javax.swing.JDialog {
             tableAlunos.getColumnModel().getColumn(2).setResizable(false);
             tableAlunos.getColumnModel().getColumn(3).setResizable(false);
             tableAlunos.getColumnModel().getColumn(4).setResizable(false);
+            tableAlunos.getColumnModel().getColumn(5).setResizable(false);
         }
         tableAlunos.getTableHeader().setFont(new java.awt.Font("Nunito Bold", 0, 14));
 
@@ -623,7 +631,7 @@ public class FormFicha extends javax.swing.JDialog {
         txtPesquisaAtividade.setLabel("Pesquisar Atividade");
 
         botAddAtiv.setForeground(new java.awt.Color(50, 60, 69));
-        botAddAtiv.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.SEARCH));
+        botAddAtiv.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ADD));
         botAddAtiv.setBorderRadius(58);
         botAddAtiv.setEndColor(java.awt.Color.lightGray);
         botAddAtiv.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(26f));
@@ -714,6 +722,28 @@ public class FormFicha extends javax.swing.JDialog {
             }
         });
 
+        botRemAtiv1.setForeground(new java.awt.Color(50, 60, 69));
+        botRemAtiv1.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.REMOVE));
+        botRemAtiv1.setBorderRadius(58);
+        botRemAtiv1.setEndColor(java.awt.Color.lightGray);
+        botRemAtiv1.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(26f));
+        botRemAtiv1.setHoverEndColor(java.awt.Color.white);
+        botRemAtiv1.setHoverStartColor(java.awt.Color.lightGray);
+        botRemAtiv1.setStartColor(new java.awt.Color(255, 255, 255));
+        botRemAtiv1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botRemAtiv1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botRemAtiv1MouseExited(evt);
+            }
+        });
+        botRemAtiv1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botRemAtiv1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -721,20 +751,24 @@ public class FormFicha extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtPesquisaAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botPesqAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRepeticoes, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botAddAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtPesquisaAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botPesqAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRepeticoes, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botAddAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(botRemAtiv1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -751,11 +785,12 @@ public class FormFicha extends javax.swing.JDialog {
                     .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRepeticoes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botAddAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botAddAtiv, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botRemAtiv1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        formPanelAbrir.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 480, 310));
+        formPanelAbrir.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 500, 310));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -992,24 +1027,53 @@ public class FormFicha extends javax.swing.JDialog {
         this.repaint();
 
         if (!flag) {
-            
-            ficha.setAbdomen(Double.parseDouble(txtAbdomen.getText().replace(',', '.')));
-            ficha.setAltura(Double.parseDouble(txtAltura.getText().replace(',', '.')));
-            ficha.setAntebracoDir(Double.parseDouble(txtAntebracoDir.getText().replace(',', '.')));
-            ficha.setAntebracoEsq(Double.parseDouble(txtAntebracoEsq.getText().replace(',', '.')));
-            ficha.setBicepsDir(Double.parseDouble(txtBicepsDir.getText().replace(',', '.')));
-            ficha.setBicepsEsq(Double.parseDouble(txtBicepsEsq.getText().replace(',', '.')));
-            ficha.setCintura(Double.parseDouble(txtCintura.getText().replace(',', '.')));
-            ficha.setCoxaDir(Double.parseDouble(txtCoxaDir.getText().replace(',', '.')));
-            ficha.setCoxaEsq(Double.parseDouble(txtCoxaEsq.getText().replace(',', '.')));
+            if (!txtAbdomen.getText().equals("")) {
+                ficha.setAbdomen(Double.parseDouble(txtAbdomen.getText().replace(',', '.')));
+            }
+            if (!txtAltura.getText().equals("")) {
+                ficha.setAltura(Double.parseDouble(txtAltura.getText().replace(',', '.')));
+            }
+            if (!txtAntebracoDir.getText().equals("")) {
+                ficha.setAntebracoDir(Double.parseDouble(txtAntebracoDir.getText().replace(',', '.')));
+            }
+            if (!txtAntebracoEsq.getText().equals("")) {
+                ficha.setAntebracoEsq(Double.parseDouble(txtAntebracoEsq.getText().replace(',', '.')));
+            }
+            if (!txtBicepsDir.getText().equals("")) {
+                ficha.setBicepsDir(Double.parseDouble(txtBicepsDir.getText().replace(',', '.')));
+            }
+            if (!txtBicepsEsq.getText().equals("")) {
+                ficha.setBicepsEsq(Double.parseDouble(txtBicepsEsq.getText().replace(',', '.')));
+            }
+            if (!txtCintura.getText().equals("")) {
+                ficha.setCintura(Double.parseDouble(txtCintura.getText().replace(',', '.')));
+            }
+            if (!txtCoxaDir.getText().equals("")) {
+                ficha.setCoxaDir(Double.parseDouble(txtCoxaDir.getText().replace(',', '.')));
+            }
+            if (!txtCoxaEsq.getText().equals("")) {
+                ficha.setCoxaEsq(Double.parseDouble(txtCoxaEsq.getText().replace(',', '.')));
+            }
             ficha.setDataAv(new Date());
             ficha.setItemdeatividades(listaItens);
             ficha.setMatricula(selecionado);
-            ficha.setPanturrilhaDir(Double.parseDouble(txtPanturrilhaDir.getText().replace(',', '.')));
-            ficha.setPanturrilhaEsq(Double.parseDouble(txtPanturrilhaEsq.getText().replace(',', '.')));
-            ficha.setPeso(Double.parseDouble(txtPeso.getText().replace(',', '.')));
-            ficha.setQuadril(Double.parseDouble(txtQuadril.getText().replace(',', '.')));
-            ficha.setProxAv(Conversoes.getStringToDate(txtProximaAv.getText()));
+            System.out.println(ControleTreinador.getLogado().getNome());
+            ficha.setTreinador(ControleTreinador.getLogado());
+            if (!txtPanturrilhaDir.getText().equals("")) {
+                ficha.setPanturrilhaDir(Double.parseDouble(txtPanturrilhaDir.getText().replace(',', '.')));
+            }
+            if (!txtPanturrilhaEsq.getText().equals("")) {
+                ficha.setPanturrilhaEsq(Double.parseDouble(txtPanturrilhaEsq.getText().replace(',', '.')));
+            }
+            if (!txtAltura.getText().equals("")) {
+                ficha.setPeso(Double.parseDouble(txtPeso.getText().replace(',', '.')));
+            }
+            if (!txtQuadril.getText().equals("")) {
+                ficha.setQuadril(Double.parseDouble(txtQuadril.getText().replace(',', '.')));
+            }
+            if (!txtProximaAv.getText().equals("")) {
+                ficha.setProxAv(Conversoes.getStringToDate(txtProximaAv.getText()));
+            }
 
             contFicha.persist(ficha);
             message = "Cadastro efetuado com sucesso.";
@@ -1035,7 +1099,7 @@ public class FormFicha extends javax.swing.JDialog {
     }
 
     private void limparCampos() {
-     
+
         txtPeso.setValue(null);
         txtAbdomen.setValue(null);
         txtAltura.setValue(null);
@@ -1065,6 +1129,16 @@ public class FormFicha extends javax.swing.JDialog {
                 if (tableAlunos.getColumnName(x).equals("Código")) {
                     codigo = (int) tableAlunos.getValueAt(linha, x);
                     selecionado = contAluno.findByCodigo(codigo);
+                    HashMap<String, Object> parametros = new HashMap();
+                    parametros.put("data1", txtData1.getText());
+                    parametros.put("data2", txtData2.getText());
+                    List<Ficha> lista = new ArrayList<Ficha>();
+                   try{
+                        lista.add(contFicha.findByAlunoLast(selecionado));
+                        contFicha.gerarRelatorio(parametros, lista, "src/relatorios/FichaDeTreino.jrxml");
+                   }catch(NoResultException e){
+                       JOptionPane.showMessageDialog(this, "Não há Ficha");
+                   }
 
                 }
             }
@@ -1148,6 +1222,16 @@ public class FormFicha extends javax.swing.JDialog {
                     if (tableAlunos.getColumnName(x).equals("Código")) {
                         codigo = (int) tableAlunos.getValueAt(linha, x);
                         selecionado = contAluno.findByCodigo(codigo);
+                        HashMap<String, Object> parametros = new HashMap();
+                        parametros.put("data1", txtData1.getText());
+                        parametros.put("data2", txtData2.getText());
+                        List<Ficha> lista = new ArrayList<Ficha>();
+                        try {
+                            lista.addAll(contFicha.findByAlunoPeriodo(selecionado, Conversoes.getStringToDate(txtData1.getText()),  Conversoes.getStringToDate(txtData2.getText())));
+                            contFicha.gerarRelatorio(parametros, lista, "src/relatorios/FichaDeTreino.jrxml");
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(this, "Relatório nao contém páginas.");
+                        }
 
                     }
                 }
@@ -1219,10 +1303,22 @@ public class FormFicha extends javax.swing.JDialog {
                     if (tableAtividades.getColumnName(x).equals("Código")) {
                         codigo = (int) tableAtividades.getValueAt(linha, x);
                         a = contAti.findByCodigo(codigo);
-                        it.setFicha(ficha);
-                        it.setAtividade(a);
-                        listaItens.add(it);
-                        atualizaTabelaItens();
+                        for (Itemdeatividade ita : listaItens) {
+                            if (ita.getAtividade().equals(a)) {
+                                flag = false;
+                            }
+                        }
+                        if (flag == true) {
+                            it.setFicha(ficha);
+                            it.setAtividade(a);
+                            listaItens.add(it);
+                            atualizaTabelaItens();
+                        } else {
+                            labelWarningForm.setText("Atividade já adicionada!");
+                            warningPanelForm.setBackground(new Color(255, 51, 51));
+                            btnError.setBackground(new Color(255, 51, 51));
+                            warningPanelForm.setVisible(true);
+                        }
                     }
                 }
             }
@@ -1247,17 +1343,18 @@ public class FormFicha extends javax.swing.JDialog {
     private void botPesqAtividadeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botPesqAtividadeMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_botPesqAtividadeMouseExited
-      private void atualizaTabelaItens() {
+    private void atualizaTabelaItens() {
 
-                DefaultTableModel dtm = (DefaultTableModel) tabelItens.getModel();
-                dtm.setNumRows(0);
-                for (Itemdeatividade s : listaItens) {
-                    dtm.addRow(new Object[]{s.getAtividade().getDescricao(), s.getSeries()==null?"-": s.getSeries(),
-                    s.getRepeticoes()==null?"-": s.getRepeticoes(),
-                    s.getDuracao()==null?"-": s.getDuracao()});
-                }
- 
+        DefaultTableModel dtm = (DefaultTableModel) tabelItens.getModel();
+        dtm.setNumRows(0);
+        for (Itemdeatividade s : listaItens) {
+            dtm.addRow(new Object[]{s.getAtividade().getDescricao(), s.getSeries() == null ? "-" : s.getSeries(),
+                s.getRepeticoes() == null ? "-" : s.getRepeticoes(),
+                s.getDuracao() == null ? "-" : s.getDuracao()});
+        }
+
     }
+
     private void atualizaTabelaAtividade() {
         new Thread() {
             @Override
@@ -1282,11 +1379,11 @@ public class FormFicha extends javax.swing.JDialog {
     }//GEN-LAST:event_txtAbdomenFocusLost
 
     private void txtSeriesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSeriesFocusLost
-       limpa(txtSeries);
+        limpa(txtSeries);
     }//GEN-LAST:event_txtSeriesFocusLost
 
     private void txtRepeticoesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRepeticoesFocusLost
-       limpa(txtRepeticoes);
+        limpa(txtRepeticoes);
     }//GEN-LAST:event_txtRepeticoesFocusLost
 
     private void txtDuracaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDuracaoFocusLost
@@ -1294,7 +1391,7 @@ public class FormFicha extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDuracaoFocusLost
 
     private void txtCinturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCinturaFocusLost
-       limpa(txtCintura);
+        limpa(txtCintura);
     }//GEN-LAST:event_txtCinturaFocusLost
 
     private void txtQuadrilFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuadrilFocusGained
@@ -1310,19 +1407,19 @@ public class FormFicha extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBicepsEsqFocusLost
 
     private void txtAntebracoEsqFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAntebracoEsqFocusLost
-       limpa(txtAntebracoEsq);
+        limpa(txtAntebracoEsq);
     }//GEN-LAST:event_txtAntebracoEsqFocusLost
 
     private void txtCoxaEsqFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCoxaEsqFocusLost
-      limpa(txtCoxaEsq);
+        limpa(txtCoxaEsq);
     }//GEN-LAST:event_txtCoxaEsqFocusLost
 
     private void txtPanturrilhaEsqFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPanturrilhaEsqFocusLost
-      limpa(txtPanturrilhaEsq);
+        limpa(txtPanturrilhaEsq);
     }//GEN-LAST:event_txtPanturrilhaEsqFocusLost
 
     private void txtBicepsDirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBicepsDirFocusLost
-         limpa(txtBicepsDir);
+        limpa(txtBicepsDir);
     }//GEN-LAST:event_txtBicepsDirFocusLost
 
     private void txtAntebracoDirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAntebracoDirFocusLost
@@ -1334,13 +1431,59 @@ public class FormFicha extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCoxaDirFocusLost
 
     private void txtPanturrilhaDirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPanturrilhaDirFocusLost
-         limpa(txtCoxaDir);
+        limpa(txtCoxaDir);
     }//GEN-LAST:event_txtPanturrilhaDirFocusLost
-    private void limpa(MFormattedTextField f){
-        if(f.getText().equals("")){
+
+    private void botRemAtiv1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botRemAtiv1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botRemAtiv1MouseEntered
+
+    private void botRemAtiv1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botRemAtiv1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botRemAtiv1MouseExited
+
+    private void botRemAtiv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botRemAtiv1ActionPerformed
+        boolean flag = false;
+        Itemdeatividade it = null;
+        int linha = tableAtividades.getSelectedRow();
+        int codigo;
+        if (linha != -1) {
+
+            Atividade a;
+            int colunas = tableAtividades.getColumnCount();
+            for (int x = 0; x < colunas; x++) {
+                if (tableAtividades.getColumnName(x).equals("Código")) {
+                    codigo = (int) tableAtividades.getValueAt(linha, x);
+                    a = contAti.findByCodigo(codigo);
+                    for (Itemdeatividade ita : listaItens) {
+                        if (ita.getAtividade().equals(a)) {
+                            it = ita;
+                        }
+                    }
+                    if (it != null) {
+                        listaItens.remove(it);
+                        atualizaTabelaItens();
+                    }
+
+                }
+            }
+
+        } else {
+
+            labelWarningForm.setText("Selecione uma atividade.");
+            warningPanelForm.setBackground(new Color(255, 51, 51));
+            btnError.setBackground(new Color(255, 51, 51));
+            warningPanelForm.setVisible(true);
+
+            //timer
+        }
+    }//GEN-LAST:event_botRemAtiv1ActionPerformed
+    private void limpa(MFormattedTextField f) {
+        if (f.getText().equals("")) {
             f.setValue(null);
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -1389,6 +1532,7 @@ public class FormFicha extends javax.swing.JDialog {
     private com.hq.swingmaterialdesign.materialdesign.MButton botCancelar;
     private com.hq.swingmaterialdesign.materialdesign.MButton botConfirmar;
     private com.hq.swingmaterialdesign.materialdesign.MGradientButton botPesqAtividade;
+    private com.hq.swingmaterialdesign.materialdesign.MGradientButton botRemAtiv1;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnError;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnMessage;

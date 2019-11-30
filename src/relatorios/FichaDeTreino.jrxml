@@ -63,22 +63,10 @@
 	<field name="matricula" class="model.Aluno">
 		<fieldDescription><![CDATA[matricula]]></fieldDescription>
 	</field>
-	<field name="atividade" class="model.Atividade">
-		<fieldDescription><![CDATA[atividade]]></fieldDescription>
-	</field>
-	<field name="repeticoes" class="java.lang.Integer">
-		<fieldDescription><![CDATA[repeticoes]]></fieldDescription>
-	</field>
-	<field name="series" class="java.lang.Integer">
-		<fieldDescription><![CDATA[series]]></fieldDescription>
-	</field>
-	<field name="duracao" class="java.lang.Integer">
-		<fieldDescription><![CDATA[duracao]]></fieldDescription>
-	</field>
 	<group name="ficha">
 		<groupExpression><![CDATA[$F{codigo}]]></groupExpression>
 		<groupHeader>
-			<band height="281">
+			<band height="220">
 				<rectangle>
 					<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="555" height="30" backcolor="#FFD8AB" uuid="bd493c02-0618-49d4-baab-755b1bb34b7d"/>
 					<graphicElement>
@@ -107,7 +95,7 @@
 					<text><![CDATA[Direita]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="332" y="70" width="100" height="30" uuid="c554429f-04d9-4380-92c0-35ea33502d13"/>
+					<reportElement x="340" y="70" width="92" height="30" uuid="c554429f-04d9-4380-92c0-35ea33502d13"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="16" isBold="true"/>
 					</textElement>
@@ -135,14 +123,14 @@
 					<textFieldExpression><![CDATA[$F{bicepsDir}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="332" y="100" width="100" height="30" uuid="54ef38db-e501-4257-8c8d-40945ece5400"/>
+					<reportElement x="340" y="100" width="92" height="30" uuid="54ef38db-e501-4257-8c8d-40945ece5400"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{coxaEsq}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="332" y="160" width="100" height="30" uuid="04b7ceac-467e-4801-8cda-b6b0f3bbdccd"/>
+					<reportElement x="340" y="160" width="92" height="30" uuid="04b7ceac-467e-4801-8cda-b6b0f3bbdccd"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
@@ -156,7 +144,7 @@
 					<textFieldExpression><![CDATA[$F{antebracoDir}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="332" y="190" width="100" height="30" uuid="eca925c7-a455-4150-baa3-f44f4e8a9f51"/>
+					<reportElement x="340" y="190" width="92" height="30" uuid="eca925c7-a455-4150-baa3-f44f4e8a9f51"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
@@ -170,7 +158,7 @@
 					<textFieldExpression><![CDATA[$F{panturrilhaDir}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="332" y="130" width="100" height="30" uuid="63633b47-fc42-4d67-ad1d-aa336cfd8db6"/>
+					<reportElement x="340" y="130" width="92" height="30" uuid="63633b47-fc42-4d67-ad1d-aa336cfd8db6"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
@@ -288,73 +276,6 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{quadril}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="206" y="230" width="142" height="30" uuid="00fc7250-23e5-4b0c-8271-83b237144f4b"/>
-					<textElement verticalAlignment="Middle">
-						<font size="23"/>
-					</textElement>
-					<text><![CDATA[ATIVIDADES]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="0" y="260" width="140" height="21" uuid="16e15173-dfbd-4c77-98f5-9034f78fa963">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad88fb09-e654-4fd4-913c-6baea672a952"/>
-					</reportElement>
-					<box>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="11" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Atividade]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="332" y="260" width="48" height="21" uuid="56dc68db-ae2c-45fa-b507-8bd5f9bdce21">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3bf336c-68cc-4a1b-8785-c369b71d6db7"/>
-					</reportElement>
-					<box>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="11" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Séries]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="390" y="260" width="70" height="21" uuid="70b7c908-45ad-4a88-8be9-c19c83b35e7d">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c065249b-22c1-4682-b87d-c59d99350cb1"/>
-					</reportElement>
-					<box>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="11" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Repeticoes]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="470" y="260" width="84" height="21" uuid="61a0854f-4b30-457b-83e7-0cd46c547fb4">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a9f85c9-265f-4d36-ab42-7e864668fb4e"/>
-					</reportElement>
-					<box>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="11" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Duracao]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="150" y="260" width="170" height="21" uuid="91a8130e-bef2-4896-932e-e0ddec93b6db">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad88fb09-e654-4fd4-913c-6baea672a952"/>
-					</reportElement>
-					<box>
-						<bottomPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="11" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Equipamentos]]></text>
-				</staticText>
 			</band>
 		</groupHeader>
 	</group>
@@ -431,49 +352,49 @@
 	<columnHeader>
 		<band height="202" splitType="Stretch">
 			<textField>
-				<reportElement x="110" y="7" width="434" height="30" uuid="8c5cac21-c645-412b-b032-c08d01f72057"/>
+				<reportElement x="70" y="7" width="474" height="30" uuid="8c5cac21-c645-412b-b032-c08d01f72057"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{matricula}.getNome()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="7" width="100" height="30" uuid="b3484775-358b-44c5-ba1d-f6a942e36824"/>
+				<reportElement x="0" y="7" width="70" height="30" uuid="b3484775-358b-44c5-ba1d-f6a942e36824"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="190" y="40" width="354" height="30" uuid="f0b65e78-ef68-4c61-a038-4a5c2cc82d4b"/>
+				<reportElement x="180" y="40" width="364" height="30" uuid="f0b65e78-ef68-4c61-a038-4a5c2cc82d4b"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{matricula}.getFreqAtFisica()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="70" width="434" height="30" uuid="9e764fef-857e-4368-b079-e160d20c7b8a"/>
+				<reportElement x="80" y="70" width="464" height="30" uuid="9e764fef-857e-4368-b079-e160d20c7b8a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{matricula}.getColesterol()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="100" width="364" height="30" uuid="e16fb968-a386-40d8-be91-0e71ae13cf54"/>
+				<reportElement x="120" y="100" width="424" height="30" uuid="e16fb968-a386-40d8-be91-0e71ae13cf54"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{matricula}.getInfSobrepeso()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="130" width="364" height="30" uuid="af8d8995-5ff7-4a50-ad85-4704e2ae278a"/>
+				<reportElement x="160" y="130" width="384" height="30" uuid="af8d8995-5ff7-4a50-ad85-4704e2ae278a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{matricula}.getProbOrtop()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="140" y="160" width="404" height="30" uuid="18aad39b-1bf5-4767-bc59-e1827767546a"/>
+				<reportElement x="106" y="160" width="438" height="30" uuid="18aad39b-1bf5-4767-bc59-e1827767546a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -487,14 +408,14 @@
 				<text><![CDATA[Frequência de atividade física]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="70" width="100" height="30" uuid="4d9a41db-a27c-4626-bb89-65b92eadb351"/>
+				<reportElement x="0" y="70" width="80" height="30" uuid="4d9a41db-a27c-4626-bb89-65b92eadb351"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Colesterol]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="100" width="170" height="30" uuid="14235391-e619-4646-816c-b0f00bbf11cc"/>
+				<reportElement x="0" y="100" width="120" height="30" uuid="14235391-e619-4646-816c-b0f00bbf11cc"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -517,42 +438,15 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
-			<textField>
-				<reportElement x="150" y="0" width="170" height="30" uuid="e9858cbb-7429-46c3-9667-f3512356cae6">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad88fb09-e654-4fd4-913c-6baea672a952"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{atividade}.getEquipamentos()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="332" y="0" width="48" height="30" uuid="e6eeda67-35f6-4f9a-8c15-5e615ef363f7">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3bf336c-68cc-4a1b-8785-c369b71d6db7"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{series}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="390" y="-1" width="70" height="30" uuid="4670c60b-a014-4a22-8361-f9c9dcc12c08">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c065249b-22c1-4682-b87d-c59d99350cb1"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{repeticoes}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="470" y="0" width="84" height="30" uuid="53da229b-022b-4716-8e9a-24999629f1c2">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a9f85c9-265f-4d36-ab42-7e864668fb4e"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{duracao}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="140" height="30" uuid="61090618-0d17-4cae-85f6-81ed0cf3df1f">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad88fb09-e654-4fd4-913c-6baea672a952"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{atividade}.getDescricao()]]></textFieldExpression>
-			</textField>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="10" width="554" height="90" uuid="baa88337-8aff-4bc7-8bd6-ae7d114487fc"/>
+				<subreportParameter name="codFicha">
+					<subreportParameterExpression><![CDATA[$F{codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{itemdeatividades})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["src/relatorios/ItensAtividades.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<pageFooter>

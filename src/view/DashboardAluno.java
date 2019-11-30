@@ -6,25 +6,15 @@
 package view;
 
 import com.hq.swingmaterialdesign.materialdesign.MGradientPanel;
+import control.ControleAluno;
 import control.ControleCaixa;
 import control.ControleFuncionario;
-import control.ControleSecretario;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Funcionario;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import util.AtualizadorHorario;
 
 /**
@@ -36,20 +26,20 @@ public class DashboardAluno extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
-    ControleCaixa contCaixa = new ControleCaixa();
-    ControleFuncionario contFunc = new ControleFuncionario();
+    private ControleCaixa contCaixa = new ControleCaixa();
+    private ControleFuncionario contFunc = new ControleFuncionario();
+    private Color errorColor = new Color(255, 0, 0);
+    private Color branco = new Color(240, 240, 240);
 
     public DashboardAluno() {
         initComponents();
         int ind = 0;
         System.out.println(contFunc.findOnline().size());
-        for(Funcionario i: contFunc.findOnline()){
-            funcionariosAtivos(i.getNome(), i.getImagem(), ind);
+        for (Funcionario i : contFunc.findOnline()) {
+            String[] textoSeparado = i.getNome().split(" ");
+            funcionariosAtivos(textoSeparado[0], i.getImagem(), ind);
             ind++;
         }
-        
-        
-        
         AtualizadorHorario ah = new AtualizadorHorario(txtHora, txtDataHora);
         AtualizadorHorario ah2 = new AtualizadorHorario(txtHora1, txtDataHora1);
         ah.mostrarData(true);
@@ -58,14 +48,12 @@ public class DashboardAluno extends javax.swing.JFrame {
         Thread thHora2 = ah2;
         thHora.start();
         thHora2.start();
-
         this.setTitle("SIGAM");
-        this.setIconImage(Toolkit.getDefaultToolkit().
-                getImage(getClass().getResource("/view/images/favicon2.png")));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/images/favicon2.png")));
         this.setExtendedState(MAXIMIZED_BOTH);
 
         try {
-            ImageIcon im = new ImageIcon(ControleSecretario.getLogado().getImagem());
+            ImageIcon im = new ImageIcon(ControleAluno.getLogado().getImagem());
             profileImagePanel.setImage(im.getImage());
             profileImagePanel.repaint();
         } catch (Exception e) {
@@ -115,6 +103,11 @@ public class DashboardAluno extends javax.swing.JFrame {
         panMenuUser = new com.hq.swingmaterialdesign.materialdesign.MGradientPanel();
         mGradientButton5 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
         mGradientButton6 = new com.hq.swingmaterialdesign.materialdesign.MGradientButton();
+        jPanel3 = new javax.swing.JPanel();
+        btnPorPeriodo = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
+        txtData1 = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
+        txtData2 = new com.hq.swingmaterialdesign.materialdesign.MFormattedTextField();
+        btnUltimaFicha = new com.hq.swingmaterialdesign.materialdesign.MToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -317,6 +310,7 @@ public class DashboardAluno extends javax.swing.JFrame {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jPanel1.setBackground(new Color(0,0,0,0));
+        jPanel1.setBorder(null);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jScrollPane1.setViewportView(jPanel1);
 
@@ -474,6 +468,96 @@ public class DashboardAluno extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(50, 60, 69));
+
+        btnPorPeriodo.setBorder(null);
+        btnPorPeriodo.setForeground(new java.awt.Color(255, 255, 255));
+        btnPorPeriodo.setText("GERAR FICHAS POR PERÍODO");
+        btnPorPeriodo.setEndColor(new java.awt.Color(37, 46, 55));
+        btnPorPeriodo.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        btnPorPeriodo.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        btnPorPeriodo.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        btnPorPeriodo.setSelectedColor(new java.awt.Color(0, 153, 153));
+        btnPorPeriodo.setStartColor(new java.awt.Color(37, 46, 55));
+        btnPorPeriodo.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        btnPorPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPorPeriodoActionPerformed(evt);
+            }
+        });
+
+        txtData1.setBackground(new java.awt.Color(50, 60, 69));
+        txtData1.setForeground(new java.awt.Color(240, 240, 240));
+        txtData1.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        try {
+            txtData1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtData1.setLabel("Data Inicial");
+        txtData1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtData1FocusGained(evt);
+            }
+        });
+
+        txtData2.setBackground(new java.awt.Color(50, 60, 69));
+        txtData2.setForeground(new java.awt.Color(240, 240, 240));
+        txtData2.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
+        try {
+            txtData2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtData2.setLabel("Data Final");
+        txtData2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtData2FocusGained(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(txtData1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(txtData2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(btnPorPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        btnUltimaFicha.setBorder(null);
+        btnUltimaFicha.setForeground(new java.awt.Color(255, 255, 255));
+        btnUltimaFicha.setText("GERAR FICHAS POR PERÍODO");
+        btnUltimaFicha.setEndColor(new java.awt.Color(37, 46, 55));
+        btnUltimaFicha.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
+        btnUltimaFicha.setHoverEndColor(new java.awt.Color(37, 46, 55));
+        btnUltimaFicha.setHoverStartColor(new java.awt.Color(0, 153, 153));
+        btnUltimaFicha.setSelectedColor(new java.awt.Color(0, 153, 153));
+        btnUltimaFicha.setStartColor(new java.awt.Color(37, 46, 55));
+        btnUltimaFicha.setType(com.hq.swingmaterialdesign.materialdesign.MToggleButton.Type.FLAT);
+        btnUltimaFicha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimaFichaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panButtonsGradientLayout = new javax.swing.GroupLayout(panButtonsGradient);
         panButtonsGradient.setLayout(panButtonsGradientLayout);
         panButtonsGradientLayout.setHorizontalGroup(
@@ -491,22 +575,32 @@ public class DashboardAluno extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panButtonsGradientLayout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(220, 220, 220)
+                .addComponent(btnUltimaFicha, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panButtonsGradientLayout.setVerticalGroup(
             panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
                 .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panButtonsGradientLayout.createSequentialGroup()
-                        .addGap(0, 445, Short.MAX_VALUE)
-                        .addComponent(panMenuUser, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panButtonsGradientLayout.createSequentialGroup()
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156)
+                        .addComponent(btnUltimaFicha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDataHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDataHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panButtonsGradientLayout.createSequentialGroup()
+                        .addContainerGap(119, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(panMenuUser, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
 
@@ -594,33 +688,68 @@ public class DashboardAluno extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mGradientButton6ActionPerformed
 
-    private void mGradientButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton10ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_mGradientButton10ActionPerformed
-
-    private void panHomeGradientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panHomeGradientMouseClicked
-        mostraMenu(false);
-    }//GEN-LAST:event_panHomeGradientMouseClicked
-
     private void panButtonsGradientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panButtonsGradientMouseClicked
         mostraMenu(false);
     }//GEN-LAST:event_panButtonsGradientMouseClicked
 
     private void profileImagePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseClicked
-        mostraMenu(true);
+        if (panMenuUser.isVisible())
+            mostraMenu(false);
+        else
+            mostraMenu(true);
     }//GEN-LAST:event_profileImagePanelMouseClicked
 
+    private void panHomeGradientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panHomeGradientMouseClicked
+        mostraMenu(false);
+    }//GEN-LAST:event_panHomeGradientMouseClicked
+
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        
+
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void mGradientButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton10ActionPerformed
+        ControleAluno.setLogado(null);
+        LoginForm form = new LoginForm();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mGradientButton10ActionPerformed
+
+    private void txtData1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtData1FocusGained
+        txtData1.setForeground(branco);
+        if (txtData1.getText().equals("  /  /    "))
+            txtData1.setCaretPosition(0);
+    }//GEN-LAST:event_txtData1FocusGained
+
+    private void txtData2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtData2FocusGained
+        txtData2.setForeground(branco);
+        if (txtData2.getText().equals("  /  /    "))
+            txtData2.setCaretPosition(0);
+    }//GEN-LAST:event_txtData2FocusGained
+
+    private void btnPorPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorPeriodoActionPerformed
+
+        if (!txtData1.getText().equals("  /  /    ") && !txtData2.getText().equals("  /  /    ")) {
+
+        } else {
+
+            //aviso para digitar as datas
+            txtData1.setForeground(errorColor);
+            txtData2.setForeground(errorColor);
+        }
+        btnPorPeriodo.unselect();
+
+    }//GEN-LAST:event_btnPorPeriodoActionPerformed
+
+    private void btnUltimaFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimaFichaActionPerformed
+        
+    }//GEN-LAST:event_btnUltimaFichaActionPerformed
 
     private void mostraMenu(boolean b) {
         panMenuUser.setVisible(b);
         panMenuUser1.setVisible(b);
     }
-    
-    
-    private void imageInPanel(JPanel panel, MGradientPanel image, JLabel label, String nome, byte[] profilePic){
+
+    private void imageInPanel(JPanel panel, MGradientPanel image, JLabel label, String nome, byte[] profilePic) {
         panel.setBackground(new Color(0, 0, 0, 0));
 
         image.setBackground(new Color(0, 0, 0, 0));
@@ -638,47 +767,45 @@ public class DashboardAluno extends javax.swing.JFrame {
         label.setForeground(new java.awt.Color(255, 255, 255));
         label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label.setText(nome);
-        
+
         // swing layout spaces
-        
         javax.swing.GroupLayout ativo1Layout = new javax.swing.GroupLayout(image);
         image.setLayout(ativo1Layout);
         ativo1Layout.setHorizontalGroup(
-            ativo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+                ativo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
         );
         ativo1Layout.setVerticalGroup(
-            ativo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+                ativo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 100, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panFuncioLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panFuncioLayout);
         panFuncioLayout.setHorizontalGroup(
-            panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panFuncioLayout.createSequentialGroup()
-                .addGroup(panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panFuncioLayout.createSequentialGroup()
+                                .addGroup(panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                        .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
         panFuncioLayout.setVerticalGroup(
-            panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panFuncioLayout.createSequentialGroup()
-                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label))
+                panFuncioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panFuncioLayout.createSequentialGroup()
+                                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label))
         );
-    }    
+    }
 
     private void funcionariosAtivos(String nome, byte[] profilePic, int index) {
         JPanel panel = new JPanel();
         MGradientPanel image = new MGradientPanel();
         JLabel label = new javax.swing.JLabel();
-        
-        
+
         imageInPanel(panel, image, label, nome, profilePic);
-        
+
         jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(118 * index, 0, -1, -1));
 
         jScrollPane1.setViewportView(jPanel1);
@@ -725,9 +852,12 @@ public class DashboardAluno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
     private com.hq.swingmaterialdesign.materialdesign.MButton btnExit;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnPorPeriodo;
+    private com.hq.swingmaterialdesign.materialdesign.MToggleButton btnUltimaFicha;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -750,6 +880,8 @@ public class DashboardAluno extends javax.swing.JFrame {
     private javax.swing.JPanel sidePanel;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton toggleButtons;
     private com.hq.swingmaterialdesign.materialdesign.MToggleButton toggleHome;
+    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtData1;
+    private com.hq.swingmaterialdesign.materialdesign.MFormattedTextField txtData2;
     private javax.swing.JLabel txtDataHora;
     private javax.swing.JLabel txtDataHora1;
     private javax.swing.JLabel txtHora;

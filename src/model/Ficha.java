@@ -85,9 +85,20 @@ public class Ficha implements Serializable {
     @ManyToOne
     @JoinColumn(referencedColumnName = "codigo", name = "matricula", nullable = false)
     private Aluno matricula;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "codigo", name = "treinador", nullable = false)
+    private Treinador treinador;
     
     @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL)
     private List<Itemdeatividade> itemdeatividades;
+
+    public Treinador getTreinador() {
+        return treinador;
+    }
+
+    public void setTreinador(Treinador treinador) {
+        this.treinador = treinador;
+    }
 
     public List<Itemdeatividade> getItemdeatividades() {
         return itemdeatividades;

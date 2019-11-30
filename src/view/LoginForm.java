@@ -5,6 +5,7 @@
  */
 package view;
 
+import control.ControleAluno;
 import control.ControleCaixa;
 import control.ControlePessoa;
 import control.ControleSecretario;
@@ -444,10 +445,10 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_bgMouseDragged
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-       entrar();
+        entrar();
     }//GEN-LAST:event_btnEntrarActionPerformed
-    private void entrar(){
-         if (txtSenha.getText().equals("") || txtUsuario.getText().equals("")) {
+    private void entrar() {
+        if (txtSenha.getText().equals("") || txtUsuario.getText().equals("")) {
             labelWarningForm1.setText("Preencha os campos corretamente");
             warningPanelForm1.setVisible(true);
             Color errorColor = new Color(255, 0, 0);
@@ -482,7 +483,10 @@ public class LoginForm extends javax.swing.JFrame {
                     tela.setVisible(true);
                     this.dispose();
                 } else if (p instanceof Aluno) {
-                    System.out.println("aluno");
+                    ControleAluno.setLogado((Aluno) p);
+                    DashboardAluno tela = new DashboardAluno();
+                    tela.setVisible(true);
+                    this.dispose();
                 }
 
             } catch (NoResultException e) {
@@ -504,27 +508,27 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaFocusGained
 
     private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
-      
+
     }//GEN-LAST:event_txtSenhaKeyTyped
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-       
+
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
-       if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-          entrar();
-            
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            entrar();
+
         }
-         
+
     }//GEN-LAST:event_txtSenhaKeyPressed
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
-         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-          entrar();
-            
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            entrar();
+
         }
-         
+
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
     /**

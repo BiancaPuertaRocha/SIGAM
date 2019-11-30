@@ -113,7 +113,9 @@ create table Ficha(
     coxaDir         double,
     panturrilhaEsq  double,
     panturrilhaDir  double,
-    foreign key(matricula) references Aluno(codigo)
+    treinador       int,
+    foreign key(matricula) references Aluno(codigo),
+    foreign key(treinador) references Treinador(codigo)
 );
 create table ItemDeAtividade(
     atividade       int not null,
@@ -201,3 +203,6 @@ DELIMITER ;
 select * from Caixa;
 
 select * from Pessoa;
+
+delete from ItemDeAtividade;
+select * from Ficha;

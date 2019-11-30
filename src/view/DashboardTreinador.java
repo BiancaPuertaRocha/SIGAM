@@ -9,22 +9,13 @@ import com.hq.swingmaterialdesign.materialdesign.MGradientPanel;
 import control.ControleCaixa;
 import control.ControleFuncionario;
 import control.ControleSecretario;
+import control.ControleTreinador;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Funcionario;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import util.AtualizadorHorario;
 
 /**
@@ -33,9 +24,7 @@ import util.AtualizadorHorario;
  */
 public class DashboardTreinador extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Dashboard
-     */
+
     ControleCaixa contCaixa = new ControleCaixa();
     ControleFuncionario contFunc = new ControleFuncionario();
 
@@ -51,7 +40,7 @@ public class DashboardTreinador extends javax.swing.JFrame {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/images/favicon2.png")));
         this.setExtendedState(MAXIMIZED_BOTH);
         try {
-            ImageIcon im = new ImageIcon(ControleSecretario.getLogado().getImagem());
+            ImageIcon im = new ImageIcon(ControleTreinador.getLogado().getImagem());
             profileImagePanel.setImage(im.getImage());
             profileImagePanel.repaint();
         } catch (Exception e) {
@@ -64,7 +53,8 @@ public class DashboardTreinador extends javax.swing.JFrame {
     private void atualizaOnline() {
         int ind = 0;
         for (Funcionario i : contFunc.findOnline()) {
-            funcionariosAtivos(i.getNome(), i.getImagem(), ind);
+            String[] textoSeparado = i.getNome().split(" ");
+            funcionariosAtivos(textoSeparado[0], i.getImagem(), ind);
             ind++;
         }
     }
@@ -319,10 +309,10 @@ public class DashboardTreinador extends javax.swing.JFrame {
         );
 
         jScrollPane1.setBackground(new Color(0,0,0,0));
-        jScrollPane1.setBorder(null);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jPanel1.setBackground(new Color(0,0,0,0));
+        jPanel1.setBorder(null);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jScrollPane1.setViewportView(jPanel1);
 
@@ -415,7 +405,6 @@ public class DashboardTreinador extends javax.swing.JFrame {
         txtDataHora1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         mGradientButton4.setBackground(new Color(0,0,0,0));
-        mGradientButton4.setBorder(null);
         mGradientButton4.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton4.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton4.setBorderRadius(40);
@@ -442,7 +431,6 @@ public class DashboardTreinador extends javax.swing.JFrame {
         jLabel5.setText("FICHA DE TREINO");
 
         mGradientButton7.setBackground(new Color(0,0,0,0));
-        mGradientButton7.setBorder(null);
         mGradientButton7.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton7.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton7.setBorderRadius(40);
@@ -459,7 +447,6 @@ public class DashboardTreinador extends javax.swing.JFrame {
         });
 
         mGradientButton8.setBackground(new Color(0,0,0,0));
-        mGradientButton8.setBorder(null);
         mGradientButton8.setForeground(new java.awt.Color(255, 255, 255));
         mGradientButton8.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.PERSON_ADD));
         mGradientButton8.setBorderRadius(40);
@@ -478,7 +465,7 @@ public class DashboardTreinador extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Nunito ExtraBold", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("GERAR FICHAS");
+        jLabel6.setText("ATIVIDADES");
 
         btnExit.setBackground(new java.awt.Color(37, 46, 55));
         btnExit.setBorder(null);
@@ -595,15 +582,14 @@ public class DashboardTreinador extends javax.swing.JFrame {
                         .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
                         .addGroup(panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                                    .addComponent(mGradientButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel6))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
-                                    .addComponent(mGradientButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel5)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                                .addComponent(mGradientButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
+                                .addComponent(mGradientButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panButtonsGradientLayout.createSequentialGroup()
                                 .addComponent(mGradientButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -692,12 +678,9 @@ public class DashboardTreinador extends javax.swing.JFrame {
     }//GEN-LAST:event_toggleButtonsActionPerformed
 
     private void mGradientButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton7ActionPerformed
-
+        FormFicha form = new FormFicha(this, true);
+        form.setVisible(true);
     }//GEN-LAST:event_mGradientButton7ActionPerformed
-
-    private void mGradientButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton8ActionPerformed
-
-    }//GEN-LAST:event_mGradientButton8ActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         btnExit.setForeground(new java.awt.Color(50, 60, 69));
@@ -712,6 +695,10 @@ public class DashboardTreinador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void mGradientButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton6ActionPerformed
+        ControleTreinador.setLogado(null);
+        ControleCaixa.setCaixa(null);
+        LoginForm form = new LoginForm();
+        form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mGradientButton6ActionPerformed
 
@@ -728,12 +715,21 @@ public class DashboardTreinador extends javax.swing.JFrame {
     }//GEN-LAST:event_panButtonsGradientMouseClicked
 
     private void profileImagePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileImagePanelMouseClicked
-        mostraMenu(true);
+        if(panMenuUser.isVisible())
+            mostraMenu(false);
+        else
+            mostraMenu(true);
+        
     }//GEN-LAST:event_profileImagePanelMouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
 
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void mGradientButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientButton8ActionPerformed
+        FormAtividade form = new FormAtividade(this,true);
+        form.setVisible(true);
+    }//GEN-LAST:event_mGradientButton8ActionPerformed
 
     private void mostraMenu(boolean b) {
         panMenuUser.setVisible(b);

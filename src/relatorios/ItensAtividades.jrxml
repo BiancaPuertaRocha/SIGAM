@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ItensAtividades" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="0" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5204107e-0ea6-424a-9523-a3f7794eea8b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="relatorios/EJBAdapter.xml"/>
+	<parameter name="codFicha" class="java.lang.Integer"/>
+	<queryString language="ejbql">
+		<![CDATA[select f from Itemdeatividade f where f.ficha.codigo = $P{codFicha} ]]>
+	</queryString>
+	<field name="repeticoes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[repeticoes]]></fieldDescription>
+	</field>
+	<field name="series" class="java.lang.Integer">
+		<fieldDescription><![CDATA[series]]></fieldDescription>
+	</field>
+	<field name="duracao" class="java.lang.Integer">
+		<fieldDescription><![CDATA[duracao]]></fieldDescription>
+	</field>
+	<field name="atividade" class="model.Atividade">
+		<fieldDescription><![CDATA[atividade]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="31" width="140" height="21" uuid="b7661f9e-6bb1-4209-823b-058bda613857">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad88fb09-e654-4fd4-913c-6baea672a952"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atividade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="31" width="170" height="21" uuid="7566260d-ac7d-44ba-a293-2a3bc19619aa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad88fb09-e654-4fd4-913c-6baea672a952"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Equipamentos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="1" width="142" height="30" uuid="0d383803-c7e8-406d-8146-2652379ac88a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="23"/>
+				</textElement>
+				<text><![CDATA[ATIVIDADES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="31" width="48" height="21" uuid="26259c5d-fbf3-4d11-a879-760ba65027b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3bf336c-68cc-4a1b-8785-c369b71d6db7"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Séries]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="31" width="70" height="21" uuid="28bf8e3c-6497-42a7-80d8-0e205a53a3c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c065249b-22c1-4682-b87d-c59d99350cb1"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Repeticoes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="31" width="84" height="21" uuid="58fdd216-efbf-44ce-b6c5-549be5e1419a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a9f85c9-265f-4d36-ab42-7e864668fb4e"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duracao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="140" height="30" uuid="e430c74f-dd31-4bf4-824a-31beb057fcdb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2a74d2fe-29c6-4a96-b703-6c8e0eb8b420"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{atividade}.getDescricao()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="170" height="30" uuid="d332793f-3879-41c2-ba93-405fec85f8b1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4ebaed85-c340-4234-963a-1ff50a1581e3"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{atividade}.getEquipamentos()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="48" height="30" uuid="aed7f190-6c8d-46b6-9341-70befe9cce29">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3bf336c-68cc-4a1b-8785-c369b71d6db7"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{series}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="0" width="70" height="30" uuid="f965c39e-4487-405b-8d8c-697918a5fe96">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c065249b-22c1-4682-b87d-c59d99350cb1"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{repeticoes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="84" height="30" uuid="a4c9d903-f12e-473b-8656-c73e82b62a2c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a9f85c9-265f-4d36-ab42-7e864668fb4e"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{duracao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
