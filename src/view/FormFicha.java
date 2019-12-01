@@ -557,7 +557,7 @@ public class FormFicha extends javax.swing.JDialog {
 
         formPanelAbrir.add(profileImagePanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 120, 120));
 
-        labelNome.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelNome.setFont(new java.awt.Font("Nunito SemiBold", 0, 14)); // NOI18N
         labelNome.setText("jLabel5");
         formPanelAbrir.add(labelNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 210, -1));
 
@@ -569,7 +569,6 @@ public class FormFicha extends javax.swing.JDialog {
         jLabel3.setText("Idade");
         formPanelAbrir.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
-        tabelItens.setBorder(null);
         tabelItens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -652,7 +651,6 @@ public class FormFicha extends javax.swing.JDialog {
             }
         });
 
-        tableAtividades.setBorder(null);
         tableAtividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
