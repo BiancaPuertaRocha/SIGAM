@@ -856,8 +856,7 @@ public class DashboardSecretario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefreshMouseExited
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        // CHAMAR A FUNÇÃO QUE ATUALIZA AAAAA
-        System.out.println("aaaaaaaaaaaaaaadocica meu amor");
+       atualizaOnline();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnRefreshKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRefreshKeyPressed

@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import model.Aluno;
 import model.Ficha;
+import org.eclipse.persistence.config.HintValues;
+import org.eclipse.persistence.config.QueryHints;
 
 /**
  *
@@ -26,6 +28,7 @@ public class ControleFicha extends Controle<Ficha> {
         EntityManager em = getEntityManager();
         TypedQuery<Ficha> consulta = em.createNamedQuery("Ficha.findByAlunoLast", Ficha.class);
         consulta.setParameter("aluno", al);
+        consulta.setHint(QueryHints.REFRESH, HintValues.TRUE);
         return consulta.getSingleResult();
     }
 

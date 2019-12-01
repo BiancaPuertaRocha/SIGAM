@@ -8,13 +8,9 @@ package view;
 import com.hq.swingmaterialdesign.materialdesign.MFormattedTextField;
 import control.ControleAluno;
 import control.ControleAtividade;
-import control.ControleCaixa;
 import control.ControleFicha;
-import control.ControleItemDeAtividade;
-import control.ControleSecretario;
 import control.ControleTreinador;
 import java.awt.Color;
-import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Aluno;
 import model.Atividade;
-import model.Caixa;
 import model.Ficha;
 import model.Itemdeatividade;
 import util.Conversoes;
@@ -1140,16 +1135,15 @@ public class FormFicha extends javax.swing.JDialog {
 
                 }
             }
-
         } else {
 
             labelWarningData.setText("Selecione um aluno.");
             warningPanelData.setBackground(new Color(255, 51, 51));
             btnMessage.setBackground(new Color(255, 51, 51));
             warningPanelData.setVisible(true);
-            voltar();
-            //timer
+           
         }
+        voltar();
 
 
     }//GEN-LAST:event_btnUltimaFichaActionPerformed
@@ -1233,6 +1227,7 @@ public class FormFicha extends javax.swing.JDialog {
 
                     }
                 }
+                
 
             } else {
 
@@ -1240,7 +1235,7 @@ public class FormFicha extends javax.swing.JDialog {
                 warningPanelData.setBackground(new Color(255, 51, 51));
                 btnMessage.setBackground(new Color(255, 51, 51));
                 warningPanelData.setVisible(true);
-                voltar();
+          
                 //timer
             }
 

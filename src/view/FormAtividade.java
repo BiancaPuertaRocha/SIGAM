@@ -5,23 +5,13 @@
  */
 package view;
 
-import control.ControleAluno;
 import control.ControleAtividade;
 import java.awt.Color;
-import java.awt.Image;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Aluno;
 import model.Atividade;
 import org.eclipse.persistence.exceptions.DatabaseException;
-import util.Conversoes;
 import util.LimitText;
 
 /**

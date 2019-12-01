@@ -12,17 +12,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Caixa;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import util.Conversoes;
 
 /**
@@ -775,6 +766,7 @@ public class FormCaixa extends javax.swing.JDialog {
         btnAbrir.unselect();
         btnFechar.unselect();
         btnVisualizar.unselect();
+        btnRelatorio.unselect();
         limparCampos();
         makeAllBlack();
         dataPanel.setVisible(true);
@@ -1122,6 +1114,7 @@ public class FormCaixa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void setCaixa(Caixa p) {
+        this.p = selecionado;
         try {
             txtSaldoFinal.setText(Double.toString(p.getSaldoFinal()));
 

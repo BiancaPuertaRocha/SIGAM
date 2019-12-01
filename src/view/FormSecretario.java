@@ -1082,6 +1082,7 @@ public class FormSecretario extends javax.swing.JDialog {
         addBtn.unselect();;
         changeBtn.unselect();;
         excludeBtn.unselect();
+        btnVisualizar.unselect();
         limparCampos();
         makeAllBlack();
         dataPanel.setVisible(true);
