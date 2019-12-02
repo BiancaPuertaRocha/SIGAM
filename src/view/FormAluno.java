@@ -6,8 +6,6 @@
 package view;
 
 import control.ControleAluno;
-import control.ControleSecretario;
-import control.ControleTreinador;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -23,9 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.Aluno;
-import model.Secretario;
-import model.Treinador;
-import org.eclipse.persistence.exceptions.DatabaseException;
 import util.Conversoes;
 import util.LimitText;
 

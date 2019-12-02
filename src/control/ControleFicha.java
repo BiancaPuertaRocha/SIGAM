@@ -42,4 +42,10 @@ public class ControleFicha extends Controle<Ficha> {
         return consulta.getResultList();
     }
 
+    public List<Ficha> findByAlunoDataDesc(Aluno al) {
+        EntityManager em = getEntityManager();
+        TypedQuery<Ficha> consulta = em.createNamedQuery("Ficha.findByAlunoDataDesc", Ficha.class);
+        consulta.setParameter("aluno", al);
+        return consulta.getResultList();
+    }
 }

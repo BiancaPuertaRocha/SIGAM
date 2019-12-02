@@ -7,16 +7,25 @@ package view;
 
 import com.hq.swingmaterialdesign.materialdesign.MGradientPanel;
 import control.ControleAluno;
+import control.ControleFicha;
 import control.ControleFuncionario;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import model.Atividade;
+import model.Ficha;
 import model.Funcionario;
+import model.Itemdeatividade;
 import util.AtualizadorHorario;
+import util.Conversoes;
 
 /**
  *
@@ -30,6 +39,9 @@ public class DashboardAluno extends javax.swing.JFrame {
     private ControleFuncionario contFunc = new ControleFuncionario();
     private Color errorColor = new Color(255, 0, 0);
     private Color branco = new Color(240, 240, 240);
+    private ArrayList<Ficha> listaFichas = new ArrayList();
+    private int ind = 0;
+    private ControleFicha contFicha = new ControleFicha();
 
     public DashboardAluno() {
         initComponents();
@@ -42,19 +54,19 @@ public class DashboardAluno extends javax.swing.JFrame {
         tableFicha.getTableHeader().setEnabled(false);
         tableFicha.getTableHeader().setFocusable(false);
         tableFicha.setEnabled(false);
-
-        int ind = 0;
-        System.out.println(contFunc.findOnline().size());
+        attHora();
+        configTela();
+        atualizaOnline();
+       
         
-        for(Component c : jPanel1.getComponents())
-            c.setVisible(false);
+        listaFichas.addAll(contFicha.findByAlunoDataDesc(ControleAluno.getLogado()));
+        if(listaFichas.size()>0){
+            atualizaTabelAtividades(ind);
+        }  
         
-        for (Funcionario i : contFunc.findOnline()) {
-            String[] textoSeparado = i.getNome().split(" ");
-            funcionariosAtivos(textoSeparado[0], i.getImagem(), ind);
-            ind++;
-        }
-        AtualizadorHorario ah = new AtualizadorHorario(txtHora, txtDataHora);
+    }
+    private void attHora(){
+          AtualizadorHorario ah = new AtualizadorHorario(txtHora, txtDataHora);
         AtualizadorHorario ah2 = new AtualizadorHorario(txtHora1, txtDataHora1);
         ah.mostrarData(true);
         ah2.mostrarData(true);
@@ -62,7 +74,9 @@ public class DashboardAluno extends javax.swing.JFrame {
         Thread thHora2 = ah2;
         thHora.start();
         thHora2.start();
-        this.setTitle("SIGAM");
+    }
+    private void configTela(){
+         this.setTitle("SIGAM");
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/images/favicon2.png")));
         this.setExtendedState(MAXIMIZED_BOTH);
 
@@ -76,7 +90,6 @@ public class DashboardAluno extends javax.swing.JFrame {
         toggleHome.select();
         mostraMenu(false);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -376,17 +389,26 @@ public class DashboardAluno extends javax.swing.JFrame {
         mButton2.setBorderRadius(0);
         mButton2.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
         mButton2.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        mButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mButton2ActionPerformed(evt);
+            }
+        });
 
         labMesFicha.setFont(new java.awt.Font("Nunito ExtraBold", 0, 18)); // NOI18N
         labMesFicha.setForeground(new java.awt.Color(255, 255, 255));
         labMesFicha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labMesFicha.setText("MARÇO");
 
         mButton3.setBackground(new java.awt.Color(51, 63, 76));
         mButton3.setText(String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.KEYBOARD_ARROW_RIGHT));
         mButton3.setBorderRadius(0);
         mButton3.setFont(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f));
         mButton3.setType(com.hq.swingmaterialdesign.materialdesign.MButton.Type.FLAT);
+        mButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mButton3ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new Color(0,0,0,0));
 
@@ -806,7 +828,31 @@ public class DashboardAluno extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void atualizaOnline(){
+        int ind = 0;
+        System.out.println(contFunc.findOnline().size());
+        
+        for(Component c : jPanel1.getComponents())
+            c.setVisible(false);
+        
+        for (Funcionario i : contFunc.findOnline()) {
+            String[] textoSeparado = i.getNome().split(" ");
+            funcionariosAtivos(textoSeparado[0], i.getImagem(), ind);
+            ind++;
+        }
+    }
+    private void atualizaTabelAtividades(int ind){
+       List<Itemdeatividade> listaAtiv = listaFichas.get(ind).getItemdeatividades();
+       DefaultTableModel dtm = (DefaultTableModel) tableFicha.getModel();
+       dtm.setNumRows(0);
+        System.out.println(listaAtiv.size());
+        labMesFicha.setText(Conversoes.getDateToString(listaFichas.get(ind).getDataAv()));
+       for(Itemdeatividade i: listaAtiv){
+           dtm.addRow(new Object[]{i.getAtividade().getDescricao(), i.getSeries()!=null? i.getSeries():"-",
+           i.getRepeticoes()!=null? i.getRepeticoes():"-",
+           i.getDuracao()!=null? i.getDuracao():"-"});
+       }
+    }
     private void logo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logo1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_logo1ActionPerformed
@@ -904,14 +950,32 @@ public class DashboardAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefreshMouseExited
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        // CHAMAR A FUNÇÃO QUE ATUALIZA AAAAA
-        System.out.println("aaaaaaaaaaaaaaadocica meu amor");
+     atualizaOnline();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnRefreshKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRefreshKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_F5)
             btnRefresh.doClick();
     }//GEN-LAST:event_btnRefreshKeyPressed
+
+    private void mButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton3ActionPerformed
+
+       if(ind<(listaFichas.size()-2) ){
+           ind++;
+           atualizaTabelAtividades(ind);
+       }else{
+          JOptionPane.showMessageDialog(this,"Não há mais fichas posteriores");
+      }
+    }//GEN-LAST:event_mButton3ActionPerformed
+
+    private void mButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton2ActionPerformed
+      if(ind>0){
+           ind--;
+           atualizaTabelAtividades(ind);
+       }else{
+          JOptionPane.showMessageDialog(this,"Não há mais fichas anteriores");
+      }
+    }//GEN-LAST:event_mButton2ActionPerformed
 
     private void mostraMenu(boolean b) {
         panMenuUser.setVisible(b);

@@ -37,7 +37,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Ficha.findByAlunoLast", query = "SELECT f FROM Ficha f WHERE f.codigo = (select max(c.codigo ) from Ficha c where c.matricula = :aluno)"),
     @NamedQuery(name = "Ficha.findByDataAv", query = "SELECT f FROM Ficha f WHERE f.dataAv = :dataAv"),
     @NamedQuery(name = "Ficha.findByProxAv", query = "SELECT f FROM Ficha f WHERE f.proxAv = :proxAv"),
-    @NamedQuery(name = "Ficha.findByAlunoPeriodo", query = "SELECT f FROM Ficha f WHERE f.matricula = :aluno and f.dataAv between :data1 and :data2")
+    @NamedQuery(name = "Ficha.findByAlunoPeriodo", query = "SELECT f FROM Ficha f WHERE f.matricula = :aluno and f.dataAv between :data1 and :data2"),
+    @NamedQuery(name = "Ficha.findByAlunoDataDesc", query = "SELECT f FROM Ficha f where f.matricula = :aluno order by f.dataAv desc ")
     })
 public class Ficha implements Serializable {
 
