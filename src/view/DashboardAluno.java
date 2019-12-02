@@ -14,7 +14,9 @@ import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,24 +51,24 @@ public class DashboardAluno extends javax.swing.JFrame {
         tableFicha.setShowGrid(false);
         tableFicha.getTableHeader().setFont(new java.awt.Font("Nunito ExtraBold", 0, 14));
         tableFicha.getTableHeader().setOpaque(false);
-        tableFicha.getTableHeader().setBackground(new Color(37,46,55));
-        tableFicha.getTableHeader().setForeground(new Color(255,255,255));
+        tableFicha.getTableHeader().setBackground(new Color(37, 46, 55));
+        tableFicha.getTableHeader().setForeground(new Color(255, 255, 255));
         tableFicha.getTableHeader().setEnabled(false);
         tableFicha.getTableHeader().setFocusable(false);
         tableFicha.setEnabled(false);
         attHora();
         configTela();
         atualizaOnline();
-       
-        
+
         listaFichas.addAll(contFicha.findByAlunoDataDesc(ControleAluno.getLogado()));
-        if(listaFichas.size()>0){
+        if (listaFichas.size() > 0) {
             atualizaTabelAtividades(ind);
-        }  
-        
+        }
+
     }
-    private void attHora(){
-          AtualizadorHorario ah = new AtualizadorHorario(txtHora, txtDataHora);
+
+    private void attHora() {
+        AtualizadorHorario ah = new AtualizadorHorario(txtHora, txtDataHora);
         AtualizadorHorario ah2 = new AtualizadorHorario(txtHora1, txtDataHora1);
         ah.mostrarData(true);
         ah2.mostrarData(true);
@@ -75,8 +77,9 @@ public class DashboardAluno extends javax.swing.JFrame {
         thHora.start();
         thHora2.start();
     }
-    private void configTela(){
-         this.setTitle("SIGAM");
+
+    private void configTela() {
+        this.setTitle("SIGAM");
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/view/images/favicon2.png")));
         this.setExtendedState(MAXIMIZED_BOTH);
 
@@ -90,6 +93,7 @@ public class DashboardAluno extends javax.swing.JFrame {
         toggleHome.select();
         mostraMenu(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -717,7 +721,7 @@ public class DashboardAluno extends javax.swing.JFrame {
 
         btnUltimaFicha.setBorder(null);
         btnUltimaFicha.setForeground(new java.awt.Color(255, 255, 255));
-        btnUltimaFicha.setText("GERAR FICHAS POR PERÍODO");
+        btnUltimaFicha.setText("GERAR ULTIMA FICHA");
         btnUltimaFicha.setEndColor(new java.awt.Color(37, 46, 55));
         btnUltimaFicha.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
         btnUltimaFicha.setHoverEndColor(new java.awt.Color(37, 46, 55));
@@ -828,30 +832,31 @@ public class DashboardAluno extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void atualizaOnline(){
+    private void atualizaOnline() {
         int ind = 0;
         System.out.println(contFunc.findOnline().size());
-        
-        for(Component c : jPanel1.getComponents())
+
+        for (Component c : jPanel1.getComponents()) {
             c.setVisible(false);
-        
+        }
+
         for (Funcionario i : contFunc.findOnline()) {
             String[] textoSeparado = i.getNome().split(" ");
             funcionariosAtivos(textoSeparado[0], i.getImagem(), ind);
             ind++;
         }
     }
-    private void atualizaTabelAtividades(int ind){
-       List<Itemdeatividade> listaAtiv = listaFichas.get(ind).getItemdeatividades();
-       DefaultTableModel dtm = (DefaultTableModel) tableFicha.getModel();
-       dtm.setNumRows(0);
-        System.out.println(listaAtiv.size());
+
+    private void atualizaTabelAtividades(int ind) {
+        List<Itemdeatividade> listaAtiv = listaFichas.get(ind).getItemdeatividades();
+        DefaultTableModel dtm = (DefaultTableModel) tableFicha.getModel();
+        dtm.setNumRows(0);
         labMesFicha.setText(Conversoes.getDateToString(listaFichas.get(ind).getDataAv()));
-       for(Itemdeatividade i: listaAtiv){
-           dtm.addRow(new Object[]{i.getAtividade().getDescricao(), i.getSeries()!=null? i.getSeries():"-",
-           i.getRepeticoes()!=null? i.getRepeticoes():"-",
-           i.getDuracao()!=null? i.getDuracao():"-"});
-       }
+        for (Itemdeatividade i : listaAtiv) {
+            dtm.addRow(new Object[]{i.getAtividade().getDescricao(), i.getSeries() != null ? i.getSeries() : "-",
+                i.getRepeticoes() != null ? i.getRepeticoes() : "-",
+                i.getDuracao() != null ? i.getDuracao() : "-"});
+        }
     }
     private void logo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logo1ActionPerformed
         // TODO add your handling code here:
@@ -926,7 +931,16 @@ public class DashboardAluno extends javax.swing.JFrame {
     private void btnPorPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPorPeriodoActionPerformed
 
         if (!txtData1.getText().equals("  /  /    ") && !txtData2.getText().equals("  /  /    ")) {
-
+            HashMap<String, Object> parametros = new HashMap();
+            parametros.put("data1", txtData1.getText());
+            parametros.put("data2", txtData2.getText());
+            List<Ficha> lista = new ArrayList<Ficha>();
+            try {
+                lista.addAll(contFicha.findByAlunoPeriodo(ControleAluno.getLogado(), Conversoes.getStringToDate(txtData1.getText()), Conversoes.getStringToDate(txtData2.getText())));
+                contFicha.gerarRelatorio(parametros, lista, "src/relatorios/FichaDeTreino.jrxml");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Não há fichas");
+            }
         } else {
 
             //aviso para digitar as datas
@@ -938,7 +952,16 @@ public class DashboardAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPorPeriodoActionPerformed
 
     private void btnUltimaFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimaFichaActionPerformed
-
+        HashMap<String, Object> parametros = new HashMap();
+        parametros.put("data1", txtData1.getText());
+        parametros.put("data2", txtData2.getText());
+        List<Ficha> lista = new ArrayList<Ficha>();
+        try {
+            lista.add(contFicha.findByAlunoLast(ControleAluno.getLogado()));
+            contFicha.gerarRelatorio(parametros, lista, "src/relatorios/FichaDeTreino.jrxml");
+        } catch (NoResultException e) {
+            JOptionPane.showMessageDialog(this, "Não há Ficha");
+        }
     }//GEN-LAST:event_btnUltimaFichaActionPerformed
 
     private void btnRefreshMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseEntered
@@ -950,7 +973,7 @@ public class DashboardAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefreshMouseExited
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-     atualizaOnline();
+        atualizaOnline();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnRefreshKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnRefreshKeyPressed
@@ -960,21 +983,23 @@ public class DashboardAluno extends javax.swing.JFrame {
 
     private void mButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton3ActionPerformed
 
-       if(ind<(listaFichas.size()-2) ){
-           ind++;
-           atualizaTabelAtividades(ind);
-       }else{
-          JOptionPane.showMessageDialog(this,"Não há mais fichas posteriores");
-      }
+        if (ind > 0) {
+            ind--;
+            atualizaTabelAtividades(ind);
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há mais fichas posteriores");
+        }
+
     }//GEN-LAST:event_mButton3ActionPerformed
 
     private void mButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButton2ActionPerformed
-      if(ind>0){
-           ind--;
-           atualizaTabelAtividades(ind);
-       }else{
-          JOptionPane.showMessageDialog(this,"Não há mais fichas anteriores");
-      }
+        if (ind < (listaFichas.size() - 2)) {
+            ind++;
+            atualizaTabelAtividades(ind);
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há mais fichas anteriores");
+        }
+
     }//GEN-LAST:event_mButton2ActionPerformed
 
     private void mostraMenu(boolean b) {

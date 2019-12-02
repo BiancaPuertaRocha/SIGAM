@@ -1216,7 +1216,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="GERAR FICHAS POR PER&#xcd;ODO"/>
+                        <Property name="text" type="java.lang.String" value="GERAR ULTIMA FICHA"/>
                         <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="37" green="2e" red="25" type="rgb"/>
                         </Property>
