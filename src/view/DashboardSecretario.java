@@ -10,6 +10,7 @@ import control.ControleCaixa;
 import control.ControleFuncionario;
 import control.ControleSecretario;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
@@ -27,6 +28,7 @@ public class DashboardSecretario extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
+    
     ControleCaixa contCaixa = new ControleCaixa();
     ControleFuncionario contFunc = new ControleFuncionario();
 
@@ -745,6 +747,9 @@ public class DashboardSecretario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void atualizaOnline() {
+        
+        for(Component c : jPanel1.getComponents())
+            c.setVisible(false);
         
         int ind = 0;
         for (Funcionario i : contFunc.findOnline()) {
