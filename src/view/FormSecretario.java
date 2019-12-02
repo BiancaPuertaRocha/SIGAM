@@ -1636,7 +1636,7 @@ public class FormSecretario extends javax.swing.JDialog {
         txtSaida.setText(Conversoes.getTimeToString(selecionado.getHrSaida()));
         txtSalario.setText(Double.toString(selecionado.getSalario()));
         comboSetor.setSelectedItem(selecionado.getDepartamento());
-        comboTipo.setSelectedIndex(selecionado.isTipo() ? 1 : 0);
+        comboTipo.setSelectedIndex(selecionado.isTipo() ? 2 : 1);
     }
 
     /**

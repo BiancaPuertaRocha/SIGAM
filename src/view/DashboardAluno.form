@@ -45,7 +45,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="sidePanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="1098" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1115" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
@@ -112,9 +112,9 @@
                               <Component id="logo2" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="129" max="32767" attributes="0"/>
+                      <EmptySpace pref="206" max="32767" attributes="0"/>
                       <Component id="panToggle" min="-2" pref="128" max="-2" attributes="0"/>
-                      <EmptySpace pref="201" max="32767" attributes="0"/>
+                      <EmptySpace pref="278" max="32767" attributes="0"/>
                       <Component id="profileImagePanel" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
@@ -126,7 +126,7 @@
               <Properties>
                 <Property name="borderRadius" type="int" value="10"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Padr&#xe3;o"/>
+                  <Color id="Default Cursor"/>
                 </Property>
                 <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="3f" green="80" red="de" type="rgb"/>
@@ -150,7 +150,7 @@
                 <Property name="borderRadius" type="int" value="10"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Padr&#xe3;o"/>
+                  <Color id="Default Cursor"/>
                 </Property>
                 <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="44" green="8a" red="dc" type="rgb"/>
@@ -170,7 +170,7 @@
               <Properties>
                 <Property name="borderRadius" type="int" value="10"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Padr&#xe3;o"/>
+                  <Color id="Default Cursor"/>
                 </Property>
                 <Property name="endColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="34" green="5f" red="df" type="rgb"/>
@@ -319,17 +319,17 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1110" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1115" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Component id="panHomeGradient" alignment="0" pref="1110" max="32767" attributes="0"/>
+                          <Component id="panHomeGradient" alignment="0" pref="1115" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="605" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="759" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Component id="panHomeGradient" alignment="0" pref="605" max="32767" attributes="0"/>
+                          <Component id="panHomeGradient" alignment="0" pref="759" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -357,6 +357,8 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel8" min="-2" pref="239" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnRefresh" min="-2" pref="40" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -364,7 +366,7 @@
                                           <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="panMenuUser1" min="-2" pref="226" max="-2" attributes="0"/>
-                                              <EmptySpace pref="466" max="32767" attributes="0"/>
+                                              <EmptySpace pref="471" max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="txtDataHora" alignment="1" min="-2" pref="356" max="-2" attributes="0"/>
                                                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
@@ -378,28 +380,35 @@
                                   </Group>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                              <Component id="panFicha" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jLabel8" min="-2" pref="28" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnRefresh" pref="40" max="32767" attributes="0"/>
+                                  <Component id="jLabel8" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="134" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Component id="panFicha" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="panMenuUser1" min="-2" pref="133" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Component id="txtHora" min="-2" pref="41" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtDataHora" min="-2" pref="13" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace pref="109" max="32767" attributes="0"/>
-                                      <Component id="panMenuUser1" min="-2" pref="133" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -541,9 +550,6 @@
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new Color(0,0,0,0)" type="code"/>
                             </Property>
-                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                              <Border info="null"/>
-                            </Property>
                           </Properties>
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -566,6 +572,280 @@
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel8MouseClicked"/>
                       </Events>
                     </Component>
+                    <Component class="com.hq.swingmaterialdesign.materialdesign.MButton" name="btnRefresh">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="37" green="2e" red="25" type="rgb"/>
+                        </Property>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.REFRESH)" type="code"/>
+                        </Property>
+                        <Property name="borderRadius" type="int" value="40"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f)" type="code"/>
+                        </Property>
+                        <Property name="type" type="com.hq.swingmaterialdesign.materialdesign.MButton$Type" editor="org.netbeans.modules.form.editors.EnumEditor">
+                          <Value id="FLAT"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRefreshMouseEntered"/>
+                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRefreshMouseExited"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnRefreshKeyPressed"/>
+                      </Events>
+                    </Component>
+                    <Container class="javax.swing.JPanel" name="panFicha">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new Color(0,0,0,0)" type="code"/>
+                        </Property>
+                      </Properties>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="mButton2" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                                  <Component id="labMesFicha" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jPanel2" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="scrollFicha" max="32767" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="mButton3" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="mButton2" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="labMesFicha" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="scrollFicha" pref="212" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="mButton3" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Component class="com.hq.swingmaterialdesign.materialdesign.MButton" name="mButton2">
+                          <Properties>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="4c" green="3f" red="33" type="rgb"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.KEYBOARD_ARROW_LEFT)" type="code"/>
+                            </Property>
+                            <Property name="borderRadius" type="int" value="0"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f)" type="code"/>
+                            </Property>
+                            <Property name="type" type="com.hq.swingmaterialdesign.materialdesign.MButton$Type" editor="org.netbeans.modules.form.editors.EnumEditor">
+                              <Value id="FLAT"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="labMesFicha">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Nunito ExtraBold" size="18" style="0"/>
+                            </Property>
+                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="0"/>
+                            <Property name="text" type="java.lang.String" value="MAR&#xc7;O"/>
+                          </Properties>
+                        </Component>
+                        <Component class="com.hq.swingmaterialdesign.materialdesign.MButton" name="mButton3">
+                          <Properties>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="4c" green="3f" red="33" type="rgb"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="String.valueOf(com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.KEYBOARD_ARROW_RIGHT)" type="code"/>
+                            </Property>
+                            <Property name="borderRadius" type="int" value="0"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="com.hq.swingmaterialdesign.materialdesign.resource.MaterialIcons.ICON_FONT.deriveFont(20f)" type="code"/>
+                            </Property>
+                            <Property name="type" type="com.hq.swingmaterialdesign.materialdesign.MButton$Type" editor="org.netbeans.modules.form.editors.EnumEditor">
+                              <Value id="FLAT"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                        <Container class="javax.swing.JPanel" name="jPanel2">
+                          <Properties>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="new Color(0,0,0,0)" type="code"/>
+                            </Property>
+                          </Properties>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <EmptySpace min="0" pref="97" max="32767" attributes="0"/>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                        </Container>
+                        <Container class="javax.swing.JScrollPane" name="scrollFicha">
+                          <Properties>
+                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="37" green="2e" red="25" type="rgb"/>
+                            </Property>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="null"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JTable" name="tableFicha">
+                              <Properties>
+                                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="37" green="2e" red="25" type="rgb"/>
+                                </Property>
+                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                  <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                                    <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+                                  </Border>
+                                </Property>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Nunito ExtraBold" size="14" style="0"/>
+                                </Property>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                                  <Table columnCount="4" rowCount="13">
+                                    <Column editable="true" title="DESCRI&#xc7;&#xc3;O" type="java.lang.Object">
+                                      <Data value="Leg Press Invertido Carpado"/>
+                                      <Data value="Sequ&#xea;ncia do pente"/>
+                                      <Data value="Seila mano"/>
+                                      <Data value="To sem criatividade"/>
+                                      <Data value="Vendo monza usado"/>
+                                      <Data value="Esteira"/>
+                                      <Data value="&#xc9; s&#xe9;rio, to vendendo mesmo"/>
+                                      <Data value="Corrida Naruto"/>
+                                      <Data value="Jogar no bicho"/>
+                                      <Data value="Cross-over"/>
+                                      <Data value="Duplo twist carpado"/>
+                                      <Data value="Eu amo a Sabrina fodase"/>
+                                      <Data value="30 ovos &#xe9; 10 reais"/>
+                                    </Column>
+                                    <Column editable="true" title="S&#xc9;RIES" type="java.lang.Object">
+                                      <Data value="5"/>
+                                      <Data value="3"/>
+                                      <Data value="8"/>
+                                      <Data value="5"/>
+                                      <Data value="3"/>
+                                      <Data value="-"/>
+                                      <Data value="3"/>
+                                      <Data value="-"/>
+                                      <Data value="3"/>
+                                      <Data value="5"/>
+                                      <Data value="5"/>
+                                      <Data value="3"/>
+                                      <Data value="10"/>
+                                    </Column>
+                                    <Column editable="true" title="REPETI&#xc7;&#xd5;ES" type="java.lang.Object">
+                                      <Data value="15"/>
+                                      <Data value="8"/>
+                                      <Data value="8"/>
+                                      <Data value="5"/>
+                                      <Data value="15"/>
+                                      <Data value="-"/>
+                                      <Data value="15"/>
+                                      <Data value="-"/>
+                                      <Data value="15"/>
+                                      <Data value="12"/>
+                                      <Data value="12"/>
+                                      <Data value="15"/>
+                                      <Data value="30"/>
+                                    </Column>
+                                    <Column editable="true" title="DURA&#xc7;&#xc3;O" type="java.lang.Object">
+                                      <Data value="-"/>
+                                      <Data value="null"/>
+                                      <Data value="-"/>
+                                      <Data value="-"/>
+                                      <Data value="-"/>
+                                      <Data value="20"/>
+                                      <Data value="-"/>
+                                      <Data value="45"/>
+                                      <Data value="-"/>
+                                      <Data value="-"/>
+                                      <Data value="-"/>
+                                      <Data value="-"/>
+                                      <Data value="null"/>
+                                    </Column>
+                                  </Table>
+                                </Property>
+                                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                                  <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                  </TableColumnModel>
+                                </Property>
+                                <Property name="opaque" type="boolean" value="false"/>
+                                <Property name="rowHeight" type="int" value="25"/>
+                                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -582,7 +862,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                          <Component id="panButtonsGradient" pref="1110" max="32767" attributes="0"/>
+                          <Component id="panButtonsGradient" pref="1115" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -591,7 +871,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                          <Component id="panButtonsGradient" pref="605" max="32767" attributes="0"/>
+                          <Component id="panButtonsGradient" pref="759" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -618,7 +898,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="panMenuUser" min="-2" pref="226" max="-2" attributes="0"/>
-                              <EmptySpace pref="456" max="32767" attributes="0"/>
+                              <EmptySpace pref="461" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                       <Component id="txtHora1" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
@@ -657,7 +937,7 @@
                                       <Component id="txtDataHora1" min="-2" pref="13" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace pref="119" max="32767" attributes="0"/>
+                                      <EmptySpace pref="274" max="32767" attributes="0"/>
                                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                                       <Component id="panMenuUser" min="-2" pref="133" max="-2" attributes="0"/>

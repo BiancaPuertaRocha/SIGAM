@@ -109,6 +109,7 @@ public class LoginForm extends javax.swing.JFrame {
         txtUsuario.setBackground(new java.awt.Color(37, 46, 55));
         txtUsuario.setForeground(new java.awt.Color(240, 240, 240));
         txtUsuario.setAccent(new java.awt.Color(220, 148, 74));
+        txtUsuario.setFont(new java.awt.Font("Nunito SemiBold", 0, 16)); // NOI18N
         txtUsuario.setLabel("Nome de usuário");
         txtUsuario.setSelectionColor(new java.awt.Color(220, 148, 74));
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -129,6 +130,7 @@ public class LoginForm extends javax.swing.JFrame {
         txtSenha.setBackground(new java.awt.Color(37, 46, 55));
         txtSenha.setForeground(new java.awt.Color(240, 240, 240));
         txtSenha.setAccent(new java.awt.Color(220, 148, 74));
+        txtSenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         txtSenha.setLabel("Senha");
         txtSenha.setSelectionColor(new java.awt.Color(220, 148, 74));
         txtSenha.addFocusListener(new java.awt.event.FocusAdapter() {
