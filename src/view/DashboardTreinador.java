@@ -11,6 +11,7 @@ import control.ControleFuncionario;
 import control.ControleSecretario;
 import control.ControleTreinador;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -51,6 +52,9 @@ public class DashboardTreinador extends javax.swing.JFrame {
     }
 
     private void atualizaOnline() {
+        for(Component c : jPanel1.getComponents())
+            c.setVisible(false);
+        
         int ind = 0;
         for (Funcionario i : contFunc.findOnline()) {
             String[] textoSeparado = i.getNome().split(" ");

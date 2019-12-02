@@ -1057,6 +1057,9 @@
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtEspecialidade">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Nunito" size="16" style="0"/>
+                    </Property>
                     <Property name="label" type="java.lang.String" value="Especialidade"/>
                   </Properties>
                   <Events>
@@ -1073,6 +1076,9 @@
                 </Component>
                 <Component class="com.hq.swingmaterialdesign.materialdesign.MTextField" name="txtCref">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Nunito" size="16" style="0"/>
+                    </Property>
                     <Property name="label" type="java.lang.String" value="CREF"/>
                   </Properties>
                   <Events>

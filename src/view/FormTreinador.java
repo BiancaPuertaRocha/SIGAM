@@ -724,6 +724,7 @@ public class FormTreinador extends javax.swing.JDialog {
         });
         formPanelAdicionar.add(txtSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, 180, 50));
 
+        txtEspecialidade.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtEspecialidade.setLabel("Especialidade");
         txtCref.setDocument(new LimitText(11));
         txtEspecialidade.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -733,6 +734,7 @@ public class FormTreinador extends javax.swing.JDialog {
         });
         formPanelAdicionar.add(txtEspecialidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 260, 50));
 
+        txtCref.setFont(new java.awt.Font("Nunito", 0, 16)); // NOI18N
         txtCref.setLabel("CREF");
         txtCref.setDocument(new LimitText(11));
         txtCref.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1630,11 +1632,6 @@ public class FormTreinador extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

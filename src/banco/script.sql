@@ -204,5 +204,6 @@ select * from Caixa;
 
 select * from Pessoa;
 
+
 delete from ItemDeAtividade;
 select * from Ficha;

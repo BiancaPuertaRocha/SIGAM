@@ -9,6 +9,7 @@ import com.hq.swingmaterialdesign.materialdesign.MGradientPanel;
 import control.ControleAluno;
 import control.ControleFuncionario;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
@@ -44,6 +45,10 @@ public class DashboardAluno extends javax.swing.JFrame {
 
         int ind = 0;
         System.out.println(contFunc.findOnline().size());
+        
+        for(Component c : jPanel1.getComponents())
+            c.setVisible(false);
+        
         for (Funcionario i : contFunc.findOnline()) {
             String[] textoSeparado = i.getNome().split(" ");
             funcionariosAtivos(textoSeparado[0], i.getImagem(), ind);
@@ -400,7 +405,6 @@ public class DashboardAluno extends javax.swing.JFrame {
         scrollFicha.setBorder(null);
 
         tableFicha.setBackground(new java.awt.Color(37, 46, 55));
-        tableFicha.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         tableFicha.setFont(new java.awt.Font("Nunito ExtraBold", 0, 14)); // NOI18N
         tableFicha.setForeground(new java.awt.Color(255, 255, 255));
         tableFicha.setModel(new javax.swing.table.DefaultTableModel(
