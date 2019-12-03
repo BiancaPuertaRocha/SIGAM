@@ -908,7 +908,7 @@ public class DashboardAluno extends javax.swing.JFrame {
             }
         } else {
 
-            //aviso para digitar as datas
+           JOptionPane.showMessageDialog(this,"Digite as datas.");
             txtData1.setForeground(errorColor);
             txtData2.setForeground(errorColor);
         }
